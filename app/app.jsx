@@ -5,7 +5,7 @@ export default class Application extends React.Component {
 	render() {
 		return (
 			<div>
-				hello
+				hello1
 				<Index />
 			</div>
 		)
