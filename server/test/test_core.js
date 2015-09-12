@@ -13,6 +13,7 @@ describe('application logic', () => {
       }));
     });
   });
+
   describe('addUserToChannel', () => {
     it('adds user\'s id to state\'s userIds', () => {
       const state = Map({
@@ -27,3 +28,4 @@ describe('application logic', () => {
     });
   });
 });
+
