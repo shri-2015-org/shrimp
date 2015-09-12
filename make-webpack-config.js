@@ -81,6 +81,11 @@ module.exports = function(options) {
 		}
 	};
 
+	var compiler = webpack(config);
+	compiler.run(function () {
+		console.log('wow');
+	});
+
 	return config;
 
 }
