@@ -48,7 +48,7 @@ module.exports = function(options) {
 			]
 		},
 
-		devtool: 'eval',
+		devtool: '#inline-source-map',
 
 		module: {
 			loaders: loadersByExt.concat([
