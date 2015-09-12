@@ -13,7 +13,11 @@ module.exports = function(options) {
 	});
 
 	var config = {
-		entry: './app/app.jsx',
+		entry: [
+			'./app/app.jsx',
+			'webpack-dev-server/client?http://localhost:2992',
+			'webpack/hot/only-dev-server'
+		],
 		output: {
 			path: path.join(__dirname, 'build')
 		},
