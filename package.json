@@ -4,7 +4,8 @@
   "description": "chat",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --compilers js:babel/register --require ./server/test/test_helper.js  --recursive",
+    "test:watch": "npm run test -- --watch",
     "webpack": "NODE_ENV=production webpack --config webpack-production.config.js --progress --profile --colors",
     "webpack-dev": "webpack-dev-server --config webpack-dev.config.js",
     "server-dev": "NODE_ENV=development NODE_PATH=./node_modules:./app babel-node server/server",
@@ -15,7 +16,10 @@
   "author": "Samoilow Maxim <nitive@icloud.com>",
   "license": "MIT",
   "devDependencies": {
+    "chai": "^3.2.0",
+    "chai-immutable": "^1.3.0",
     "concurrently": "^0.1.1",
+    "mocha": "^2.3.2",
     "webpack": "^1.12.1"
   },
   "dependencies": {
@@ -25,6 +29,7 @@
     "express": "^4.13.3",
     "extract-text-webpack-plugin": "^0.8.2",
     "json-loader": "^0.5.2",
+    "immutable": "^3.7.5",
     "jsx-loader": "^0.13.2",
     "node-sass": "^3.3.2",
     "react": "^0.13.3",
