@@ -55,13 +55,17 @@ module.exports = function(options) {
 					loader: 'style!css'
 				},
 				{
+					test: /\.styl$/,
+					loader: 'style!css!stylus'
+				},
+				{
 					test: /\.scss$/,
 					loader: 'style!css!sass'
 				},
 				{
 					test: /\.jsx?$/,
 					exclude: /node_modules/,
-					loaders: ['react-hot', 'babel']
+					loader: 'react-hot!babel'
 				}
 			])
 		},
