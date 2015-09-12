@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/shri-2015-org/shrimp.png?label=ready&title=Ready)](https://waffle.io/shri-2015-org/shrimp)
 # shrimp
 Shrimp chat application by ShrimpJS SHRI-2015 team
 
