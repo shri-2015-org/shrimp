@@ -1,8 +1,8 @@
 # shrimp
 Shrimp chat application by ShrimpJS SHRI-2015 team
 
-### Run for development
-`npm run dev`
+Run `npm run dev`
+And see to here `http://localhost:2992/webpack-dev-server/bundle`
 
 ### Run for production
 `npm run master`
@@ -14,3 +14,35 @@ New feature: `feature/{feature_name}#{number}`
 
   * `feature/hint`
   * `feature/massage_box#123`
+
+```
+app/
+  components/ <- blocks here
+    block/
+      index.jsx <- required
+      styles.scss
+      data.json
+      images/
+        *.png
+        *.img
+        *.gif
+        *.svg
+    fontsх
+      *.woff
+      *.woff2
+    stylesх
+      base/
+        *.scss
+      helpers/
+        *.scss
+
+server/
+  server.js
+  lib/
+    *.js
+
+utils/
+  *.js <- any utils for building
+
+build/ <- all compile to here
+```

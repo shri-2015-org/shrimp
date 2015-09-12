@@ -1,4 +1,6 @@
-$color: purple;
+$color: #ccc;
 body {
 	background-color: $color;
+	background-image: url('images/banner.png');
+	background-repeat: no-repeat;
 }

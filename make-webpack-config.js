@@ -2,22 +2,34 @@
 
 var path = require('path');
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var loadersByExtension = require('./utils/loadersByExtension');
 
 
 module.exports = function(options) {
+
+	var loadersByExt = loadersByExtension({
+		'json': 'json',
+		'png|jpg|gif': 'url?limit=5000',
+		'woff|woff2': 'url?limit=1',
+		'svg': 'url?limit=10000'
+	});
+
 	var config = {
-		entry: './app/app.jsx',
+		entry: [
+			'./app/app.jsx',
+			'webpack-dev-server/client?http://localhost:2992',
+			'webpack/hot/only-dev-server'
+		],
 		output: {
-			path: path.join(__dirname, 'build')
+			path: path.join(__dirname, 'build'),
+			sourceMapFilename: 'debugging/[file].map',
 		},
 
 		debug: true,
 		plugins: [
 			new webpack.HotModuleReplacementPlugin(),
 			new webpack.optimize.UglifyJsPlugin(),
-			new webpack.optimize.DedupePlugin(),
-			new ExtractTextPlugin('style.css', {allChunks: true})
+			new webpack.optimize.DedupePlugin()
 		],
 
 		resolve: {
@@ -39,10 +51,14 @@ module.exports = function(options) {
 		devtool: 'eval',
 
 		module: {
-			loaders: [
+			loaders: loadersByExt.concat([
 				{
 					test: /\.css$/,
 					loader: 'style!css'
+				},
+				{
+					test: /\.styl$/,
+					loader: 'style!css!stylus'
 				},
 				{
 					test: /\.scss$/,
@@ -51,9 +67,9 @@ module.exports = function(options) {
 				{
 					test: /\.jsx?$/,
 					exclude: /node_modules/,
-					loaders: ['react-hot', 'babel']
+					loader: 'react-hot!babel'
 				}
-			]
+			])
 		},
 
 		devServer: {
@@ -64,11 +80,6 @@ module.exports = function(options) {
 			hot: true
 		}
 	};
-
-	var compiler = webpack(config);
-	compiler.run(function () {
-		console.log('wow');
-	});
 
 	return config;
 
