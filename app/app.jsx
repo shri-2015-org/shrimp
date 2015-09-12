@@ -1,9 +1,10 @@
 import React from 'react'
-import Index from 'components/index'
-import MessageList from './components/messageList/index.jsx';
+import MessageList from 'components/message-list';
+import MessageBox from 'components/message-box'
 
 
 export default class Application extends React.Component {
+
 	render() {
 		const msgs = [
 			{user: 'dfdf', text: 'HELLO GUYS'},
@@ -11,11 +12,11 @@ export default class Application extends React.Component {
 			{user: 'dfsfdfer', text: 'HEL343LO GIRLS'},
 			{user: 'dfsfdfer', text: 'HELL34O GIRLS'}
 		];
+
 		return (
 			<div>
-				hello8
-				<Index />
 				<MessageList messages={msgs}/>
+				<MessageBox />
 			</div>
 		)
 	}
