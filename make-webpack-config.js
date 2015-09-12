@@ -2,14 +2,16 @@
 
 var path = require('path');
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var loadersByExtension = require('./utils/loadersByExtension');
 
 
 module.exports = function(options) {
 
 	var loadersByExt = loadersByExtension({
-		'png|jpg|gif': 'url?limit=5000'
+		'json': 'json',
+		'png|jpg|gif': 'url?limit=5000',
+		'woff|woff2': 'url?limit=1',
+		'svg': 'url?limit=10000'
 	});
 
 	var config = {
@@ -19,15 +21,15 @@ module.exports = function(options) {
 			'webpack/hot/only-dev-server'
 		],
 		output: {
-			path: path.join(__dirname, 'build')
+			path: path.join(__dirname, 'build'),
+			sourceMapFilename: 'debugging/[file].map',
 		},
 
 		debug: true,
 		plugins: [
 			new webpack.HotModuleReplacementPlugin(),
 			new webpack.optimize.UglifyJsPlugin(),
-			new webpack.optimize.DedupePlugin(),
-			new ExtractTextPlugin('style.css', {allChunks: true})
+			new webpack.optimize.DedupePlugin()
 		],
 
 		resolve: {
