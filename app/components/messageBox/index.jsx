@@ -36,7 +36,7 @@ export default class Index extends React.Component {
 					<div className="form-block__form-item">
 						<div className="form-block__form-item__item-head">
 							<label>Username:</label>
-							<label>our {this.state.name}</label>
+							<label>{this.state.name}</label>
 						</div>
 						<div className="form-block__form-item__item-body">
 							<input type="text" onChange={this.handleChange.bind(this)}/>
