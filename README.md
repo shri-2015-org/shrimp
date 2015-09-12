@@ -14,3 +14,35 @@ New feature: `feature/{feature_name}#{number}`
 
   * `feature/hint`
   * `feature/massage_box#123`
+
+```
+app/
+  components/ <- blocks here
+    block/
+      index.jsx <- required
+      styles.scss
+      data.json
+      images/
+        *.png
+        *.img
+        *.gif
+        *.svg
+    fontsх
+      *.woff
+      *.woff2
+    stylesх
+      base/
+        *.scss
+      helpers/
+        *.scss
+
+server/
+  server.js
+  lib/
+    *.js
+
+utils/
+  *.js <- any utils for building
+
+build/ <- all compile to here
+```
