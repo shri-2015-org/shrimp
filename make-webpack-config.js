@@ -9,7 +9,7 @@ module.exports = function(options) {
 	var config = {
 		entry: './app/app.jsx',
 		output: {
-			path: 'build'
+			path: path.join(__dirname, 'build')
 		},
 
 		debug: true,
@@ -17,7 +17,7 @@ module.exports = function(options) {
 			new webpack.HotModuleReplacementPlugin(),
 			new webpack.optimize.UglifyJsPlugin(),
 			new webpack.optimize.DedupePlugin(),
-			new ExtractTextPlugin('styles.css')
+			new ExtractTextPlugin('style.css', {allChunks: true})
 		],
 
 		resolve: {
@@ -36,6 +36,8 @@ module.exports = function(options) {
 			]
 		},
 
+		devtool: 'eval',
+
 		module: {
 			loaders: [
 				{
@@ -44,7 +46,7 @@ module.exports = function(options) {
 				},
 				{
 					test: /\.scss$/,
-					loader: ExtractTextPlugin.extract('style!css!sass')
+					loader: 'style!css!sass'
 				},
 				{
 					test: /\.jsx?$/,
