@@ -15,7 +15,6 @@ module.exports = function(options) {
 		debug: true,
 		plugins: [
 			new webpack.HotModuleReplacementPlugin(),
-			new webpack.NoErrorsPlugin(),
 			new webpack.optimize.UglifyJsPlugin(),
 			new webpack.optimize.DedupePlugin(),
 			new ExtractTextPlugin('styles.css')
