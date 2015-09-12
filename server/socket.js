@@ -3,7 +3,7 @@ import Server from 'socket.io';
 export default function startSocketServer(store) {
   const io = new Server().attach(8090);
 
-  if(store) {
+  if (store) {
     store.subscribe(
       () => io.emit('state', store.getState().toJS())
     );
