@@ -3,9 +3,15 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var loadersByExtension = require('./utils/loadersByExtension');
 
 
 module.exports = function(options) {
+
+	var loadersByExt = loadersByExtension({
+		'png|jpg|gif': 'url?limit=5000'
+	});
+
 	var config = {
 		entry: './app/app.jsx',
 		output: {
@@ -39,7 +45,7 @@ module.exports = function(options) {
 		devtool: 'eval',
 
 		module: {
-			loaders: [
+			loaders: loadersByExt.concat([
 				{
 					test: /\.css$/,
 					loader: 'style!css'
@@ -53,7 +59,7 @@ module.exports = function(options) {
 					exclude: /node_modules/,
 					loaders: ['react-hot', 'babel']
 				}
-			]
+			])
 		},
 
 		devServer: {
@@ -64,11 +70,6 @@ module.exports = function(options) {
 			hot: true
 		}
 	};
-
-	var compiler = webpack(config);
-	compiler.run(function () {
-		console.log('wow');
-	});
 
 	return config;
 
