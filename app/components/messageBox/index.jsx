@@ -49,7 +49,7 @@ export default class Index extends React.Component {
 					</div>
 					<div className="form-block__form-item">
 						<div className="form-block__form-item__item-body">
-							<button type="submit" onClick={this.sendMessage(this)}>Send</button>
+							<button type="submit" onClick={this.sendMessage.bind(this)}>Send</button>
 						</div>
 					</div>
 				</div>

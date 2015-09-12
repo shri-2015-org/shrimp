@@ -2,13 +2,8 @@ import React from 'react'
 import Index from 'components/index'
 import MessageList from './components/messageList/index.jsx';
 
+
 export default class Application extends React.Component {
-	constructor(props){
-		super(props);
-		this.state = {
-			text: ""
-		}
-	}
 	render() {
 		const msgs = [
 			{user: 'dfdf', text: 'HELLO GUYS'},
