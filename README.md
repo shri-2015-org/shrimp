@@ -1,8 +1,8 @@
 # shrimp
 Shrimp chat application by ShrimpJS SHRI-2015 team
 
-### Run for development
-`npm run dev`
+Run `npm run dev`
+And see to here `http://localhost:2992/webpack-dev-server/bundle`
 
 ### Run for production
 `npm run master`
