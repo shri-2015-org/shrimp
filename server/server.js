@@ -2,13 +2,13 @@
 import React from 'react';
 import express from 'express';
 import path from 'path';
-import {startSocketServer} from './socket.js';
+import startSocketServer from './socket.js';
 // import App from '../app/app.jsx';
 
 let app = express();
 const port = 3000;
 
-//startSocketServer(); 
+startSocketServer();
 
 // const renderApplication = require('../build/bundle.js');
 app.use(express.static(path.join(__dirname, '../build')));

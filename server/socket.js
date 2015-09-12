@@ -1,9 +1,9 @@
 import Server from 'socket.io';
 
-export function startSocketServer(store) {
+export default function startSocketServer(store) {
   const io = new Server().attach(8090);
 
-  if(store){
+  if(store) {
     store.subscribe(
       () => io.emit('state', store.getState().toJS())
     );
@@ -13,5 +13,4 @@ export function startSocketServer(store) {
       socket.on('action', store.dispatch.bind(store));
     });
   }
-
 }
