@@ -28,7 +28,7 @@ module.exports = function(options) {
 		debug: true,
 		plugins: [
 			new webpack.HotModuleReplacementPlugin(),
-			new webpack.optimize.UglifyJsPlugin(),
+			new webpack.optimize.UglifyJsPlugin({compress: { warnings: false }}),
 			new webpack.optimize.DedupePlugin()
 		],
 
