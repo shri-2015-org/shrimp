@@ -7,16 +7,20 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = function(options) {
 	var config = {
-		context: '.',
 		entry: './app/app.jsx',
 		output: {
 			path: 'build'
 		},
+
+		debug: true,
 		plugins: [
+			new webpack.HotModuleReplacementPlugin(),
+			new webpack.NoErrorsPlugin(),
 			new webpack.optimize.UglifyJsPlugin(),
 			new webpack.optimize.DedupePlugin(),
 			new ExtractTextPlugin('styles.css')
 		],
+
 		resolve: {
 			root: path.join(__dirname, 'app'),
 			extensions: ['', '.js', '.jsx'],
@@ -25,12 +29,14 @@ module.exports = function(options) {
 				'node_modules'
 			],
 		},
+
 		resolveLoader: {
 			root: [
 				path.join(__dirname, 'node_modules'),
 				__dirname
 			]
 		},
+
 		module: {
 			loaders: [
 				{
@@ -44,11 +50,24 @@ module.exports = function(options) {
 				{
 					test: /\.jsx?$/,
 					exclude: /node_modules/,
-					loaders: ['jsx', 'babel']
+					loaders: ['react-hot', 'babel']
 				}
 			]
+		},
+
+		devServer: {
+			headers: {
+				'Access-Control-Allow-Origin': '*'
+			},
+			port: 2992,
+			hot: true
 		}
 	};
+
+	var compiler = webpack(config);
+	compiler.run(function () {
+		console.log('wow');
+	});
 
 	return config;
 

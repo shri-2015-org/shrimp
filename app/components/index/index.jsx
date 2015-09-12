@@ -1,13 +1,13 @@
 import React from 'react';
 
-import './styles.scss';
+import './styles.css';
 
 
 export default class Index extends React.Component {
 
 	render() {
 		return (
-			<div>index</div>
+			<div>index3</div>
 		);
 	}
 }
