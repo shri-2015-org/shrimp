@@ -4,6 +4,7 @@ import MessageBox from 'components/message-box'
 
 
 export default class Application extends React.Component {
+
 	render() {
 		const msgs = [
 			{user: 'dfdf', text: 'HELLO GUYS'},
