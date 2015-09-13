@@ -3,7 +3,6 @@ import {expect} from 'chai';
 import {addChannel, removeChannel, addUserToChannel, removeUserFromChannel, addMessage} from '../../src/core.js';
 
 describe('application logic', () => {
-
   describe('addChannel', () => {
     it('add new channel', () => {
       const state = Map({
@@ -75,7 +74,7 @@ describe('application logic', () => {
       console.log(nextState);
       expect(nextState).to.equal(Map({
         channels: List.of(Map({id: 0, name: '0', userIds: List.of(1, 2, 3), messageIds: List.of(123, 124) })),
-        messages: List.of(Map({id: 123, channelId: 0, text: 'first comment'}), Map({id: 124, channelId: 0, text: 'second comment'}))
+        messages: List.of(Map({id: 123, channelId: 0, text: 'first comment'}), Map({id: 124, channelId: 0, text: 'second comment'})),
       }));
     });
   });

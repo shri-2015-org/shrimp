@@ -38,9 +38,4 @@ export function addMessage(state, message) {
   return state
     .updateIn(['channels', index, 'messageIds'], List(), messageIds => messageIds.push(message.get('id')))
     .updateIn(['messages'], List(), messages => messages.push(message));
-
 }
-
-
-
-
