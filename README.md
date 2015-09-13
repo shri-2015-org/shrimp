@@ -1,8 +1,8 @@
-[![Stories in Ready](https://badge.waffle.io/shri-2015-org/shrimp.png?label=ready&title=Ready)](https://waffle.io/shri-2015-org/shrimp)
-[![Circle CI](https://circleci.com/gh/shri-2015-org/shrimp/tree/master.svg?style=svg)](https://circleci.com/gh/shri-2015-org/shrimp/tree/master)
-
 # Shrimp
 **Chat application by ShrimpJS [SHRI-2015](https://academy.yandex.ru/events/shri/) team**
+
+[![Stories in Ready](https://badge.waffle.io/shri-2015-org/shrimp.png?label=ready&title=Ready)](https://waffle.io/shri-2015-org/shrimp)
+[![Circle CI](https://circleci.com/gh/shri-2015-org/shrimp/tree/master.svg?style=svg)](https://circleci.com/gh/shri-2015-org/shrimp/tree/master)
 
 ## Development
 
