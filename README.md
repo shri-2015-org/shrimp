@@ -1,5 +1,5 @@
 # Shrimp
-**Chat application by ShrimpJS [SHRI-2015](https://academy.yandex.ru/events/shri/) team**
+_Chat application by ShrimpJS team. Project curated by Yandex developers at [Yandex Interface Developer School](https://academy.yandex.ru/events/shri/)._
 
 [![Stories in Ready](https://badge.waffle.io/shri-2015-org/shrimp.png?label=ready&title=Ready)](https://waffle.io/shri-2015-org/shrimp)
 [![Circle CI](https://circleci.com/gh/shri-2015-org/shrimp/tree/master.svg?style=svg)](https://circleci.com/gh/shri-2015-org/shrimp/tree/master)
