@@ -1,4 +1,4 @@
-import {setChannels, addChannel, removeChannel, addUserToChannel, removeUserFromChannel} from './core.js';
+// import {setChannels, addChannel, removeChannel, addUserToChannel, removeUserFromChannel} from './core.js';
 
 /*
 action = {
@@ -7,10 +7,12 @@ action = {
 }
 */
 
-export default function reducer (state = INITIAL_STATE, action) {
+export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case '':
-      break;
+  case '':
+    break;
+  default:
+    break;
   }
 
   return state;

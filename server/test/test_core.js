@@ -17,7 +17,7 @@ describe('application logic', () => {
   describe('addChannel', () => {
     it('add new channel', () => {
       const state = Map({
-        channels: List.of(Map({id: 0, name: '0', userIds: List.of(1, 2)}))
+        channels: List.of(Map({id: 0, name: '0', userIds: List.of(1, 2)})),
       });
       const channel = Map({id: 1, name: '1', userIds: List.of(1, 2, 3) });
       const nextState = addChannel(state, channel);
@@ -25,7 +25,7 @@ describe('application logic', () => {
         channels: List.of(
           Map({id: 0, name: '0', userIds: List.of(1, 2) }),
           Map({id: 1, name: '1', userIds: List.of(1, 2, 3) }),
-        )
+        ),
       }));
     });
   });
@@ -36,12 +36,12 @@ describe('application logic', () => {
         channels: List.of(
           Map({id: 0, name: '0', userIds: List.of(1, 2) }),
           Map({id: 1, name: '1', userIds: List.of(1, 2, 3) }),
-        )
+        ),
       });
       const channelId = 1;
       const nextState = removeChannel(state, channelId);
       expect(nextState).to.equal(Map({
-        channels: List.of(Map({id: 0, name: '0', userIds: List.of(1, 2) }))
+        channels: List.of(Map({id: 0, name: '0', userIds: List.of(1, 2) })),
       }));
     });
   });
@@ -49,13 +49,13 @@ describe('application logic', () => {
   describe('addUserToChannel', () => {
     it('adds user\'s id to state\'s userIds', () => {
       const state = Map({
-        channels: List.of(Map({id: 0, name: '0', userIds: List.of(1, 2)}))
+        channels: List.of(Map({id: 0, name: '0', userIds: List.of(1, 2)})),
       });
       const channelId = 0;
       const userId = 3;
       const nextState = addUserToChannel(state, channelId, userId);
       expect(nextState).to.equal(Map({
-        channels: List.of(Map({id: 0, name: '0', userIds: List.of(1, 2, 3) }))
+        channels: List.of(Map({id: 0, name: '0', userIds: List.of(1, 2, 3) })),
       }));
     });
   });
@@ -63,17 +63,14 @@ describe('application logic', () => {
   describe('removeUserFromChannel', () => {
     it('remove user\'s id from state\'s userIds', () => {
       const state = Map({
-        channels: List.of(Map({id: 0, name: '0', userIds: List.of(1, 2, 3) }))
+        channels: List.of(Map({id: 0, name: '0', userIds: List.of(1, 2, 3) })),
       });
-      const channelId = 0
+      const channelId = 0;
       const userId = 2;
       const nextState = removeUserFromChannel(state, channelId, userId);
-      console.log(nextState);
       expect(nextState).to.equal(Map({
-        channels: List.of(Map({id: 0, name: '0', userIds: List.of(1, 3) }))
-      }))
+        channels: List.of(Map({id: 0, name: '0', userIds: List.of(1, 3) })),
+      }));
     });
   });
-
-
 });
