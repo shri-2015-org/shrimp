@@ -9,7 +9,7 @@ describe('application logic', () => {
       const channels = List.of(Map({id: 1, name: '1', userIds: List.of(1, 2)}));
       const nextState = setChannels(state, channels);
       expect(nextState).to.equal(Map({
-        channels: List.of(Map({id: 1, name: '1', userIds: List.of(1, 2)}))
+        channels: List.of(Map({id: 1, name: '1', userIds: List.of(1, 2)})),
       }));
     });
   });
@@ -17,13 +17,13 @@ describe('application logic', () => {
   describe('addUserToChannel', () => {
     it('adds user\'s id to state\'s userIds', () => {
       const state = Map({
-        channels: List.of(Map({id: 0, name: '1', userIds: List.of(1, 2)}))
+        channels: List.of(Map({id: 0, name: '1', userIds: List.of(1, 2)})),
       });
       const channelId = 0;
       const userId = 3;
       const nextState = addUserToChannel(state, channelId, userId);
       expect(nextState).to.equal(Map({
-        channels: List.of(Map({id: 0, name: '1', userIds: List.of(1, 2, 3) }))
+        channels: List.of(Map({id: 0, name: '1', userIds: List.of(1, 2, 3) })),
       }));
     });
   });

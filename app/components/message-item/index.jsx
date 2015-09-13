@@ -2,16 +2,16 @@ import React, {PropTypes} from 'react';
 
 export default class MessageItem extends React.Component {
 
-	static PropTypes = {
-		user: React.PropTypes.string,
-		text: React.PropTypes.string
-	}
+  static propTypes = {
+    user: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  }
 
 
-	render() {
-		const {user, text} = this.props;
-		return (
-			<li>{text} {user}</li>
-		)
-	}
+  render() {
+    const {user, text} = this.props;
+    return (
+      <li>{text} {user}</li>
+    );
+  }
 }
