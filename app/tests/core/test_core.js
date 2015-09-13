@@ -71,7 +71,6 @@ describe('application logic', () => {
       });
       const message = Map({id: 124, channelId: 0, text: 'second comment'});
       const nextState = addMessage(state, message);
-      console.log(nextState);
       expect(nextState).to.equal(Map({
         channels: List.of(Map({id: 0, name: '0', userIds: List.of(1, 2, 3), messageIds: List.of(123, 124) })),
         messages: List.of(Map({id: 123, channelId: 0, text: 'first comment'}), Map({id: 124, channelId: 0, text: 'second comment'})),
