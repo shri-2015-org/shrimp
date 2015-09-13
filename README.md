@@ -8,16 +8,15 @@ Shrimp chat application by ShrimpJS SHRI-2015 team
 
 ### Get up and going
 
-For development run: `npm run dev` and go here: `http://localhost:2992/webpack-dev-server/bundle`
-
-For production run: `npm run master` and go here: `http://localhost:3000`
+1. Install nodejs.
+2. Clone this repo and run `npm install`
+3. For development run: `npm run dev` and go here: `http://localhost:2992/webpack-dev-server/bundle`
+4. For production run: `npm run master` and go here: `http://localhost:3000`
 
 ### Contributor workflow
 
 1. Head to https://waffle.io/shri-2015-org/shrimp and pick existing issue or create a new one.
-
 2. When actively working on an issue, *move the ticket to "In Progress"*, so other team members would see where you at.
-
 3. Follow Github flow: https://guides.github.com/introduction/flow/
 
 
