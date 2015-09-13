@@ -19,6 +19,7 @@ _Chat application by ShrimpJS team. Project curated by Yandex developers at [Yan
 2. When actively working on an issue, *move the ticket to "In Progress"*, so other team members would see where you at.
 3. Follow Github flow: https://guides.github.com/introduction/flow/.
 
+* We adhere to [AirBnb JavaScript styleguide](https://github.com/airbnb/javascript). Watch for linter error on pre-commit hook. For other stuff use common sense and code reviews by other team members.
 
 * Follow this convention for branch naming: `<type>/<short_name>#<issue_number>`.
 
