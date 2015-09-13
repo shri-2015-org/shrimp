@@ -1,19 +1,25 @@
-import React, {Component} from 'react';
+import React, {PropTypes} from 'react';
 import MessageItem from 'components/message-item';
 
-export default class MessageList extends Component {
-	render() {
-		const messages = this.props.messages.map((message, i) => (
-			<MessageItem
-				user={message.user}
-				text={message.text}
-			/>
-		));
+export default class MessageList extends React.Component {
 
-		return (
-			<ul>
-				{messages}
-			</ul>
-		)
-	}
+  static propTypes = {
+    messages: PropTypes.arrayOf(React.PropTypes.object),
+  }
+
+  render() {
+    const messages = this.props.messages.map((message, i) => (
+      <MessageItem
+        key={i}
+        user={message.user}
+        text={message.text}
+      />
+    ));
+
+    return (
+      <ul>
+        {messages}
+      </ul>
+    );
+  }
 }
