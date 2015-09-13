@@ -1,4 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/shri-2015-org/shrimp.png?label=ready&title=Ready)](https://waffle.io/shri-2015-org/shrimp)
+[![Circle CI](https://circleci.com/gh/shri-2015-org/shrimp/tree/master.svg?style=svg)](https://circleci.com/gh/shri-2015-org/shrimp/tree/master)
 
 # Shrimp
 Shrimp chat application by ShrimpJS SHRI-2015 team
@@ -35,7 +36,7 @@ Closes: #123
 
 * Commit messages may follow free format, but if the branch has only one commit, it's advised to format it in the same way as PR, and it would automatically be inserted as PR message.
 
-* For hotfixes or little things this workflow may be simplified: e.g. you may not want to create a ticket for something you have already done (in that case the branch name may just be `type/{short_name}`).
+* For hotfixes or little things this workflow may be simplified: e.g. you may not want to create a ticket for something you have already done (in that case the branch name may just be `<type>/<short_name>`).
 
 * All changes *must pass code review*. After PR is created, at least two positive comments must be recorded in PR discussion, before the PR may be merged. Don't be discouraged by downvotes: it's much better to fix issues before merging, than applying hotfixes all over the place!
 
