@@ -4,7 +4,7 @@
   "description": "chat",
   "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint --ext .js --ext .jsx app/; exit 0",
+    "lint": "./node_modules/.bin/eslint --ext .js --ext .jsx app/ server/; exit 0",
     "test-server": "./node_modules/.bin/mocha --compilers js:babel/register --require ./server/test/test_helper.js --recursive ./server/test/test_core.js",
     "test": "npm run test-server",
     "webpack": "NODE_ENV=production webpack --config webpack-production.config.js --progress --profile --colors",
