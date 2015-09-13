@@ -45,3 +45,6 @@ Closes: #123
 ### Code style
 
 We adhere to [AirBnb JavaScript styleguide](https://github.com/airbnb/javascript). Watch for linter error on pre-commit hook. For other stuff use common sense and code reviews by other team members.
+
+[Git workflow](https://github.com/CSSSR/sputnik/blob/master/Git.md)  
+[CSS styleguide](https://github.com/CSSSR/sputnik/blob/master/CSS.md)
