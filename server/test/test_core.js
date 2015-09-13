@@ -1,6 +1,6 @@
 import {List, Map} from 'immutable';
 import {expect} from 'chai';
-import {setChannels, addChannel, removeChannel, addUserToChannel, removeUserFromChannel} from '../src/core.js';
+import {setChannels, addChannel, removeChannel, addUserToChannel, removeUserFromChannel} from '../lib/core.js';
 
 describe('application logic', () => {
   describe('setChannels', () => {
