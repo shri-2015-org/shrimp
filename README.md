@@ -2,22 +2,22 @@
 [![Circle CI](https://circleci.com/gh/shri-2015-org/shrimp/tree/master.svg?style=svg)](https://circleci.com/gh/shri-2015-org/shrimp/tree/master)
 
 # Shrimp
-Shrimp chat application by ShrimpJS SHRI-2015 team
+**Chat application by ShrimpJS [SHRI-2015](https://academy.yandex.ru/events/shri/) team**
 
 ## Development
 
 ### Get up and going
 
 1. Install nodejs.
-2. Clone this repo and run `npm install`
-3. For development run: `npm run dev` and go here: `http://localhost:2992/webpack-dev-server/bundle`
-4. For production run: `npm run master` and go here: `http://localhost:3000`
+2. Clone this repo and run `npm install`.
+3. For development run: `npm run dev` and go here: `http://localhost:2992/webpack-dev-server/bundle`.
+4. For production run: `npm run master` and go here: `http://localhost:3000`.
 
 ### Contributor workflow
 
 1. Head to https://waffle.io/shri-2015-org/shrimp and pick existing issue or create a new one.
 2. When actively working on an issue, *move the ticket to "In Progress"*, so other team members would see where you at.
-3. Follow Github flow: https://guides.github.com/introduction/flow/
+3. Follow Github flow: https://guides.github.com/introduction/flow/.
 
 
 * Follow this convention for branch naming: `<type>/<short_name>#<issue_number>`.
