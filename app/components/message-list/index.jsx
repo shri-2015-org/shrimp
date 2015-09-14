@@ -11,8 +11,8 @@ export default class MessageList extends React.Component {
     const messages = this.props.messages.map((message, i) => (
       <MessageItem
         key={i}
-        user={message.user}
-        text={message.text}
+        user={message.get('senderId')}
+        text={message.get('text')}
       />
     ));
 
