@@ -74,11 +74,16 @@ State {
 		{
 			id: 1,
 			nick: '',
-			passwordHash: ?,
 			name: 'Vasya',
 			avatar: 'image.jpg',
 			isOnline: false
 		},
+	],
+	user: [
+		id: 1,
+		nick: '',
+		name: 'Vasya',
+		avatar: 'image.jpg',
 	],
 }
 ```
