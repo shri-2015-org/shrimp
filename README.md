@@ -48,3 +48,37 @@ We adhere to [AirBnb JavaScript styleguide](https://github.com/airbnb/javascript
 
 [Git workflow](https://github.com/CSSSR/sputnik/blob/master/Git.md)  
 [CSS styleguide](https://github.com/CSSSR/sputnik/blob/master/CSS.md)
+
+
+### Client state spec
+
+```
+State {
+	messages: [
+		{
+			id: 1,
+			senderId: 1,
+			channelId: 1,
+			text: 'Hello world!',
+			timestamp: 'unix timestamp?'
+		},
+	],
+	channels:[
+		{
+			id: 123,
+			name: 'Channel name',
+			userIds: [1,2]
+		},
+	],
+	users: [
+		{
+			id: 1,
+			nick: '',
+			passwordHash: ?,
+			name: 'Vasya',
+			avatar: 'image.jpg',
+			isOnline: false
+		},
+	],
+}
+```
