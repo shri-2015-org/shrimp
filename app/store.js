@@ -1,6 +1,4 @@
-import {createStore, combineReducers} from 'redux';
-import {channels} from './reducers/channels';
-import {messages} from './reducers/messages';
+import {createStore} from 'redux';
+import {appReducer} from './reducers/app_reducer';
 
-const reducer = combineReducers({channels, messages});
-export const store = createStore(reducer);
+export const store = createStore(appReducer);
