@@ -3,6 +3,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var loadersByExtension = require('./utils/loadersByExtension');
+var autoprefixer = 'autoprefixer?browsers=last 2 version'
 
 
 module.exports = function(options) {
@@ -54,15 +55,15 @@ module.exports = function(options) {
 			loaders: loadersByExt.concat([
 				{
 					test: /\.css$/,
-					loader: 'style!css'
+					loader: 'style!css!' + autoprefixer
 				},
 				{
 					test: /\.styl$/,
-					loader: 'style!css!stylus'
+					loader: 'style!css!' + autoprefixer + '!stylus'
 				},
 				{
 					test: /\.scss$/,
-					loader: 'style!css!sass'
+					loader: 'style!css!' + autoprefixer + '!sass'
 				},
 				{
 					test: /\.jsx?$/,
