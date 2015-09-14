@@ -1,5 +1,10 @@
 import {combineReducers} from 'redux';
-import {channels} from './reducers/channels';
-import {messages} from './reducers/messages';
+import {channels} from './channels.js';
+import {messages} from './messages.js';
 
-export const appReducer = combineReducers({channels, messages});
+export function appReducer(state, action) {
+  switch (action.type) {
+  default:
+    return combineReducers({channels, messages});
+  }
+}
