@@ -1,19 +1,14 @@
 import React from 'react';
-import MessageList from 'components/message-list';
-import MessageBox from 'components/message-box';
+import MessageList from './components/message-list';
+import MessageBox from './components/message-box';
 import {store} from './store';
 import {Map, List} from 'immutable';
+import {addChannel} from './actions/channels';
+import {addMessage} from './actions/messages';
 
 // Put some dummy data to store
-store.dispatch({
-  type: 'ADD_CHANNEL',
-  channel: Map({id: 0, name: '0 channel', userIds: List.of(0) }),
-});
-store.dispatch({
-  type: 'ADD_MESSAGE',
-  message: Map({id: 0, channelId: 0, senderId: 0, text: 'test message'}),
-});
-
+store.dispatch(addChannel(Map({id: 0, name: '0 channel', userIds: List.of(0) })));
+store.dispatch(addMessage(Map({id: 0, channelId: 0, senderId: 0, text: 'test message'})));
 
 export default class Application extends React.Component {
 
