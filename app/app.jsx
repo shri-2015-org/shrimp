@@ -1,14 +1,10 @@
 import React from 'react';
 import MessageList from 'components/message-list';
 import MessageBox from 'components/message-box';
-import {createStore} from 'redux';
-import reducer from 'src/reducer';
+import {store} from './store';
 import {Map, List} from 'immutable';
 
-const store = createStore(reducer);
-store.dispatch({
-  type: 'INITIATE_STATE',
-});
+// Put some dummy data to store
 store.dispatch({
   type: 'ADD_CHANNEL',
   channel: Map({id: 0, name: '0 channel', userIds: List.of(0) }),

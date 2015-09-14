@@ -11,8 +11,6 @@ export default function reducer(state, action) {
   case 'ADD_MESSAGE':
     return addMessage(state, action.message);
   default:
-    break;
+  	return state;
   }
-
-  return state;
 }
