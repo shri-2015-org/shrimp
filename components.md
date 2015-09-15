@@ -6,7 +6,21 @@
 ---
 
 
-## Search
+## Header <- App
+
+Родимый header, как же без него.  
+Сейчас на нем почти ничего нет, обрастет с появлением функционала
+```javascript
+initialState = {
+  talk: PropTypes.string.isRequired,
+};
+```
+![Header](http://net2ftp.ru/node0/samoilowmaxim@gmail.com/Header.png)
+
+---
+
+
+## Search <- Header
 Может расширяться при клике
 ```javascript
 initialState = {
@@ -23,20 +37,7 @@ propTypes = {
 ---
 
 
-## Header
-Родимый header, как же без него.  
-Сейчас на нем почти ничего нет, обрастет с появлением функционала
-```javascript
-initialState = {
-  talk: PropTypes.string.isRequired,
-};
-```
-![Header](http://net2ftp.ru/node0/samoilowmaxim@gmail.com/Header.png)
-
----
-
-
-## Talks
+## Talks <- App
 ```javascript
 initialState = {
   tabs: PropTypes.array,
@@ -49,7 +50,7 @@ initialState = {
 ---
 
 
-## TalksHeader
+## TalksHeader <- Talks
 ```javascript
 propTypes = {
   tabs: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -62,7 +63,7 @@ propTypes = {
 ---
 
 
-## TalksBody
+## TalksBody <- Talks
 ```javascript
 propTypes = {
   talks: PropTypes.arrayOf(PropTypes.string),
@@ -73,7 +74,7 @@ propTypes = {
 ---
 
 
-## Talk
+## Talk <- TalksBody
 ```javascript
 initialState = {
   unreadMessagesCounter: 0,
@@ -92,7 +93,7 @@ propTypes = {
 ---
 
 
-## TalksFooter
+## TalksFooter <- Talks
 Пока внутри плюсик, чтобы создать канал или _пригласить человека (?)_ и поле поиска по имени канала/человека.
 **Ищет независимо от выбранной вкладки.**
 ```javascript
@@ -106,7 +107,7 @@ propTypes = {
 ---
 
 
-## MessagesBox
+## MessagesBox <- App
 ```javascript
 propTypes = {
   messages: PropTypes.array,
@@ -118,7 +119,7 @@ propTypes = {
 ---
 
 
-## Messages
+## Messages <- MessagesBox
 ```javascript
 propTypes = {
   messages: PropTypes.array,
@@ -134,7 +135,7 @@ isLastMessageFromMe() // return true if current user sent the last message in ch
 ---
 
 
-## Message
+## Message <- Messages
 ```javascript
 propTypes = {
   text: PropTypes.string,
@@ -158,7 +159,7 @@ propTypes = {
 ---
 
 
-## MessageInputBox
+## MessageInputBox <- MessagesBox
 Увеличивается в размерах по контенту
 ```javascript
 initialState = {
@@ -172,7 +173,7 @@ initialState = {
 ---
 
 
-## InputCloud
+## InputCloud <- MessagesBox
 Отображается, когда собеседник пишет
 
 ![InputCloud](http://net2ftp.ru/node0/samoilowmaxim@gmail.com/InputCloud.png)
