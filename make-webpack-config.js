@@ -1,87 +1,90 @@
-'use strict'
+import path from 'path';
+import webpack from 'webpack';
+import loadersByExtension from './utils/loadersByExtension.js';
+const autoprefixer = 'autoprefixer?browsers=last 2 version';
 
-var path = require('path');
-var webpack = require('webpack');
-var loadersByExtension = require('./utils/loadersByExtension');
-var autoprefixer = 'autoprefixer?browsers=last 2 version'
+const loadersByExt = loadersByExtension({
+  'json': 'json',
+  'png|jpg|gif': 'url?limit=5000',
+  'woff|woff2': 'url?limit=1',
+  'svg': 'url?limit=10000',
+});
 
 
-module.exports = function(options) {
+/** options
+ * @option optimize {bool}    // optimize js if true
+ * @option sourcemaps {bool}  // generate sourcemaps if true (!rewrite devtool!)
+ * @option devtool {string}   // specify devtool
+ */
 
-	var loadersByExt = loadersByExtension({
-		'json': 'json',
-		'png|jpg|gif': 'url?limit=5000',
-		'woff|woff2': 'url?limit=1',
-		'svg': 'url?limit=10000'
-	});
+module.exports = (options) => {
+  const plugins = [];
+  if (options.optimize) {
+    plugins.push(
+      new webpack.optimize.UglifyJsPlugin({compress: { warnings: false }}),
+      new webpack.optimize.DedupePlugin(),
+    );
+  }
 
-	var config = {
-		entry: [
-			'./app/app.jsx',
-			'webpack-dev-server/client?http://localhost:2992',
-			'webpack/hot/only-dev-server'
-		],
-		output: {
-			path: path.join(__dirname, 'build'),
-			sourceMapFilename: 'debugging/[file].map',
-		},
+  const config = {
+    entry: [
+      'webpack-hot-middleware/client',
+      './app/app',
+    ],
+    output: {
+      path: path.join(__dirname, 'dist'),
+      filename: 'bundle.js',
+      publicPath: '/static/',
+    },
+    plugins: plugins.concat([
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoErrorsPlugin(),
+    ]),
 
-		debug: true,
-		plugins: [
-			new webpack.HotModuleReplacementPlugin(),
-			new webpack.optimize.UglifyJsPlugin({compress: { warnings: false }}),
-			new webpack.optimize.DedupePlugin()
-		],
+    resolve: {
+      root: path.join(__dirname, 'app'),
+      extensions: ['', '.js', '.jsx'],
+      modulesDirectories: [
+        'app',
+        'node_modules',
+      ],
+    },
 
-		resolve: {
-			root: path.join(__dirname, 'app'),
-			extensions: ['', '.js', '.jsx'],
-			modulesDirectories: [
-				'app',
-				'node_modules'
-			],
-		},
+    resolveLoader: {
+      root: [
+        path.join(__dirname, 'node_modules'),
+        __dirname,
+      ],
+    },
 
-		resolveLoader: {
-			root: [
-				path.join(__dirname, 'node_modules'),
-				__dirname
-			]
-		},
+    module: {
+      loaders: loadersByExt.concat([
+        {
+          test: /\.jsx?$/,
+          loaders: ['babel'],
+          include: path.join(__dirname, 'app'),
+        },
+        {
+          test: /\.css$/,
+          loader: 'style!css!' + autoprefixer,
+        },
+        {
+          test: /\.styl$/,
+          loader: 'style!css!' + autoprefixer + '!stylus',
+        },
+        {
+          test: /\.scss$/,
+          loader: 'style!css!' + autoprefixer + '!sass',
+        },
+      ]),
+    },
+  };
 
-		devtool: '#inline-source-map',
+  if (options.sourcemaps) {
+    config.devtool = '#inline-source-map';
+  } else if (options.devtool) {
+    config.devtool = options.devtool;
+  }
 
-		module: {
-			loaders: loadersByExt.concat([
-				{
-					test: /\.css$/,
-					loader: 'style!css!' + autoprefixer
-				},
-				{
-					test: /\.styl$/,
-					loader: 'style!css!' + autoprefixer + '!stylus'
-				},
-				{
-					test: /\.scss$/,
-					loader: 'style!css!' + autoprefixer + '!sass'
-				},
-				{
-					test: /\.jsx?$/,
-					exclude: /node_modules/,
-					loader: 'react-hot!babel'
-				}
-			])
-		},
-
-		devServer: {
-			headers: {
-				'Access-Control-Allow-Origin': '*'
-			},
-			port: 2992,
-			hot: true
-		}
-	};
-
-	return config;
-
-}
+  return config;
+};

@@ -1,21 +1,35 @@
 import express from 'express';
-import path from 'path';
 import startSocketServer from './socket.js';
+import webpack from 'webpack';
+import makeConfig from '../make-webpack-config.js';
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
+const config = makeConfig({
+  sourcemaps: false,
+  devtool: 'eval',
+});
+const compiler = webpack(config);
+
+
+app.use(require('webpack-dev-middleware')(compiler, {
+  noInfo: true,
+  publicPath: config.output.publicPath,
+}));
+
+app.use(require('webpack-hot-middleware')(compiler));
+
 
 startSocketServer();
 
-// const renderApplication = require('../build/bundle.js');
-app.use(express.static(path.join(__dirname, '../build')));
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.send(
     '<!doctype html>' +
     '<html>' +
     '<body>' +
-      '<script src="bundle.js"></script>' +
+      '<div id="root"></div>' +
+      '<script src="/static/bundle.js"></script>' +
     '</body>' +
     '</html>'
   );
@@ -23,3 +37,4 @@ app.get('/', (req, res) => {
 
 
 app.listen(port);
+
