@@ -141,12 +141,15 @@ propTypes = {
   isRead: PropTypes.bool,
 };
 ```
-| Чужие сообщения |
-|--|
+
+#### Чужие сообщения
+||
+|:--|
 |![Message](http://net2ftp.ru/node0/samoilowmaxim@gmail.com/Message_foreign.png)
 |![Message](http://net2ftp.ru/node0/samoilowmaxim@gmail.com/Message_foreign_short.png)|
 
-| Свои сообщения |
+#### Свои сообщения
+||
 |--:|
 |![Message](http://net2ftp.ru/node0/samoilowmaxim@gmail.com/Message.png)|
 |![Message](http://net2ftp.ru/node0/samoilowmaxim@gmail.com/Message_short.png)|
