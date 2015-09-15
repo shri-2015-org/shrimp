@@ -50,6 +50,33 @@ We adhere to [AirBnb JavaScript styleguide](https://github.com/airbnb/javascript
 [CSS styleguide](https://github.com/CSSSR/sputnik/blob/master/CSS.md)
 
 
+### Roadmap
+
+**Version 0.1 — proof of concept**
+
+* Chat with single channel
+* No message history on server, messages are broadcasted to all connected clients
+
+**Version 0.x — intermediate releases on the way to 1.0**
+
+* Aim for one release per hackathon, implementing parts of functionallity from 1.0 roadmap.
+
+**Version 1.0 — basic functionallity**
+
+* User registration and authorization
+* Multiple channels
+* Direct messages
+* History is saved on the server in the database
+* Notifications
+* Solid design and looks
+
+**Version 1.x+ — bells and whistles**
+
+* Editing own messages
+* Sending files (WebRTC)
+* Bots
+* Video/Audio and whatever else we have time
+
 ### Client state spec
 
 ```
