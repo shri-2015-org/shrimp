@@ -63,7 +63,7 @@ propTypes = {
 ---
 
 
-## ThreadsBody <- ThreadsSection
+## ThreadsList <- ThreadsSection
 ```javascript
 propTypes = {
   talks: PropTypes.arrayOf(PropTypes.string),
@@ -74,7 +74,7 @@ propTypes = {
 ---
 
 
-## Thread <- ThreadsBody
+## Thread <- ThreadsList
 ```javascript
 initialState = {
   unreadMessagesCounter: 0,
