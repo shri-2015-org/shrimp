@@ -32,7 +32,7 @@ module.exports = (options) => {
       './app/app',
     ],
     output: {
-      path: path.join(__dirname, 'dist'),
+      path: path.join(__dirname, 'static'),
       filename: 'bundle.js',
       publicPath: '/static/',
     },
