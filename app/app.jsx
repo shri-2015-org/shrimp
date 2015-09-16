@@ -26,4 +26,4 @@ export default class Application extends React.Component {
   }
 }
 
-React.render(<Application />, document.body);
+React.render(<Application />, document.getElementById('root'));

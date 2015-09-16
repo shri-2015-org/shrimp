@@ -1,4 +1,6 @@
 import Server from 'socket.io';
+// const debug = require('debug')('shrimp:server');
+
 
 export default function startSocketServer(store) {
   const io = new Server().attach(8090);
