@@ -37,7 +37,7 @@ propTypes = {
 ---
 
 
-## ThreadsSection <- App
+## Threads <- App
 ```javascript
 initialState = {
   tabs: PropTypes.array,
@@ -50,7 +50,7 @@ initialState = {
 ---
 
 
-## ThreadsHeader <- ThreadsSection
+## ThreadsHeader <- Threads
 ```javascript
 propTypes = {
   tabs: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -63,7 +63,7 @@ propTypes = {
 ---
 
 
-## ThreadsList <- ThreadsSection
+## ThreadsList <- Threads
 ```javascript
 propTypes = {
   talks: PropTypes.arrayOf(PropTypes.string),
@@ -93,7 +93,7 @@ propTypes = {
 ---
 
 
-## ThreadsFooter <- ThreadsSection
+## ThreadsFooter <- Threads
 Пока внутри плюсик, чтобы создать канал или _пригласить человека (?)_ и поле поиска по имени канала/человека.
 **Ищет независимо от выбранной вкладки.**
 ```javascript
@@ -107,7 +107,7 @@ propTypes = {
 ---
 
 
-## MessagesSection <- App
+## Messages <- App
 ```javascript
 propTypes = {
   messages: PropTypes.array,
@@ -119,7 +119,7 @@ propTypes = {
 ---
 
 
-## MessagesList <- MessagesSection
+## MessagesList <- Messages
 ```javascript
 propTypes = {
   messages: PropTypes.array,
@@ -159,7 +159,7 @@ propTypes = {
 ---
 
 
-## MessageComposer <- MessagesSection
+## MessageComposer <- Messages
 Увеличивается в размерах по контенту
 ```javascript
 initialState = {
@@ -173,7 +173,7 @@ initialState = {
 ---
 
 
-## InputCloud <- MessagesSection
+## InputCloud <- Messages
 Отображается, когда собеседник пишет
 
 ![InputCloud](http://net2ftp.ru/node0/samoilowmaxim@gmail.com/InputCloud.png)
