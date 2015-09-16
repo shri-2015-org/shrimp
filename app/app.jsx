@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import MessageList from './components/message-list';
 import MessageBox from './components/message-box';
 import {store} from './store';
@@ -7,8 +6,6 @@ import {Map, List} from 'immutable';
 import {addChannel} from './actions/channels';
 import {addMessage} from './actions/messages';
 import {startSocketClient} from './core/socket';
-import {createSelector} from 'reselect';
-import {appReducer} from './reducers/app_reducer';
 
 // Put some dummy data to store
 store.dispatch(addChannel(Map({id: 0, name: '0 channel', userIds: List.of(0) })));
