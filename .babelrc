@@ -3,6 +3,7 @@
   "plugins": [
     "react-transform"
   ],
+  "optional": ["es7.decorators"],
   "extra": {
     "react-transform": [{
       "target": "react-transform-webpack-hmr",

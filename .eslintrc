@@ -9,7 +9,8 @@ env:
   mocha: true
 
 rules:
-  react/jsx-quotes: [1, single, avoid-escape]
+  react/jsx-quotes: 0
+  jsx-quotes: [2, 'prefer-single']
   new-cap: [2, { "capIsNewExceptions": [
     "List",
     "Map",

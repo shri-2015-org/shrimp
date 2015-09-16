@@ -29,7 +29,7 @@ module.exports = (options) => {
   const config = {
     entry: [
       'webpack-hot-middleware/client',
-      './app/app',
+      './app/Root',
     ],
     output: {
       path: path.join(__dirname, 'static'),
