@@ -1,4 +1,5 @@
 import React from 'react';
+import {newMessage} from '../../core/core';
 
 
 export default class MessageBox extends React.Component {
@@ -30,6 +31,7 @@ export default class MessageBox extends React.Component {
     // send to server
     // this.props.actions.sendMessage(this.state.text, this.state.name);
     if (!this.state.text.trim() || !this.state.name.trim()) return;
+    newMessage({text: this.state.text});
     this.setState({
       name: '',
       text: '',

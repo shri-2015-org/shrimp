@@ -29,7 +29,6 @@ if (isDev && isDebug && process.env.DEBUG.indexOf('shrimp:front') === 0) {
   app.use('/static', express.static(path.join(__dirname, '../static')));
 }
 
-
 startSocketServer();
 
 
