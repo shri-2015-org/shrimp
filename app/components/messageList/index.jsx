@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import Message from 'components/Message';
+import './styles.scss';
 
 export default class MessageList extends React.Component {
 
@@ -19,7 +20,7 @@ export default class MessageList extends React.Component {
     });
 
     return (
-      <ul>
+      <ul className='block-message-list'>
         {messages}
       </ul>
     );

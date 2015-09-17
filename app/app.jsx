@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {startSocketClient} from 'core/socket';
-import MessageSection from 'components/Messages';
+import MessageSection from 'components/MessageSection';
 import Header from 'components/Header';
 import Threads from 'components/Threads';
 import 'styles/main.scss';

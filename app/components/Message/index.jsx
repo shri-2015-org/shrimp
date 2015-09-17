@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import './styles.scss';
 
 export default class Message extends React.Component {
 
@@ -9,9 +10,15 @@ export default class Message extends React.Component {
 
 
   render() {
-    const {user, text} = this.props;
+    const {text} = this.props;
     return (
-      <li>{text} {user}</li>
+      <li>
+        <div className='block-message'>
+          <div className='block-message__text-item'>
+            {text}
+          </div>
+        </div>
+      </li>
     );
   }
 }

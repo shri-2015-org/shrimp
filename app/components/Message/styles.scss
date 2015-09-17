@@ -1,0 +1,19 @@
+.block-message {
+  display: inline-block;
+  background: #00b0e0;
+  min-width: 50px;
+  width: auto;
+  max-width: 440px;
+  min-height: 35px;
+  border-radius: 5px;
+  color: white;
+  text-align: left;
+  vertical-align: middle;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.block-message__text-item {
+  display: inline-block;
+  font-size: 16px;
+}

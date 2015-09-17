@@ -20,6 +20,8 @@ export default class MessageComposer extends React.Component {
 
 
   textChange = (e) => {
+    e.target.style.height = 'auto';
+    e.target.style.height = e.target.scrollHeight + 'px';
     this.setState({
       text: e.target.value,
     });
@@ -38,6 +40,7 @@ export default class MessageComposer extends React.Component {
   textKeyPress = (e) => {
     if (e.which === 13 && !e.shiftKey) {
       this.sendMessage();
+      e.target.style.height = 'auto';
       e.preventDefault();
     }
   }
