@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react';
-import MessageList from 'components/MessageList';
-import MessageComposer from 'components/MessageComposer';
+import './styles.scss';
 
 
 export default class MessageSection extends React.Component {
@@ -10,13 +9,10 @@ export default class MessageSection extends React.Component {
   }
 
   render() {
-    const {messages} = this.props;
     return (
-      <div>
-        <MessageList messages={messages} />
-        <MessageComposer />
+      <div className='messages'>
+        Messages
       </div>
     );
   }
-
 }

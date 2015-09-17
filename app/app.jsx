@@ -1,7 +1,10 @@
 import React, {PropTypes} from 'react';
-import MessageSection from './components/MessageSection';
 import {connect} from 'react-redux';
-import {startSocketClient} from './core/socket';
+import {startSocketClient} from 'core/socket';
+import MessageSection from 'components/Messages';
+import Header from 'components/Header';
+import Threads from 'components/Threads';
+import 'styles/main.scss';
 
 
 startSocketClient();
@@ -18,6 +21,8 @@ class Application extends React.Component {
     const {messages} = this.props;
     return (
       <div>
+        <Header />
+        <Threads />
         <MessageSection messages={messages} />
       </div>
     );
