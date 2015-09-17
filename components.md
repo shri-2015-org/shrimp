@@ -37,7 +37,7 @@ propTypes = {
 ---
 
 
-## Talks <- App
+## ThreadsSection <- App
 ```javascript
 initialState = {
   tabs: PropTypes.array,
@@ -50,7 +50,7 @@ initialState = {
 ---
 
 
-## TalksHeader <- Talks
+## ThreadsHeader <- ThreadsSection
 ```javascript
 propTypes = {
   tabs: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -63,7 +63,7 @@ propTypes = {
 ---
 
 
-## TalksBody <- Talks
+## ThreadsList <- ThreadsSection
 ```javascript
 propTypes = {
   talks: PropTypes.arrayOf(PropTypes.string),
@@ -74,7 +74,7 @@ propTypes = {
 ---
 
 
-## Talk <- TalksBody
+## Thread <- ThreadsList
 ```javascript
 initialState = {
   unreadMessagesCounter: 0,
@@ -93,7 +93,7 @@ propTypes = {
 ---
 
 
-## TalksFooter <- Talks
+## ThreadsFooter <- ThreadsSection
 Пока внутри плюсик, чтобы создать канал или _пригласить человека (?)_ и поле поиска по имени канала/человека.
 **Ищет независимо от выбранной вкладки.**
 ```javascript
@@ -107,7 +107,7 @@ propTypes = {
 ---
 
 
-## MessagesBox <- App
+## MessagesSection <- App
 ```javascript
 propTypes = {
   messages: PropTypes.array,
@@ -119,7 +119,7 @@ propTypes = {
 ---
 
 
-## Messages <- MessagesBox
+## MessagesList <- MessagesSection
 ```javascript
 propTypes = {
   messages: PropTypes.array,
@@ -135,7 +135,7 @@ isLastMessageFromMe() // return true if current user sent the last message in ch
 ---
 
 
-## Message <- Messages
+## Message <- MessagesList
 ```javascript
 propTypes = {
   text: PropTypes.string,
@@ -159,7 +159,7 @@ propTypes = {
 ---
 
 
-## MessageInputBox <- MessagesBox
+## MessageComposer <- MessagesSection
 Увеличивается в размерах по контенту
 ```javascript
 initialState = {
@@ -173,7 +173,7 @@ initialState = {
 ---
 
 
-## InputCloud <- MessagesBox
+## InputCloud <- MessagesSection
 Отображается, когда собеседник пишет
 
 ![InputCloud](http://net2ftp.ru/node0/samoilowmaxim@gmail.com/InputCloud.png)
