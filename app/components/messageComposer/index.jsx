@@ -2,8 +2,7 @@ import React from 'react';
 import {newMessage} from '../../core/core';
 
 
-export default class MessageBox extends React.Component {
-
+export default class MessageComposer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,14 +12,14 @@ export default class MessageBox extends React.Component {
   }
 
 
-  handleChange = (e) => {
+  nameChange = (e) => {
     this.setState({
       name: e.target.value,
     });
   }
 
 
-  handleTextareaChange = (e) => {
+  textChange = (e) => {
     this.setState({
       text: e.target.value,
     });
@@ -28,18 +27,15 @@ export default class MessageBox extends React.Component {
 
 
   sendMessage = () => {
-    // send to server
-    // this.props.actions.sendMessage(this.state.text, this.state.name);
     if (!this.state.text.trim() || !this.state.name.trim()) return;
     newMessage({text: this.state.text});
     this.setState({
-      name: '',
       text: '',
     });
   }
 
 
-  handleKeyPress = (e) => {
+  textKeyPress = (e) => {
     if (e.which === 13 && !e.shiftKey) {
       this.sendMessage();
       e.preventDefault();
@@ -60,7 +56,7 @@ export default class MessageBox extends React.Component {
             <input
               type='text'
               value={this.state.name}
-              onChange={this.handleChange}
+              onChange={this.nameChange}
             />
           </div>
         </div>
@@ -69,8 +65,8 @@ export default class MessageBox extends React.Component {
           <div className='form-block__form-item__item-body'>
             <textarea
               value={this.state.text}
-              onKeyPress={this.handleKeyPress}
-              onChange={this.handleTextareaChange}
+              onKeyPress={this.textKeyPress}
+              onChange={this.textChange}
             ></textarea>
           </div>
         </div>

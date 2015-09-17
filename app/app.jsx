@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react';
-import MessageList from './components/message-list';
-import MessageBox from './components/message-box';
+import MessageSection from './components/MessageSection';
 import {connect} from 'react-redux';
 import {startSocketClient} from './core/socket';
 
@@ -8,7 +7,7 @@ import {startSocketClient} from './core/socket';
 startSocketClient();
 
 @connect(state => ({ messages: state.messages }))
-export default class Application extends React.Component {
+class Application extends React.Component {
 
   static propTypes = {
     // TODO: add good validation
@@ -19,9 +18,10 @@ export default class Application extends React.Component {
     const {messages} = this.props;
     return (
       <div>
-        <MessageList messages={messages} />
-        <MessageBox />
+        <MessageSection messages={messages} />
       </div>
     );
   }
 }
+
+export default Application;
