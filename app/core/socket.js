@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import {store} from '../store';
+import store from '../store';
 import {Map} from 'immutable';
 import {addChannel} from '../actions/channels';
 import {addMessage} from '../actions/messages';
