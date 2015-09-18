@@ -47,7 +47,7 @@ export default class MessageComposer extends React.Component {
   render() {
     return (
 
-      <div>
+      <div className='composer'>
         <div>
           <div>
             <label>Username:</label>
@@ -62,7 +62,7 @@ export default class MessageComposer extends React.Component {
           </div>
         </div>
 
-        <div className='composer'>
+        <div className='composer__sender'>
             <Textarea
               value={this.state.text}
               onKeyPress={this.textKeyPress}

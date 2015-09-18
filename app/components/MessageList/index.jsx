@@ -15,14 +15,16 @@ export default class MessageList extends React.Component {
           key={i}
           user={message.get('senderId')}
           text={message.get('text')}
-        />
+          />
       );
     });
 
     return (
-      <ul className='messages-list'>
-        {messages}
-      </ul>
+      <div className='messages-list'>
+        <ul className='messages-list__list'>
+          {messages}
+        </ul>
+      </div>
     );
   }
 }

@@ -1,4 +1,10 @@
+@import '~styles/variables.scss';
+
 .composer {
+  height: $composer_height;
+}
+
+.composer__sender {
   position: relative;
   min-height: 35px;
   margin: 10px 5px;
