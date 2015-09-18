@@ -3,7 +3,7 @@ import MessageList from 'components/MessageList';
 import MessageComposer from 'components/MessageComposer';
 
 
-export default class MessageSection extends React.Component {
+export default class Messages extends React.Component {
   static propTypes = {
     messages: PropTypes.array,
   }

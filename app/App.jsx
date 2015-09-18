@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {startSocketClient} from 'core/socket';
-import MessageSection from 'components/MessageSection';
+import Messages from 'components/Messages';
 import Header from 'components/Header';
 import Threads from 'components/Threads';
 import 'styles/main.scss';
@@ -23,7 +23,7 @@ class Application extends React.Component {
       <div>
         <Header />
         <Threads />
-        <MessageSection messages={messages} />
+        <Messages messages={messages} />
       </div>
     );
   }
