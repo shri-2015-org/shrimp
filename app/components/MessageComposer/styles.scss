@@ -1,0 +1,28 @@
+.composer {
+  position: relative;
+  min-height: 35px;
+  margin: 10px 5px;
+  border: 3px solid #32393c;
+  background-color: #202528;
+  border-radius: 5px;
+}
+.composer__send-button {
+  position: absolute;
+  bottom: 10px;
+  right: 3px;
+  width: 60px;
+  color: #07a2d6;
+  background: none;
+  border: none;
+}
+.composer__textarea {
+  position: relative;
+  border: none;
+  margin: 10px;
+  width: 90%;
+  height: 95px;
+  resize: none;
+  outline: none;
+  background-color: #202528;
+  color: white;
+}
