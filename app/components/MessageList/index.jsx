@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
-import MessageItem from 'components/message-item';
+import Message from 'components/Message';
+import './styles.scss';
 
 export default class MessageList extends React.Component {
 
@@ -10,7 +11,7 @@ export default class MessageList extends React.Component {
   render() {
     const messages = this.props.messages.map((message, i) => {
       return (
-        <MessageItem
+        <Message
           key={i}
           user={message.get('senderId')}
           text={message.get('text')}
@@ -19,7 +20,7 @@ export default class MessageList extends React.Component {
     });
 
     return (
-      <ul>
+      <ul className='messages-list'>
         {messages}
       </ul>
     );

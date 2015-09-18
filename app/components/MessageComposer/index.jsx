@@ -2,8 +2,7 @@ import React from 'react';
 import {newMessage} from '../../core/core';
 
 
-export default class MessageBox extends React.Component {
-
+export default class MessageComposer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,14 +12,16 @@ export default class MessageBox extends React.Component {
   }
 
 
-  handleChange = (e) => {
+  nameChange = (e) => {
     this.setState({
       name: e.target.value,
     });
   }
 
 
-  handleTextareaChange = (e) => {
+  textChange = (e) => {
+    e.target.style.height = 'auto';
+    e.target.style.height = e.target.scrollHeight + 'px';
     this.setState({
       text: e.target.value,
     });
@@ -28,20 +29,18 @@ export default class MessageBox extends React.Component {
 
 
   sendMessage = () => {
-    // send to server
-    // this.props.actions.sendMessage(this.state.text, this.state.name);
     if (!this.state.text.trim() || !this.state.name.trim()) return;
     newMessage({text: this.state.text});
     this.setState({
-      name: '',
       text: '',
     });
   }
 
 
-  handleKeyPress = (e) => {
+  textKeyPress = (e) => {
     if (e.which === 13 && !e.shiftKey) {
       this.sendMessage();
+      e.target.style.height = 'auto';
       e.preventDefault();
     }
   }
@@ -50,32 +49,32 @@ export default class MessageBox extends React.Component {
   render() {
     return (
 
-      <div className='form-block'>
-        <div className='form-block__form-item'>
-          <div className='form-block__form-item__item-head'>
+      <div>
+        <div>
+          <div>
             <label>Username:</label>
             <label>{this.state.name}</label>
           </div>
-          <div className='form-block__form-item__item-body'>
+          <div>
             <input
               type='text'
               value={this.state.name}
-              onChange={this.handleChange}
+              onChange={this.nameChange}
             />
           </div>
         </div>
 
-        <div className='form-block__form-item'>
-          <div className='form-block__form-item__item-body'>
+        <div>
+          <div>
             <textarea
               value={this.state.text}
-              onKeyPress={this.handleKeyPress}
-              onChange={this.handleTextareaChange}
+              onKeyPress={this.textKeyPress}
+              onChange={this.textChange}
             ></textarea>
           </div>
         </div>
-        <div className='form-block__form-item'>
-          <div className='form-block__form-item__item-body'>
+        <div>
+          <div>
             <button
               type='submit'
               onClick={this.sendMessage}
