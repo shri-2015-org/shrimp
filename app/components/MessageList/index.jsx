@@ -20,7 +20,7 @@ export default class MessageList extends React.Component {
     });
 
     return (
-      <ul className='block-message-list'>
+      <ul className='messages-list'>
         {messages}
       </ul>
     );

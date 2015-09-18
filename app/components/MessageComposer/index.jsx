@@ -49,13 +49,13 @@ export default class MessageComposer extends React.Component {
   render() {
     return (
 
-      <div className='form-block'>
-        <div className='form-block__form-item'>
-          <div className='form-block__form-item__item-head'>
+      <div>
+        <div>
+          <div>
             <label>Username:</label>
             <label>{this.state.name}</label>
           </div>
-          <div className='form-block__form-item__item-body'>
+          <div>
             <input
               type='text'
               value={this.state.name}
@@ -64,8 +64,8 @@ export default class MessageComposer extends React.Component {
           </div>
         </div>
 
-        <div className='form-block__form-item'>
-          <div className='form-block__form-item__item-body'>
+        <div>
+          <div>
             <textarea
               value={this.state.text}
               onKeyPress={this.textKeyPress}
@@ -73,8 +73,8 @@ export default class MessageComposer extends React.Component {
             ></textarea>
           </div>
         </div>
-        <div className='form-block__form-item'>
-          <div className='form-block__form-item__item-body'>
+        <div>
+          <div>
             <button
               type='submit'
               onClick={this.sendMessage}

@@ -13,8 +13,8 @@ export default class Message extends React.Component {
     const {text} = this.props;
     return (
       <li>
-        <div className='block-message'>
-          <div className='block-message__text-item'>
+        <div className='message'>
+          <div className='message__text-item'>
             {text}
           </div>
         </div>
