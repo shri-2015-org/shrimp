@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "chat",
   "main": "index.js",
+  "engines": {
+    "node": "4.0.x"
+  },
   "scripts": {
     "lint-ci": "./node_modules/.bin/eslint --ext .js --ext .jsx app/ server/",
     "lint": "npm run lint-ci --silent; exit 0;",
