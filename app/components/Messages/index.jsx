@@ -11,11 +11,16 @@ export default class Messages extends React.Component {
     newMessage: PropTypes.func.isRequired,
   }
 
+  messagesScrollToBottom = () => {
+    const list = this.refs.list.getDOMNode();
+    window.scrollTo(0, list.scrollHeight);
+  }
+
   render() {
     const {messages, newMessage} = this.props;
     return (
-      <div className='messages'>
-        <MessageList messages={messages}/>
+      <div className='messages' ref='list'>
+        <MessageList messages={messages} scroll={this.messagesScrollToBottom} />
         <MessageComposer newMessage={newMessage}/>
       </div>
     );

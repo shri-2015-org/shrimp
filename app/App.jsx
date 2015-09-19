@@ -27,7 +27,7 @@ class Application extends React.Component {
     const actions = bindActionCreators(actionsMessages, this.props.dispatch);
 
     return (
-      <div className="chat-page">
+      <div className='chat-page'>
         <Header />
         <Threads />
         <Messages messages={messages} {...actions} />
