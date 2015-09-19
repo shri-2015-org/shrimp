@@ -4,7 +4,7 @@ import {Map} from 'immutable';
 import {addChannel} from '../actions/channels';
 import {addMessage} from '../actions/messages';
 
-export const socket = io('http://localhost:8090');
+export const socket = io();
 
 export function startSocketClient() {
   socket.on('ADD_MESSAGE', (data) => {

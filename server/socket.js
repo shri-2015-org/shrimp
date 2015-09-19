@@ -3,8 +3,8 @@ import InitState from './initial-state.json';
 // const debug = require('debug')('shrimp:server');
 
 
-export default function startSocketServer() {
-  const io = new Server().attach(8090);
+export default function startSocketServer(http) {
+  const io = new Server(http);
 
   // if (store) {
   //   store.subscribe(
