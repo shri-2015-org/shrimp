@@ -1,0 +1,107 @@
+{
+  "messages": [
+    {
+      "id": 1,
+      "senderId": 1,
+      "channelId": 1,
+      "text": "Hello world!",
+      "timestamp": "unix timestamp?"
+    },
+    {
+      "id": 2,
+      "senderId": 1,
+      "channelId": 1,
+      "text": "Hello world2!",
+      "timestamp": "unix timestamp?"
+    },
+    {
+      "id": 3,
+      "senderId": 1,
+      "channelId": 2,
+      "text": "Hello world2!",
+      "timestamp": "unix timestamp?"
+    },
+    {
+      "id": 4,
+      "senderId": 1,
+      "channelId": 2,
+      "text": "Hello world2!",
+      "timestamp": "unix timestamp?"
+    },
+    {
+      "id": 5,
+      "senderId": 2,
+      "channelId": 2,
+      "text": "User2 in ch2",
+      "timestamp": "unix timestamp?"
+    },
+    {
+      "id": 6,
+      "senderId": 3,
+      "channelId": 2,
+      "text": "User3 in ch2",
+      "timestamp": "unix timestamp?"
+    },
+    {
+      "id": 7,
+      "senderId": 1,
+      "channelId": 2,
+      "text": "User1 in ch2",
+      "timestamp": "unix timestamp?"
+    },
+    {
+      "id": 8,
+      "senderId": 1,
+      "channelId": 1,
+      "text": "User1 in ch1",
+      "timestamp": "unix timestamp?"
+    },
+    {
+      "id": 9,
+      "senderId": 2,
+      "channelId": 1,
+      "text": "User2 in ch1",
+      "timestamp": "unix timestamp?"
+    }
+  ],
+  "channels":[
+    {
+      "id": 1,
+      "name": "Channel name 1",
+      "userIds": [1,2,3]
+    },
+    {
+      "id": 2,
+      "name": "Channel name 2",
+      "userIds": [1,2,3]
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "nick": "Vasia1",
+      "name": "Vasya",
+      "avatar": "image.jpg",
+      "isOnline": true
+    },
+    {
+      "id": 2,
+      "nick": "Petya2",
+      "name": "Petya",
+      "avatar": "image.jpg",
+      "isOnline": false
+    },
+    {
+      "id": 3,
+      "nick": "Petya3",
+      "name": "Petya",
+      "avatar": "image.jpg",
+      "isOnline": true
+    }
+  ],
+  "local": {
+    "userId": 123,
+    "currentchannelId": 0,
+    "pendingMessages": []
+  }
+}

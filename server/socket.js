@@ -1,4 +1,5 @@
 import Server from 'socket.io';
+import InitState from './initial-state.json';
 // const debug = require('debug')('shrimp:server');
 
 
@@ -16,7 +17,10 @@ export default function startSocketServer() {
     });
 
     socket.on('NEW_CHANNEL', (data) => {
-      io.sockets.emit('NEW_CHANNEL', {id: 0, name: data.text});
+      io.sockets.emit('ADD_CHANNEL', {id: 0, name: data.text});
+    });
+    socket.on('CALL_INIT_STATE', () => {
+      socket.emit('GET_INIT_STATE', InitState);
     });
   });
   // }

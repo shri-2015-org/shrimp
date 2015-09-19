@@ -14,6 +14,8 @@ export function startSocketClient() {
   socket.on('ADD_CHANNEL', (data) => {
     store.dispatch(addChannel(Map({id: 1, name: data.name})));
   });
+
+  socket.on('GET_INIT_STATE', (data) => {
+    return data;
+  });
 }
-
-
