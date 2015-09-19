@@ -6,18 +6,12 @@ export default class MessageList extends React.Component {
 
   static propTypes = {
     messages: PropTypes.arrayOf(React.PropTypes.object),
+    scroll: PropTypes.func.isRequired,
   }
 
-  componentWillUpdate() {
-    const list = this.refs.list.getDOMNode();
-    this.shouldScrollBottom = list.scrollTop + list.offsetHeight === list.scrollHeight;
-  }
 
   componentDidUpdate() {
-    if (this.shouldScrollBottom) {
-      const list = this.refs.list.getDOMNode();
-      list.scrollTop = list.scrollHeight;
-    }
+    this.props.scroll();
   }
 
   render() {
