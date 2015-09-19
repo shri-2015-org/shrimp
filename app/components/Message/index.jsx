@@ -11,10 +11,11 @@ export default class Message extends React.Component {
 
   render() {
     const {text, user} = this.props;
-    const currentUser = 0; // dummy for test message type
-    const type = user === currentUser ? 'message_type_self' : 'message_type_other';
+    // const currentUser = 0; // dummy for test message type
+    const currentUser = Math.round(Math.random()); // dummy for test message type
+    const type = user === currentUser ? '' : 'message_other';
     return (
-      <li>
+      <li className='clearfix'>
         <div className={'message ' + type}>
           <div className='message__text-item'>
             {text}

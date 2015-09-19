@@ -36,12 +36,16 @@ app.get('/', (req, res) => {
   res.send(
     '<!doctype html>' +
     '<html>' +
+    '<head>' +
+    '<link href="https://fonts.googleapis.com/css?family=Roboto:400,300&subset=latin,cyrillic-ext,latin-ext,cyrillic" rel="stylesheet" type="text/css">' +
+    '</head>' +
     '<body>' +
-      '<div id="root"></div>' +
-      '<script src="/static/bundle.js"></script>' +
+    '<div id="root"></div>' +
+    '<script src="/static/bundle.js"></script>' +
     '</body>' +
     '</html>'
-  );
+  )
+  ;
 });
 
 

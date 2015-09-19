@@ -1,15 +1,20 @@
 @import '~styles/variables.scss';
 
 .composer {
-  height: $composer_height;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  left: 0;
+  padding-left: $threads_width;
+  background: $main_color;
 }
 
 .composer__sender {
   position: relative;
   min-height: 35px;
   margin: 10px 5px;
-  border: 3px solid #32393c;
-  background-color: #202528;
+  border: 3px solid $composer_border_color;
+  background-color: $composer_sender_color;
   border-radius: 5px;
 }
 .composer__send-button {
@@ -17,7 +22,7 @@
   bottom: 10px;
   right: 3px;
   width: 60px;
-  color: #07a2d6;
+  color: $composer_button-text-color;
   background: none;
   border: none;
 }
@@ -29,6 +34,6 @@
   height: 95px;
   resize: none;
   outline: none;
-  background-color: #202528;
-  color: white;
+  background-color: $composer_sender_color;
+  color: $font_color;
 }
