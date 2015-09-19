@@ -1,9 +1,11 @@
 import express from 'express';
 import path from 'path';
+import http from 'http';
 import startSocketServer from './socket.js';
 // const debug = require('debug')('shrimp:server');
 
 const app = express();
+const server = new http.Server(app);
 const port = process.env.PORT || 3000;
 
 const isDev = process.env.NODE_ENV = 'development';
@@ -29,7 +31,7 @@ if (isDev && isDebug && process.env.DEBUG.indexOf('shrimp:front') === 0) {
   app.use('/static', express.static(path.join(__dirname, '../static')));
 }
 
-startSocketServer();
+startSocketServer(server);
 
 
 app.get('/', (req, res) => {
@@ -45,5 +47,5 @@ app.get('/', (req, res) => {
 });
 
 
-app.listen(port);
+server.listen(port);
 
