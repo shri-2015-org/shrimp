@@ -110,7 +110,6 @@ State {
   local: {
     userId: 123,
     currentChannelId: 0,
-    pendingMessages: [],
   },
 }
 ```
