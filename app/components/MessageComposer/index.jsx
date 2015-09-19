@@ -1,6 +1,7 @@
 import React from 'react';
 import {newMessage} from '../../core/core';
-
+import Textarea from 'react-textarea-autosize';
+import './styles.scss';
 
 export default class MessageComposer extends React.Component {
   constructor(props) {
@@ -20,8 +21,6 @@ export default class MessageComposer extends React.Component {
 
 
   textChange = (e) => {
-    e.target.style.height = 'auto';
-    e.target.style.height = e.target.scrollHeight + 'px';
     this.setState({
       text: e.target.value,
     });
@@ -40,7 +39,6 @@ export default class MessageComposer extends React.Component {
   textKeyPress = (e) => {
     if (e.which === 13 && !e.shiftKey) {
       this.sendMessage();
-      e.target.style.height = 'auto';
       e.preventDefault();
     }
   }
@@ -49,7 +47,7 @@ export default class MessageComposer extends React.Component {
   render() {
     return (
 
-      <div>
+      <div className='composer'>
         <div>
           <div>
             <label>Username:</label>
@@ -64,22 +62,21 @@ export default class MessageComposer extends React.Component {
           </div>
         </div>
 
-        <div>
-          <div>
-            <textarea
+        <div className='composer__sender'>
+            <Textarea
               value={this.state.text}
               onKeyPress={this.textKeyPress}
               onChange={this.textChange}
-            ></textarea>
-          </div>
-        </div>
-        <div>
-          <div>
+              minRows={1}
+              maxRows={5}
+              className='composer__textarea'
+            />
             <button
               type='submit'
               onClick={this.sendMessage}
+              className='composer__send-button'
             >Send</button>
-          </div>
+
         </div>
       </div>
 

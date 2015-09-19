@@ -1,19 +1,53 @@
+$blue_color: #00b0e0;
+$green_color: #00d742;
+
 .message {
   display: inline-block;
-  background: #00b0e0;
   min-width: 50px;
   width: auto;
   max-width: 440px;
-  min-height: 35px;
+  min-height: 30px;
+  line-height: 30px;
   border-radius: 5px;
   color: white;
   text-align: left;
   vertical-align: middle;
   padding: 10px;
   margin: 10px 0;
+  position: relative;
+}
+
+.message_type_self {
+  background: #{$blue_color};
+}
+
+.message_type_other {
+  background: #{$green_color};
+}
+
+.message:before {
+  content: ' ';
+  display: inline-block;
+  position: absolute;
+  bottom: 6px;
+  height: 0;
+  width: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+}
+
+.message_type_self:before {
+  right: -8px;
+  border-left: 8px solid #{$blue_color};
+}
+
+.message_type_other:before {
+  left: -8px;
+  border-right: 8px solid #{$green_color};
 }
 
 .message__text-item {
   display: inline-block;
   font-size: 16px;
+  line-height: 16px;
 }

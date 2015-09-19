@@ -8,6 +8,18 @@ export default class MessageList extends React.Component {
     messages: PropTypes.arrayOf(React.PropTypes.object),
   }
 
+  componentWillUpdate() {
+    const list = this.refs.list.getDOMNode();
+    this.shouldScrollBottom = list.scrollTop + list.offsetHeight === list.scrollHeight;
+  }
+
+  componentDidUpdate() {
+    if (this.shouldScrollBottom) {
+      const list = this.refs.list.getDOMNode();
+      list.scrollTop = list.scrollHeight;
+    }
+  }
+
   render() {
     const messages = this.props.messages.map((message, i) => {
       return (
@@ -15,14 +27,16 @@ export default class MessageList extends React.Component {
           key={i}
           user={message.get('senderId')}
           text={message.get('text')}
-        />
+          />
       );
     });
 
     return (
-      <ul className='messages-list'>
-        {messages}
-      </ul>
+      <div className='messages-list'>
+        <ul className='messages-list__list' ref='list'>
+          {messages}
+        </ul>
+      </div>
     );
   }
 }

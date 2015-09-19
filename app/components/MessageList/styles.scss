@@ -1,4 +1,11 @@
-.messages-list {
+@import '~styles/variables.scss';
+
+.messages-list__list {
   list-style: none;
   overflow: scroll;
+  height: calc(100vh - 21px - #{$composer_height} - #{$header_height}) ;
+}
+
+.messages-list {
+  min-height: calc(100vh - 20px - #{$composer_height} - #{$header_height});
 }
