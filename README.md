@@ -53,23 +53,23 @@ We adhere to [AirBnb JavaScript styleguide](https://github.com/airbnb/javascript
 
 ### Roadmap
 
-**Version 0.1 — proof of concept**
+**Version 0.1 — proof of concept (released)**
 
 * Chat with single channel
 * No message history on server, messages are broadcasted to all connected clients
 
-**Version 0.x — intermediate releases on the way to 1.0**
+**Version 0.2 — multichannel and improved design**
 
-* Aim for one release per hackathon, implementing parts of functionallity from 1.0 roadmap.
+* Multiple channels
+* Display username in message stream
+* Solid design and looks
 
 **Version 1.0 — basic functionallity**
 
 * User registration and authorization
-* Multiple channels
 * Direct messages
 * History is saved on the server in the database
 * Notifications
-* Solid design and looks
 
 **Version 1.x+ — bells and whistles**
 
@@ -107,11 +107,10 @@ State {
       isOnline: false
     },
   ],
-  user: [
-    id: 1,
-    nick: '',
-    name: 'Vasya',
-    avatar: 'image.jpg',
-  ],
+  local: {
+    userId: 123,
+    currentChannelId: 0,
+    pendingMessages: [],
+  },
 }
 ```
