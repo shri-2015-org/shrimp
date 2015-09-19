@@ -1,9 +1,10 @@
 @import '~styles/variables.scss';
 
 .threads {
-  float: left;
   width: $threads_width;
-  height: calc(100vh - #{$header_height});
+  padding-top: $header_height;
+  height: 100vh;
   color: #aeaeae;
-  background-color: #272c30;
+  background-color: $main_color;
+  position: fixed;
 }

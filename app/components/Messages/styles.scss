@@ -1,8 +1,11 @@
 @import '~styles/variables.scss';
 
 .messages {
-  float: left;
-  width: calc(100% - #{$threads_width});
-  height: calc(100% - #{$header_height});
-  background-color: #272c30;
+  background-color: $main_color;
+  padding-top: $header_height;
+  padding-left: $threads_width;
+  padding-bottom: $composer_height;
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-width: 100vw;
 }
