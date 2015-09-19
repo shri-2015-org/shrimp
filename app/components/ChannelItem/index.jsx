@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.scss';
 
-export default class ThreadsList extends React.Component {
+export default class ChannelItem extends React.Component {
   static propTypes = {
     item: React.PropTypes.object,
     isCurrent: React.PropTypes.bool,
