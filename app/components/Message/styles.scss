@@ -1,6 +1,11 @@
 @import '~styles/variables.scss';
+@import '~styles/mixins.scss';
 
 .message {
+  @extend .clearfix;
+}
+
+.message__item {
   display: inline-block;
   min-width: 50px;
   width: auto;
@@ -18,12 +23,12 @@
   background: $message_color_default;
 }
 
-.message_other {
+.message__item_other {
   float: left;
   background: $message_color_other;
 }
 
-.message:before {
+.message__item:before {
   content: ' ';
   display: inline-block;
   position: absolute;
@@ -36,7 +41,7 @@
   border-left: 8px solid $message_color_default;
 }
 
-.message_other:before {
+.message__item_other:before {
   right: 0;
   border-left: none;
   left: -8px;

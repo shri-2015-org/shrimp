@@ -6,7 +6,7 @@ export default class MessageList extends React.Component {
 
   static propTypes = {
     messages: PropTypes.arrayOf(React.PropTypes.object),
-    scroll: PropTypes.func.isRequired(),
+    scroll: PropTypes.func.isRequired,
   }
 
 
