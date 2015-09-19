@@ -1,0 +1,43 @@
+@import '~styles/variables.scss';
+.threads-list__channel-item {
+  cursor: pointer;
+  &,
+  &_active {
+    height: 48px;
+    line-height: 48px;
+    border-bottom: 1px solid #fff;
+    position: relative;
+    padding-left: 23px;
+    font-size: 20px;
+    padding-right: 33px;
+    &:before {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 100%;
+      display: block;
+      background: transparent;
+      left: 0;
+    }
+  }
+  &_active {
+    cursor: default;
+    color: #fff;
+    &:before {
+      background: $blue_color;
+    }
+  }
+}
+.threads-list__unreaded-messages {
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  margin-top: -10px;
+  right: 12px;
+  line-height: 21px;
+  font-size: 12px;
+  border-radius: 11px;
+  background: red;
+  text-align: center;
+  padding: 0 4px;
+}

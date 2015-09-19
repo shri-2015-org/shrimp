@@ -1,0 +1,18 @@
+.people-item {
+  height: 48px;
+  line-height: 48px;
+  border-bottom: 1px solid #fff;
+  position: relative;
+  padding-left: 50px;
+  font-size: 20px;
+  padding-right: 33px;
+  &__avatar {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: #000;
+    top: 50%;
+    margin-top: -15px;
+    left: 10px;
+  }
+}
