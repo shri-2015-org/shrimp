@@ -15,15 +15,17 @@ class Application extends React.Component {
   static propTypes = {
     // TODO: add good validation
     messages: PropTypes.array,
+    newMessage: PropTypes.func.isRequired,
   }
 
+
   render() {
-    const {messages} = this.props;
+    const {messages, newMessage} = this.props;
     return (
       <div>
         <Header />
         <Threads />
-        <Messages messages={messages} />
+        <Messages messages={messages} newMessage={newMessage} />
       </div>
     );
   }

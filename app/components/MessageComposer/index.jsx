@@ -1,9 +1,14 @@
 import React from 'react';
-import {newMessage} from '../../core/core';
 import Textarea from 'react-textarea-autosize';
 import './styles.scss';
 
 export default class MessageComposer extends React.Component {
+
+  static propTypes = {
+    newMessage: PropTypes.func.isRequired,
+  }
+
+
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +34,7 @@ export default class MessageComposer extends React.Component {
 
   sendMessage = () => {
     if (!this.state.text.trim() || !this.state.name.trim()) return;
-    newMessage({text: this.state.text});
+    this.props.newMessage({id: 1, channelId: 0, senderId: 1, text: this.state.text});
     this.setState({
       text: '',
     });
