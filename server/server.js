@@ -1,14 +1,23 @@
 import express from 'express';
 import path from 'path';
 import http from 'http';
+import mongoose from 'mongoose';
 import startSocketServer from './socket.js';
-// const debug = require('debug')('shrimp:server');
+const debug = require('debug')('shrimp:server');
+
+//Test
+import getMessageModel from './models/message.js';
+import getConfig from './config.js';
+
+//debug( getMessageModel() );
+
 
 const app = express();
 const server = new http.Server(app);
 const port = process.env.PORT || 3000;
-
-const isDev = process.env.NODE_ENV = 'development';
+const config = getConfig();
+const isDev = process.env.NODE_ENV == 'development';
+const env = process.env.NODE_ENV;
 const isDebug = process.env.DEBUG;
 
 if (isDev && isDebug && process.env.DEBUG.indexOf('shrimp:front') === 0) {
@@ -32,7 +41,7 @@ if (isDev && isDebug && process.env.DEBUG.indexOf('shrimp:front') === 0) {
 }
 
 startSocketServer(server);
-
+mongoose.connect(config.db[env]);
 
 app.get('/', (req, res) => {
   res.send(
@@ -48,4 +57,3 @@ app.get('/', (req, res) => {
 
 
 server.listen(port);
-
