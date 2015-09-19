@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import './styles.scss';
 
-export default class ThreadsList extends React.Component {
+export default class PeopleItem extends React.Component {
   static propTypes = {
     item: PropTypes.object,
     isOnline: PropTypes.bool,
