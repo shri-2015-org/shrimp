@@ -11,7 +11,7 @@ _Chat application by ShrimpJS team. Project curated by Yandex developers at [Yan
 1. Install nodejs 4.x.
 2. Clone this repo and run `npm install`.
 3. For development run: `npm run dev`.
-4. For production run: `npm run master`.
+4. For production run: `npm start`.
 5. Head to `http://localhost:3000` and see the awesomeness.
 
 ### Contributor workflow
@@ -82,36 +82,36 @@ We adhere to [AirBnb JavaScript styleguide](https://github.com/airbnb/javascript
 
 ```
 State {
-	messages: [
-		{
-			id: 1,
-			senderId: 1,
-			channelId: 1,
-			text: 'Hello world!',
-			timestamp: 'unix timestamp?'
-		},
-	],
-	channels:[
-		{
-			id: 123,
-			name: 'Channel name',
-			userIds: [1,2]
-		},
-	],
-	users: [
-		{
-			id: 1,
-			nick: '',
-			name: 'Vasya',
-			avatar: 'image.jpg',
-			isOnline: false
-		},
-	],
-	user: [
-		id: 1,
-		nick: '',
-		name: 'Vasya',
-		avatar: 'image.jpg',
-	],
+  messages: [
+    {
+      id: 1,
+      senderId: 1,
+      channelId: 1,
+      text: 'Hello world!',
+      timestamp: 'unix timestamp?'
+    },
+  ],
+  channels:[
+    {
+      id: 123,
+      name: 'Channel name',
+      userIds: [1,2]
+    },
+  ],
+  users: [
+    {
+      id: 1,
+      nick: '',
+      name: 'Vasya',
+      avatar: 'image.jpg',
+      isOnline: false
+    },
+  ],
+  user: [
+    id: 1,
+    nick: '',
+    name: 'Vasya',
+    avatar: 'image.jpg',
+  ],
 }
 ```
