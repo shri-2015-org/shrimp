@@ -5,6 +5,8 @@ import Messages from 'components/Messages';
 import Header from 'components/Header';
 import Threads from 'components/Threads';
 import 'styles/main.scss';
+import {bindActionCreators} from 'redux';
+import * as actionsMessages from 'actions/messages.js';
 
 
 startSocketClient();
@@ -14,18 +16,21 @@ class Application extends React.Component {
 
   static propTypes = {
     // TODO: add good validation
-    messages: PropTypes.array,
+    messages: PropTypes.array.isRequired,
     newMessage: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
   }
 
 
   render() {
-    const {messages, newMessage} = this.props;
+    const {messages} = this.props;
+    const actions = bindActionCreators(actionsMessages, this.props.dispatch);
+
     return (
       <div>
         <Header />
         <Threads />
-        <Messages messages={messages} newMessage={newMessage} />
+        <Messages messages={messages} {...actions} />
       </div>
     );
   }
