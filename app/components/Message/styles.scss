@@ -14,13 +14,12 @@
   padding: 10px;
   margin: 10px 0;
   position: relative;
-}
-
-.message_type_self {
+  float: right;
   background: $message_color_default;
 }
 
-.message_type_other {
+.message_other {
+  float: left;
   background: $message_color_other;
 }
 
@@ -33,14 +32,13 @@
   width: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-}
-
-.message_type_self:before {
   right: -8px;
   border-left: 8px solid $message_color_default;
 }
 
-.message_type_other:before {
+.message_other:before {
+  right: 0;
+  border-left: none;
   left: -8px;
   border-right: 8px solid $message_color_other;
 }
@@ -49,4 +47,6 @@
   display: inline-block;
   font-size: 16px;
   line-height: 16px;
+  white-space: pre;
+  vertical-align: middle;
 }

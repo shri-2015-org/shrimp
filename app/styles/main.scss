@@ -1,15 +1,31 @@
 @import '~normalize.css';
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
 html {
   box-sizing: border-box;
 }
+body {
+  font: 300 16px/18px 'Roboto', sans-serif;
+}
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
+.clearfix:after {
+  content: '';
+  clear: both;
+  display: table;
+}
 
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
