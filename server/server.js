@@ -14,6 +14,7 @@ const appConfig = getConfig();
 const isDev = process.env.NODE_ENV === 'development';
 const env = process.env.NODE_ENV;
 const isDebug = process.env.DEBUG;
+const isMongoConnect = process.env.MONGO_CONNECT;
 
 if (isDev && isDebug && process.env.DEBUG.indexOf('shrimp:front') === 0) {
   const webpack = require('webpack');
@@ -37,7 +38,10 @@ if (isDev && isDebug && process.env.DEBUG.indexOf('shrimp:front') === 0) {
 
 
 startSocketServer(server);
-mongoose.connect(appConfig.db[env]);
+
+if(isMongoConnect === 'yes') {
+  mongoose.connect(appConfig.db[env]);
+}
 
 app.get('/', (req, res) => {
   res.send(
