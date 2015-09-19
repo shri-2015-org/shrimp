@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react';
-import './styles.scss';
 
 export default class ThreadsHeaderTab extends React.Component {
   static propTypes = {
