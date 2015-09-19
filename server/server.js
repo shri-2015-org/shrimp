@@ -39,7 +39,7 @@ if (isDev && isDebug && process.env.DEBUG.indexOf('shrimp:front') === 0) {
 
 startSocketServer(server);
 
-if(isMongoConnect === 'yes') {
+if (isMongoConnect === 'yes') {
   mongoose.connect(appConfig.db[env]);
 }
 
