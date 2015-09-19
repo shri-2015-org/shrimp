@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import Textarea from 'react-textarea-autosize';
 import './styles.scss';
 

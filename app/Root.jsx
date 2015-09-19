@@ -3,7 +3,6 @@ import {Provider} from 'react-redux';
 import {DevTools, DebugPanel, LogMonitor} from 'redux-devtools/lib/react';
 import App from 'App';
 import store from 'store';
-import {bindActionCreators} from 'redux';
 
 
 export default class Root extends React.Component {
@@ -30,12 +29,10 @@ export default class Root extends React.Component {
       </DebugPanel>
     );
 
-    const actions = bindActionCreators({ newMessage: newMessage }, store.dispatch);
-
     return (
       <div>
         <Provider store={store}>
-          {() => <App {...actions} />}
+          {() => <App dispatch={store.dispatch} />}
         </Provider>
         {this.state.enableDevTools ? devTools : ''}
       </div>

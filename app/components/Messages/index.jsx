@@ -5,17 +5,18 @@ import './styles.scss';
 
 
 export default class Messages extends React.Component {
+
   static propTypes = {
     messages: PropTypes.array.isRequired,
     newMessage: PropTypes.func.isRequired,
   }
 
   render() {
-    const {messages} = this.props;
+    const {messages, newMessage} = this.props;
     return (
       <div className='messages'>
         <MessageList messages={messages}/>
-        <MessageComposer newMessage={this.props.newMessage}/>
+        <MessageComposer newMessage={newMessage}/>
       </div>
     );
   }
