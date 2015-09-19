@@ -1,4 +1,3 @@
-import getConfig from '../config.js';
 import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema({
@@ -6,9 +5,9 @@ const schema = new mongoose.Schema({
   senderId: mongoose.Schema.Types.ObjectId,
   channelId: mongoose.Schema.Types.ObjectId,
   text: String,
-  timestamp: { type: Date, default: Date.now }
+  timestamp: { type: Date, default: Date.now },
 });
 
-export default function getMessageModel(){
+export default function getMessageModel() {
   return mongoose.model('Message', schema);
 }

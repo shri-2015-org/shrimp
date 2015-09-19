@@ -4,20 +4,22 @@ import {beforeEach, afterEach} from 'mocha';
 const config = getConfig();
 process.env.NODE_ENV = 'test';
 const env = process.env.NODE_ENV;
-const debug = require('debug')('shrimp:test_db_utills');
 
 mongoose.connect(config.db[env]);
 
-beforeEach(function (done) {
+beforeEach( (done) => {
   function clearDB() {
-    for (var i in mongoose.connection.collections) {
-      mongoose.connection.collections[i].remove(function() {});
+    const collections = mongoose.connection.collections;
+    for (const i in collections) {
+      if (collections[i].hasOwnProperty()) {
+        collections[i].remove(() => {});
+      }
     }
     return done();
   }
 
   if (mongoose.connection.readyState === 0) {
-    mongoose.connect(config.db.test, function (err) {
+    mongoose.connect(config.db.test, (err) => {
       if (err) {
         throw err;
       }
@@ -28,7 +30,7 @@ beforeEach(function (done) {
   }
 });
 
-afterEach(function (done) {
+afterEach((done) => {
   mongoose.disconnect();
   return done();
-});  
+});

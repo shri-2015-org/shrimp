@@ -3,20 +3,15 @@ import path from 'path';
 import http from 'http';
 import mongoose from 'mongoose';
 import startSocketServer from './socket.js';
-const debug = require('debug')('shrimp:server');
-
-//Test
-import getMessageModel from './models/message.js';
 import getConfig from './config.js';
 
-//debug( getMessageModel() );
-
+// const debug = require('debug')('shrimp:server');
 
 const app = express();
 const server = new http.Server(app);
 const port = process.env.PORT || 3000;
-const config = getConfig();
-const isDev = process.env.NODE_ENV == 'development';
+const appConfig = getConfig();
+const isDev = process.env.NODE_ENV === 'development';
 const env = process.env.NODE_ENV;
 const isDebug = process.env.DEBUG;
 
@@ -40,8 +35,9 @@ if (isDev && isDebug && process.env.DEBUG.indexOf('shrimp:front') === 0) {
   app.use('/static', express.static(path.join(__dirname, '../static')));
 }
 
+
 startSocketServer(server);
-mongoose.connect(config.db[env]);
+mongoose.connect(appConfig.db[env]);
 
 app.get('/', (req, res) => {
   res.send(
