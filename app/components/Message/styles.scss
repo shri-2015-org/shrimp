@@ -1,5 +1,4 @@
-$blue_color: #00b0e0;
-$green_color: #00d742;
+@import '~styles/variables.scss';
 
 .message {
   display: inline-block;
@@ -18,11 +17,11 @@ $green_color: #00d742;
 }
 
 .message_type_self {
-  background: #{$blue_color};
+  background: $message_color_default;
 }
 
 .message_type_other {
-  background: #{$green_color};
+  background: $message_color_other;
 }
 
 .message:before {
@@ -38,12 +37,12 @@ $green_color: #00d742;
 
 .message_type_self:before {
   right: -8px;
-  border-left: 8px solid #{$blue_color};
+  border-left: 8px solid $message_color_default;
 }
 
 .message_type_other:before {
   left: -8px;
-  border-right: 8px solid #{$green_color};
+  border-right: 8px solid $message_color_other;
 }
 
 .message__text-item {

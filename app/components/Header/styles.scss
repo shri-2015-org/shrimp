@@ -2,6 +2,9 @@
 
 .header {
   height: $header_height;
+  width: 100%;
   color: #aeaeae;
-  background-color: #363e41;
+  background-color: $header_color;
+  position: fixed;
+  z-index: 10;
 }
