@@ -13,26 +13,11 @@ const tabs = [
 
 const activeChannelId = 1;
 
-const peopleList = [
-  {
-    id: 1,
-    nick: 'nick1',
-    name: 'Vasya',
-    avatar: 'image.jpg',
-    isOnline: false,
-  },
-  {
-    id: 2,
-    nick: 'nick2',
-    name: 'Vasya',
-    avatar: 'image.jpg',
-    isOnline: true,
-  },
-];
 
 export default class ThreadsSection extends React.Component {
   static propTypes = {
     channels: PropTypes.array.isRequired,
+    users: PropTypes.array.isRequired,
   }
 
   constructor(props) {
@@ -49,12 +34,12 @@ export default class ThreadsSection extends React.Component {
   };
 
   render() {
-    const {channels} = this.props;
+    const {channels, users} = this.props;
     return (
       <div className='threads'>
         <ThreadsHeader tabs={tabs} changeTab={this.changeTab} currentTab={this.state.currentTab} />
         {this.state.currentTab === peopleTab.id
-          ? <ThreadsList list={peopleList} activeChannelId={activeChannelId} type={'people'}/>
+          ? <ThreadsList list={users} activeChannelId={activeChannelId} type={'people'}/>
           : null}
         {this.state.currentTab === channelsTab.id
           ? <ThreadsList list={channels} activeChannelId={activeChannelId} type={'channels'}/>

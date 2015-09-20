@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
 import {channels} from './channels';
 import {messages} from './messages';
+import {users} from './users';
 import {local} from './local';
 
-export const appReducer = combineReducers({channels, messages, local});
+export const appReducer = combineReducers({channels, messages, users, local});
