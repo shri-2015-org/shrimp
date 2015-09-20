@@ -27,7 +27,7 @@ export default class MessageList extends React.Component {
 
     return (
       <div className='messages-list'>
-        <ul className='messages-list__list' ref='list'>
+        <ul className='messages-list__list'>
           {messages}
         </ul>
       </div>
