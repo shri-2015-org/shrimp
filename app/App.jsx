@@ -11,25 +11,26 @@ import * as actionsMessages from 'actions/messages.js';
 
 startSocketClient();
 
-@connect(state => ({ messages: state.messages }))
+@connect(state => ({ messages: state.messages, channels: state.channels.toJS() }))
 class Application extends React.Component {
 
   static propTypes = {
     // TODO: add good validation
     messages: PropTypes.array.isRequired,
+    channels: PropTypes.array.isRequired,
     newMessage: PropTypes.func.isRequired,
     dispatch: PropTypes.func.isRequired,
   }
 
 
   render() {
-    const {messages} = this.props;
+    const {messages, channels} = this.props;
     const actions = bindActionCreators(actionsMessages, this.props.dispatch);
 
     return (
       <div className='chat-page'>
         <Header />
-        <Threads />
+        <Threads channels={channels} />
         <Messages messages={messages} {...actions} />
       </div>
     );

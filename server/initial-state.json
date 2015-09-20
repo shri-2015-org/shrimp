@@ -64,16 +64,30 @@
       "timestamp": "unix timestamp?"
     }
   ],
-  "channels":[
+  "channels": [
     {
       "id": 1,
-      "name": "Channel name 1",
-      "userIds": [1,2,3]
+      "name": "general",
+      "isFavourite": false,
+      "unreadMessagesCount": 20
     },
     {
       "id": 2,
-      "name": "Channel name 2",
-      "userIds": [1,2,3]
+      "name": "flud",
+      "isFavourite": true,
+      "unreadMessagesCount": 20
+    },
+    {
+      "id": 3,
+      "name": "other",
+      "isFavourite": true,
+      "unreadMessagesCount": 0
+    },
+    {
+      "id": 4,
+      "name": "very long",
+      "isFavourite": true,
+      "unreadMessagesCount": 0
     }
   ],
   "users": [

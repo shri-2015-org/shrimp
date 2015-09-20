@@ -3,6 +3,7 @@ import store from '../store';
 import {Map} from 'immutable';
 import {addChannel} from '../actions/channels';
 import {addMessage} from '../actions/messages';
+import {init} from '../actions/local';
 
 export const socket = io();
 
@@ -15,7 +16,7 @@ export function startSocketClient() {
     store.dispatch(addChannel(Map({id: 1, name: data.name})));
   });
 
-  socket.on('GET_INIT_STATE', (data) => {
-    return data;
+  socket.on('INIT', (data) => {
+    store.dispatch(init(data));
   });
 }

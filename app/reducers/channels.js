@@ -1,9 +1,11 @@
-import {List} from 'immutable';
+import {List, fromJS} from 'immutable';
 
 const EMPTY_LIST = List();
 
 export function channels(state = EMPTY_LIST, action) {
   switch (action.type) {
+  case 'INIT':
+    return fromJS(action.payload.channels);
   case 'ADD_CHANNEL':
     return state.push(action.channel);
   case 'REMOVE_CHANNEL':

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import './styles.scss';
 import ThreadsHeader from 'components/ThreadsHeader';
 import ThreadsList from 'components/ThreadsList';
@@ -12,33 +12,6 @@ const tabs = [
 ];
 
 const activeChannelId = 1;
-
-const channelsList = [
-  {
-    id: 1,
-    name: 'general',
-    isFavourite: false,
-    unreadMessagesCount: 20,
-  },
-  {
-    id: 2,
-    name: 'flud',
-    isFavourite: true,
-    unreadMessagesCount: 20,
-  },
-  {
-    id: 3,
-    name: 'other',
-    isFavourite: true,
-    unreadMessagesCount: 0,
-  },
-  {
-    id: 4,
-    name: 'very long ',
-    isFavourite: true,
-    unreadMessagesCount: 0,
-  },
-];
 
 const peopleList = [
   {
@@ -58,6 +31,10 @@ const peopleList = [
 ];
 
 export default class ThreadsSection extends React.Component {
+  static propTypes = {
+    channels: PropTypes.array.isRequired,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -65,11 +42,14 @@ export default class ThreadsSection extends React.Component {
 
     };
   }
+
+
   changeTab = (tab) => {
     this.setState({ currentTab: tab.id });
   };
 
   render() {
+    const {channels} = this.props;
     return (
       <div className='threads'>
         <ThreadsHeader tabs={tabs} changeTab={this.changeTab} currentTab={this.state.currentTab} />
@@ -77,7 +57,7 @@ export default class ThreadsSection extends React.Component {
           ? <ThreadsList list={peopleList} activeChannelId={activeChannelId} type={'people'}/>
           : null}
         {this.state.currentTab === channelsTab.id
-          ? <ThreadsList list={channelsList} activeChannelId={activeChannelId} type={'channels'}/>
+          ? <ThreadsList list={channels} activeChannelId={activeChannelId} type={'channels'}/>
           : null}
       </div>
     );
