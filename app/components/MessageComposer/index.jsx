@@ -6,6 +6,7 @@ export default class MessageComposer extends React.Component {
 
   static propTypes = {
     newMessage: PropTypes.func.isRequired,
+    changePaddingBottom: PropTypes.func.isRequired,
   }
 
 
@@ -50,6 +51,7 @@ export default class MessageComposer extends React.Component {
 
 
   render() {
+    const {changePaddingBottom} = this.props;
     return (
 
       <div className='composer'>
@@ -72,9 +74,11 @@ export default class MessageComposer extends React.Component {
               value={this.state.text}
               onKeyPress={this.textKeyPress}
               onChange={this.textChange}
+              onHeightChange={changePaddingBottom}
               minRows={1}
               maxRows={5}
               className='composer__textarea'
+              ref='sender'
             />
             <button
               type='submit'

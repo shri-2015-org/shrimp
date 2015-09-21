@@ -9,15 +9,28 @@ export default class Message extends React.Component {
   }
 
 
+  renderAvatar = () => {
+    return (
+      <div className='message__avatar'>
+        <img
+          src={'http://www.sc2mapster.com/media/avatars/6/482/Nova.png'} // test img
+          width='50'
+          height='50'
+          />
+      </div>
+    );
+  }
+
+
   render() {
     const {text, user} = this.props;
-    // const currentUser = 0; // dummy for test message type
     const currentUser = Math.round(Math.random()); // dummy for test message type
-    const type = user === currentUser ? '' : 'message__item_other';
+    const type = user === currentUser ? '' : 'message__cloud_other';
     return (
       <li className='message'>
-        <div className={'message__item ' + type}>
-          <div className='message__text-item'>
+        {user === currentUser ? null : this.renderAvatar()}
+        <div className={'message__cloud ' + type}>
+          <div className='message__text'>
             {text}
           </div>
         </div>

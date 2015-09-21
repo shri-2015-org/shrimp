@@ -1,4 +1,5 @@
 @import '~normalize.css';
+@import '~styles/variables.scss';
 
 html,
 body {
@@ -10,6 +11,7 @@ html {
 }
 body {
   font: 300 16px/18px 'Roboto', sans-serif;
+  background-color: $main_color;
 }
 
 *,
