@@ -12,3 +12,11 @@ export function setCurrentChannel(channelId) {
     payload: channelId,
   };
 }
+
+
+export function init(data) {
+  return {
+    type: 'INIT',
+    payload: data,
+  };
+}
