@@ -3,55 +3,65 @@
 
 .message {
   @extend .clearfix;
+  position: relative;
+  min-height: 50px;
+  margin: 10px 0;
+  padding: 7px 0;
 }
 
-.message__item {
-  display: inline-block;
+.message__cloud {
+  position: relative;
+  float: right;
   min-width: 50px;
-  width: auto;
   max-width: 440px;
-  min-height: 30px;
-  line-height: 30px;
+  padding: 8px 15px;
   border-radius: 5px;
   color: white;
   text-align: left;
-  vertical-align: middle;
-  padding: 10px;
-  margin: 10px 0;
-  position: relative;
-  float: right;
   background: $message_color_default;
 }
 
-.message__item_other {
+.message__cloud_other {
   float: left;
+  left: 80px;
   background: $message_color_other;
 }
 
-.message__item:before {
+.message__cloud:before {
   content: ' ';
   display: inline-block;
   position: absolute;
-  bottom: 6px;
+  top: 50%;
+  right: -8px;
+  transform: translateY(-50%);
   height: 0;
   width: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  right: -8px;
   border-left: 8px solid $message_color_default;
 }
 
-.message__item_other:before {
+.message__cloud_other:before {
   right: 0;
-  border-left: none;
   left: -8px;
+  border-left: none;
   border-right: 8px solid $message_color_other;
 }
 
-.message__text-item {
+.message__text {
   display: inline-block;
   font-size: 16px;
-  line-height: 16px;
-  white-space: pre;
+  line-height: 18px;
+  white-space: pre-line;
   vertical-align: middle;
+}
+
+.message__avatar {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 54px;
+  width: 54px;
+  border-radius: 5px;
+  border: 2px solid $composer_border_color;
 }
