@@ -12,6 +12,14 @@ export default class Messages extends React.Component {
   }
 
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      listPaddingBottom: 0,
+    };
+  }
+
+
   componentDidMount = () => {
     const list = this.refs.list.getDOMNode();
     this.basePaddingBottom = parseInt(window.getComputedStyle(list).paddingBottom, 10);
@@ -29,8 +37,11 @@ export default class Messages extends React.Component {
     if (this.baseTextareaHeight === null) {
       this.baseTextareaHeight = height;
     }
-    const list = this.refs.list.getDOMNode();
-    list.style.paddingBottom = this.basePaddingBottom - this.baseTextareaHeight + height + 'px';
+    // const list = this.refs.list.getDOMNode();
+    // list.style.paddingBottom = this.basePaddingBottom - this.baseTextareaHeight + height + 'px';
+    this.setState({
+      listPaddingBottom: this.basePaddingBottom - this.baseTextareaHeight + height,
+    });
     this.scrollToBottom();
   }
 
@@ -38,7 +49,11 @@ export default class Messages extends React.Component {
   render() {
     const {messages, newMessage} = this.props;
     return (
-      <div className='messages' ref='list'>
+      <div
+        className='messages'
+        ref='list'
+        style={{paddingBottom: this.state.listPaddingBottom}}
+      >
         <MessageList
           messages={messages}
           scroll={this.scrollToBottom}
