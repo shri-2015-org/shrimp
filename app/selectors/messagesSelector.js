@@ -1,6 +1,12 @@
 import {createSelector} from 'reselect';
 
-const messagesSelector = (state) => state.messages;
+const messagesSelector = state => {
+  return state.messages.map(message => {
+    const senderObj = state.users.find(user => user.get('id') === message.get('senderId'));
+    return message.set('sender', senderObj);
+  });
+};
+
 const currentChannelIdSelector = (state) => state.currentChannelId;
 
 export const currentChannelMessagesSelector = createSelector(
