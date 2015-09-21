@@ -6,11 +6,12 @@ _Chat application by ShrimpJS team. Project curated by Yandex developers at [Yan
 
 ## Get up and going
 
-1. Install nodejs 4.x.
-2. Clone this repo and run `npm install`.
-3. For development run: `npm run dev`.
-4. For production run: `npm start`.
-5. Head to `http://localhost:3000` and see the awesomeness.
+1. Install nodejs 4.x
+2. Clone this repo and run `npm install`
+3. For development run: `npm run dev`
+4. For production run: `npm start`
+5. Head to `http://localhost:3000` and see the awesomeness
+6. Run `document.cookie = 'enableDevTools=true'` in console to get redux dev tools
 
 ## Documentation
 
