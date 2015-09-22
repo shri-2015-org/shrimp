@@ -5,8 +5,11 @@ import './styles.scss';
 export default class MessageList extends React.Component {
 
   static propTypes = {
-    messages: PropTypes.arrayOf(React.PropTypes.object),
+    messages: PropTypes.array.isRequired,
     scroll: PropTypes.func.isRequired,
+    users: PropTypes.array.isRequired,
+    userId: PropTypes.number.isRequired,
+    userName: PropTypes.string.isRequired,
   }
 
 
@@ -15,13 +18,17 @@ export default class MessageList extends React.Component {
   }
 
   render() {
+    const {userId, userName, users} = this.props;
     const messages = this.props.messages.map((message, i) => {
       return (
         <Message
           key={i}
-          user={message.get('senderId')}
-          text={message.get('text')}
-          />
+          senderId={message.senderId}
+          text={message.text}
+          userId={userId}
+          userName={userName}
+          users={users}
+        />
       );
     });
 

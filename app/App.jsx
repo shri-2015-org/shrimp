@@ -11,7 +11,11 @@ import * as actionsMessages from 'actions/messages.js';
 
 startSocketClient();
 
-@connect(state => ({ messages: state.messages, channels: state.channels.toJS(), users: state.users.toJS() }))
+@connect(state => ({
+  messages: state.messages.toJS(),
+  channels: state.channels.toJS(),
+  users: state.users.toJS(),
+}))
 class Application extends React.Component {
 
   static propTypes = {
@@ -32,7 +36,7 @@ class Application extends React.Component {
       <div className='chat-page'>
         <Header />
         <Threads channels={channels} users={users} />
-        <Messages messages={messages} {...actions} />
+        <Messages messages={messages} users={users} {...actions} />
       </div>
     );
   }
