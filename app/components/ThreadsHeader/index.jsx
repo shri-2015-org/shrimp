@@ -10,22 +10,18 @@ export default class ThreadsHeader extends React.Component {
     changeTab: React.PropTypes.func,
   }
 
-  constructor(props) {
-    super(props);
-  }
-
-  handleClick = (tab) => {
-    this.props.changeTab(tab);
-  }
 
   render() {
+    const tabs = this.props.tabs.map(tab => (
+      <Tab name={tab.name}
+        isCurrent={(this.props.currentTab === tab.name)}
+        changeTab={this.props.changeTab}
+      />
+    ));
+
     return (
       <div className='threads-header'>
-      {this.props.tabs.map(tab => (
-          <Tab name={tab.name}
-            isCurrent={(this.props.currentTab === tab.id)}
-            handleClick={this.handleClick.bind(this, tab)} />
-        ))}
+        {tabs}
       </div>
     );
   }

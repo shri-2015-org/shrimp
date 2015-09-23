@@ -21,7 +21,6 @@ startSocketClient();
 }))
 export default class Application extends React.Component {
   static propTypes = {
-    // TODO: add good validation
     messages: PropTypes.array.isRequired,
     channels: PropTypes.array.isRequired,
     users: PropTypes.array.isRequired,
@@ -31,9 +30,9 @@ export default class Application extends React.Component {
 
 
   render() {
-    const {messages, channels, users, local} = this.props;
+    const {messages, channels, users, local, dispatch} = this.props;
     const actionsCombine = Object.assign(actionsMessages, actionsLocal);
-    const actions = bindActionCreators(actionsCombine, this.props.dispatch);
+    const actions = bindActionCreators(actionsCombine, dispatch);
 
     return (
       <div className='chat-page'>
