@@ -8,6 +8,7 @@ export default class Messages extends React.Component {
 
   static propTypes = {
     messages: PropTypes.array.isRequired,
+    local: PropTypes.object.isRequired,
     newMessage: PropTypes.func.isRequired,
   }
 
@@ -47,7 +48,7 @@ export default class Messages extends React.Component {
 
 
   render() {
-    const {messages, newMessage} = this.props;
+    const {messages, local, newMessage} = this.props;
     return (
       <div
         className='messages'
@@ -57,11 +58,12 @@ export default class Messages extends React.Component {
         <MessageList
           messages={messages}
           scroll={this.scrollToBottom}
-          />
+        />
         <MessageComposer
+          local={local}
           newMessage={newMessage}
           changePaddingBottom={this.changePaddingBottom}
-          />
+        />
       </div>
     );
   }

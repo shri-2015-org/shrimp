@@ -115,7 +115,7 @@
   ],
   "local": {
     "userId": 123,
-    "currentchannelId": 0,
+    "currentChannelId": 1,
     "pendingMessages": []
   }
 }

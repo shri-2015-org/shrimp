@@ -6,11 +6,23 @@ export default class ChannelItem extends React.Component {
     item: React.PropTypes.object,
     isCurrent: React.PropTypes.bool,
     key: React.PropTypes.number,
+    setCurrentChannel: React.PropTypes.func.isRequired,
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: this.props.item.id,
+    };
+  }
+
+  setChannel = () => {
+    this.props.setCurrentChannel(this.state.id);
   }
 
   render() {
     return (
-      <div className={this.props.isCurrent ? 'threads-list__channel-item_active' : 'threads-list__channel-item'}>
+      <div className={this.props.isCurrent ? 'threads-list__channel-item_active' : 'threads-list__channel-item'} onClick={this.setChannel}>
       {this.props.item.name}
       {this.props.item.unreadMessagesCount
         ? <span className='threads-list__unreaded-messages'>{this.props.item.unreadMessagesCount}</span>

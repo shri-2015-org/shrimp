@@ -61,7 +61,7 @@ module.exports = (options) => {
       loaders: loadersByExt.concat([
         {
           test: /\.jsx?$/,
-          loaders: ['babel'],
+          loaders: ['babel?optional=runtime'],
           include: path.join(__dirname, 'app'),
         },
         {

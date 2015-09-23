@@ -9,7 +9,7 @@ export const socket = io();
 
 export function startSocketClient() {
   socket.on('ADD_MESSAGE', (data) => {
-    store.dispatch(addMessage(Map({id: 0, channelId: 0, senderId: 0, text: data.text})));
+    store.dispatch(addMessage(Map({id: 0, channelId: data.channelId, senderId: data.senderId, text: data.text})));
   });
 
   socket.on('ADD_CHANNEL', (data) => {
