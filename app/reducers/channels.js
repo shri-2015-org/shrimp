@@ -2,7 +2,7 @@ import {List, fromJS} from 'immutable';
 
 const EMPTY_LIST = List();
 
-export function channels(state = EMPTY_LIST, action) {
+export function channels(state = EMPTY_LIST, action = {type: 'DEFAULT'}) {
   switch (action.type) {
   case 'INIT':
     return fromJS(action.payload.channels);

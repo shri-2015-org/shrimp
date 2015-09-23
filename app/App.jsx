@@ -13,13 +13,13 @@ import {currentChannelMessagesSelector} from 'selectors/messagesSelector';
 
 startSocketClient();
 
-/*
-@connect(state => ({ messages: state.messages, channels: state.channels.toJS(), users: state.users.toJS() }))
-*/
-@connect(currentChannelMessagesSelector)
-
-
-class Application extends React.Component {
+@connect(state => ({
+  messages: currentChannelMessagesSelector(state).toJS(),
+  channels: state.channels.toJS(),
+  users: state.users.toJS(),
+  local: state.local.toJS(),
+}))
+export default class Application extends React.Component {
 
   static propTypes = {
     // TODO: add good validation
@@ -40,11 +40,9 @@ class Application extends React.Component {
     return (
       <div className='chat-page'>
         <Header />
-        <Threads channels={channels.toJS()} users={users.toJS()} local={local} {...actions}/>
+        <Threads channels={channels} users={users} local={local} {...actions}/>
         <Messages messages={messages} local={local} {...actions} />
       </div>
     );
   }
 }
-
-export default Application;

@@ -13,7 +13,12 @@ export default class ThreadsList extends React.Component {
 
   render() {
     const channelsListItems = this.props.list.map((listItem, index) => (
-      <ChannelItem item={listItem} key={index} isCurrent={this.props.local.get('currentChannelId') === listItem.id} setCurrentChannel={this.props.setCurrentChannel}/>
+      <ChannelItem
+        item={listItem}
+        key={index}
+        isCurrent={this.props.local.currentChannelId === listItem.id}
+        setCurrentChannel={this.props.setCurrentChannel}
+      />
     ));
     const peopleListItems = this.props.list.map((listItem, index) => (
       <PeopleItem item={listItem} key={index} />

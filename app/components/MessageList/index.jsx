@@ -19,8 +19,8 @@ export default class MessageList extends React.Component {
       return (
         <Message
           key={i}
-          user={message.get('senderId')}
-          text={message.get('text')}
+          user={message.senderId}
+          text={message.text}
           />
       );
     });
