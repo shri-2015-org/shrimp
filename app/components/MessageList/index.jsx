@@ -21,8 +21,9 @@ export default class MessageList extends React.Component {
       return (
         <Message
           key={i}
-          message={message}
-          local={local}
+          sender={message.sender}
+          text={message.text}
+          currentUserId={local.userId}
         />
       );
     });
