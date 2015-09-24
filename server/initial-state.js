@@ -8,7 +8,7 @@ const Message = getMessageModel();
 export default function getInitState() {
   return new Promise((resolve, reject) => {
     const state = {};
-    Promise.all([ Channel.getAll(), Message.getAll(), User.getAll()  ]).then((results) => {
+    Promise.all([ Channel.getAll(), Message.getAll(), User.getAll() ]).then((results) => {
       let channels = results[0];
       const messages = results[1];
       let users = results[2];
@@ -31,6 +31,9 @@ export default function getInitState() {
         'currentchannelId': channels[0]._id,
         'pendingMessages': [],
       };
+
+      console.log(state);
+
       resolve(state);
     }).catch((exeption) => {
       reject(exeption);
