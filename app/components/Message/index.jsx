@@ -1,11 +1,12 @@
 import React, {PropTypes} from 'react';
+import cx from 'classnames';
 import './styles.scss';
 
 export default class Message extends React.Component {
 
   static propTypes = {
-    user: PropTypes.number.isRequired,
-    text: PropTypes.string.isRequired,
+    message: PropTypes.object.isRequired,
+    local: PropTypes.object.isRequired,
   }
 
 
@@ -23,15 +24,15 @@ export default class Message extends React.Component {
 
 
   render() {
-    const {text, user} = this.props;
-    const currentUser = Math.round(Math.random()); // dummy for test message type
-    const type = user === currentUser ? '' : 'message__cloud_other';
+    const {message, local} = this.props;
+    const isSelfMessage = message.senderId === local.userId;
     return (
       <li className='message'>
-        {user === currentUser ? null : this.renderAvatar()}
-        <div className={'message__cloud ' + type}>
+        {isSelfMessage ? null : this.renderAvatar()}
+        <div className={cx('message__cloud', {message__cloud_other: !isSelfMessage})}>
           <div className='message__text'>
-            {text}
+            <strong>{message.sender.name + ':'}</strong><br/>
+            {message.text}
           </div>
         </div>
       </li>

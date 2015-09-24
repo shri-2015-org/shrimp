@@ -20,14 +20,12 @@ startSocketClient();
   local: state.local.toJS(),
 }))
 export default class Application extends React.Component {
-
   static propTypes = {
     // TODO: add good validation
     messages: PropTypes.array.isRequired,
     channels: PropTypes.array.isRequired,
     users: PropTypes.array.isRequired,
     local: PropTypes.object.isRequired,
-    newMessage: PropTypes.func.isRequired,
     dispatch: PropTypes.func.isRequired,
   }
 

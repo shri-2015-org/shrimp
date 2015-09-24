@@ -5,8 +5,9 @@ import './styles.scss';
 export default class MessageList extends React.Component {
 
   static propTypes = {
-    messages: PropTypes.arrayOf(React.PropTypes.object),
+    messages: PropTypes.array.isRequired,
     scroll: PropTypes.func.isRequired,
+    local: PropTypes.object.isRequired,
   }
 
 
@@ -15,13 +16,14 @@ export default class MessageList extends React.Component {
   }
 
   render() {
+    const {local} = this.props;
     const messages = this.props.messages.map((message, i) => {
       return (
         <Message
           key={i}
-          user={message.senderId}
-          text={message.text}
-          />
+          message={message}
+          local={local}
+        />
       );
     });
 

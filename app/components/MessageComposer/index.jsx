@@ -14,18 +14,9 @@ export default class MessageComposer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
       text: '',
     };
   }
-
-
-  nameChange = (e) => {
-    this.setState({
-      name: e.target.value,
-    });
-  }
-
 
   textChange = (e) => {
     this.setState({
@@ -35,11 +26,18 @@ export default class MessageComposer extends React.Component {
 
 
   sendMessage = () => {
-    if (!this.state.text.trim() || !this.state.name.trim()) return;
-    this.props.newMessage({id: 1, channelId: this.props.local.currentChannelId, senderId: 1, text: this.state.text});
-    this.setState({
-      text: '',
-    });
+    const text = this.state.text.trim();
+    if (text) {
+      this.props.newMessage({
+        id: 1,
+        channelId: this.props.local.currentChannelId,
+        senderId: this.props.local.userId,
+        text: this.state.text,
+      });
+      this.setState({
+        text: '',
+      });
+    }
   }
 
 
@@ -54,39 +52,23 @@ export default class MessageComposer extends React.Component {
   render() {
     const {changePaddingBottom} = this.props;
     return (
-
       <div className='composer'>
-        <div>
-          <div>
-            <label>Username:</label>
-            <label>{this.state.name}</label>
-          </div>
-          <div>
-            <input
-              type='text'
-              value={this.state.name}
-              onChange={this.nameChange}
-            />
-          </div>
-        </div>
-
         <div className='composer__sender'>
-            <Textarea
-              value={this.state.text}
-              onKeyPress={this.textKeyPress}
-              onChange={this.textChange}
-              onHeightChange={changePaddingBottom}
-              minRows={1}
-              maxRows={5}
-              className='composer__textarea'
-              ref='sender'
-            />
-            <button
-              type='submit'
-              onClick={this.sendMessage}
-              className='composer__send-button'
-            >Send</button>
-
+          <Textarea
+            value={this.state.text}
+            onKeyPress={this.textKeyPress}
+            onChange={this.textChange}
+            onHeightChange={changePaddingBottom}
+            minRows={1}
+            maxRows={5}
+            className='composer__textarea'
+          />
+          <button
+            type='button'
+            onClick={this.sendMessage}
+            className='composer__send-button'
+          >Send
+          </button>
         </div>
       </div>
 

@@ -108,13 +108,13 @@
     {
       "id": 3,
       "nick": "Petya3",
-      "name": "Petya",
+      "name": "Kolya",
       "avatar": "image.jpg",
       "isOnline": true
     }
   ],
   "local": {
-    "userId": 123,
+    "userId": 2,
     "currentChannelId": 1,
     "pendingMessages": []
   }

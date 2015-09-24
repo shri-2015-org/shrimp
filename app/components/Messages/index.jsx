@@ -29,8 +29,7 @@ export default class Messages extends React.Component {
 
 
   scrollToBottom = () => {
-    const list = this.refs.list.getDOMNode();
-    window.scrollTo(0, list.scrollHeight);
+    window.scrollTo(0, document.body.scrollHeight);
   }
 
 
@@ -38,8 +37,6 @@ export default class Messages extends React.Component {
     if (this.baseTextareaHeight === null) {
       this.baseTextareaHeight = height;
     }
-    // const list = this.refs.list.getDOMNode();
-    // list.style.paddingBottom = this.basePaddingBottom - this.baseTextareaHeight + height + 'px';
     this.setState({
       listPaddingBottom: this.basePaddingBottom - this.baseTextareaHeight + height,
     });
@@ -58,6 +55,7 @@ export default class Messages extends React.Component {
         <MessageList
           messages={messages}
           scroll={this.scrollToBottom}
+          local={local}
         />
         <MessageComposer
           local={local}
