@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import cx from 'classnames';
 import './styles.scss';
 
 export default class Message extends React.Component {
@@ -24,11 +25,11 @@ export default class Message extends React.Component {
 
   render() {
     const {message, local} = this.props;
-    const type = message.senderId === local.userId ? '' : 'message__cloud_other';
+    const isSelfMessage = message.senderId === local.userId;
     return (
       <li className='message'>
-        {message.senderId === local.userId ? null : this.renderAvatar()}
-        <div className={'message__cloud ' + type}>
+        {isSelfMessage ? null : this.renderAvatar()}
+        <div className={cx('message__cloud', {message__cloud_other: !isSelfMessage})}>
           <div className='message__text'>
             <strong>{message.sender.name + ':'}</strong><br/>
             {message.text}
