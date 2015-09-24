@@ -20,11 +20,11 @@ schema.statics.createTestMessage = function createTestMessage(idsSenders, idsCha
 schema.statics.isEmpty = function isEmpty() {
   const self = this;
   return new Promise((resolve, reject) => {
-      self.count((err, count) => {
-        if (err) reject(err);
-        else resolve((count > 0) ? true : false);
-      });
+    self.count((err, count) => {
+      if (err) reject(err);
+      else resolve((count > 0) ? true : false);
     });
+  });
 };
 
 schema.statics.add = function add(data, cb) {
@@ -37,7 +37,7 @@ schema.statics.getAll = function getAll() {
     self.find({}, (err, messages) => {
       if (err) {
         reject(err);
-      }else {
+      } else {
         resolve(messages);
       }
     });

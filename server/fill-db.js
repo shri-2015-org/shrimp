@@ -13,8 +13,8 @@ function createTestChannels(num) {
       if (!isEmpty) {
         const fns = [];
         const func = (cb) => {
-            Channel.createTestChannel().save(cb);
-          };
+          Channel.createTestChannel().save(cb);
+        };
 
         for (let i = 0; i < num; i++) {
           fns.push(func);
@@ -29,7 +29,7 @@ function createTestChannels(num) {
           if (err) reject(err);
           else resolve(ids);
         });
-      }else {
+      } else {
         resolve([]);
       }
     });
@@ -42,8 +42,8 @@ function createTestUsers(num) {
       if (!isEmpty) {
         const fns = [];
         const func = (cb) => {
-            User.createTestUser().save(cb);
-          };
+          User.createTestUser().save(cb);
+        };
 
         for (let i = 0; i < num; i++) {
           fns.push(func);
@@ -52,7 +52,7 @@ function createTestUsers(num) {
         async.parallel(fns, (err, results) => {
           if (err) {
             reject(err);
-          }else {
+          } else {
             const ids = [];
             results.forEach((item) => {
               ids.push(item[0]._id);
@@ -60,7 +60,7 @@ function createTestUsers(num) {
             resolve(ids);
           }
         });
-      }else {
+      } else {
         resolve([]);
       }
     });
@@ -73,8 +73,8 @@ function createTestMessages(num, idsChannels, idsSenders) {
       if (!isEmpty) {
         const fns = [];
         const func = (cb) => {
-            Message.createTestMessage(idsSenders, idsChannels).save(cb);
-          };
+          Message.createTestMessage(idsSenders, idsChannels).save(cb);
+        };
 
         for (let i = 0; i < num; i++) {
           fns.push(func);
@@ -83,7 +83,7 @@ function createTestMessages(num, idsChannels, idsSenders) {
         async.parallel(fns, (err, results) => {
           if (err) {
             reject(err);
-          }else {
+          } else {
             const ids = [];
             results.forEach((item) => {
               ids.push(item[0]._id);
@@ -91,7 +91,7 @@ function createTestMessages(num, idsChannels, idsSenders) {
             resolve(ids);
           }
         });
-      }else {
+      } else {
         resolve([]);
       }
     });

@@ -17,11 +17,11 @@ schema.statics.createTestChannel = function createTestChannel() {
 schema.statics.isEmpty = function isEmpty() {
   const self = this;
   return new Promise((resolve, reject) => {
-      self.count((err, count) => {
-        if (err) reject(err);
-        else resolve((count > 0) ? true : false);
-      });
+    self.count((err, count) => {
+      if (err) reject(err);
+      else resolve((count > 0) ? true : false);
     });
+  });
 };
 
 schema.statics.getAll = function getAll() {
@@ -30,7 +30,7 @@ schema.statics.getAll = function getAll() {
     self.find({}, (err, channels) => {
       if (err) {
         reject(err);
-      }else {
+      } else {
         resolve(channels);
       }
     });

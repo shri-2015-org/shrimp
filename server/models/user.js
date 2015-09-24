@@ -19,11 +19,11 @@ schema.statics.createTestUser = function createTestUser() {
 schema.statics.isEmpty = function isEmpty() {
   const self = this;
   return new Promise((resolve, reject) => {
-      self.count((err, count) => {
-        if (err) reject(err);
-        else resolve((count > 0) ? true : false);
-      });
+    self.count((err, count) => {
+      if (err) reject(err);
+      else resolve((count > 0) ? true : false);
     });
+  });
 };
 
 schema.statics.getAll = function getAll() {
@@ -32,7 +32,7 @@ schema.statics.getAll = function getAll() {
     self.find({}, (err, users) => {
       if (err) {
         reject(err);
-      }else {
+      } else {
         resolve(users);
       }
     });
