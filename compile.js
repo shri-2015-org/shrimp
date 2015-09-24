@@ -8,6 +8,6 @@ const config = makeConfig({
 });
 const compiler = webpack(config);
 
-compiler.run(function (err, stats) {
+compiler.run(function Compile(err, stats) {
   console.log('Complited in ' + ((stats.endTime - stats.startTime) / 1000));
 });

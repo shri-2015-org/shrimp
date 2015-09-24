@@ -86,8 +86,9 @@ module.exports = (options) => {
     config.devtool = options.devtool;
   }
 
-  if (options.minimize){
+  if (options.minimize) {
     config.plugins.push(new webpack.optimize.UglifyJsPlugin({minimize: true}));
+    config.devtool = undefined;
   }
 
   return config;
