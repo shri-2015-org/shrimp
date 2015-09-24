@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles.scss';
+import cx from 'classnames';
 
 export default class ChannelItem extends React.Component {
   static propTypes = {
@@ -21,12 +22,25 @@ export default class ChannelItem extends React.Component {
   }
 
   render() {
+    const unreadCounter = (() => {
+      if (this.props.item.unreadMessagesCount) {
+        return (
+          <span className='threads-list__unread-messages'>
+            {this.props.item.unreadMessagesCount}
+          </span>
+        );
+      }
+    }());
+
     return (
-      <div className={this.props.isCurrent ? 'threads-list__channel-item_active' : 'threads-list__channel-item'} onClick={this.setChannel}>
+      <div
+        className={cx('threads-list__channel-item', {
+          'threads-list__channel-item_active': this.props.isCurrent,
+        })}
+        onClick={this.setChannel}
+      >
       {this.props.item.name}
-      {this.props.item.unreadMessagesCount
-        ? <span className='threads-list__unreaded-messages'>{this.props.item.unreadMessagesCount}</span>
-        : null}
+      {unreadCounter}
       </div>
     );
   }

@@ -9,19 +9,4 @@
     clear: both;
     height: 0;
   }
-  &__item {
-    &,
-    &_active {
-      width: 50%;
-      float: left;
-      text-align: center;
-      cursor: pointer;
-      border-top: 2px solid transparent;
-    }
-    &_active {
-      cursor: default;
-      border-top-color: $blue_color;
-      color: #fff;
-    }
-  }
 }

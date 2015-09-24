@@ -4,6 +4,7 @@ import ChannelItem from 'components/ChannelItem';
 import PeopleItem from 'components/PeopleItem';
 
 export default class ThreadsList extends React.Component {
+
   static propTypes = {
     list: PropTypes.arrayOf(React.PropTypes.object),
     setCurrentChannel: PropTypes.func.isRequired,
@@ -11,27 +12,33 @@ export default class ThreadsList extends React.Component {
     local: PropTypes.object.isRequired,
   };
 
+
   render() {
-    const channelsListItems = this.props.list.map((listItem, index) => (
-      <ChannelItem
-        item={listItem}
-        key={index}
-        isCurrent={this.props.local.currentChannelId === listItem.id}
-        setCurrentChannel={this.props.setCurrentChannel}
-      />
-    ));
-    const peopleListItems = this.props.list.map((listItem, index) => (
-      <PeopleItem item={listItem} key={index} />
-    ));
+    const list = (() => {
+      switch (this.props.type) {
+      case 'Channels':
+        return this.props.list.map((listItem, index) => (
+          <ChannelItem
+            item={listItem}
+            key={index}
+            isCurrent={this.props.local.currentChannelId === listItem.id}
+            setCurrentChannel={this.props.setCurrentChannel}
+          />
+        ));
+
+      case 'People':
+        return this.props.list.map((listItem, index) => (
+          <PeopleItem item={listItem} key={index} />
+        ));
+
+      default:
+        return null;
+      }
+    }());
 
     return (
       <ul className='threads-list'>
-        {this.props.type === 'channels'
-          ? channelsListItems
-          : null}
-        {this.props.type === 'people'
-          ? peopleListItems
-          : null}
+        {list}
       </ul>
     );
   }
