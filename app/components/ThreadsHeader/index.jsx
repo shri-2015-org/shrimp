@@ -12,8 +12,9 @@ export default class ThreadsHeader extends React.Component {
 
 
   render() {
-    const tabs = this.props.tabs.map(tab => (
+    const tabs = this.props.tabs.map((tab, i) => (
       <Tab name={tab.name}
+        key={i}
         isCurrent={(this.props.currentTab === tab.name)}
         changeTab={this.props.changeTab}
       />
