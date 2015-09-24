@@ -8,7 +8,7 @@ export default class Messages extends React.Component {
 
   static propTypes = {
     messages: PropTypes.array.isRequired,
-    users: PropTypes.array.isRequired,
+    local: PropTypes.object.isRequired,
     newMessage: PropTypes.func.isRequired,
   }
 
@@ -17,8 +17,6 @@ export default class Messages extends React.Component {
     super(props);
     this.state = {
       listPaddingBottom: 0,
-      userId: null,
-      userName: null,
     };
   }
 
@@ -27,14 +25,6 @@ export default class Messages extends React.Component {
     const list = this.refs.list.getDOMNode();
     this.basePaddingBottom = parseInt(window.getComputedStyle(list).paddingBottom, 10);
     this.baseTextareaHeight = null;
-  }
-
-
-  setUser = (name, id) => {
-    this.setState({
-      userId: id,
-      userName: name,
-    });
   }
 
 
@@ -56,7 +46,7 @@ export default class Messages extends React.Component {
 
 
   render() {
-    const {messages, newMessage, users} = this.props;
+    const {messages, local, newMessage} = this.props;
     return (
       <div
         className='messages'
@@ -66,17 +56,12 @@ export default class Messages extends React.Component {
         <MessageList
           messages={messages}
           scroll={this.scrollToBottom}
-          userId={this.state.userId}
-          userName={this.state.userName}
-          users={users}
+          local={local}
         />
         <MessageComposer
+          local={local}
           newMessage={newMessage}
           changePaddingBottom={this.changePaddingBottom}
-          setUser={this.setUser}
-          userId={this.state.userId}
-          userName={this.state.userName}
-          users={users}
         />
       </div>
     );

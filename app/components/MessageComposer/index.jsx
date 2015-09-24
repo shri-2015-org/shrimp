@@ -5,12 +5,9 @@ import './styles.scss';
 export default class MessageComposer extends React.Component {
 
   static propTypes = {
+    local: PropTypes.object.isRequired,
     newMessage: PropTypes.func.isRequired,
     changePaddingBottom: PropTypes.func.isRequired,
-    users: PropTypes.array.isRequired,
-    setUser: PropTypes.func.isRequired,
-    userName: PropTypes.string.isRequired,
-    userId: PropTypes.number.isRequired,
   }
 
 
@@ -21,16 +18,6 @@ export default class MessageComposer extends React.Component {
     };
   }
 
-
-  nameChange = (e) => {
-    const id = parseInt(e.target.value, 10);
-    const name = this.props.users.find(user => user.id === id).name;
-    if (name) {
-      this.props.setUser(name, id);
-    }
-  }
-
-
   textChange = (e) => {
     this.setState({
       text: e.target.value,
@@ -40,11 +27,11 @@ export default class MessageComposer extends React.Component {
 
   sendMessage = () => {
     const text = this.state.text.trim();
-    if (text && this.props.userName) {
+    if (text) {
       this.props.newMessage({
         id: 1,
-        channelId: 0,
-        senderId: this.props.userId,
+        channelId: this.props.local.currentChannelId,
+        senderId: this.props.local.userId,
         text: this.state.text,
       });
       this.setState({
@@ -63,38 +50,21 @@ export default class MessageComposer extends React.Component {
 
 
   render() {
-    const {changePaddingBottom, userName, users} = this.props;
+    const {changePaddingBottom} = this.props;
     return (
-
       <div className='composer'>
-        <div>
-          <div>
-            <label>Username:</label>
-            <label>{userName}</label>
-          </div>
-          <div>
-            <select onChange={this.nameChange}>
-              <option value=''></option>
-              {users.map((user, i) => (
-                <option value={user.id} key={i}>{user.name}</option>
-              ))}
-            </select>
-          </div>
-        </div>
-
         <div className='composer__sender'>
-            <Textarea
-              value={this.state.text}
-              onKeyPress={this.textKeyPress}
-              onChange={this.textChange}
-              onHeightChange={changePaddingBottom}
-              minRows={1}
-              maxRows={5}
-              className='composer__textarea'
-              ref='sender'
-            />
+          <Textarea
+            value={this.state.text}
+            onKeyPress={this.textKeyPress}
+            onChange={this.textChange}
+            onHeightChange={changePaddingBottom}
+            minRows={1}
+            maxRows={5}
+            className='composer__textarea'
+          />
           <button
-            type='submit'
+            type='button'
             onClick={this.sendMessage}
             className='composer__send-button'
           >Send

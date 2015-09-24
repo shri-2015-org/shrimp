@@ -7,39 +7,40 @@ import Threads from 'components/Threads';
 import 'styles/main.scss';
 import {bindActionCreators} from 'redux';
 import * as actionsMessages from 'actions/messages.js';
+import * as actionsLocal from 'actions/local.js';
+import {currentChannelMessagesSelector} from 'selectors/messagesSelector';
 
 
 startSocketClient();
 
 @connect(state => ({
-  messages: state.messages.toJS(),
+  messages: currentChannelMessagesSelector(state).toJS(),
   channels: state.channels.toJS(),
   users: state.users.toJS(),
+  local: state.local.toJS(),
 }))
-class Application extends React.Component {
-
+export default class Application extends React.Component {
   static propTypes = {
     // TODO: add good validation
     messages: PropTypes.array.isRequired,
     channels: PropTypes.array.isRequired,
     users: PropTypes.array.isRequired,
-    newMessage: PropTypes.func.isRequired,
+    local: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
   }
 
 
   render() {
-    const {messages, channels, users} = this.props;
-    const actions = bindActionCreators(actionsMessages, this.props.dispatch);
+    const {messages, channels, users, local} = this.props;
+    const actionsCombine = Object.assign(actionsMessages, actionsLocal);
+    const actions = bindActionCreators(actionsCombine, this.props.dispatch);
 
     return (
       <div className='chat-page'>
         <Header />
-        <Threads channels={channels} users={users} />
-        <Messages messages={messages} users={users} {...actions} />
+        <Threads channels={channels} users={users} local={local} {...actions}/>
+        <Messages messages={messages} local={local} {...actions} />
       </div>
     );
   }
 }
-
-export default Application;

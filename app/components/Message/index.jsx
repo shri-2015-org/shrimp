@@ -4,11 +4,8 @@ import './styles.scss';
 export default class Message extends React.Component {
 
   static propTypes = {
-    userId: PropTypes.number.isRequired,
-    senderId: PropTypes.number.isRequired,
-    userName: PropTypes.string.isRequired,
-    users: PropTypes.array.isRequired,
-    text: PropTypes.string.isRequired,
+    message: PropTypes.object.isRequired,
+    local: PropTypes.object.isRequired,
   }
 
 
@@ -26,18 +23,15 @@ export default class Message extends React.Component {
 
 
   render() {
-    const {text, senderId, userId, userName, users} = this.props;
-    const type = senderId === userId ? '' : 'message__cloud_other';
-    const name = senderId === userId
-      ? userName
-      : users.find((item) => item.id === senderId).name;
+    const {message, local} = this.props;
+    const type = message.senderId === local.userId ? '' : 'message__cloud_other';
     return (
       <li className='message'>
-        {senderId === userId ? null : this.renderAvatar()}
+        {message.senderId === local.userId ? null : this.renderAvatar()}
         <div className={'message__cloud ' + type}>
           <div className='message__text'>
-            <strong>{name + ':'}</strong><br/>
-            {text}
+            <strong>{message.sender.name + ':'}</strong><br/>
+            {message.text}
           </div>
         </div>
       </li>
