@@ -11,7 +11,7 @@ beforeEach( (done) => {
   function clearDB() {
     const collections = mongoose.connection.collections;
     for (const i in collections) {
-      if (collections[i].hasOwnProperty()) {
+      if (collections.hasOwnProperty(i)) {
         collections[i].remove(() => {});
       }
     }

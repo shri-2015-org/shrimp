@@ -45,6 +45,7 @@
     "webpack-hot-middleware": "^2.2.0"
   },
   "dependencies": {
+    "async": "^1.4.2",
     "autoprefixer-loader": "^3.1.0",
     "babel": "^5.8.23",
     "babel-loader": "^5.3.2",
@@ -52,6 +53,7 @@
     "css-loader": "^0.19.0",
     "debug": "^2.2.0",
     "express": "^4.13.3",
+    "faker": "^3.0.1",
     "file-loader": "^0.8.4",
     "immutable": "^3.7.5",
     "json-loader": "^0.5.3",

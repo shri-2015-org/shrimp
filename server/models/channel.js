@@ -1,18 +1,16 @@
 import mongoose from 'mongoose';
 import faker from 'faker';
-
 const schema = new mongoose.Schema({
-  nick: String,
   name: String,
-  avatar: String,
-  // isOnline: Boolean,
+  isFavourite: Boolean,
+  // unreadMessagesCount: Number,
+  // userIds: [Schema.Types.ObjectId],
 });
 
-schema.statics.createTestUser = function createTestUser() {
+schema.statics.createTestChannel = function createTestChannel() {
   return new this({
-    nick: faker.internet.userName(),
-    name: faker.name.firstName(),
-    avatar: faker.image.avatar(),
+    name: faker.hacker.noun(),
+    isFavourite: faker.random.boolean(),
   });
 };
 
@@ -29,16 +27,16 @@ schema.statics.isEmpty = function isEmpty() {
 schema.statics.getAll = function getAll() {
   const self = this;
   return new Promise((resolve, reject) => {
-    self.find({}, (err, users) => {
+    self.find({}, (err, channels) => {
       if (err) {
         reject(err);
       }else {
-        resolve(users);
+        resolve(channels);
       }
     });
   });
 };
 
-export default function getUserModel() {
-  return mongoose.model('User', schema);
+export default function getChannelModel() {
+  return mongoose.model('Channel', schema);
 }
