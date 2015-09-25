@@ -29,7 +29,7 @@ export default class MessageComposer extends React.Component {
     const text = this.state.text.trim();
     if (text) {
       this.props.newMessage({
-        id: 1,
+        // id: 1,
         channelId: this.props.local.currentChannelId,
         senderId: this.props.local.userId,
         text: this.state.text,
