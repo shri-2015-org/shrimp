@@ -1,9 +1,10 @@
 import getChannelModel from './models/channel';
-const Channel = getChannelModel();
+import getMessageModel from './models/message';
 import getUserModel from './models/user';
 const User = getUserModel();
-import getMessageModel from './models/message';
+const Channel = getChannelModel();
 const Message = getMessageModel();
+
 
 export default function getInitState() {
   return new Promise((resolve, reject) => {
