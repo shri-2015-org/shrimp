@@ -21,7 +21,7 @@ export default class ThreadsList extends React.Component {
           <ChannelItem
             item={listItem}
             key={index}
-            isCurrent={this.props.local.currentChannelId === listItem.id}
+            isCurrent={this.props.local.get('currentChannelId') === listItem.get('id')}
             setCurrentChannel={this.props.setCurrentChannel}
           />
         ));

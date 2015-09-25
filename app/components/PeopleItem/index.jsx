@@ -11,10 +11,10 @@ export default class PeopleItem extends React.Component {
     const offline = this.props.isOnline ? '' : 'people-item_offline';
 
     const unreadCounter = (() => {
-      if (this.props.item.unreadMessagesCount) {
+      if (this.props.item.get('unreadMessagesCount')) {
         return (
           <span className='threads-list__unreaded-messages'>
-            {this.props.item.unreadMessagesCount}
+            {this.props.item.get('unreadMessagesCount')}
           </span>
         );
       }
@@ -23,7 +23,7 @@ export default class PeopleItem extends React.Component {
     return (
       <div className={'people-item ' + offline}>
         <span className='people-item__avatar'></span>
-        {this.props.item.nick}
+        {this.props.item.get('nick')}
         {unreadCounter}
       </div>
     );

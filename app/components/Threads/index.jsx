@@ -43,7 +43,7 @@ export default class ThreadsSection extends React.Component {
       },
     ];
 
-    const currentTabData = tabs.find(tab => tab.name === this.state.currentTab);
+    const currentTabData = tabs.filter(tab => tab.name === this.state.currentTab)[0];
 
     return (
       <div className='threads'>

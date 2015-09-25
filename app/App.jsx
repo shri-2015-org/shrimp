@@ -14,10 +14,10 @@ import {currentChannelMessagesSelector} from 'selectors/messagesSelector';
 startSocketClient();
 
 @connect(state => ({
-  messages: currentChannelMessagesSelector(state).toJS(),
-  channels: state.channels.toJS(),
-  users: state.users.toJS(),
-  local: state.local.toJS(),
+  messages: currentChannelMessagesSelector(state),
+  channels: state.channels,
+  users: state.users,
+  local: state.local,
 }))
 export default class Application extends React.Component {
   static propTypes = {

@@ -15,7 +15,7 @@ export default class Message extends React.Component {
     return (
       <div className='message__avatar'>
         <img
-          src={sender.avatar}
+          src={sender.get('avatar')}
           width='50'
           height='50'
         />
@@ -26,14 +26,14 @@ export default class Message extends React.Component {
 
   render() {
     const {sender, text, currentUserId} = this.props;
-    const isSelfMessage = sender.id === currentUserId;
+    const isSelfMessage = sender.get('id') === currentUserId;
 
     return (
       <li className='message'>
         {isSelfMessage ? null : this.renderAvatar(sender)}
         <div className={cx('message__cloud', {message__cloud_other: !isSelfMessage})}>
           <div className='message__text'>
-            <strong>{sender.name + ':'}</strong>
+            <strong>{sender.get('name') + ':'}</strong>
             <br />
             {text}
           </div>

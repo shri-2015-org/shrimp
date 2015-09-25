@@ -13,7 +13,7 @@ export default class ChannelItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.item.id,
+      id: this.props.item.get('id'),
     };
   }
 
@@ -23,10 +23,10 @@ export default class ChannelItem extends React.Component {
 
   render() {
     const unreadCounter = (() => {
-      if (this.props.item.unreadMessagesCount) {
+      if (this.props.item.get('unreadMessagesCount')) {
         return (
           <span className='threads-list__unread-messages'>
-            {this.props.item.unreadMessagesCount}
+            {this.props.item.get('unreadMessagesCount')}
           </span>
         );
       }
@@ -39,7 +39,7 @@ export default class ChannelItem extends React.Component {
         })}
         onClick={this.setChannel}
       >
-      {this.props.item.name}
+      {this.props.item.get('name')}
       {unreadCounter}
       </div>
     );
