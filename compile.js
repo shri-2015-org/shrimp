@@ -4,7 +4,7 @@ const makeConfig = require('./make-webpack-config.js');
 const config = makeConfig({
   sourcemaps: false,
   devtool: 'eval',
-  minimize: true,
+  optimize: true,
 });
 const compiler = webpack(config);
 

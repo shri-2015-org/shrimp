@@ -1,9 +1,7 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import {DevTools, DebugPanel, LogMonitor} from 'redux-devtools/lib/react';
 import App from 'App';
 import store from 'store';
-
 
 export default class Root extends React.Component {
 
@@ -23,18 +21,25 @@ export default class Root extends React.Component {
 
 
   render() {
-    const devTools = (
-      <DebugPanel top right bottom>
-        <DevTools store={store} monitor={LogMonitor} />
-      </DebugPanel>
-    );
+    const devTools = (() => {
+      if (OPTIMIZED) {
+        return null;
+      }
+      const { DevTools, DebugPanel, LogMonitor } = require('redux-devtools/lib/react');
+      return (
+        <DebugPanel top right bottom>
+          <DevTools store={store} monitor={LogMonitor} />
+        </DebugPanel>);
+    })();
 
     return (
       <div>
         <Provider store={store}>
           {() => <App dispatch={store.dispatch} />}
         </Provider>
-        {this.state.enableDevTools ? devTools : ''}
+        {this.state.enableDevTools
+          ? devTools
+          : ''}
       </div>
     );
   }

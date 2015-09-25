@@ -12,20 +12,12 @@ const loadersByExt = loadersByExtension({
 
 
 /** options
- * @option optimize {bool}    // optimize js if true
+ * @option optimize {bool}    // optimize js and disabled redux dev tools if true
  * @option sourcemaps {bool}  // generate sourcemaps if true (!rewrite devtool!)
  * @option devtool {string}   // specify devtool
  */
 
 module.exports = (options) => {
-  const plugins = [];
-  if (options.optimize) {
-    plugins.push(
-      new webpack.optimize.UglifyJsPlugin({compress: { warnings: false }}),
-      new webpack.optimize.DedupePlugin(),
-    );
-  }
-
   const config = {
     entry: [
       'webpack-hot-middleware/client',
@@ -36,9 +28,12 @@ module.exports = (options) => {
       filename: 'bundle.js',
       publicPath: '/static/',
     },
-    plugins: plugins.concat([
+    plugins: ([
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin(),
+      new webpack.DefinePlugin({
+        OPTIMIZED: !!(options.optimize)
+      }),
     ]),
 
     resolve: {
@@ -86,8 +81,12 @@ module.exports = (options) => {
     config.devtool = options.devtool;
   }
 
-  if (options.minimize) {
-    config.plugins.push(new webpack.optimize.UglifyJsPlugin({minimize: true}));
+  if (options.optimize) {
+
+    config.plugins.push(
+      new webpack.optimize.UglifyJsPlugin({minimize: true}),
+      new webpack.optimize.DedupePlugin(),
+    );
     config.devtool = undefined;
   }
 
