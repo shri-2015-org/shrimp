@@ -4,7 +4,7 @@ import http from 'http';
 import mongoose from 'mongoose';
 import startSocketServer from './socket.js';
 import getConfig from './config.js';
-
+import {createTestCollections} from './fill-db.js';
 // const debug = require('debug')('shrimp:server');
 
 const app = express();
@@ -41,6 +41,7 @@ startSocketServer(server);
 
 if (isMongoConnect === 'yes') {
   mongoose.connect(appConfig.db[env]);
+  createTestCollections();
 }
 
 app.get('/', (req, res) => {

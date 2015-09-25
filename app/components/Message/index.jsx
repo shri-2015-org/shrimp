@@ -11,11 +11,11 @@ export default class Message extends React.Component {
   }
 
 
-  renderAvatar = () => {
+  renderAvatar = (sender) => {
     return (
       <div className='message__avatar'>
         <img
-          src={'http://www.sc2mapster.com/media/avatars/6/482/Nova.png'} // test img
+          src={sender.avatar}
           width='50'
           height='50'
         />
@@ -30,7 +30,7 @@ export default class Message extends React.Component {
 
     return (
       <li className='message'>
-        {isSelfMessage ? null : this.renderAvatar()}
+        {isSelfMessage ? null : this.renderAvatar(sender)}
         <div className={cx('message__cloud', {message__cloud_other: !isSelfMessage})}>
           <div className='message__text'>
             <strong>{sender.name + ':'}</strong>
