@@ -17,7 +17,7 @@ const loadersByExt = loadersByExtension({
  * @option devtool {string}   // specify devtool
  */
 
-module.exports = (options) => {
+export default function MakeDefaultConfig(options) {
   const config = {
     entry: [
       'webpack-hot-middleware/client',
@@ -28,13 +28,12 @@ module.exports = (options) => {
       filename: 'bundle.js',
       publicPath: '/static/',
     },
-    plugins: ([
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin(),
+    plugins: [
       new webpack.DefinePlugin({
-        OPTIMIZED: !!(options.optimize)
+        OPTIMIZED: !!options.optimize,
+        DEBUG: !options.optimize,
       }),
-    ]),
+    ],
 
     resolve: {
       root: path.join(__dirname, 'app'),
@@ -75,20 +74,25 @@ module.exports = (options) => {
     },
   };
 
+  if (options.optimize) {
+    config.plugins.push(
+      new webpack.optimize.UglifyJsPlugin(),
+      new webpack.optimize.DedupePlugin(),
+    );
+    options.devtool = null;
+    options.sourcemaps = null;
+  } else {
+    config.plugins.push(
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoErrorsPlugin(),
+    );
+  }
+
   if (options.sourcemaps) {
     config.devtool = '#inline-source-map';
   } else if (options.devtool) {
     config.devtool = options.devtool;
   }
 
-  if (options.optimize) {
-
-    config.plugins.push(
-      new webpack.optimize.UglifyJsPlugin({minimize: true}),
-      new webpack.optimize.DedupePlugin(),
-    );
-    config.devtool = undefined;
-  }
-
   return config;
-};
+}

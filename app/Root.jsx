@@ -29,17 +29,16 @@ export default class Root extends React.Component {
       return (
         <DebugPanel top right bottom>
           <DevTools store={store} monitor={LogMonitor} />
-        </DebugPanel>);
-    })();
+        </DebugPanel>
+      );
+    }());
 
     return (
       <div>
         <Provider store={store}>
           {() => <App dispatch={store.dispatch} />}
         </Provider>
-        {this.state.enableDevTools
-          ? devTools
-          : ''}
+        {devTools}
       </div>
     );
   }

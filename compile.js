@@ -1,5 +1,5 @@
-const webpack = require('webpack');
-const makeConfig = require('./make-webpack-config.js');
+import webpack from 'webpack';
+import makeConfig from './make-webpack-config.js';
 
 const config = makeConfig({
   sourcemaps: false,
