@@ -1,14 +1,19 @@
 import mongoose from 'mongoose';
 import faker from 'faker';
+import {isEmpty, getAll, getToObjectOptions} from './utils';
 
-const schema = new mongoose.Schema({
+const message = new mongoose.Schema({
   senderId: mongoose.Schema.Types.ObjectId,
   channelId: mongoose.Schema.Types.ObjectId,
   text: String,
   timestamp: { type: Date, default: Date.now },
 });
 
-schema.statics.createTestMessage = function createTestMessage(idsSenders, idsChannels) {
+message.statics.getAll = getAll;
+message.statics.isEmpty = isEmpty;
+message.set('toObject', getToObjectOptions());
+
+message.statics.createTestMessage = function createTestMessage(idsSenders, idsChannels) {
   return new this({
     senderId: faker.random.arrayElement(idsSenders),
     channelId: faker.random.arrayElement(idsChannels),
@@ -17,37 +22,10 @@ schema.statics.createTestMessage = function createTestMessage(idsSenders, idsCha
   });
 };
 
-schema.statics.isEmpty = function isEmpty() {
-  const self = this;
-  return new Promise((resolve, reject) => {
-    self.count((err, count) => {
-      if (err) reject(err);
-      else resolve((count > 0) ? true : false);
-    });
-  });
-};
-
-schema.statics.add = function add(data, cb) {
+message.statics.add = function add(data, cb) {
   return  new this(data).save(cb);
 };
 
-schema.statics.getAll = function getAll() {
-  const self = this;
-  return new Promise((resolve, reject) => {
-    self.find({}, (err, messages) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(messages);
-      }
-    });
-  });
-};
-
-schema.statics.getByChannel = function getByChannel() {
-
-};
-
 export default function getMessageModel() {
-  return mongoose.model('Message', schema);
+  return mongoose.model('Message', message);
 }
