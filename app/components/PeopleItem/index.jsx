@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {Map} from 'immutable';
+import Immutable, {Map} from 'immutable';
 import './styles.scss';
 
 export default class PeopleItem extends React.Component {
@@ -9,8 +9,10 @@ export default class PeopleItem extends React.Component {
   };
 
   shouldComponentUpdate(nextProps) {
-    return  nextProps.isOnline !== this.props.isOnline ||
-            nextProps.item !== this.props.item;
+    return !(
+              Immutable.is(nextProps.isOnline, this.props.isOnline) &&
+              Immutable.is(nextProps.item, this.props.item)
+            );
   }
 
   render() {

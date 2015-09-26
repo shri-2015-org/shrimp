@@ -1,5 +1,5 @@
 import React from 'react';
-import {Map} from 'immutable';
+import Immutable, {Map} from 'immutable';
 import './styles.scss';
 import cx from 'classnames';
 
@@ -19,8 +19,10 @@ export default class ChannelItem extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return  nextProps.isCurrent !== this.props.isCurrent ||
-            nextProps.item !== this.props.item;
+    return  !(
+              Immutable.is(nextProps.isCurrent, this.props.isCurrent) &&
+              Immutable.is(nextProps.item, this.props.item)
+            );
   }
 
   setChannel = () => {

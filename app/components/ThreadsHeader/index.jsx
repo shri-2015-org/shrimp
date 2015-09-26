@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {List} from 'immutable';
+import Immutable, {List} from 'immutable';
 import './styles.scss';
 import Tab from 'components/ThreadsHeaderTab';
 
@@ -12,7 +12,7 @@ export default class ThreadsHeader extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.currentTab !== this.props.currentTab;
+    return !Immutable.is(nextProps.currentTab, this.props.currentTab);
   }
 
   render() {

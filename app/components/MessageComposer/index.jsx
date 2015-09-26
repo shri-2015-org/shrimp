@@ -1,11 +1,12 @@
 import React, {PropTypes} from 'react';
+import Immutable, {Map} from 'immutable';
 import Textarea from 'react-textarea-autosize';
 import './styles.scss';
 
 export default class MessageComposer extends React.Component {
 
   static propTypes = {
-    local: PropTypes.object.isRequired,
+    local: PropTypes.instanceOf(Map).isRequired,
     newMessage: PropTypes.func.isRequired,
     changePaddingBottom: PropTypes.func.isRequired,
   }
@@ -19,8 +20,10 @@ export default class MessageComposer extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return  nextProps.local !== this.props.local ||
-            nextState.text !== this.state.text;
+    return  !(
+              Immutable.is(nextProps.local, this.props.local) &&
+              Immutable.is(nextState.text, this.state.text)
+            );
   }
 
   textChange = (e) => {

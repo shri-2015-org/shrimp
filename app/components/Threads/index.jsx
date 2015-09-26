@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {List, Map} from 'immutable';
+import Immutable, {List, Map} from 'immutable';
 import './styles.scss';
 import ThreadsHeader from 'components/ThreadsHeader';
 import ThreadsList from 'components/ThreadsList';
@@ -23,10 +23,12 @@ export default class ThreadsSection extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return  nextProps.channels !== this.props.channels ||
-            nextProps.users !== this.props.users ||
-            nextProps.local !== this.props.local ||
-            nextState.currentTab !== this.state.currentTab;
+    return !(
+              Immutable.is(nextProps.channels, this.props.channels) &&
+              Immutable.is(nextProps.users, this.props.users) &&
+              Immutable.is(nextProps.local, this.props.local) &&
+              Immutable.is(nextState.currentTab, this.state.currentTab)
+            );
   }
 
   changeTab = (tabName) => {

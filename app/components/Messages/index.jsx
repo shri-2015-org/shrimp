@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {List, Map} from 'immutable';
+import Immutable, {List, Map} from 'immutable';
 import MessageList from 'components/MessageList';
 import MessageComposer from 'components/MessageComposer';
 import './styles.scss';
@@ -29,8 +29,10 @@ export default class Messages extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return  nextProps.messages !== this.props.messages ||
-            nextProps.local !== this.props.local;
+    return !(
+              Immutable.is(nextProps.messages, this.props.messages) &&
+              Immutable.is(nextProps.local, this.props.local)
+            );
   }
 
   scrollToBottom = () => {
