@@ -1,17 +1,17 @@
 import React, {PropTypes} from 'react';
+import {List, Map} from 'immutable';
 import './styles.scss';
 import ThreadsHeader from 'components/ThreadsHeader';
 import ThreadsList from 'components/ThreadsList';
-import {List, Map} from 'immutable';
 
 
 export default class ThreadsSection extends React.Component {
 
   static propTypes = {
-    channels: PropTypes.array.isRequired,
-    users: PropTypes.array.isRequired,
+    channels: PropTypes.instanceOf(List).isRequired,
+    users: PropTypes.instanceOf(List).isRequired,
     setCurrentChannel: PropTypes.func.isRequired,
-    local: PropTypes.object.isRequired,
+    local: PropTypes.instanceOf(Map).isRequired,
   }
 
 

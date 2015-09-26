@@ -1,13 +1,14 @@
 import React, {PropTypes} from 'react';
+import {Map} from 'immutable';
 import cx from 'classnames';
 import './styles.scss';
 
 export default class Message extends React.Component {
 
   static propTypes = {
-    sender: PropTypes.object.isRequired,
+    sender: PropTypes.instanceOf(Map).isRequired,
     text: PropTypes.string.isRequired,
-    currentUserId: PropTypes.number.isRequired,
+    currentUserId: PropTypes.string.isRequired,
   }
 
   shouldComponentUpdate() {

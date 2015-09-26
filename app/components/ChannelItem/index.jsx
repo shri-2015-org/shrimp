@@ -1,10 +1,11 @@
 import React from 'react';
+import {Map} from 'immutable';
 import './styles.scss';
 import cx from 'classnames';
 
 export default class ChannelItem extends React.Component {
   static propTypes = {
-    item: React.PropTypes.object,
+    item: React.PropTypes.instanceOf(Map),
     isCurrent: React.PropTypes.bool,
     key: React.PropTypes.number,
     setCurrentChannel: React.PropTypes.func.isRequired,

@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import {List, Map} from 'immutable';
 import {connect} from 'react-redux';
 import {startSocketClient} from 'core/socket';
 import Messages from 'components/Messages';
@@ -21,10 +22,10 @@ startSocketClient();
 }))
 export default class Application extends React.Component {
   static propTypes = {
-    messages: PropTypes.array.isRequired,
-    channels: PropTypes.array.isRequired,
-    users: PropTypes.array.isRequired,
-    local: PropTypes.object.isRequired,
+    messages: PropTypes.instanceOf(List).isRequired,
+    channels: PropTypes.instanceOf(List).isRequired,
+    users: PropTypes.instanceOf(List).isRequired,
+    local: PropTypes.instanceOf(Map).isRequired,
     dispatch: PropTypes.func.isRequired,
   }
 

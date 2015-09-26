@@ -1,9 +1,10 @@
 import React, {PropTypes} from 'react';
+import {Map} from 'immutable';
 import './styles.scss';
 
 export default class PeopleItem extends React.Component {
   static propTypes = {
-    item: PropTypes.object,
+    item: PropTypes.instanceOf(Map),
     isOnline: PropTypes.bool,
   };
 

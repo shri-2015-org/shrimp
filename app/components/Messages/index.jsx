@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import {List, Map} from 'immutable';
 import MessageList from 'components/MessageList';
 import MessageComposer from 'components/MessageComposer';
 import './styles.scss';
@@ -7,8 +8,8 @@ import './styles.scss';
 export default class Messages extends React.Component {
 
   static propTypes = {
-    messages: PropTypes.array.isRequired,
-    local: PropTypes.object.isRequired,
+    messages: PropTypes.instanceOf(List).isRequired,
+    local: PropTypes.instanceOf(Map).isRequired,
     newMessage: PropTypes.func.isRequired,
   }
 
