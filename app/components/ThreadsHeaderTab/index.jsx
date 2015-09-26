@@ -13,6 +13,10 @@ export default class ThreadsHeaderTab extends React.Component {
     super(props);
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.isCurrent !== this.props.isCurrent;
+  }
+
   changeTab = (e) => {
     e.preventDefault();
     this.props.changeTab(this.props.name);

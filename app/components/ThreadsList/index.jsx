@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import {List, Map} from 'immutable';
 import './styles.scss';
 import ChannelItem from 'components/ChannelItem';
 import PeopleItem from 'components/PeopleItem';
@@ -6,10 +7,10 @@ import PeopleItem from 'components/PeopleItem';
 export default class ThreadsList extends React.Component {
 
   static propTypes = {
-    list: PropTypes.arrayOf(React.PropTypes.object),
+    list: PropTypes.instanceOf(List),
     setCurrentChannel: PropTypes.func.isRequired,
     type: PropTypes.string,
-    local: PropTypes.object.isRequired,
+    local: PropTypes.instanceOf(Map).isRequired,
   };
 
 
@@ -21,7 +22,7 @@ export default class ThreadsList extends React.Component {
           <ChannelItem
             item={listItem}
             key={index}
-            isCurrent={this.props.local.currentChannelId === listItem.id}
+            isCurrent={this.props.local.get('currentChannelId') === listItem.get('id')}
             setCurrentChannel={this.props.setCurrentChannel}
           />
         ));

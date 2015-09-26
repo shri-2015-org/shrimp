@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import Immutable, {List, Map} from 'immutable';
 import './styles.scss';
 import ThreadsHeader from 'components/ThreadsHeader';
 import ThreadsList from 'components/ThreadsList';
@@ -7,10 +8,10 @@ import ThreadsList from 'components/ThreadsList';
 export default class ThreadsSection extends React.Component {
 
   static propTypes = {
-    channels: PropTypes.array.isRequired,
-    users: PropTypes.array.isRequired,
+    channels: PropTypes.instanceOf(List).isRequired,
+    users: PropTypes.instanceOf(List).isRequired,
     setCurrentChannel: PropTypes.func.isRequired,
-    local: PropTypes.object.isRequired,
+    local: PropTypes.instanceOf(Map).isRequired,
   }
 
 
@@ -21,6 +22,14 @@ export default class ThreadsSection extends React.Component {
     };
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return !(
+      Immutable.is(nextProps.channels, this.props.channels) &&
+      Immutable.is(nextProps.users, this.props.users) &&
+      Immutable.is(nextProps.local, this.props.local) &&
+      Immutable.is(nextState.currentTab, this.state.currentTab)
+    );
+  }
 
   changeTab = (tabName) => {
     this.setState({
@@ -32,18 +41,12 @@ export default class ThreadsSection extends React.Component {
   render() {
     const {channels, users, setCurrentChannel, local} = this.props;
 
-    const tabs = [
-      {
-        name: 'People',
-        list: users,
-      },
-      {
-        name: 'Channels',
-        list: channels,
-      },
-    ];
+    const tabs = List.of(
+      Map({ name: 'People', list: users }),
+      Map({ name: 'Channels', list: channels }),
+    );
 
-    const currentTabData = tabs.find(tab => tab.name === this.state.currentTab);
+    const currentTabData = tabs.find(tab => tab.get('name') === this.state.currentTab);
 
     return (
       <div className='threads'>
@@ -53,10 +56,10 @@ export default class ThreadsSection extends React.Component {
           changeTab={this.changeTab}
         />
         <ThreadsList
-          list={currentTabData.list}
+          list={currentTabData.get('list')}
           local={local}
           setCurrentChannel={setCurrentChannel}
-          type={currentTabData.name}
+          type={currentTabData.get('name')}
         />
 
       </div>

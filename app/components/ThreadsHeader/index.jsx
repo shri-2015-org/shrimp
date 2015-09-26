@@ -1,21 +1,25 @@
 import React, {PropTypes} from 'react';
+import {List} from 'immutable';
 import './styles.scss';
 import Tab from 'components/ThreadsHeaderTab';
 
 export default class ThreadsHeader extends React.Component {
 
   static propTypes = {
-    tabs: PropTypes.arrayOf(React.PropTypes.object),
+    tabs: PropTypes.instanceOf(List),
     currentTab: PropTypes.string,
     changeTab: React.PropTypes.func,
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.currentTab !== this.props.currentTab;
+  }
 
   render() {
     const tabs = this.props.tabs.map((tab, i) => (
-      <Tab name={tab.name}
+      <Tab name={tab.get('name')}
         key={i}
-        isCurrent={(this.props.currentTab === tab.name)}
+        isCurrent={(this.props.currentTab === tab.get('name'))}
         changeTab={this.props.changeTab}
       />
     ));

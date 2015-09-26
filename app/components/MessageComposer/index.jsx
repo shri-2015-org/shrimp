@@ -1,11 +1,12 @@
 import React, {PropTypes} from 'react';
+import Immutable, {Map} from 'immutable';
 import Textarea from 'react-textarea-autosize';
 import './styles.scss';
 
 export default class MessageComposer extends React.Component {
 
   static propTypes = {
-    local: PropTypes.object.isRequired,
+    local: PropTypes.instanceOf(Map).isRequired,
     newMessage: PropTypes.func.isRequired,
     changePaddingBottom: PropTypes.func.isRequired,
   }
@@ -16,6 +17,13 @@ export default class MessageComposer extends React.Component {
     this.state = {
       text: '',
     };
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return  !(
+      Immutable.is(nextProps.local, this.props.local) &&
+      Immutable.is(nextState.text, this.state.text)
+    );
   }
 
   textChange = (e) => {
@@ -29,8 +37,8 @@ export default class MessageComposer extends React.Component {
     const text = this.state.text.trim();
     if (text) {
       this.props.newMessage({
-        channelId: this.props.local.currentChannelId,
-        senderId: this.props.local.userId,
+        channelId: this.props.local.get('currentChannelId'),
+        senderId: this.props.local.get('userId'),
         text: this.state.text,
       });
       this.setState({

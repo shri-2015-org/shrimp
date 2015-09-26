@@ -8,9 +8,13 @@ env:
   es6: true
   mocha: true
 
+globals:
+  OPTIMIZED: true
+
 rules:
   react/jsx-quotes: 0
   jsx-quotes: [2, 'prefer-single']
+  id-length: 0
   new-cap: [2, { "capIsNewExceptions": [
     "List",
     "Map",

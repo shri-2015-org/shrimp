@@ -1,10 +1,11 @@
 import React from 'react';
+import Immutable, {Map} from 'immutable';
 import './styles.scss';
 import cx from 'classnames';
 
 export default class ChannelItem extends React.Component {
   static propTypes = {
-    item: React.PropTypes.object,
+    item: React.PropTypes.instanceOf(Map),
     isCurrent: React.PropTypes.bool,
     key: React.PropTypes.number,
     setCurrentChannel: React.PropTypes.func.isRequired,
@@ -13,8 +14,15 @@ export default class ChannelItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.item.id,
+      id: this.props.item.get('id'),
     };
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return  !(
+      Immutable.is(nextProps.isCurrent, this.props.isCurrent) &&
+      Immutable.is(nextProps.item, this.props.item)
+    );
   }
 
   setChannel = () => {
@@ -23,10 +31,10 @@ export default class ChannelItem extends React.Component {
 
   render() {
     const unreadCounter = (() => {
-      if (this.props.item.unreadMessagesCount) {
+      if (this.props.item.get('unreadMessagesCount')) {
         return (
           <span className='threads-list__unread-messages'>
-            {this.props.item.unreadMessagesCount}
+            {this.props.item.get('unreadMessagesCount')}
           </span>
         );
       }
@@ -39,7 +47,7 @@ export default class ChannelItem extends React.Component {
         })}
         onClick={this.setChannel}
       >
-      {this.props.item.name}
+      {this.props.item.get('name')}
       {unreadCounter}
       </div>
     );

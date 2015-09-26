@@ -1,20 +1,28 @@
 import React, {PropTypes} from 'react';
+import Immutable, {Map} from 'immutable';
 import './styles.scss';
 
 export default class PeopleItem extends React.Component {
   static propTypes = {
-    item: PropTypes.object,
+    item: PropTypes.instanceOf(Map),
     isOnline: PropTypes.bool,
   };
+
+  shouldComponentUpdate(nextProps) {
+    return !(
+      Immutable.is(nextProps.isOnline, this.props.isOnline) &&
+      Immutable.is(nextProps.item, this.props.item)
+    );
+  }
 
   render() {
     const offline = this.props.isOnline ? '' : 'people-item_offline';
 
     const unreadCounter = (() => {
-      if (this.props.item.unreadMessagesCount) {
+      if (this.props.item.get('unreadMessagesCount')) {
         return (
           <span className='threads-list__unreaded-messages'>
-            {this.props.item.unreadMessagesCount}
+            {this.props.item.get('unreadMessagesCount')}
           </span>
         );
       }
@@ -23,7 +31,7 @@ export default class PeopleItem extends React.Component {
     return (
       <div className={'people-item ' + offline}>
         <span className='people-item__avatar'></span>
-        {this.props.item.nick}
+        {this.props.item.get('nick')}
         {unreadCounter}
       </div>
     );

@@ -1,13 +1,22 @@
 import React, {PropTypes} from 'react';
+import Immutable, {List, Map} from 'immutable';
 import Message from 'components/Message';
 import './styles.scss';
 
 export default class MessageList extends React.Component {
 
   static propTypes = {
-    messages: PropTypes.array.isRequired,
+    messages: PropTypes.instanceOf(List).isRequired,
     scroll: PropTypes.func.isRequired,
-    local: PropTypes.object.isRequired,
+    local: PropTypes.instanceOf(Map).isRequired,
+  }
+
+
+  shouldComponentUpdate(nextProps) {
+    return  !(
+      Immutable.is(nextProps.messages, this.props.messages) &&
+      Immutable.is(nextProps.local, this.props.local)
+    );
   }
 
 
@@ -21,9 +30,9 @@ export default class MessageList extends React.Component {
       return (
         <Message
           key={i}
-          sender={message.sender}
-          text={message.text}
-          currentUserId={local.userId}
+          sender={message.get('sender')}
+          text={message.get('text')}
+          currentUserId={local.get('userId')}
         />
       );
     });
