@@ -44,7 +44,7 @@ if (isMongoConnect === 'yes') {
   createTestCollections();
 }
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../app/root.html'));
 });
 

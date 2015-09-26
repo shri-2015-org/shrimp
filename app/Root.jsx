@@ -1,7 +1,9 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import App from 'App';
+import {ReduxRouter} from 'redux-router';
 import store from 'store';
+import routes from 'routes';
+
 
 export default class Root extends React.Component {
 
@@ -21,7 +23,7 @@ export default class Root extends React.Component {
     return (
       <div>
         <Provider store={store}>
-          {() => <App dispatch={store.dispatch} />}
+          {() => <ReduxRouter routes={routes} />}
         </Provider>
         {devTools}
       </div>
