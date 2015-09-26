@@ -1,23 +1,26 @@
 import Server from 'socket.io';
-import getInitState from './initial-state.js';
-// const debug = require('debug')('shrimp:server');
+import getInitState from './initial-state';
 import getMessageModel from './models/message';
+import {SC, CS} from '../constants';
+// const debug = require('debug')('shrimp:server');
 const Message = getMessageModel();
 
 export default function startSocketServer(http) {
   const io = new Server(http);
 
-  io.on('connection', (socket) => {
-    getInitState().then((initState) => {
-      socket.emit('INIT', initState);
+  io.on('connection', socket => {
+    getInitState().then(initState => {
+      socket.emit(SC.INIT, initState);
     });
-    socket.on('NEW_MESSAGE', (data) => {
+
+    socket.on(CS.ADD_MESSAGE, data => {
       Message.add(data, (err, result) => {
-        io.sockets.emit('ADD_MESSAGE', result.toObject());
+        io.sockets.emit(SC.ADD_MESSAGE, result.toObject());
       });
     });
-    socket.on('NEW_CHANNEL', (data) => {
-      io.sockets.emit('ADD_CHANNEL', {id: 0, name: data.text});
+
+    socket.on(CS.ADD_CHANNEL, data => {
+      io.sockets.emit(SC.ADD_CHANNEL, {id: 0, name: data.text});
     });
   });
 }

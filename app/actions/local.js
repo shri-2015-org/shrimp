@@ -1,6 +1,8 @@
+import {A} from '../../constants';
+
 export function setLocalState(state) {
   return {
-    type: 'SET_LOCAL_STATE',
+    type: A.SET_LOCAL_STATE,
     payload: state,
   };
 }
@@ -8,7 +10,7 @@ export function setLocalState(state) {
 
 export function setCurrentChannel(channelId) {
   return {
-    type: 'SET_CURRENT_CHANNEL',
+    type: A.SET_CURRENT_CHANNEL,
     payload: channelId,
   };
 }
@@ -16,7 +18,7 @@ export function setCurrentChannel(channelId) {
 
 export function init(data) {
   return {
-    type: 'INIT',
+    type: A.INIT,
     payload: data,
   };
 }

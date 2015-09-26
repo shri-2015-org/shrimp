@@ -1,7 +1,7 @@
 import {compose, createStore, applyMiddleware} from 'redux';
 import {devTools, persistState} from 'redux-devtools';
-import {appReducer} from './reducers/app_reducer';
-import {socket} from './core/socket';
+import {appReducer} from 'reducers/app_reducer';
+import {socket} from 'core/socket';
 
 const middleware = () => next => action => {
   if (action.send) {
