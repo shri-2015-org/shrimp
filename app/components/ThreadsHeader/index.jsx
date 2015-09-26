@@ -10,6 +10,9 @@ export default class ThreadsHeader extends React.Component {
     changeTab: React.PropTypes.func,
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.currentTab !== this.props.currentTab;
+  }
 
   render() {
     const tabs = this.props.tabs.map((tab, i) => (

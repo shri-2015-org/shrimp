@@ -22,6 +22,12 @@ export default class ThreadsSection extends React.Component {
     };
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return  nextProps.channels !== this.props.channels ||
+            nextProps.users !== this.props.users ||
+            nextProps.local !== this.props.local ||
+            nextState.currentTab !== this.state.currentTab;
+  }
 
   changeTab = (tabName) => {
     this.setState({

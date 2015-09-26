@@ -17,6 +17,11 @@ export default class ChannelItem extends React.Component {
     };
   }
 
+  shouldComponentUpdate(nextProps) {
+    return  nextProps.isCurrent !== this.props.isCurrent ||
+            nextProps.item !== this.props.item;
+  }
+
   setChannel = () => {
     this.props.setCurrentChannel(this.state.id);
   }

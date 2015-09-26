@@ -7,6 +7,11 @@ export default class PeopleItem extends React.Component {
     isOnline: PropTypes.bool,
   };
 
+  shouldComponentUpdate(nextProps) {
+    return  nextProps.isOnline !== this.props.isOnline ||
+            nextProps.item !== this.props.item;
+  }
+
   render() {
     const offline = this.props.isOnline ? '' : 'people-item_offline';
 
