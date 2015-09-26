@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import './styles.scss';
 import ThreadsHeader from 'components/ThreadsHeader';
 import ThreadsList from 'components/ThreadsList';
+import {List, Map} from 'immutable';
 
 
 export default class ThreadsSection extends React.Component {
@@ -32,18 +33,12 @@ export default class ThreadsSection extends React.Component {
   render() {
     const {channels, users, setCurrentChannel, local} = this.props;
 
-    const tabs = [
-      {
-        name: 'People',
-        list: users,
-      },
-      {
-        name: 'Channels',
-        list: channels,
-      },
-    ];
+    const tabs = List.of(
+      Map({ name: 'People', list: users }),
+      Map({ name: 'Channels', list: channels }),
+    );
 
-    const currentTabData = tabs.filter(tab => tab.name === this.state.currentTab)[0];
+    const currentTabData = tabs.find(tab => tab.get('name') === this.state.currentTab);
 
     return (
       <div className='threads'>
@@ -53,10 +48,10 @@ export default class ThreadsSection extends React.Component {
           changeTab={this.changeTab}
         />
         <ThreadsList
-          list={currentTabData.list}
+          list={currentTabData.get('list')}
           local={local}
           setCurrentChannel={setCurrentChannel}
-          type={currentTabData.name}
+          type={currentTabData.get('name')}
         />
 
       </div>
