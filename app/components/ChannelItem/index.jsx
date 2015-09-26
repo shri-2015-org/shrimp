@@ -20,9 +20,9 @@ export default class ChannelItem extends React.Component {
 
   shouldComponentUpdate(nextProps) {
     return  !(
-              Immutable.is(nextProps.isCurrent, this.props.isCurrent) &&
-              Immutable.is(nextProps.item, this.props.item)
-            );
+      Immutable.is(nextProps.isCurrent, this.props.isCurrent) &&
+      Immutable.is(nextProps.item, this.props.item)
+    );
   }
 
   setChannel = () => {

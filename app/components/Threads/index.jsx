@@ -24,11 +24,11 @@ export default class ThreadsSection extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return !(
-              Immutable.is(nextProps.channels, this.props.channels) &&
-              Immutable.is(nextProps.users, this.props.users) &&
-              Immutable.is(nextProps.local, this.props.local) &&
-              Immutable.is(nextState.currentTab, this.state.currentTab)
-            );
+      Immutable.is(nextProps.channels, this.props.channels) &&
+      Immutable.is(nextProps.users, this.props.users) &&
+      Immutable.is(nextProps.local, this.props.local) &&
+      Immutable.is(nextState.currentTab, this.state.currentTab)
+    );
   }
 
   changeTab = (tabName) => {

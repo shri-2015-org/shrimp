@@ -21,9 +21,9 @@ export default class MessageComposer extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return  !(
-              Immutable.is(nextProps.local, this.props.local) &&
-              Immutable.is(nextState.text, this.state.text)
-            );
+      Immutable.is(nextProps.local, this.props.local) &&
+      Immutable.is(nextState.text, this.state.text)
+    );
   }
 
   textChange = (e) => {

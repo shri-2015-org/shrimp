@@ -30,9 +30,9 @@ export default class Messages extends React.Component {
 
   shouldComponentUpdate(nextProps) {
     return !(
-              Immutable.is(nextProps.messages, this.props.messages) &&
-              Immutable.is(nextProps.local, this.props.local)
-            );
+      Immutable.is(nextProps.messages, this.props.messages) &&
+      Immutable.is(nextProps.local, this.props.local)
+    );
   }
 
   scrollToBottom = () => {

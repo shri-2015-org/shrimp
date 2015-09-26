@@ -10,9 +10,9 @@ export default class PeopleItem extends React.Component {
 
   shouldComponentUpdate(nextProps) {
     return !(
-              Immutable.is(nextProps.isOnline, this.props.isOnline) &&
-              Immutable.is(nextProps.item, this.props.item)
-            );
+      Immutable.is(nextProps.isOnline, this.props.isOnline) &&
+      Immutable.is(nextProps.item, this.props.item)
+    );
   }
 
   render() {
