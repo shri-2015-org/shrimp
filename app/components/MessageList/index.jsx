@@ -11,6 +11,12 @@ export default class MessageList extends React.Component {
   }
 
 
+  shouldComponentUpdate(nextProps) {
+    return  nextProps.messages !== this.props.messages ||
+            nextProps.local !== this.props.local;
+  }
+
+
   componentDidUpdate() {
     this.props.scroll();
   }

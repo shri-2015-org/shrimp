@@ -10,6 +10,9 @@ export default class Message extends React.Component {
     currentUserId: PropTypes.number.isRequired,
   }
 
+  shouldComponentUpdate() {
+    return  false;
+  }
 
   renderAvatar = (sender) => {
     return (

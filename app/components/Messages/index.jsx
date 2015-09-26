@@ -27,6 +27,10 @@ export default class Messages extends React.Component {
     this.baseTextareaHeight = null;
   }
 
+  shouldComponentUpdate(nextProps) {
+    return  nextProps.messages !== this.props.messages ||
+            nextProps.local !== this.props.local;
+  }
 
   scrollToBottom = () => {
     window.scrollTo(0, document.body.scrollHeight);
