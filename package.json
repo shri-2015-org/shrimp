@@ -90,6 +90,7 @@
     "react-motion": "^0.2.7",
     "react-redux": "^3.0.0",
     "react-router": "^1.0.0-rc1",
+    "react-sidebar": "^1.1.0",
     "react-textarea-autosize": "^2.5.2",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
