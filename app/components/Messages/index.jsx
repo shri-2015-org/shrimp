@@ -38,7 +38,8 @@ export default class Messages extends React.Component {
   }
 
   scrollToBottom = () => {
-    window.scrollTo(0, document.body.scrollHeight);
+    const listWrapper = this.refs.list.getDOMNode().parentElement;
+    listWrapper.scrollTop = listWrapper.scrollHeight;
   }
 
 
