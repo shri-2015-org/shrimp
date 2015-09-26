@@ -9,6 +9,7 @@ export default class MessageComposer extends React.Component {
     local: PropTypes.instanceOf(Map).isRequired,
     newMessage: PropTypes.func.isRequired,
     changePaddingBottom: PropTypes.func.isRequired,
+    docked: PropTypes.bool.isRequired,
   }
 
 
@@ -22,7 +23,8 @@ export default class MessageComposer extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     return  !(
       Immutable.is(nextProps.local, this.props.local) &&
-      Immutable.is(nextState.text, this.state.text)
+      Immutable.is(nextState.text, this.state.text) &&
+      nextProps.docked === this.props.docked
     );
   }
 
@@ -57,9 +59,9 @@ export default class MessageComposer extends React.Component {
 
 
   render() {
-    const {changePaddingBottom} = this.props;
+    const {changePaddingBottom, docked} = this.props; // temporary magin number 200px
     return (
-      <div className='composer'>
+      <div className='composer' style={{width: docked ? 'calc(100vw - 200px)' : '100vw'}}>
         <div className='composer__sender'>
           <Textarea
             value={this.state.text}

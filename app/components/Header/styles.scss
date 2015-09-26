@@ -8,3 +8,13 @@
   position: fixed;
   z-index: 10;
 }
+
+.header__humburger {
+  background: transparent;
+  outline: none;
+  border: none;
+  font-size: 30px;
+  position: absolute;
+  top: 30%;
+  left: 2%;
+}
