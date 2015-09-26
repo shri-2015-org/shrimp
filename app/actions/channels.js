@@ -1,6 +1,8 @@
+import {A} from '../../constants.js';
+
 export function addChannel(channel) {
   return {
-    type: 'ADD_CHANNEL',
+    type: A.ADD_CHANNEL,
     channel: channel,
   };
 }
@@ -8,7 +10,7 @@ export function addChannel(channel) {
 
 export function removeChannel(channelId) {
   return {
-    type: 'REMOVE_CHANNEL',
+    type: A.REMOVE_CHANNEL,
     channelId: channelId,
   };
 }

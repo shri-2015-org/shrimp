@@ -1,6 +1,8 @@
+import {A, CS} from '../../constants';
+
 export function newMessage(data) {
   return {
-    type: 'NEW_MESSAGE',
+    type: CS.ADD_MESSAGE,
     payload: data,
     send: true,
   };
@@ -8,7 +10,7 @@ export function newMessage(data) {
 
 export function addMessage(message) {
   return {
-    type: 'ADD_MESSAGE',
+    type: A.ADD_MESSAGE,
     message,
   };
 }
