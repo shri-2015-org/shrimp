@@ -5,21 +5,6 @@ import store from 'store';
 
 export default class Root extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      enableDevTools: false,
-    };
-  }
-
-
-  componentDidMount() {
-    this.setState({
-      enableDevTools: document.cookie.indexOf('enableDevTools=true') !== -1,
-    });
-  }
-
-
   render() {
     const devTools = (() => {
       if (OPTIMIZED) {
