@@ -31,7 +31,7 @@
   );
 
   @each $type, $color in $types {
-    &_#{$type}::before {
+    &_type_#{$type}::before {
       background-color: $color;
     }
   }

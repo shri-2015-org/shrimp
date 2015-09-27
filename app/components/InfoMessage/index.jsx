@@ -17,9 +17,9 @@ export default class InfoMessage extends React.Component {
       [className],
       'info-message',
       {
-        'info-message_warning': type === 'warning',
-        'info-message_error': type === 'error',
-        'info-message_success': type === 'success',
+        'info-message_type_warning': type === 'warning',
+        'info-message_type_error': type === 'error',
+        'info-message_type_success': type === 'success',
       }
     );
 
