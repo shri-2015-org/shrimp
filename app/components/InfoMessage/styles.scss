@@ -1,0 +1,38 @@
+@import '~styles/variables.scss';
+
+.info-message {
+  position: relative;
+  // display: inline-block;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 20px;
+  font-size: 1.2em;
+  line-height: 1.2em;
+
+  &__text {
+    padding-top: 6px;
+    padding-bottom: 7px;
+  }
+
+  &::before {
+    position: absolute;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background-color: $c-blue;
+    border-radius: 2px;
+    content: '';
+  }
+
+  $types: (
+    warning: $c-yellow,
+    error: $c-red,
+    success: $c-green
+  );
+
+  @each $type, $color in $types {
+    &_#{$type}::before {
+      background-color: $color;
+    }
+  }
+}
