@@ -5,10 +5,7 @@
 
   &:after {
     content: '';
-    display: block;
-    visibility: hidden;
-    font-size: 0;
+    display: table;
     clear: both;
-    height: 0;
   }
 }
