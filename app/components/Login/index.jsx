@@ -1,5 +1,4 @@
 import React from 'react';
-import cx from 'classnames';
 import InfoMessage from 'components/InfoMessage';
 import PasswordInput from 'components/PasswordInput';
 import Input from 'components/Input';
