@@ -1,17 +1,14 @@
-import React, {PropTypes} from 'react';
-import {List} from 'immutable';
+import React, {PropTypes, cloneElement} from 'react';
 import cx from 'classnames';
 import './styles.scss';
-import Tab from 'components/Tab';
 
 export default class Tabs extends React.Component {
 
   static propTypes = {
-    currentTabId: PropTypes.number.isRequired,
-    tabs: PropTypes.instanceOf(List),
+    currentTabId: PropTypes.number,
     changeTab: PropTypes.func,
     className: PropTypes.string,
-    tabClassName: PropTypes.string,
+    children: PropTypes.node.isRequired,
   }
 
   shouldComponentUpdate(nextProps) {
@@ -19,24 +16,21 @@ export default class Tabs extends React.Component {
   }
 
   render() {
-    const {className, tabClassName, currentTabId, changeTab} = this.props;
+    const {className, currentTabId, changeTab} = this.props;
+    const tabWidth = (100 / this.props.children.length) + '%';
 
-    const tabWidth = (100 / this.props.tabs.size) + '%';
-    const tabs = this.props.tabs.map((tab, i) => (
-      <Tab
-        className={tabClassName}
-        key={i}
-        id={tab.get('id')}
-        name={tab.get('name')}
-        isCurrent={(currentTabId === tab.get('id'))}
-        changeTab={changeTab}
-        width={tabWidth}
-      />
-    ));
+    const children = this.props.children.map((tabElement, i) => {
+      return cloneElement(tabElement, {
+        isCurrent: currentTabId === tabElement.props.id,
+        width: tabWidth,
+        key: i,
+        changeTab,
+      });
+    });
 
     return (
       <div className={cx('tabs', {[className]: !!className})}>
-        {tabs}
+        {children}
       </div>
     );
   }

@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import Immutable, {List, Map} from 'immutable';
 import './styles.scss';
 import Tabs from 'components/Tabs';
+import Tab from 'components/Tab';
 import ThreadsList from 'components/ThreadsList';
 
 
@@ -71,10 +72,12 @@ export default class ThreadsSection extends React.Component {
     return (
       <div className='threads'>
         <Tabs
-          tabs={tabs}
           currentTabId={this.state.currentTabId}
           changeTab={this.changeTab}
-        />
+        >
+          <Tab id={1} name='People' />
+          <Tab id={2} name='Channels' />
+        </Tabs>
         <ThreadsList
           list={currentTabData.get('list')}
           local={local}
