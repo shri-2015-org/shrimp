@@ -9,7 +9,9 @@ export default class Login extends React.Component {
   render() {
     return (
       <div>
-        <InfoMessage status='info' text='some text' />
+        <InfoMessage
+          className='login__info-message'
+        >Enter your login and password</InfoMessage>
       </div>
     );
   }
