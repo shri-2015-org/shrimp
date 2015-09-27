@@ -27,8 +27,7 @@ export default class Tab extends React.Component {
   }
 
 
-  changeTab = (e) => {
-    e.preventDefault();
+  changeTab = () => {
     this.props.changeTab(this.props.id);
   }
 
