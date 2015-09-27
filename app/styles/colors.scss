@@ -32,11 +32,15 @@ $main-border-radius: 5px;
 
 
 // Tabs
+$c-highlight: $c-blue;
 $c-tab_bg: $c-gray-40;
 $c-tab_text: $c-gray-60;
-$c-active-tab_bg: $c-gray-30;
+$c-current-tab_bg: $c-gray-30;
+$c-current-tab_text: white;
+$c-hover-tab_bg: $c-gray-30;
+$c-hover-tab_text: $c-gray-70;
+$c-active-tab_bg: $c-gray-20;
 $c-active-tab_text: white;
-$c-highlight: $c-blue;
 
 
 // Login page
