@@ -24,7 +24,7 @@ export default class LoginPage extends React.Component {
     const elastic = [120, 11];
     const endRectStyle = {
       y: {
-        val: this.state.open ? 50 : -15,
+        val: this.state.open ? 50 : -30,
         config: elastic,
       },
     };
