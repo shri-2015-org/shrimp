@@ -1,7 +1,7 @@
 import React from 'react';
 import {Spring} from 'react-motion';
-import {List, Map} from 'immutable';
 import Tabs from 'components/Tabs';
+import Tab from 'components/Tab';
 import './styles.scss';
 
 
@@ -23,11 +23,6 @@ export default class LoginWindow extends React.Component {
 
 
   render() {
-    const tabs = List.of(
-      Map({id: 1, name: 'Log In'}),
-      Map({id: 2, name: 'Sign Up'}),
-    );
-
     const getLoginWindow = (interpolated) => (
       <div
         className='login-window'
@@ -35,11 +30,12 @@ export default class LoginWindow extends React.Component {
       >
         <Tabs
           className='login-window__tabs'
-          tabClassName='login-window__tab'
-          tabs={tabs}
           currentTabId={this.state.currentTabId}
           changeTab={this.changeTab}
-        />
+        >
+          <Tab id={1} name='Log In' />
+          <Tab id={2} name='Sign Up' />
+        </Tabs>
       </div>
     );
 
