@@ -1,0 +1,12 @@
+@import '~styles/variables.scss';
+
+.input {
+  width: 100%;
+  line-height: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background: $c-gray-20;
+  border: 1px solid $c-gray-50;
+  border-radius: $main-border-radius;
+  outline: none;
+}
