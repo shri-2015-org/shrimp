@@ -1,4 +1,5 @@
 @import '~styles/variables.scss';
+@import '~styles/mixins.scss';
 
 .input {
   width: 100%;
@@ -15,5 +16,9 @@
   &:focus {
     border: 1px solid $c-blue;
     box-shadow: 0 0 5px transparentize($c-blue, .5);
+  }
+
+  @include placeholder {
+    color: $c-gray-50;
   }
 }

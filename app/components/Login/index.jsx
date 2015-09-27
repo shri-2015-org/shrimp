@@ -20,7 +20,7 @@ export default class Login extends React.Component {
         <InfoMessage
           className='login__info-message'
         >Enter your login and password</InfoMessage>
-        <Input className='login__input' placeholder='login' />
+        <Input className='login__input' placeholder='Login' />
         <PasswordInput className='login__input' />
         <Button
           className='login__submit-button'

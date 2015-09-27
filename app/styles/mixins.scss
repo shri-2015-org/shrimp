@@ -11,3 +11,15 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content
+  }
+  &::-moz-placeholder {
+    @content
+  }
+  &:-ms-input-placeholder {
+    @content
+  }
+}

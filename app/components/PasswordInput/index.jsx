@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
+import cx from 'classnames';
 import Input from 'components/Input';
 
 import './styles.scss';
@@ -6,14 +7,20 @@ import './styles.scss';
 
 export default class PasswordInput extends Input {
 
+  static propTypes = {
+    className: PropTypes.string,
+  }
+
+
   static defaultProps = {
-    placeholder: 'password',
+    placeholder: 'Password',
   }
 
 
   render() {
+    const classes = cx('input', 'input_type_password', this.props.className);
     return (
-      <Input {...this.props} className='input_type_password' type='password' />
+      <Input {...this.props} className={classes} type='password' />
     );
   }
 }
