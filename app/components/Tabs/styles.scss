@@ -1,6 +1,8 @@
 @import '~styles/variables.scss';
 
-.threads-header {
+.tabs {
+  line-height: 40px;
+
   &:after {
     content: '';
     display: block;
