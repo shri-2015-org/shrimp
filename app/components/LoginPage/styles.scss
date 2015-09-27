@@ -17,21 +17,4 @@
     border: 10px solid $c-login-page_rect_border;
     transform: rotateZ(-10deg);
   }
-
-  &__login-window {
-    $width: 500px;
-    $height: 400px;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    margin-left: -$width / 2;
-    margin-top: -$height / 2;
-    height: $height;
-    width: $width;
-    background-color: $c-login-window_bg;
-    border: 1px solid $c-login-window_border;
-    border-radius: $main-border-radius;
-    box-shadow: 0 0 30px 2px $c-main-shadow;
-    z-index: 1;
-  }
 }

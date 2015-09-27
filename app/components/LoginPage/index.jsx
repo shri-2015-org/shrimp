@@ -1,5 +1,6 @@
 import React from 'react';
 import {Spring} from 'react-motion';
+import LoginWindow from 'components/LoginWindow';
 import './styles.scss';
 
 
@@ -21,11 +22,10 @@ export default class LoginPage extends React.Component {
 
 
   render() {
-    const elastic = [120, 11];
     const endRectStyle = {
       y: {
         val: this.state.open ? 50 : -30,
-        config: elastic,
+        config: [120, 11],
       },
     };
 
@@ -36,21 +36,9 @@ export default class LoginPage extends React.Component {
       />
     );
 
-    const getLoginWindow = (interpolated) => (
-      <div
-        className='login-page__login-window'
-        style={{transform: `scale(${interpolated.val})`}}
-      />
-    );
-
     return (
       <div className='login-page'>
-        <Spring
-          defaultValue={{val: 0}}
-          endValue={{val: this.state.showWindow ? 1 : 0, config: elastic}}
-        >
-          {interpolated => getLoginWindow(interpolated)}
-        </Spring>
+        {this.state.showWindow ? <LoginWindow /> : null}
         <Spring
           defaultValue={{ y: { val: -15 } }}
           endValue={endRectStyle}
