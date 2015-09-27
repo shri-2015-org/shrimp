@@ -9,4 +9,11 @@
   border: 1px solid $c-gray-50;
   border-radius: $main-border-radius;
   outline: none;
+  transition-property: border, box-shadow;
+  transition-duration: .3s;
+
+  &:focus {
+    border: 1px solid $c-blue;
+    box-shadow: 0 0 5px transparentize($c-blue, .5);
+  }
 }
