@@ -10,6 +10,7 @@
   margin-top: -$height / 2;
   height: $height;
   width: $width;
+  font-size: 20px;
   background-color: $c-login-window_bg;
   border: 1px solid $c-login-window_border;
   border-radius: $main-border-radius;
@@ -18,7 +19,7 @@
   z-index: 1; // highly then .login-page__rect
 
   &__tabs {
-    font-size: 22px;
+    font-size: 1.1em;
     line-height: 60px;
     border-bottom: solid 1px $c-login-window_border;
   }
