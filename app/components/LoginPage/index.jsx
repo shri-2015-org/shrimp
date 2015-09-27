@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {Spring} from 'react-motion';
 import LoginWindow from 'components/LoginWindow';
 import './styles.scss';
 
 
 export default class LoginPage extends React.Component {
+
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+  }
+
 
   constructor(props) {
     super(props);
@@ -38,7 +43,7 @@ export default class LoginPage extends React.Component {
 
     return (
       <div className='login-page'>
-        {this.state.showWindow ? <LoginWindow /> : null}
+        {this.state.showWindow ? <LoginWindow>{this.props.children}</LoginWindow> : null}
         <Spring
           defaultValue={{ y: { val: -15 } }}
           endValue={endRectStyle}
