@@ -35,7 +35,7 @@ export default class InfoMessage extends React.Component {
     }
     if (nextProps.shake !== this.props.shake) {
       this.setState({
-        shaking: this.props.shake,
+        shaking: nextProps.shake,
       });
       return true;
     }
