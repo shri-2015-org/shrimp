@@ -29,17 +29,18 @@ export default class Messages extends React.Component {
     this.baseTextareaHeight = null;
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
     return !(
       Immutable.is(nextProps.messages, this.props.messages) &&
       Immutable.is(nextProps.local, this.props.local) &&
-        nextProps.docked === this.props.docked
+        nextProps.docked === this.props.docked &&
+        nextState.listPaddingBottom === this.state.listPaddingBottom
     );
   }
 
   scrollToBottom = () => {
     const listWrapper = this.refs.list.getDOMNode().parentElement;
-    listWrapper.scrollTop = listWrapper.scrollHeight;
+    setTimeout(() => listWrapper.scrollTop = listWrapper.scrollHeight, 0);
   }
 
 
