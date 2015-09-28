@@ -3,9 +3,8 @@
 .messages {
   padding-top: $header_height;
   margin-bottom: $composer_height;
-  //padding-right: 20px;
-  padding-right: 2vw;
-  padding-left: 2vw;
+  padding-right: 2.5vw;
+  padding-left: 2.5vw;
   box-sizing: border-box;
   min-height: calc(100vh - #{$composer_height});
   min-width: calc(100vw - #{$threads_width});
