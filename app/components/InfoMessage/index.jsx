@@ -29,7 +29,8 @@ export default class InfoMessage extends React.Component {
         nextProps.type === this.props.type &&
         nextProps.shake === this.props.shake &&
         nextState.changing === this.state.changing &&
-        nextState.children === this.state.children) {
+        nextState.children === this.state.children &&
+        nextState.shaking === this.state.shaking) {
       return false;
     }
     if (nextProps.shake !== this.props.shake) {
@@ -38,7 +39,7 @@ export default class InfoMessage extends React.Component {
       });
       return true;
     }
-    if (!this.state.changing) {
+    if (!this.state.changing && nextState.shaking === this.state.shaking) {
       this.setState({
         changing: true,
       });
