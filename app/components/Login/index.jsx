@@ -16,15 +16,16 @@ export default class Login extends React.Component {
         type: 'info',
         text: 'Enter your login and password',
       },
-      shakePassword: false,
+      shakeInfo: false,
     };
   }
+
 
   auth = (e) => {
     e.preventDefault();
     if (this.state.info.type === 'error' && this.state.info.code === 1001) {
-      this.setState({shakePassword: true});
-      setTimeout(() => this.setState({shakePassword: false}), 500);
+      this.setState({shakeInfo: true});
+      setTimeout(this.setState.bind(this, {shakeInfo: false}), 500);
       return;
     }
     this.setState({
@@ -43,7 +44,7 @@ export default class Login extends React.Component {
         <InfoMessage
           className='login__info-message'
           type={this.state.info.type}
-          shake={this.state.shakePassword}
+          shake={this.state.shakeInfo}
         >{this.state.info.text}</InfoMessage>
         <Input className='login__input' placeholder='Login' />
         <PasswordInput className='login__input' />
