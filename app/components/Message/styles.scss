@@ -23,7 +23,6 @@
 
 .message__cloud_other {
   float: left;
-  left: 80px;
   background: $message_color_other;
 }
 
@@ -59,6 +58,7 @@
 .message__avatar {
   position: absolute;
   top: 50%;
+  left: -64px;
   transform: translateY(-50%);
   height: 54px;
   width: 54px;
