@@ -40,15 +40,15 @@
     left: 0;
     width: 3px;
     height: 100%;
-    background-color: $c-blue;
+    background-color: $c-info-message_info;
     border-radius: 2px;
     content: '';
   }
 
   $types: (
-    warning: $c-yellow,
-    error: $c-red,
-    success: $c-green
+    warning: $c-info-message_warning,
+    error: $c-info-message_error,
+    success: $c-info-message_success
   );
 
   @each $type, $color in $types {

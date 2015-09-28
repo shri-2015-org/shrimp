@@ -34,22 +34,23 @@ export default class Tab extends React.Component {
 
   render() {
     const {className, isCurrent, width} = this.props;
-    const tab = (
-      <div
-        className={cx('tabs__tab', {
-          'tabs__tab_active': isCurrent,
-          [className]: !!className,
-        })}
-        onClick={this.changeTab}
-        style={{width: width}}
-      >
-        {this.props.children}
-      </div>
-    );
+
+    const properties = {
+      className: cx('tabs__tab', {
+        'tabs__tab_active': isCurrent,
+        [className]: !!className,
+      }),
+      onClick: this.changeTab,
+      style: {width: width},
+    };
 
     if (this.props.link) {
-      return <Link to={this.props.link}>{tab}</Link>;
+      return (
+        <Link  {...properties} to={this.props.link}>
+          {this.props.children}
+        </Link>
+      );
     }
-    return tab;
+    return <div {...properties}>{this.props.children}</div>;
   }
 }
