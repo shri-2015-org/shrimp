@@ -1,4 +1,4 @@
-import {A} from '../../constants';
+import {A, CS} from '../../constants';
 
 export function setLocalState(state) {
   return {
@@ -20,5 +20,13 @@ export function init(data) {
   return {
     type: A.INIT,
     payload: data,
+  };
+}
+
+export function signIn(data) {
+  return {
+    type: CS.SIGN_IN,
+    payload: data,
+    send: true,
   };
 }

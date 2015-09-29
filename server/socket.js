@@ -1,9 +1,11 @@
 import Server from 'socket.io';
 import getInitState from './initial-state';
 import getMessageModel from './models/message';
+import getUserModel from './models/user';
 import {SC, CS} from '../constants';
 // const debug = require('debug')('shrimp:server');
 const Message = getMessageModel();
+const User = getUserModel();
 
 export default function startSocketServer(http) {
   const io = new Server(http);
@@ -11,6 +13,17 @@ export default function startSocketServer(http) {
   io.on('connection', socket => {
     getInitState().then(initState => {
       socket.emit(SC.INIT, initState);
+    });
+
+    socket.on(CS.SIGN_IN, data => {
+      console.log(data);
+      User.find({nick: data.login}, (err, user) => {
+        if (err) console.error(err);
+        if (user.length > 0) {
+          socket.emit(SC.SIGN_IN, user);
+        }
+        console.log(user);
+      });
     });
 
     socket.on(CS.ADD_MESSAGE, data => {

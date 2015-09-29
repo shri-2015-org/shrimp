@@ -20,4 +20,9 @@ export function startSocketClient() {
   socket.on(SC.INIT, (data) => {
     store.dispatch(init(data));
   });
+
+  socket.on(SC.SIGN_IN, (data) => {
+    console.log(data);
+    debugger;
+  });
 }

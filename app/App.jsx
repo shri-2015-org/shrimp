@@ -16,9 +16,6 @@ import Sidebar from 'react-sidebar';
 startSocketClient();
 
 @connect(state => ({
-  messages: currentChannelMessagesSelector(state),
-  channels: state.channels,
-  users: state.users,
   local: state.local,
 }))
 export default class Application extends React.Component {

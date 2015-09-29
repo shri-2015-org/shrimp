@@ -2,11 +2,13 @@ const SC = {
   ADD_MESSAGE: 'SC_ADD_MESSAGE',
   ADD_CHANNEL: 'SC_ADD_CHANNEL',
   INIT: 'SC_INIT',
+  SIGN_IN: 'SC_SIGN_IN',
 };
 
 const CS = {
   ADD_MESSAGE: 'CS_ADD_MESSAGE',
   ADD_CHANNEL: 'CS_ADD_CHANNEL',
+  SIGN_IN: 'CS_SIGN_IN',
 };
 
 const A = {
