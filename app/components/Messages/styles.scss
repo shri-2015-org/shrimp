@@ -9,4 +9,8 @@
   min-height: calc(100vh - #{$composer_height});
   min-width: calc(100vw - #{$threads_width});
   position: relative;
+
+  @media (max-width: 800px) {
+    padding-top: calc(#{$header_height} / 2);
+  }
 }

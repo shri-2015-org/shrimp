@@ -7,10 +7,9 @@
   background-color: $header_color;
   position: fixed;
   z-index: 10;
-}
-@media (max-width: 800px) {
-  .header {
-    height: calc(#{$header_height}/2);
+
+  @media (max-width: 800px) {
+    height: calc(#{$header_height} / 2);
   }
 }
 
@@ -20,6 +19,7 @@
   border: none;
   font-size: 30px;
   position: absolute;
-  top: 30%;
+  top: 50%;
+  transform: translateY(-50%);
   left: 2%;
 }
