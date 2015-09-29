@@ -16,31 +16,26 @@ export default function startSocketServer(http) {
     });
 
     socket.on(CS.SIGN_IN, data => {
-      console.log(data);
       User.find({nick: data.login}, (err, user) => {
-        if (err) console.error(err);
-
         if (user.length > 0) {
-          let data = {
+          const userData = {
             data: user[0],
             status: {
               type: 'success',
               text: 'Welcome',
             },
           };
-
-          socket.emit(SC.SIGN_IN, { user: data });
+          socket.emit(SC.SIGN_IN, { user: userData });
         } else {
-          let data = {
+          const userData = {
             data: '',
             status: {
               type: 'error',
               text: 'Something wrong',
             },
           };
-          socket.emit(SC.SIGN_IN, { user: data });
+          socket.emit(SC.SIGN_IN, { user: userData });
         }
-        console.log(user);
       });
     });
 
