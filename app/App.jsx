@@ -43,7 +43,7 @@ export default class Application extends React.Component {
   componentWillMount = () => {
     const mql = window.matchMedia('(min-width: 800px)');
     mql.addListener(this.mediaQueryChanged);
-    this.setState({mql: mql, docked: mql.matches});
+    this.setState({mql: mql, sidebarDocked: mql.matches, sidebarOpen: mql.matches});
   }
 
 
@@ -58,7 +58,7 @@ export default class Application extends React.Component {
 
 
   mediaQueryChanged = () => {
-    this.setState({sidebarDocked: this.state.mql.matches});
+    this.setState({sidebarDocked: this.state.mql.matches, sidebarOpen: this.state.mql.matches});
   }
 
 
