@@ -2,17 +2,12 @@ import React from 'react';
 import * as actionsLocal from 'actions/local';
 import {bindActionCreators} from 'redux';
 import store from 'store';
-import {connect} from 'react-redux';
 import InfoMessage from 'components/InfoMessage';
 import PasswordInput from 'components/PasswordInput';
 import Input from 'components/Input';
 import Button from 'components/Button';
 
 import './styles.scss';
-
-@connect(state => ({
-  local: state.local,
-}))
 
 export default class Login extends React.Component {
 
@@ -62,7 +57,6 @@ export default class Login extends React.Component {
 
 
   render() {
-    const {local} = this.props;
     this.state.actions = bindActionCreators(actionsLocal, store.dispatch);
 
     return (
