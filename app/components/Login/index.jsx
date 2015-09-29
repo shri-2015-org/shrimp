@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import * as actionsLocal from 'actions/local';
 import {bindActionCreators} from 'redux';
 import store from 'store';
+import {connect} from 'react-redux';
+import Immutable, {Map} from 'immutable';
 import InfoMessage from 'components/InfoMessage';
 import PasswordInput from 'components/PasswordInput';
 import Input from 'components/Input';
@@ -9,7 +11,15 @@ import Button from 'components/Button';
 
 import './styles.scss';
 
+
+@connect(state => ({
+  local: state.local,
+}))
+
 export default class Login extends React.Component {
+  static propTypes = {
+    local: PropTypes.instanceOf(Map).isRequired,
+  }
 
   constructor(props) {
     super(props);
@@ -20,6 +30,30 @@ export default class Login extends React.Component {
       },
       shakeInfo: false,
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!Immutable.is(nextProps.local, this.props.local)) {
+      const user = nextProps.local.get('user');
+      if (user && user.status) {
+        if (user.status.text === this.state.info.text && user.status.type === this.state.info.type) {
+          this.setState({shakeInfo: true});
+          setTimeout(this.setState.bind(this, {shakeInfo: false}), 500);
+        } else {
+          this.setState({
+            info: {
+              type: user.status.type,
+              text: user.status.text,
+            },
+          });
+        }
+      }
+    }
+  }
+
+
+  shouldComponentUpdate() {
+    return true;
   }
 
 
@@ -50,7 +84,6 @@ export default class Login extends React.Component {
       login: e.target[0].value,
       password: e.target[1].value,
     };
-    debugger;
     this.state.actions.signIn(authData);
     return;
   }

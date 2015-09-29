@@ -8,7 +8,6 @@ import createHistory from 'history/lib/createBrowserHistory';
 
 
 const middleware = () => next => action => {
-  debugger;
   if (action.send) {
     socket.emit(action.type, action.payload);
   }

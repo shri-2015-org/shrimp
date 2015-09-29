@@ -17,6 +17,7 @@ const A = {
   SET_LOCAL_STATE: 'SET_LOCAL_STATE',
   SET_CURRENT_CHANNEL: 'SET_CURRENT_CHANNEL',
   INIT: 'INIT',
+  INIT_USER: 'INIT_USER',
 };
 
 module.exports = {

@@ -30,3 +30,10 @@ export function signIn(data) {
     send: true,
   };
 }
+
+export function initUser(data) {
+  return {
+    type: A.INIT_USER,
+    payload: data,
+  };
+}
