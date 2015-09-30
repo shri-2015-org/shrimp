@@ -6,5 +6,8 @@
   height: 100vh;
   color: #aeaeae;
   background-color: $c-gray-30;
-  position: fixed;
+
+  @media (max-width: 800px) {
+    padding-top: calc(#{$header_height} / 2);
+  }
 }

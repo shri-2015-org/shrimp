@@ -11,6 +11,7 @@ export default class Messages extends React.Component {
     messages: PropTypes.instanceOf(List).isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
     newMessage: PropTypes.func.isRequired,
+    docked: PropTypes.bool.isRequired,
   }
 
 
@@ -28,15 +29,18 @@ export default class Messages extends React.Component {
     this.baseTextareaHeight = null;
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
     return !(
       Immutable.is(nextProps.messages, this.props.messages) &&
-      Immutable.is(nextProps.local, this.props.local)
+      Immutable.is(nextProps.local, this.props.local) &&
+        nextProps.docked === this.props.docked &&
+        nextState.listPaddingBottom === this.state.listPaddingBottom
     );
   }
 
   scrollToBottom = () => {
-    window.scrollTo(0, document.body.scrollHeight);
+    const listWrapper = this.refs.list.getDOMNode().parentElement;
+    setTimeout(() => listWrapper.scrollTop = listWrapper.scrollHeight, 0);
   }
 
 
@@ -52,7 +56,7 @@ export default class Messages extends React.Component {
 
 
   render() {
-    const {messages, local, newMessage} = this.props;
+    const {messages, local, newMessage, docked} = this.props;
     return (
       <div
         className='messages'
@@ -65,6 +69,7 @@ export default class Messages extends React.Component {
           local={local}
         />
         <MessageComposer
+          docked={docked}
           local={local}
           newMessage={newMessage}
           changePaddingBottom={this.changePaddingBottom}

@@ -2,10 +2,15 @@
 
 .messages {
   padding-top: $header_height;
-  padding-left: $threads_width;
   margin-bottom: $composer_height;
-  padding-right: 20px;
+  padding-right: 2.5vw;
+  padding-left: 2.5vw;
   box-sizing: border-box;
   min-height: calc(100vh - #{$composer_height});
-  min-width: 100vw;
+  min-width: calc(100vw - #{$threads_width});
+  position: relative;
+
+  @media (max-width: 800px) {
+    padding-top: calc(#{$header_height} / 2);
+  }
 }

@@ -23,7 +23,6 @@
 
 .message__cloud_other {
   float: left;
-  left: 80px;
   background: $message_color_other;
 }
 
@@ -49,19 +48,27 @@
 }
 
 .message__text {
+  max-height: 400px;
   display: inline-block;
   font-size: 16px;
   line-height: 18px;
   white-space: pre-line;
   vertical-align: middle;
+  word-break: break-word;
+  word-wrap: break-word;
 }
 
 .message__avatar {
   position: absolute;
   top: 50%;
+  left: -64px;
   transform: translateY(-50%);
   height: 54px;
   width: 54px;
   border-radius: 5px;
   border: 2px solid $composer_border_color;
+}
+
+.message_img {
+  border-radius: 3.5px;
 }
