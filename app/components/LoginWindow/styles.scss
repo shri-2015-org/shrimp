@@ -1,0 +1,25 @@
+@import '~styles/variables.scss';
+
+.login-window {
+  $width: 500px;
+  $height: 400px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -$width / 2;
+  margin-top: -$height / 2;
+  width: $width;
+  font-size: 20px;
+  background-color: $c-login-window_bg;
+  border: 1px solid $c-login-window_border;
+  border-radius: $main-border-radius;
+  box-shadow: 0 0 30px 2px $c-main-shadow;
+  overflow: hidden;
+  z-index: 1; // highly then .login-page__rect
+
+  &__tabs {
+    font-size: 1.1em;
+    line-height: 60px;
+    border-bottom: solid 1px $c-login-window_border;
+  }
+}

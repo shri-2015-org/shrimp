@@ -1,0 +1,20 @@
+@import '~styles/variables.scss';
+
+.login-page {
+  background-image: url(galaxy_wide.jpg);
+  background-size: cover;
+  height: 100vh;
+
+  &__rect {
+    position: fixed;
+    top: -30%;
+    left: -50%;
+    margin-left: -100%;
+    // We need +100px because we can see two borders when page height very small
+    height: calc(400% + 100px);
+    width: calc(400% + 100px);
+    background-color: $c-login-page_rect_bg;
+    border: 10px solid $c-login-page_rect_border;
+    transform: rotateZ(-10deg);
+  }
+}

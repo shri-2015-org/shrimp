@@ -1,0 +1,63 @@
+@import '~styles/variables.scss';
+
+@keyframes shake {
+  8%,
+  41% {
+    transform: translateX(-10px);
+  }
+  25%,
+  58% {
+    transform: translateX(10px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  92% {
+    transform: translateX(5px);
+  }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.info-message {
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 20px;
+  font-size: 1.2em;
+  line-height: 1.2em;
+  overflow: hidden;
+
+  &__text {
+    padding-top: 6px;
+    padding-bottom: 7px;
+  }
+
+  &::before {
+    position: absolute;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background-color: $c-info-message_info;
+    border-radius: 2px;
+    content: '';
+  }
+
+  $types: (
+    warning: $c-info-message_warning,
+    error: $c-info-message_error,
+    success: $c-info-message_success
+  );
+
+  @each $type, $color in $types {
+    &_type_#{$type}::before {
+      background-color: $color;
+    }
+  }
+
+  &_shake {
+    animation: shake .6s linear infinite;
+  }
+}

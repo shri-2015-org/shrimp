@@ -1,0 +1,24 @@
+@import '~styles/variables.scss';
+@import '~styles/mixins.scss';
+
+.input {
+  width: 100%;
+  line-height: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background: $c-input_bg;
+  border: 1px solid $c-input_border;
+  border-radius: $main-border-radius;
+  outline: none;
+  transition-property: border, box-shadow;
+  transition-duration: .3s;
+
+  &:focus {
+    border: 1px solid $c-input_focus;
+    box-shadow: 0 0 5px transparentize($c-input_focus, .5);
+  }
+
+  @include placeholder {
+    color: $c-input_placeholder;
+  }
+}

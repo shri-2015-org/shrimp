@@ -10,6 +10,12 @@
   box-shadow: inset 0 0 0 $c-highlight;
   transition-property: color, background, box-shadow;
   transition-duration: .4s, .4s, .1s;
+  text-decoration: none;
+
+  &:focus {
+    background-color: $c-active-tab_bg;
+    outline-style: none;
+  }
 
   &_active {
     cursor: default;
@@ -26,5 +32,6 @@
     box-shadow: inset 0 7px 0 $c-highlight;
     background-color: $c-active-tab_bg;
     color: $c-active-tab_text;
+    animation: activate .5s;
   }
 }
