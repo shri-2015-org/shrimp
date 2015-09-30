@@ -11,9 +11,7 @@ export default class Message extends React.Component {
     currentUserId: PropTypes.string.isRequired,
   }
 
-  shouldComponentUpdate() {
-    return  false;
-  }
+  shouldComponentUpdate = () => true
 
   renderAvatar = (sender) => {
     return (

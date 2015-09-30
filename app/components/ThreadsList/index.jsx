@@ -9,6 +9,8 @@ export default class ThreadsList extends React.Component {
   static propTypes = {
     list: PropTypes.instanceOf(List),
     setCurrentChannel: PropTypes.func.isRequired,
+    setCurrentDirectChannel: PropTypes.func.isRequired,
+    isCurrentDirectChannel: PropTypes.func.isRequired,
     type: PropTypes.string,
     local: PropTypes.instanceOf(Map).isRequired,
   };
@@ -29,7 +31,13 @@ export default class ThreadsList extends React.Component {
 
       case 'People':
         return this.props.list.map((listItem, index) => (
-          <PeopleItem item={listItem} key={index} />
+          <PeopleItem
+            item={listItem}
+            key={index}
+            currentChannelId={this.props.local.get('currentChannelId')}
+            isCurrent={this.props.isCurrentDirectChannel(listItem.get('id'))}
+            setCurrentDirectChannel={this.props.setCurrentDirectChannel}
+          />
         ));
 
       default:

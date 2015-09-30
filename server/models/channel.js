@@ -5,6 +5,8 @@ import {isEmpty, getAll, getToObjectOptions} from './utils';
 const channel = new mongoose.Schema({
   name: String,
   isFavourite: Boolean,
+  isDirect: Boolean,
+  userIds: Array,
 });
 
 channel.statics.getAll = getAll;
@@ -15,6 +17,13 @@ channel.statics.createTestChannel = function createTestChannel() {
   return new this({
     name: faker.hacker.noun(),
     isFavourite: faker.random.boolean(),
+  });
+};
+
+channel.statics.createDirectChannel = function createDirectChannel(userIds) {
+  return new this({
+    isDirect: true,
+    userIds: userIds,
   });
 };
 
