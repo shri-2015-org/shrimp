@@ -70,19 +70,14 @@ export default class Application extends React.Component {
     const {messages, channels, indirectChannels, users, local, dispatch} = this.props;
     const actionsCombine = Object.assign(actionsMessages, actionsLocal, actionsChannels);
     const actions = bindActionCreators(actionsCombine, dispatch);
-    const threads = <Threads channels={channels} users={users} local={local} {...actions}/>;
+    const threads = <Threads channels={channels} indirectChannels={indirectChannels} users={users} local={local} {...actions}/>;
     return (
       <div className='chat-page'>
-<<<<<<< HEAD
-        <Header />
-        <Threads channels={channels} indirectChannels={indirectChannels} users={users} local={local} {...actions}/>
-        <Messages messages={messages} local={local} {...actions} />
-=======
         <Header
           setOpen={this.onSetSidebarOpen}
           open={this.state.sidebarOpen}
           docked={this.state.sidebarDocked}
-          />
+        />
         <Sidebar
           sidebar={threads}
           open={this.state.sidebarOpen}
@@ -96,7 +91,6 @@ export default class Application extends React.Component {
             {...actions}
           />
         </Sidebar>
->>>>>>> feat(components): added sidebar for mobile version
       </div>
     );
   }
