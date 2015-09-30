@@ -9,6 +9,7 @@ export default class ThreadsSection extends React.Component {
 
   static propTypes = {
     channels: PropTypes.instanceOf(List).isRequired,
+    indirectChannels: PropTypes.instanceOf(List).isRequired,
     users: PropTypes.instanceOf(List).isRequired,
     setCurrentChannel: PropTypes.func.isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
@@ -31,19 +32,38 @@ export default class ThreadsSection extends React.Component {
     );
   }
 
+  getDirectChannelByUserId = (userId) =>
+    this.props.channels
+      .find(c => c.get('isDirect') && c.get('userIds') && c.get('userIds').includes(userId))
+
+  setCurrentDirectChannel = (userId) => {
+    const directChannel = this.getDirectChannelByUserId(userId);
+
+    if (!directChannel) {
+      // todo: add new direct channel
+      return;
+    }
+
+    this.props.setCurrentChannel(directChannel.get('id'));
+  }
+
   changeTab = (tabName) => {
     this.setState({
       currentTab: tabName,
     });
-  };
+  }
 
+  isCurrentDirectChannel = (userId) => {
+    const directChannel = this.getDirectChannelByUserId(userId);
+    return directChannel && this.props.local.get('currentChannelId') === directChannel.get('id');
+  }
 
   render() {
-    const {channels, users, setCurrentChannel, local} = this.props;
+    const {indirectChannels, users, setCurrentChannel, local} = this.props;
 
     const tabs = List.of(
       Map({ name: 'People', list: users }),
-      Map({ name: 'Channels', list: channels }),
+      Map({ name: 'Channels', list: indirectChannels }),
     );
 
     const currentTabData = tabs.find(tab => tab.get('name') === this.state.currentTab);
@@ -59,6 +79,8 @@ export default class ThreadsSection extends React.Component {
           list={currentTabData.get('list')}
           local={local}
           setCurrentChannel={setCurrentChannel}
+          setCurrentDirectChannel={this.setCurrentDirectChannel}
+          isCurrentDirectChannel={this.isCurrentDirectChannel}
           type={currentTabData.get('name')}
         />
 
