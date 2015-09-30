@@ -17,4 +17,8 @@ const A = {
   INIT: 'INIT',
 };
 
-module.exports = {SC, CS, A};
+module.exports = {
+  SC: SC,
+  CS: CS,
+  A: A,
+};

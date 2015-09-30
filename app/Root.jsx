@@ -15,7 +15,11 @@ export default class Root extends React.Component {
       const { DevTools, DebugPanel, LogMonitor } = require('redux-devtools/lib/react');
       return (
         <DebugPanel top right bottom>
-          <DevTools store={store} monitor={LogMonitor} />
+          <DevTools
+            store={store}
+            monitor={LogMonitor}
+            visibleOnLoad={document.cookie.indexOf('enableDevTools=true') !== -1}
+          />
         </DebugPanel>
       );
     }());
