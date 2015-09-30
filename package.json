@@ -4,7 +4,7 @@
   "description": "chat",
   "main": "index.js",
   "engines": {
-    "node": "4.0.x"
+    "node": ">=4.0.0"
   },
   "scripts": {
     "lint-ci": "./node_modules/.bin/eslint --ext .js --ext .jsx app/ server/",
@@ -19,7 +19,32 @@
     "dev-server": "npm run compile; NODE_ENV=development DEBUG=shrimp:server MONGO_CONNECT=yes NODE_PATH=./node_modules:./app nodemon --exec babel-node server/server",
     "start": "npm run compile; NODE_ENV=production MONGO_CONNECT=no NODE_PATH=./node_modules:./app babel-node server/server"
   },
-  "author": "Samoilow Maxim <nitive@icloud.com>",
+  "contributors": [
+    {
+      "name": "Olga Likhacheva",
+      "email": "gaechka.mouse@gmail.com"
+    },
+    {
+      "name": "Dmitri Pisarev",
+      "email": "dimaip@gmail.com"
+    },
+    {
+      "name": "Roman Fedorenkov",
+      "email": "suffering123494@yandex.ru"
+    },
+    {
+      "name": "Sergey Timoshkin",
+      "email": "faraser2@gmail.com"
+    },
+    {
+      "name": "Vladislav Dubov",
+      "email": "dubov.web@gmail.com"
+    },
+    {
+      "name": "Samoilow Maxim",
+      "email": "gaechka.mouse@gmail.com"
+    }
+  ],
   "license": "MIT",
   "devDependencies": {
     "babel-eslint": "^4.1.3",
