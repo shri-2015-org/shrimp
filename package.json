@@ -19,7 +19,6 @@
     "dev-server": "npm run compile; NODE_ENV=development DEBUG=shrimp:server MONGO_CONNECT=yes NODE_PATH=./node_modules:./app nodemon --exec babel-node server/server",
     "start": "npm run compile; NODE_ENV=production MONGO_CONNECT=no NODE_PATH=./node_modules:./app babel-node server/server"
   },
-  "author": "Samoilow Maxim <nitive@icloud.com>",
   "contributors": [
     {
       "name": "Olga Likhacheva",
@@ -40,6 +39,10 @@
     {
       "name": "Vladislav Dubov",
       "email": "dubov.web@gmail.com"
+    },
+    {
+      "name": "Samoilow Maxim",
+      "email": "gaechka.mouse@gmail.com"
     }
   ],
   "license": "MIT",
