@@ -107,8 +107,19 @@ export function dropCollections() {
   }
 }
 
+function createDirectChannels(idsUsers) {
+  Channel.count({ isDirect: true })
+    .then(count => {
+      if (count > 0) return;
+
+      const [firstId, ...ids] = idsUsers;
+      ids.map(id => Channel.createDirectChannel([firstId, id]).save());
+    });
+}
+
 export function createTestCollections() {
-  Promise.all([createTestChannels(5), createTestUsers(5)]).then((results) => {
-    createTestMessages(50, results[0], results[1]);
+  Promise.all([createTestChannels(5), createTestUsers(5)]).then(([channels, users]) => {
+    createTestMessages(50, channels, users);
+    createDirectChannels(users);
   });
 }

@@ -1,3 +1,5 @@
+@import '~styles/variables.scss';
+
 .people-item {
   height: 48px;
   line-height: 48px;
@@ -6,6 +8,17 @@
   padding-left: 50px;
   font-size: 20px;
   padding-right: 33px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    display: block;
+    background: transparent;
+    left: 0;
+  }
+
   &__avatar {
     position: absolute;
     width: 30px;
@@ -14,5 +27,13 @@
     top: 50%;
     margin-top: -15px;
     left: 10px;
+  }
+  &_active {
+    cursor: default;
+    color: #fff;
+
+    &:before {
+      background: $blue_color;
+    }
   }
 }
