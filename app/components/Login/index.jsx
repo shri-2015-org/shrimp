@@ -34,6 +34,7 @@ export default class Login extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (!Immutable.is(nextProps.local, this.props.local)) {
+      debugger;
       const user = nextProps.local.get('user');
       if (user && user.status) {
         if (user.status.text === this.state.info.text && user.status.type === this.state.info.type) {
@@ -56,29 +57,7 @@ export default class Login extends React.Component {
     return true;
   }
 
-
-  // auth = (e) => {
-  //   //e.preventDefault();
-  //   if (this.state.info.type === 'error' && this.state.info.code === 1001) {
-  //     this.setState({shakeInfo: true});
-  //     setTimeout(this.setState.bind(this, {shakeInfo: false}), 500);
-  //     return;
-  //   }
-  //   this.setState({
-  //     info: {
-  //       code: 1001,
-  //       type: 'error',
-  //       text: 'Wrong pass',
-  //     },
-  //     actions: {},
-  //     // data: {
-  //     //   login: '',
-  //     //   password: '',
-  //     // },
-  //   });
-  // }
-
-  handleSubmit = (e) => {
+  auth = (e) => {
     e.preventDefault();
     const authData = {
       login: e.target[0].value,
@@ -93,7 +72,7 @@ export default class Login extends React.Component {
     this.state.actions = bindActionCreators(actionsLocal, store.dispatch);
 
     return (
-      <form className='login' onSubmit={this.handleSubmit}>
+      <form className='login' onSubmit={this.auth}>
         <InfoMessage
           className='login__info-message'
           type={this.state.info.type}
@@ -104,7 +83,6 @@ export default class Login extends React.Component {
         <Button
           className='login__submit-button'
           type='submit'
-          /* onClick={this.auth} */
         >Log In</Button>
       </form>
     );
