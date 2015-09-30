@@ -1,0 +1,50 @@
+$c-gray-10: #0e0e0e;
+$c-gray-20: #1b1e20;
+$c-gray-30: #202528;
+$c-gray-40: #272c30;
+$c-gray-50: #363e41;
+$c-gray-60: #6e757b;
+$c-gray-70: #a7b1ba;
+$c-blue: #00b0e0;
+$c-yellow: #e8df63;
+$c-red: #e92536;
+$c-green: #00d742;
+$c-shadow: transparentize(#0e0e0e, .5);
+
+
+// TODO: refactor this. Issue #112
+$blue_color: $c-blue;
+$header_color: $c-gray-50;
+$main_color: $c-gray-40;
+$composer_border_color: #32393c;
+$composer_sender_color: $c-gray-30;
+$composer_button-text-color: $c-blue;
+$font_color: white;
+$message_color_default: $c-blue;
+$message_color_other: $c-green;
+$attention_color: $c-red;
+
+
+
+// global
+$c-main-shadow: $c-shadow;
+$main-border-radius: 5px;
+
+
+// Tabs
+$c-highlight: $c-blue;
+$c-tab_bg: $c-gray-40;
+$c-tab_text: $c-gray-60;
+$c-current-tab_bg: $c-gray-30;
+$c-current-tab_text: white;
+$c-hover-tab_bg: $c-gray-30;
+$c-hover-tab_text: $c-gray-70;
+$c-active-tab_bg: $c-gray-20;
+$c-active-tab_text: white;
+
+
+// Login page
+$c-login-page_rect_bg: $c-gray-20;
+$c-login-page_rect_border: $c-blue;
+$c-login-window_bg: $c-gray-30;
+$c-login-window_border: $c-gray-50;

@@ -1,7 +1,8 @@
 import React, {PropTypes} from 'react';
 import Immutable, {List, Map} from 'immutable';
 import './styles.scss';
-import ThreadsHeader from 'components/ThreadsHeader';
+import Tabs from 'components/Tabs';
+import Tab from 'components/Tab';
 import ThreadsList from 'components/ThreadsList';
 
 
@@ -18,7 +19,7 @@ export default class ThreadsSection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentTab: 'Channels',
+      currentTabId: 1,
     };
   }
 
@@ -27,13 +28,13 @@ export default class ThreadsSection extends React.Component {
       Immutable.is(nextProps.channels, this.props.channels) &&
       Immutable.is(nextProps.users, this.props.users) &&
       Immutable.is(nextProps.local, this.props.local) &&
-      Immutable.is(nextState.currentTab, this.state.currentTab)
+      Immutable.is(nextState.currentTabId, this.state.currentTabId)
     );
   }
 
-  changeTab = (tabName) => {
+  changeTab = (tabId) => {
     this.setState({
-      currentTab: tabName,
+      currentTabId: tabId,
     });
   };
 
@@ -42,19 +43,21 @@ export default class ThreadsSection extends React.Component {
     const {channels, users, setCurrentChannel, local} = this.props;
 
     const tabs = List.of(
-      Map({ name: 'People', list: users }),
-      Map({ name: 'Channels', list: channels }),
+      Map({id: 1, name: 'People', list: users }),
+      Map({id: 2, name: 'Channels', list: channels }),
     );
 
-    const currentTabData = tabs.find(tab => tab.get('name') === this.state.currentTab);
+    const currentTabData = tabs.find(tab => tab.get('id') === this.state.currentTabId);
 
     return (
       <div className='threads'>
-        <ThreadsHeader
-          tabs={tabs}
-          currentTab={this.state.currentTab}
+        <Tabs
+          currentTabId={this.state.currentTabId}
           changeTab={this.changeTab}
-        />
+        >
+          <Tab id={1}>People</Tab>
+          <Tab id={2}>Channels</Tab>
+        </Tabs>
         <ThreadsList
           list={currentTabData.get('list')}
           local={local}
