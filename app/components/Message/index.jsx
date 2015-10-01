@@ -19,7 +19,7 @@ export default class Message extends React.Component {
     return (
       <div className='message__avatar'>
         <img
-          className='message_img'
+          className='message__img'
           src={sender.get('avatar')}
           width='50'
           height='50'
