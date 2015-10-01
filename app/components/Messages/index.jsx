@@ -42,7 +42,7 @@ export default class Messages extends React.Component {
   }
 
 
-  changePaddingBottom = (height) => {
+  changeBottom = (height) => {
     if (this.baseTextareaHeight === null) {
       this.baseTextareaHeight = height;
     }
@@ -54,7 +54,7 @@ export default class Messages extends React.Component {
 
 
   render() {
-    const {messages, local, newMessage, docked} = this.props;
+    const {messages, local, newMessage} = this.props;
     return (
       <div
         className='messages'
@@ -67,10 +67,9 @@ export default class Messages extends React.Component {
           local={local}
         />
         <MessageComposer
-          docked={docked}
           local={local}
           newMessage={newMessage}
-          changePaddingBottom={this.changePaddingBottom}
+          changeBottom={this.changeBottom}
         />
       </div>
     );
