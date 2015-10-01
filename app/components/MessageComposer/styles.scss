@@ -5,6 +5,11 @@
   right: 0;
   bottom: 0;
   background: $main_color;
+  width: calc(100vw - #{$threads_width});
+
+  @media (max-width: $mobile_width) {
+    width: 100vw;
+  }
 
   &__sender {
     position: relative;

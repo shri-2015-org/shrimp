@@ -8,13 +8,12 @@
   padding-right: 2.5vw;
   padding-left: 2.5vw;
   box-sizing: border-box;
-  //min-height: calc(100vh - #{$composer_height});
   max-height: 100vh;
   overflow: auto;
   min-width: calc(100vw - #{$threads_width});
   position: absolute;
 
-  @media (max-width: 800px) {
+  @media (max-width: $mobile_width) {
     top: calc(#{$header_height} / 2);
     max-width: 100vw;
   }
