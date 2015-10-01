@@ -48,13 +48,12 @@
 }
 
 .message__text {
-  max-height: 400px;
+  max-width: 400px;
   display: inline-block;
   font-size: 16px;
   line-height: 18px;
   white-space: pre-line;
   vertical-align: middle;
-  word-break: break-word;
   word-wrap: break-word;
 }
 
@@ -69,6 +68,6 @@
   border: 2px solid $composer_border_color;
 }
 
-.message_img {
+.message__img {
   border-radius: 3.5px;
 }

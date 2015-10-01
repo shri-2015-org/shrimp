@@ -22,7 +22,7 @@ export default class Header extends React.Component {
           onClick={this.setOpen}
           hidden={this.props.open || this.props.docked}
           className='header__humburger'
-        >&#9776;</button>
+        >{'☰'}</button>
       </header>
     );
   }
