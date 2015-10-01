@@ -18,14 +18,12 @@ export default class Messages extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      listPaddingBottom: 0,
+      listBottom: 0,
     };
   }
 
 
   componentDidMount = () => {
-    const list = this.refs.list.getDOMNode();
-    this.basePaddingBottom = parseInt(window.getComputedStyle(list).paddingBottom, 10);
     this.baseTextareaHeight = null;
   }
 
@@ -34,13 +32,13 @@ export default class Messages extends React.Component {
       Immutable.is(nextProps.messages, this.props.messages) &&
       Immutable.is(nextProps.local, this.props.local) &&
         nextProps.docked === this.props.docked &&
-        nextState.listPaddingBottom === this.state.listPaddingBottom
+        nextState.listBottom === this.state.listBottom
     );
   }
 
   scrollToBottom = () => {
-    const listWrapper = this.refs.list.getDOMNode().parentElement;
-    setTimeout(() => listWrapper.scrollTop = listWrapper.scrollHeight, 0);
+    const list = this.refs.list.getDOMNode();
+    list.scrollTop = list.scrollHeight;
   }
 
 
@@ -49,7 +47,7 @@ export default class Messages extends React.Component {
       this.baseTextareaHeight = height;
     }
     this.setState({
-      listPaddingBottom: this.basePaddingBottom - this.baseTextareaHeight + height,
+      listBottom: height - this.baseTextareaHeight,
     });
     this.scrollToBottom();
   }
@@ -61,7 +59,7 @@ export default class Messages extends React.Component {
       <div
         className='messages'
         ref='list'
-        style={{bottom: this.state.listPaddingBottom}}
+        style={{bottom: this.state.listBottom}}
       >
         <MessageList
           messages={messages}
