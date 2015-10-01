@@ -13,12 +13,16 @@
   position: relative;
   float: right;
   min-width: 50px;
-  max-width: 440px;
+  max-width: $message_cloud_width;
   padding: 8px 15px;
   border-radius: 5px;
   color: white;
   text-align: left;
   background: $message_color_default;
+
+  @media (max-width: $message_cloud_width) {
+    max-width: calc(92vw - #{$messages_avatar_left_padding});
+  }
 }
 
 .message__cloud_other {
@@ -48,13 +52,17 @@
 }
 
 .message__text {
-  max-width: 400px;
+  max-width: calc(#{$message_cloud_width} - 40px);
   display: inline-block;
   font-size: 16px;
   line-height: 18px;
   white-space: pre-line;
   vertical-align: middle;
   word-wrap: break-word;
+
+  @media (max-width: $message_cloud_width) {
+    max-width: calc(92vw - #{$messages_avatar_left_padding} - 40px);
+  }
 }
 
 .message__avatar {
