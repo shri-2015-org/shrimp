@@ -61,7 +61,7 @@ export default class Messages extends React.Component {
       <div
         className='messages'
         ref='list'
-        style={{paddingBottom: this.state.listPaddingBottom}}
+        style={{bottom: this.state.listPaddingBottom}}
       >
         <MessageList
           messages={messages}
