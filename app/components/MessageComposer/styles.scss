@@ -5,7 +5,7 @@
   position: fixed;
   right: 0;
   bottom: 0;
-  background: $main_color;
+  background: $c-main_bg;
   width: calc(100vw - #{$threads_width});
 
   @media (max-width: $mobile_width) {
@@ -14,8 +14,7 @@
 
   &__sender {
     position: relative;
-    margin: 15px;
-    min-height: 35px;
+    margin: 5px 15px 15px 15px;
     border: 1px solid $с-composer-sender_border;
     background-color: $с-composer-sender_bg;
     border-radius: 5px;
@@ -35,8 +34,7 @@
   &__textarea {
     position: relative;
     margin: 10px;
-    width: 90%;
-    height: 95px;
+    width: calc(100% - 63px);
     background-color: $с-composer-sender_bg;
     color: $c-composer-textarea_text;
     resize: none;

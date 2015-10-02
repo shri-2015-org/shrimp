@@ -23,6 +23,13 @@ export default class ThreadsSection extends React.Component {
     };
   }
 
+
+  componentDidMount = () => {
+    const threadsWrapper = this.refs.threads.getDOMNode().parentNode;
+    threadsWrapper.style.overflowX = 'hidden';
+  }
+
+
   shouldComponentUpdate(nextProps, nextState) {
     return !(
       Immutable.is(nextProps.channels, this.props.channels) &&
@@ -50,7 +57,7 @@ export default class ThreadsSection extends React.Component {
     const currentTabData = tabs.find(tab => tab.get('id') === this.state.currentTabId);
 
     return (
-      <div className='threads'>
+      <div className='threads' ref='threads'>
         <Tabs
           currentTabId={this.state.currentTabId}
           changeTab={this.changeTab}

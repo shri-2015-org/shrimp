@@ -4,8 +4,8 @@
   width: $threads_width;
   padding-top: $header_height;
   height: 100vh;
-  color: #aeaeae;
-  background-color: $c-gray-30;
+  color: $c-threads_text;
+  background-color: $c-threads_bg;
 
   @media (max-width: $mobile_width) {
     padding-top: $header_height / 2;
