@@ -34,19 +34,22 @@ export default class Login extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (!Immutable.is(nextProps.local, this.props.local)) {
-      debugger;
       const user = nextProps.local.get('user');
       if (user && user.status) {
         if (user.status.text === this.state.info.text && user.status.type === this.state.info.type) {
           this.setState({shakeInfo: true});
           setTimeout(this.setState.bind(this, {shakeInfo: false}), 500);
         } else {
-          this.setState({
-            info: {
-              type: user.status.type,
-              text: user.status.text,
-            },
-          });
+          if (user.status.type === 'success') {
+            nextProps.history.pushState(null, '/');
+          } else {
+            this.setState({
+              info: {
+                type: user.status.type,
+                text: user.status.text,
+              },
+            });
+          }
         }
       }
     }
