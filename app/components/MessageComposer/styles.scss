@@ -1,4 +1,5 @@
 @import '~styles/variables.scss';
+@import '~styles/colors.scss';
 
 .composer {
   position: fixed;
@@ -13,10 +14,10 @@
 
   &__sender {
     position: relative;
-    margin: 10px 5px;
+    margin: 15px;
     min-height: 35px;
-    border: 3px solid $composer_border_color;
-    background-color: $composer_sender_color;
+    border: 1px solid $с-composer-sender_border;
+    background-color: $с-composer-sender_bg;
     border-radius: 5px;
   }
 
@@ -25,7 +26,7 @@
     bottom: 10px;
     right: 3px;
     width: 60px;
-    color: $composer_button-text-color;
+    color: $c-composer-send-button_text;
     background: none;
     border: none;
     outline: none;
@@ -36,8 +37,8 @@
     margin: 10px;
     width: 90%;
     height: 95px;
-    background-color: $composer_sender_color;
-    color: $font_color;
+    background-color: $с-composer-sender_bg;
+    color: $c-composer-textarea_text;
     resize: none;
     border: none;
     outline: none;

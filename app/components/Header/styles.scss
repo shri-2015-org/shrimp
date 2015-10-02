@@ -1,10 +1,11 @@
 @import '~styles/variables.scss';
+@import '~styles/colors.scss';
 
 .header {
   height: $header_height;
   width: 100%;
-  color: #aeaeae;
-  background-color: $header_color;
+  color: $c-header_text;
+  background-color: $c-header_bg;
   position: fixed;
   z-index: 10;
 
