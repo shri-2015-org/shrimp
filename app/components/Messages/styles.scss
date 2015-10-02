@@ -14,7 +14,7 @@
   position: absolute;
 
   @media (max-width: $mobile_width) {
-    top: calc(#{$header_height} / 2);
+    top: $header_height / 2;
     max-width: 100vw;
   }
 }

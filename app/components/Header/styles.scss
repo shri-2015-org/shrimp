@@ -9,17 +9,17 @@
   z-index: 10;
 
   @media (max-width: $mobile_width) {
-    height: calc(#{$header_height} / 2);
+    height: $header_height / 2;
   }
-}
 
-.header__humburger {
-  background: transparent;
-  outline: none;
-  border: none;
-  font-size: 30px;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 2%;
+  &__humburger {
+    background: transparent;
+    outline: none;
+    border: none;
+    font-size: 30px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 2%;
+  }
 }

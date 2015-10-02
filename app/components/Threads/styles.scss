@@ -7,7 +7,7 @@
   color: #aeaeae;
   background-color: $c-gray-30;
 
-  @media (max-width: 800px) {
-    padding-top: calc(#{$header_height} / 2);
+  @media (max-width: $mobile_width) {
+    padding-top: $header_height / 2;
   }
 }
