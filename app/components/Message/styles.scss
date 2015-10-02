@@ -1,5 +1,6 @@
 @import '~styles/variables.scss';
 @import '~styles/mixins.scss';
+@import '~styles/colors.scss';
 
 .message {
   @extend .clearfix;
@@ -15,9 +16,9 @@
     max-width: $message_cloud_width;
     padding: 8px 15px;
     border-radius: 5px;
-    color: white;
+    color: $c-message-cloud_text;
     text-align: left;
-    background: $message_color_default;
+    background: $c-message-cloud-default_bg;
 
     @media (max-width: $message_cloud_width) {
       max-width: calc(92vw - #{$messages_avatar_left_padding});
@@ -34,19 +35,19 @@
       width: 0;
       border-top: 8px solid transparent;
       border-bottom: 8px solid transparent;
-      border-left: 8px solid $message_color_default;
+      border-left: 8px solid $c-message-cloud-default_bg;
     }
   }
 
   &__cloud_other {
     float: left;
-    background: $message_color_other;
+    background: $c-message-cloud-other_bg;
 
     &:before {
       right: 0;
       left: -8px;
       border-left: none;
-      border-right: 8px solid $message_color_other;
+      border-right: 8px solid $c-message-cloud-other_bg;
     }
   }
 
@@ -69,10 +70,10 @@
     top: 50%;
     left: -64px;
     transform: translateY(-50%);
-    height: 54px;
-    width: 54px;
+    height: 52px;
+    width: 52px;
     border-radius: 5px;
-    border: 2px solid $composer_border_color;
+    border: 1px solid $c-message-avatar_border;
   }
 
   &__img {

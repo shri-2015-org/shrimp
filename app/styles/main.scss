@@ -1,5 +1,6 @@
 @import '~normalize.css';
 @import '~styles/variables.scss';
+@import '~styles/colors.scss';
 
 html,
 body {
@@ -12,8 +13,8 @@ html {
 
 body {
   font: 300 16px/18px Roboto, sans-serif;
-  background-color: $main_color;
-  color: white;
+  background-color: $c-main_bg;
+  color: $c-main_text;
 }
 
 *,
