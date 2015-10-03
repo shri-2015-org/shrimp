@@ -29,8 +29,8 @@ export function signInUser(login, password, callback) {
 export function setSessionId(userId, sessionId, callback) {
   User.findOne({ _id: userId }, (err, user) => {
     user.sessionId = sessionId;
-    user.save(err => {
-      if (err) console.log(err);
+    user.save(error => {
+      if (error) console.log(err);
       callback(sessionId);
     });
   });
