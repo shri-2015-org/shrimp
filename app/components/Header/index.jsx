@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import Search from 'components/Search';
 import './styles.scss';
 
 
@@ -23,6 +24,7 @@ export default class Header extends React.Component {
           hidden={this.props.open || this.props.docked}
           className='header__humburger'
         >{'☰'}</button>
+        <Search className='header__search' />
       </header>
     );
   }

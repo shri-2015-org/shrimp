@@ -10,7 +10,7 @@
   z-index: 10;
 
   @media (max-width: $mobile_width) {
-    height: $header_height / 2;
+    height: $header_height - 20px;
   }
 
   &__humburger {
@@ -22,5 +22,11 @@
     top: 50%;
     transform: translateY(-50%);
     left: 2%;
+  }
+
+  &__search {
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 }
