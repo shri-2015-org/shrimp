@@ -6,6 +6,7 @@ const user = new mongoose.Schema({
   nick: String,
   name: String,
   avatar: String,
+  password: String,
 });
 
 user.statics.getAll = getAll;
@@ -17,6 +18,7 @@ user.statics.createTestUser = function createTestUser() {
     nick: faker.internet.userName(),
     name: faker.name.firstName(),
     avatar: faker.image.avatar(),
+    password: faker.internet.password(),
   });
 };
 

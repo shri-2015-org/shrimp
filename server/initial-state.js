@@ -6,7 +6,7 @@ const Channel = getChannelModel();
 const Message = getMessageModel();
 
 
-export default function getInitState() {
+export default function getInitState(userId) {
   return new Promise((resolve, reject) => {
     const state = {};
 
@@ -32,7 +32,7 @@ export default function getInitState() {
       state.channels = channels;
       state.messages = messages;
       state.local = {
-        'userId': users[0].id,
+        'userId': userId,
         'currentChannelId': channels[0].id,
         'pendingMessages': [],
       };

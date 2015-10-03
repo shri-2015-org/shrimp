@@ -11,6 +11,8 @@ export function local(state = EMPTY_MAP, action) {
     return state.set('currentChannelId', action.payload);
   case A.INIT:
     return fromJS(action.payload.local);
+  case A.INIT_USER:
+    return state.set('user', action.payload.user);
   default:
     return state;
   }
