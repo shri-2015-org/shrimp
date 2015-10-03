@@ -29,4 +29,18 @@
     top: 50%;
     transform: translateY(-50%);
   }
+
+  &__menu {
+    font-size: 18px;
+    transform: translateY(-50%) rotate(90deg);
+    letter-spacing: 2.5px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    color: $c-header-menu_text;
+    background: transparent;
+    outline: none;
+    border: none;
+    padding: 0;
+  }
 }

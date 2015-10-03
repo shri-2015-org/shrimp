@@ -25,6 +25,7 @@ export default class Header extends React.Component {
           className='header__humburger'
         >{'☰'}</button>
         <Search className='header__search' />
+        <button className='header__menu'>{'●●●'}</button>
       </header>
     );
   }
