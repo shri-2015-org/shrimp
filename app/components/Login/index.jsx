@@ -47,24 +47,6 @@ export default class Login extends React.Component {
         });
       }
     }
-    //   if (user && user.status) {
-    //     if (user.status.text === this.state.info.text && user.status.type === this.state.info.type) {
-    //       this.setState({shakeInfo: true});
-    //       setTimeout(this.setState.bind(this, {shakeInfo: false}), 500);
-    //     } else {
-    //       if (user.status.type === 'success') {
-    //         nextProps.history.pushState(null, '/');
-    //       } else {
-    //         this.setState({
-    //           info: {
-    //             type: user.status.type,
-    //             text: user.status.text,
-    //           },
-    //         });
-    //       }
-    //     }
-    //   }
-    // }
   }
 
 
