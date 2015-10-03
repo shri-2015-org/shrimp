@@ -7,7 +7,7 @@ const loadersByExt = loadersByExtension({
   'json': 'json',
   'png|jpg|gif': 'url?limit=5000',
   'woff|woff2': 'url?limit=1',
-  'svg': 'url?limit=10000',
+  'svg': 'svg-inline?removeSVGTagAttrs=false',
 });
 
 
