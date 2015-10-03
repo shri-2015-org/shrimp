@@ -1,11 +1,12 @@
 import getUserModel from '../models/user';
 const User = getUserModel();
+const debug = require('debug')('shrimp:server');
 
 export function signInUser(login, password, callback) {
-  User.find({ nick: login }, (err, user) => {
-    if (user.length > 0) {
+  User.findOne({ nick: login }, (err, user) => {
+    if (user) {
       const userData = {
-        userId: user[0].id,
+        userId: user.id,
         status: {
           type: 'success',
           text: 'Welcome',
@@ -23,4 +24,20 @@ export function signInUser(login, password, callback) {
       callback(userData);
     }
   });
+}
+
+
+export function setSessionId(userId, sessionId, callback) {
+  return new Promise((resolve, reject) => {
+    User.findOne({ _id: userId }, (err, user) => {
+      if (err) reject(err);
+      user.sessionId = sessionId;
+      user.save(error => {
+        if (error) reject(error);
+        resolve();
+      });
+    });
+  }).then(() => {
+    callback(sessionId);
+  }).catch(exception => { debug(exception); });
 }

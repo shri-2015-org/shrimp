@@ -23,6 +23,14 @@ export function init(data) {
   };
 }
 
+export function getInitData(data) {
+  return {
+    type: CS.INIT,
+    payload: data,
+    send: true,
+  };
+}
+
 export function signIn(data) {
   return {
     type: CS.SIGN_IN,

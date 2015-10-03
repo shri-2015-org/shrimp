@@ -9,6 +9,7 @@ const CS = {
   ADD_MESSAGE: 'CS_ADD_MESSAGE',
   ADD_CHANNEL: 'CS_ADD_CHANNEL',
   SIGN_IN: 'CS_SIGN_IN',
+  INIT: 'CS_INIT',
 };
 
 const A = {
