@@ -10,7 +10,7 @@ export default class Message extends React.Component {
   static propTypes = {
     sender: PropTypes.instanceOf(Map).isRequired,
     text: PropTypes.string.isRequired,
-    timestamp: PropTypes.timestamp.isRequired,
+    timestamp: PropTypes.string.isRequired,
     currentUserId: PropTypes.string.isRequired,
   }
 
@@ -24,9 +24,15 @@ export default class Message extends React.Component {
 
 
   componentDidMount = () => {
-    setInterval(()=>{
+    this.updateTime();
+    this.timer = setInterval(()=>{
       this.updateTime(this.props.timestamp);
     }, 5000);
+  }
+
+
+  componentWillUnmount = () => {
+    clearInterval(this.timer);
   }
 
 
