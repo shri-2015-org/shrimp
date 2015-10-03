@@ -14,7 +14,7 @@
     float: right;
     min-width: 50px;
     max-width: $message_cloud_width;
-    padding: 8px 15px;
+    padding: 9px 15px;
     border-radius: 5px;
     color: $c-message-cloud_text;
     text-align: left;
@@ -76,5 +76,20 @@
 
   &__img {
     border-radius: 3.5px;
+  }
+
+  &__date {
+    position: absolute;
+    color: black;
+    font-size: 9px;
+    font-weight: bolder;
+    right: 5px;
+    bottom: -3px;
+    opacity: 0;
+    transition: opacity .5s;
+  }
+
+  &:hover &__date {
+    opacity: 1;
   }
 }
