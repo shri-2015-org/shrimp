@@ -1,5 +1,6 @@
 import getUserModel from '../models/user';
 const User = getUserModel();
+const debug = require('debug')('shrimp:server');
 
 export function signInUser(login, password, callback) {
   User.findOne({ nick: login }, (err, user) => {
@@ -27,11 +28,16 @@ export function signInUser(login, password, callback) {
 
 
 export function setSessionId(userId, sessionId, callback) {
-  User.findOne({ _id: userId }, (err, user) => {
-    user.sessionId = sessionId;
-    user.save(error => {
-      if (error) console.log(err);
-      callback(sessionId);
+  return new Promise((resolve, reject) => {
+    User.findOne({ _id: userId }, (err, user) => {
+      if (err) reject(err);
+      user.sessionId = sessionId;
+      user.save(error => {
+        if (error) reject(error);
+        resolve();
+      });
     });
-  });
+  }).then(() => {
+    callback(sessionId);
+  }).catch(exception => { debug(exception); });
 }

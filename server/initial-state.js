@@ -1,4 +1,3 @@
-import 'array.prototype.find';
 import getChannelModel from './models/channel';
 import getMessageModel from './models/message';
 import getUserModel from './models/user';
@@ -15,9 +14,7 @@ export default function getInitState(sessionId) {
       let channels = results[0];
       let messages = results[1];
       let users = results[2];
-      const currentUser = users.find(item => {
-        return item.sessionId === sessionId;
-      });
+      const currentUser = users.find(user => user.sessionId === sessionId );
       const userId = currentUser.id;
 
 

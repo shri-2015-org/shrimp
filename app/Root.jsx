@@ -4,13 +4,14 @@ import {ReduxRouter} from 'redux-router';
 import store from 'store';
 import routes from 'routes';
 import {getInitData} from 'actions/local';
+import cookies from 'browser-cookies';
 
 
 export default class Root extends React.Component {
 
   render() {
-    const cookieSessionId = document.cookie.indexOf('sessionId');
-    if (cookieSessionId !== -1) {
+    const cookieSessionId = cookies.get('sessionId');
+    if (cookieSessionId) {
       store.dispatch(getInitData(cookieSessionId));
     } else {
       store.history.pushState(null, '/login');

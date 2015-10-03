@@ -3,6 +3,7 @@ import {signIn} from 'actions/local';
 import store from 'store';
 import {connect} from 'react-redux';
 import Immutable, {Map} from 'immutable';
+import cookies from 'browser-cookies';
 import InfoMessage from 'components/InfoMessage';
 import PasswordInput from 'components/PasswordInput';
 import Input from 'components/Input';
@@ -36,7 +37,7 @@ export default class Login extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (!Immutable.is(nextProps.local, this.props.local)) {
       if (nextProps.local.get('sessionId')) {
-        document.cookie = 'sessionId=' + nextProps.local.get('sessionId');
+        cookies.set('sessionId', nextProps.local.get('sessionId'), {expires: 365});
         nextProps.history.pushState(null, '/');
       } else {
         const user = nextProps.local.get('user');
