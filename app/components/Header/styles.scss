@@ -10,7 +10,7 @@
   z-index: 10;
 
   @media (max-width: $mobile_width) {
-    height: $header_height / 2;
+    height: $header_height - 20px;
   }
 
   &__humburger {
@@ -22,5 +22,28 @@
     top: 50%;
     transform: translateY(-50%);
     left: 2%;
+  }
+
+  &__search {
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 180px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  &__menu {
+    font-size: 18px;
+    transform: translateY(-50%) rotate(90deg);
+    letter-spacing: 2px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    color: $c-header-menu_text;
+    background: transparent;
+    outline: none;
+    border: none;
+    padding: 0;
   }
 }

@@ -8,6 +8,6 @@
   background-color: $c-threads_bg;
 
   @media (max-width: $mobile_width) {
-    padding-top: $header_height / 2;
+    padding-top: $header_height - 20px;
   }
 }

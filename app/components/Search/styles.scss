@@ -1,0 +1,30 @@
+@import '~styles/variables.scss';
+@import '~styles/colors.scss';
+
+.search {
+  position: absolute;
+
+  &__icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 34px;
+    transform: rotate(-45deg);
+    color: $c-search_placeholder;
+  }
+
+  &__input {
+    height: 100%;
+    width: 100%;
+    background: $c-search_bg;
+    border: none;
+    border-radius: 5px;
+    padding-left: 40px;
+    padding-right: 5px;
+    outline: none;
+
+    &::placeholder {
+      color: $c-search_placeholder;
+    }
+  }
+}
