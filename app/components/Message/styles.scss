@@ -1,5 +1,6 @@
 @import '~styles/variables.scss';
 @import '~styles/mixins.scss';
+@import '~styles/colors.scss';
 
 .message {
   @extend .clearfix;
@@ -7,68 +8,75 @@
   min-height: 50px;
   margin: 10px 0;
   padding: 7px 0;
-}
 
-.message__cloud {
-  position: relative;
-  float: right;
-  min-width: 50px;
-  max-width: 440px;
-  padding: 8px 15px;
-  border-radius: 5px;
-  color: white;
-  text-align: left;
-  background: $message_color_default;
-}
+  &__cloud {
+    position: relative;
+    float: right;
+    min-width: 50px;
+    max-width: $message_cloud_width;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: $c-message-cloud_text;
+    text-align: left;
+    background: $c-message-cloud-default_bg;
 
-.message__cloud_other {
-  float: left;
-  background: $message_color_other;
-}
+    @media (max-width: $message_cloud_width) {
+      max-width: calc(92vw - #{$messages_avatar_left_padding});
+    }
 
-.message__cloud:before {
-  content: ' ';
-  display: inline-block;
-  position: absolute;
-  top: 50%;
-  right: -8px;
-  transform: translateY(-50%);
-  height: 0;
-  width: 0;
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-  border-left: 8px solid $message_color_default;
-}
+    &:before {
+      content: ' ';
+      display: inline-block;
+      position: absolute;
+      top: 50%;
+      right: -8px;
+      transform: translateY(-50%);
+      height: 0;
+      width: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 8px solid $c-message-cloud-default_bg;
+    }
+  }
 
-.message__cloud_other:before {
-  right: 0;
-  left: -8px;
-  border-left: none;
-  border-right: 8px solid $message_color_other;
-}
+  &__cloud_other {
+    float: left;
+    background: $c-message-cloud-other_bg;
 
-.message__text {
-  max-height: 400px;
-  display: inline-block;
-  font-size: 16px;
-  line-height: 18px;
-  white-space: pre-line;
-  vertical-align: middle;
-  word-break: break-word;
-  word-wrap: break-word;
-}
+    &:before {
+      right: 0;
+      left: -8px;
+      border-left: none;
+      border-right: 8px solid $c-message-cloud-other_bg;
+    }
+  }
 
-.message__avatar {
-  position: absolute;
-  top: 50%;
-  left: -64px;
-  transform: translateY(-50%);
-  height: 54px;
-  width: 54px;
-  border-radius: 5px;
-  border: 2px solid $composer_border_color;
-}
+  &__text {
+    max-width: $message_cloud_width - 40px;
+    display: inline-block;
+    font-size: 16px;
+    line-height: 18px;
+    white-space: pre-line;
+    vertical-align: middle;
+    word-wrap: break-word;
 
-.message_img {
-  border-radius: 3.5px;
+    @media (max-width: $message_cloud_width) {
+      max-width: calc(92vw - #{$messages_avatar_left_padding} - 40px);
+    }
+  }
+
+  &__avatar {
+    position: absolute;
+    top: 50%;
+    left: -64px;
+    transform: translateY(-50%);
+    height: 52px;
+    width: 52px;
+    border-radius: 5px;
+    border: 1px solid $c-message-avatar_border;
+  }
+
+  &__img {
+    border-radius: 3.5px;
+  }
 }
