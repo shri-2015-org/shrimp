@@ -2,18 +2,47 @@ import React, {PropTypes} from 'react';
 import {Map} from 'immutable';
 import cx from 'classnames';
 import './styles.scss';
+import moment from 'moment';
+
 
 export default class Message extends React.Component {
 
   static propTypes = {
     sender: PropTypes.instanceOf(Map).isRequired,
     text: PropTypes.string.isRequired,
+    timestamp: PropTypes.string.isRequired,
     currentUserId: PropTypes.string.isRequired,
   }
 
-  shouldComponentUpdate() {
-    return  false;
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: null,
+    };
   }
+
+
+  componentDidMount = () => {
+    this.updateTime(this.props.timestamp);
+    this.timer = setInterval(()=>{
+      this.updateTime(this.props.timestamp);
+    }, 5000);
+  }
+
+
+  componentWillUnmount = () => {
+    clearInterval(this.timer);
+  }
+
+
+  updateTime = (timestamp) => {
+    const date = moment.duration(moment().diff(moment(timestamp))).humanize();
+    this.setState({
+      date: date,
+    });
+  }
+
 
   renderAvatar = (sender) => {
     return (
@@ -32,7 +61,6 @@ export default class Message extends React.Component {
   render() {
     const {sender, text, currentUserId} = this.props;
     const isSelfMessage = sender.get('id') === currentUserId;
-
     return (
       <li className='message'>
         {isSelfMessage ? null : this.renderAvatar(sender)}
@@ -42,6 +70,7 @@ export default class Message extends React.Component {
             <br />
             {text}
           </div>
+          <div className='message__date'>{this.state.date + ' ago'}</div>
         </div>
       </li>
     );

@@ -3,6 +3,7 @@ import Immutable, {List, Map} from 'immutable';
 import Message from 'components/Message';
 import './styles.scss';
 
+
 export default class MessageList extends React.Component {
 
   static propTypes = {
@@ -33,6 +34,7 @@ export default class MessageList extends React.Component {
           sender={message.get('sender')}
           text={message.get('text')}
           currentUserId={local.get('userId')}
+          timestamp={message.get('timestamp')}
         />
       );
     });
