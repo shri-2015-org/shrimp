@@ -27,7 +27,7 @@ export default function getInitState(sessionId) {
       messages = messages.map((message) => message.toObject());
 
       users = users.map((user) => {
-        const userObj =  user.toObject();
+        const userObj = user.toObject();
         userObj.isOnline = true;
         return userObj;
       });
