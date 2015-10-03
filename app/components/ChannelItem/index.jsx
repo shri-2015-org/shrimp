@@ -9,9 +9,8 @@ export default class ChannelItem extends React.Component {
   static propTypes = {
     item: PropTypes.instanceOf(Map),
     isCurrent: PropTypes.bool,
-    key: PropTypes.number,
     setCurrentChannel: PropTypes.func.isRequired,
-    favorite: PropTypes.isRequired,
+    favorite: PropTypes.bool,
   }
 
 

@@ -8,15 +8,13 @@ export default class Star extends React.Component {
   static propTypes = {
     fill: PropTypes.bool,
     className: PropTypes.string,
-    onClick: PropTypes.func,
   }
 
 
   shouldComponentUpdate(nextProps) {
     return !(
       nextProps.fill === this.props.fill &&
-      nextProps.className === this.props.className &&
-      nextProps.onClick === this.props.onClick
+      nextProps.className === this.props.className
     );
   }
 
@@ -24,7 +22,6 @@ export default class Star extends React.Component {
     const {fill} = this.props;
     return (
       <IconSVG
-        {...this.props}
         className={cx('star-icon', this.props.className)}
         src={require(`./star${fill ? '_filled' : ''}.svg`)}
       />
