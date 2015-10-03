@@ -1,27 +1,7 @@
-export function setChannels(state, channels) {
-  return state.set('channels', channels);
+import crypto from 'crypto';
+
+export function generateSessionId() {
+  const sha = crypto.createHash('sha256');
+  sha.update(Math.random().toString());
+  return sha.digest('hex');
 }
-
-export function addChannel(state, channel) {
-  return state.updateIn(['channels'], 0, channels => channels.push(channel));
-}
-
-export function removeChannel(state, channelId) {
-  const index = state.get('channels').map(item => item.get('id')).indexOf(channelId);
-
-  return state.updateIn(['channels'], 0, channels => channels.delete(index));
-}
-
-export function addUserToChannel(state, channelId, userId) {
-  const index = state.get('channels').map(item => item.get('id')).indexOf(channelId);
-
-  return state.updateIn(['channels', index, 'userIds'], 0, userIds => userIds.push(userId) );
-}
-
-export function removeUserFromChannel(state, channelId, userId) {
-  const index = state.get('channels').map(item => item.get('id')).indexOf(channelId);
-
-  return state.updateIn(['channels', index, 'userIds'], 0, userIds => userIds.delete(userIds.indexOf(userId)));
-}
-
-
