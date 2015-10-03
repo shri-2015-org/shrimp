@@ -3,7 +3,7 @@ import store from '../store';
 import {Map} from 'immutable';
 import {addChannel} from '../actions/channels';
 import {addMessage} from '../actions/messages';
-import {init} from '../actions/local';
+import {init, initUser} from '../actions/local';
 import {SC} from '../../constants';
 
 export const socket = io();
@@ -19,5 +19,9 @@ export function startSocketClient() {
 
   socket.on(SC.INIT, (data) => {
     store.dispatch(init(data));
+  });
+
+  socket.on(SC.SIGN_IN, (data) => {
+    store.dispatch(initUser(data));
   });
 }

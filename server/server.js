@@ -48,5 +48,4 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../app/root.html'));
 });
 
-
 server.listen(port);

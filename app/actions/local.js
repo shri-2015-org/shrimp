@@ -1,4 +1,4 @@
-import {A} from '../../constants';
+import {A, CS} from '../../constants';
 
 export function setLocalState(state) {
   return {
@@ -19,6 +19,21 @@ export function setCurrentChannel(channelId) {
 export function init(data) {
   return {
     type: A.INIT,
+    payload: data,
+  };
+}
+
+export function signIn(data) {
+  return {
+    type: CS.SIGN_IN,
+    payload: data,
+    send: true,
+  };
+}
+
+export function initUser(data) {
+  return {
+    type: A.INIT_USER,
     payload: data,
   };
 }
