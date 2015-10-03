@@ -28,12 +28,15 @@
     right: 50px;
     top: 50%;
     transform: translateY(-50%);
+    width: 180px;
+    height: 40px;
+    font-size: 18px;
   }
 
   &__menu {
     font-size: 18px;
     transform: translateY(-50%) rotate(90deg);
-    letter-spacing: 2.5px;
+    letter-spacing: 2px;
     position: absolute;
     right: 5px;
     top: 50%;

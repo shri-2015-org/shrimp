@@ -14,20 +14,17 @@
   }
 
   &__input {
-    height: 40px;
-    width: 180px;
+    height: 100%;
+    width: 100%;
     background: $c-search_bg;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
-    line-height: 18px;
     padding-left: 40px;
     padding-right: 5px;
     outline: none;
 
     &::placeholder {
       color: $c-search_placeholder;
-      font-size: 18px;
     }
   }
 }

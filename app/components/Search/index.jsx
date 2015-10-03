@@ -6,28 +6,13 @@ export default class Search extends React.Component {
 
   static propTypes = {
     className: PropTypes.string,
-  }
-
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: '',
-    };
-  }
-
-
-  textChange = (e) => {
-    this.setState({
-      text: e.target.value,
-    });
+    inputClassName: PropTypes.string,
   }
 
 
   render() {
-    const classes = cx(this.props.className, {
-      'search': true,
-    });
+    const {inputClassName} = this.props;
+    const classes = cx('search', this.props.className);
     return (
       <div className={classes}>
         <div
@@ -35,11 +20,9 @@ export default class Search extends React.Component {
         >{'⚲'}</div>
         <input
           placeholder='Search...'
-          onChange={this.textChange}
-          value={this.state.change}
-          {...this.props}
-          className='search__input'
           type='text'
+          {...this.props}
+          className={cx('search__input', inputClassName)}
         />
       </div>
     );
