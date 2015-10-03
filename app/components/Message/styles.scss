@@ -26,16 +26,12 @@
 
     &:before {
       content: ' ';
-      display: inline-block;
+      background: url('./default-horn.svg');
       position: absolute;
-      top: 50%;
-      right: -8px;
-      transform: translateY(-50%);
-      height: 0;
-      width: 0;
-      border-top: 8px solid transparent;
-      border-bottom: 8px solid transparent;
-      border-left: 8px solid $c-message-cloud-default_bg;
+      bottom: -10px;
+      right: 10px;
+      height: 10px;
+      width: 18px;
     }
   }
 
@@ -44,10 +40,12 @@
     background: $c-message-cloud-other_bg;
 
     &:before {
-      right: 0;
-      left: -8px;
-      border-left: none;
-      border-right: 8px solid $c-message-cloud-other_bg;
+      background: url('./other-horn.svg');
+      left: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 11px;
+      width: 12px;
     }
   }
 
