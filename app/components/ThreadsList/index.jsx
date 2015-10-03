@@ -37,6 +37,7 @@ export default class ThreadsList extends React.Component {
       }
     }());
 
+
     return (
       <ul className='threads-list'>
         {list}

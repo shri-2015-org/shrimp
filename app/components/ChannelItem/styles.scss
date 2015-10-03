@@ -1,48 +1,92 @@
 @import '~styles/variables.scss';
 @import '~styles/colors.scss';
 
-.threads-list {
-  &__channel-item {
-    cursor: pointer;
-    height: 48px;
-    line-height: 48px;
-    border-bottom: 1px solid #fff;
-    position: relative;
-    padding-left: 23px;
-    font-size: 20px;
-    padding-right: 33px;
+.channel {
+  position: relative;
+  height: 60px;
+  margin-bottom: 1px;
+  background-color: $c-gray-30;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 $c-highlight;
+  transition-property: color, background, box-shadow;
+  transition-duration: .4s, .4s, .1s;
 
-    &:before {
-      content: '';
-      position: absolute;
-      width: 2px;
-      height: 100%;
-      display: block;
-      background: transparent;
-      left: 0;
-    }
+  &_active {
+    cursor: default;
+    box-shadow: inset 2px 0 0 $c-highlight;
+    background-color: $c-gray-20;
+    color: $c-current-tab_text;
+  }
 
-    &_active {
-      cursor: default;
-      color: #fff;
+  &:not(.channel_active):hover {
+    background-color: $c-gray-20;
+    color: $c-hover-tab_text;
+  }
 
-      &:before {
-        background: $c-blue;
-      }
+  &:not(.channel_active):active {
+    box-shadow: inset 7px 0 0 $c-highlight;
+    background-color: $c-gray-20;
+  }
+
+  &__star {
+    position: absolute;
+    top: 4px;
+    left: -11px;
+    transition: left .2s;
+
+    &_filled {
+      left: 10px;
     }
   }
 
-  &__unread-messages {
-    color: #fff;
+  &:hover &__star {
+    left: 10px;
+  }
+
+  &__name {
+    padding-left: 25px;
+    padding-top: 5px;
+  }
+
+
+  &__last-message {
+    $font-size: 12px;
+    $line-height: 1.2;
+    $lines-to-show: 2;
+    padding-left: 20px;
+    padding-right: 30px;
+    font-weight: bolder;
+    color: $c-gray-50;
+    display: block; /* Fallback for non-webkit */
+    display: -webkit-box;
+    max-width: 400px;
+    height: $font-size * $line-height * $lines-to-show; /* Fallback for non-webkit */
+    font-size: $font-size;
+    line-height: $line-height;
+    -webkit-line-clamp: $lines-to-show;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+
+  &__unread-counter {
     position: absolute;
-    top: 50%;
-    margin-top: -10px;
-    right: 12px;
+    right: -4px;
+    top: 6px;
+    padding-left: 5px;
+    padding-right: 5px;
+    min-width: 21px;
     line-height: 21px;
     font-size: 12px;
-    border-radius: 11px;
-    background: red;
     text-align: center;
-    padding: 0 4px;
+    color: white;
+    border-radius: 11px;
+    background: $c-blue;
+    transition: right .2s;
+  }
+
+  &:hover &__unread-counter {
+    right: 6px;
   }
 }

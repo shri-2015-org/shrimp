@@ -1,40 +1,58 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import Immutable, {Map} from 'immutable';
-import './styles.scss';
 import cx from 'classnames';
+import Star from 'components/Star';
+import './styles.scss';
 
 export default class ChannelItem extends React.Component {
+
   static propTypes = {
-    item: React.PropTypes.instanceOf(Map),
-    isCurrent: React.PropTypes.bool,
-    key: React.PropTypes.number,
-    setCurrentChannel: React.PropTypes.func.isRequired,
+    item: PropTypes.instanceOf(Map),
+    isCurrent: PropTypes.bool,
+    setCurrentChannel: PropTypes.func.isRequired,
+    favorite: PropTypes.bool,
   }
+
 
   constructor(props) {
     super(props);
     this.state = {
       id: this.props.item.get('id'),
+      favorite: this.props.favorite,
     };
   }
 
-  shouldComponentUpdate(nextProps) {
+
+  shouldComponentUpdate(nextProps, nextState) {
     return  !(
       Immutable.is(nextProps.isCurrent, this.props.isCurrent) &&
-      Immutable.is(nextProps.item, this.props.item)
+      Immutable.is(nextProps.item, this.props.item) &&
+      nextState.favorite === this.state.favorite
     );
   }
+
 
   setChannel = () => {
     this.props.setCurrentChannel(this.state.id);
   }
 
+
+  toggleFavorite = e => {
+    // TODO: run action which set channel as favorite
+    e.stopPropagation();
+    this.setState({
+      favorite: !this.state.favorite,
+    });
+  }
+
+
   render() {
     const unreadCounter = (() => {
-      if (this.props.item.get('unreadMessagesCount')) {
+      const unreadCount = this.props.item.get('unreadMessagesCount');
+      if (unreadCount) {
         return (
-          <span className='threads-list__unread-messages'>
-            {this.props.item.get('unreadMessagesCount')}
+          <span className='channel__unread-counter'>
+            {unreadCount}
           </span>
         );
       }
@@ -42,13 +60,24 @@ export default class ChannelItem extends React.Component {
 
     return (
       <div
-        className={cx('threads-list__channel-item', {
-          'threads-list__channel-item_active': this.props.isCurrent,
+        className={cx('channel', {
+          'channel_active': this.props.isCurrent,
         })}
         onClick={this.setChannel}
       >
-      {this.props.item.get('name')}
-      {unreadCounter}
+        <Star
+          fill={this.state.favorite}
+          onClick={this.toggleFavorite}
+          className={cx('channel__star', {
+            channel__star_filled: this.state.favorite,
+          })}
+        />
+        <div className='channel__name'>{this.props.item.get('name')}</div>
+        <div className='channel__last-message'>
+          Commodi sed consequatur et deserunt molestias. Velit cupiditate laudantium
+          exercitationem error et at. Doloribus voluptatem sint libero enim at et.
+          </div>
+        {unreadCounter}
       </div>
     );
   }
