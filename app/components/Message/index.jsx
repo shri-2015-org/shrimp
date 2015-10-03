@@ -24,7 +24,7 @@ export default class Message extends React.Component {
 
 
   componentDidMount = () => {
-    this.updateTime();
+    this.updateTime(this.props.timestamp);
     this.timer = setInterval(()=>{
       this.updateTime(this.props.timestamp);
     }, 5000);
