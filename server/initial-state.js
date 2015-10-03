@@ -1,3 +1,4 @@
+import 'array.prototype.find';
 import getChannelModel from './models/channel';
 import getMessageModel from './models/message';
 import getUserModel from './models/user';
@@ -6,7 +7,7 @@ const Channel = getChannelModel();
 const Message = getMessageModel();
 
 
-export default function getInitState(userId) {
+export default function getInitState(sessionId) {
   return new Promise((resolve, reject) => {
     const state = {};
 
@@ -14,6 +15,11 @@ export default function getInitState(userId) {
       let channels = results[0];
       let messages = results[1];
       let users = results[2];
+      const currentUser = users.find(item => {
+        return item.sessionId === sessionId;
+      });
+      const userId = currentUser.id;
+
 
       channels = channels.map((channel) => {
         const channelObj = channel.toObject();
@@ -32,9 +38,10 @@ export default function getInitState(userId) {
       state.channels = channels;
       state.messages = messages;
       state.local = {
-        'userId': userId,
-        'currentChannelId': channels[0].id,
-        'pendingMessages': [],
+        userId,
+        sessionId,
+        currentChannelId: channels[0].id,
+        pendingMessages: [],
       };
       resolve(state);
     }).catch((exeption) => {

@@ -35,7 +35,8 @@ export default class Login extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (!Immutable.is(nextProps.local, this.props.local)) {
-      if (nextProps.local.get('userId')) {
+      if (nextProps.local.get('sessionId')) {
+        document.cookie = 'sessionId=' + nextProps.local.get('sessionId');
         nextProps.history.pushState(null, '/');
       } else {
         const user = nextProps.local.get('user');

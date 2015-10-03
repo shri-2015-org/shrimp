@@ -2,10 +2,10 @@ import getUserModel from '../models/user';
 const User = getUserModel();
 
 export function signInUser(login, password, callback) {
-  User.find({ nick: login }, (err, user) => {
-    if (user.length > 0) {
+  User.findOne({ nick: login }, (err, user) => {
+    if (user) {
       const userData = {
-        userId: user[0].id,
+        userId: user.id,
         status: {
           type: 'success',
           text: 'Welcome',
@@ -22,5 +22,16 @@ export function signInUser(login, password, callback) {
       };
       callback(userData);
     }
+  });
+}
+
+
+export function setSessionId(userId, sessionId, callback) {
+  User.findOne({ _id: userId }, (err, user) => {
+    user.sessionId = sessionId;
+    user.save(err => {
+      if (err) console.log(err);
+      callback(sessionId);
+    });
   });
 }
