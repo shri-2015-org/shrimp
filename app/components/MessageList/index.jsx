@@ -27,11 +27,24 @@ export default class MessageList extends React.Component {
 
   render() {
     const {local} = this.props;
+
+    let prevId = null;
     const messages = this.props.messages.map((message, i) => {
+      const sender = message.get('sender');
+      const id = sender.get('id');
+      const senderRepeated = id === prevId;
+      prevId = id;
+      const nextMessage = this.props.messages.get(i + 1);
+      const nextMessageIsMain = (() => {
+        if (!nextMessage) return false;
+        return id === nextMessage.get('sender').get('id');
+      }());
       return (
         <Message
           key={i}
-          sender={message.get('sender')}
+          sender={sender}
+          senderRepeated={senderRepeated}
+          nextMessageIsMain={nextMessageIsMain}
           text={message.get('text')}
           currentUserId={local.get('userId')}
           timestamp={message.get('timestamp')}

@@ -5,9 +5,18 @@
 .message {
   @extend .clearfix;
   position: relative;
-  min-height: 50px;
-  margin: 10px 0;
-  padding: 7px 0;
+  min-height: 40px;
+  margin-top: 20px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+
+  &_repeated {
+    margin-top: 0;
+  }
+
+  &_last &__cloud:before {
+    display: block;
+  }
 
   &__cloud {
     position: relative;
@@ -25,31 +34,33 @@
     }
 
     &:before {
-      content: ' ';
+      display: none;
       background: url('./default-horn.svg');
       position: absolute;
       bottom: -10px;
       right: 10px;
       height: 10px;
       width: 18px;
+      content: ' ';
     }
 
     &:hover .message__date {
       opacity: 1;
     }
-  }
 
-  &__cloud_other {
-    float: left;
-    background: $c-message-cloud-other_bg;
+    &_other {
+      float: left;
+      background: $c-message-cloud-other_bg;
 
-    &:before {
-      background: url('./other-horn.svg');
-      left: -12px;
-      top: 50%;
-      transform: translateY(-50%);
-      height: 11px;
-      width: 12px;
+      &:before {
+        display: block;
+        top: 17px;
+        left: -12px;
+        width: 12px;
+        height: 11px;
+        background: url('./other-horn.svg');
+        transform: translateY(-50%);
+      }
     }
   }
 
@@ -69,17 +80,19 @@
 
   &__avatar {
     position: absolute;
-    top: 50%;
-    left: -64px;
-    transform: translateY(-50%);
-    height: 52px;
-    width: 52px;
-    border-radius: 5px;
+    top: -10px;
+    left: -65px;
+    // transform: translateY(-50%);
+    border-radius: $main-border-radius;
     border: 1px solid $c-message-avatar_border;
   }
 
-  &__img {
-    border-radius: 3.5px;
+  &__username {
+    position: absolute;
+    top: -15px;
+    left: 10px;
+    font-size: .7em;
+    color: $c-gray-70;
   }
 
   &__date {

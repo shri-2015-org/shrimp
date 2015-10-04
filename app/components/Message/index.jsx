@@ -12,6 +12,8 @@ export default class Message extends React.Component {
     text: PropTypes.string.isRequired,
     timestamp: PropTypes.string.isRequired,
     currentUserId: PropTypes.string.isRequired,
+    senderRepeated: PropTypes.bool.isRequired,
+    nextMessageIsMain: PropTypes.bool.isRequired,
   }
 
 
@@ -46,30 +48,28 @@ export default class Message extends React.Component {
 
   renderAvatar = (sender) => {
     return (
-      <div className='message__avatar'>
-        <img
-          className='message__img'
-          src={sender.get('avatar')}
-          width='50'
-          height='50'
-        />
-      </div>
+      <img
+        className='message__avatar'
+        src={sender.get('avatar')}
+        width='50'
+        height='50'
+      />
     );
   }
 
 
   render() {
-    const {sender, text, currentUserId} = this.props;
+    const {sender, text, currentUserId, senderRepeated, nextMessageIsMain} = this.props;
     const isSelfMessage = sender.get('id') === currentUserId;
     return (
-      <li className='message'>
+      <li className={cx('message', {
+        'message_repeated': senderRepeated,
+        'message_last': !nextMessageIsMain,
+      })}>
         {isSelfMessage ? null : this.renderAvatar(sender)}
+        {isSelfMessage || senderRepeated ? null : <div className='message__username'>{sender.get('name')}</div>}
         <div className={cx('message__cloud', {message__cloud_other: !isSelfMessage})}>
-          <div className='message__text'>
-            <strong>{sender.get('name') + ':'}</strong>
-            <br />
-            {text}
-          </div>
+          <div className='message__text'>{text}</div>
           <div className='message__date'>{this.state.date + ' ago'}</div>
         </div>
       </li>
