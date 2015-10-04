@@ -1,0 +1,29 @@
+@import '~styles/variables.scss';
+@import '~styles/colors.scss';
+
+.dropdown-item {
+  width: 120px;
+  height: 35px;
+  padding: 8px 0 8px 0;
+  text-align: center;
+  cursor: pointer;
+}
+
+.dropdown-item:first-child {
+  border-radius: 5px 5px 0 0;
+}
+.dropdown-item:last-child {
+  border-radius: 0 0 5px 5px;
+}
+
+.dropdown-item:not(:first-child) {
+  border-top: 1px solid $c-gray-30;
+}
+
+.dropdown-item:hover {
+  background: $c-gray-20;
+}
+
+.dropdown-item_danger:hover {
+  color: red;
+}
