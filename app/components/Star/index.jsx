@@ -24,7 +24,7 @@ export default class Star extends React.Component {
       <IconSVG
         {...this.props}
         className={cx('star-icon', this.props.className)}
-        src={require(`./star${fill ? '_filled' : ''}.svg`)}
+        src={require(`./star${fill ? '_filled' : ''}.inline.svg`)}
       />
     );
   }

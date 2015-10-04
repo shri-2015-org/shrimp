@@ -7,7 +7,6 @@ const loadersByExt = loadersByExtension({
   'json': 'json',
   'png|jpg|gif': 'url?limit=5000',
   'woff|woff2': 'url?limit=1',
-  'svg': 'svg-inline?removeSVGTagAttrs=false',
 });
 
 
@@ -69,6 +68,14 @@ export default function MakeDefaultConfig(options) {
         {
           test: /\.scss$/,
           loader: 'style!css!' + autoprefixer + '!sass',
+        },
+        {
+          test: /^((?!inline).)*\.svg$/,
+          loader: 'url?limit=10000',
+        },
+        {
+          test: /inline\.svg$/,
+          loader: 'svg-inline?removeSVGTagAttrs=false',
         },
       ]),
     },
