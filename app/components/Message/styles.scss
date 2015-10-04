@@ -33,6 +33,10 @@
       height: 10px;
       width: 18px;
     }
+
+    &:hover .message__date {
+      opacity: 1;
+    }
   }
 
   &__cloud_other {
@@ -89,9 +93,5 @@
     opacity: 0;
     transition: opacity .5s;
     max-width: 80%;
-  }
-
-  &:hover &__date {
-    opacity: 1;
   }
 }
