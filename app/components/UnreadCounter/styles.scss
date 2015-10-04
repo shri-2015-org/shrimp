@@ -1,0 +1,21 @@
+@import '~styles/variables.scss';
+
+.unread-counter {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  min-width: 21px;
+  line-height: 21px;
+  font-size: 12px;
+  text-align: center;
+  color: white;
+  border-radius: 11px;
+  background: $c-blue;
+  transition: right .2s;
+
+  &_empty {
+    right: -100%;
+  }
+}

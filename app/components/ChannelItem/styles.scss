@@ -68,25 +68,4 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-
-
-  &__unread-counter {
-    position: absolute;
-    right: -4px;
-    top: 6px;
-    padding-left: 5px;
-    padding-right: 5px;
-    min-width: 21px;
-    line-height: 21px;
-    font-size: 12px;
-    text-align: center;
-    color: white;
-    border-radius: 11px;
-    background: $c-blue;
-    transition: right .2s;
-  }
-
-  &:hover &__unread-counter {
-    right: 6px;
-  }
 }
