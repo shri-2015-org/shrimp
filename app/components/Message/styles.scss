@@ -79,6 +79,7 @@
   }
 
   &__date {
+    @extend .ellipsis;
     position: absolute;
     color: $c-message-date_text;
     font-size: 9px;
@@ -87,6 +88,7 @@
     bottom: -4px;
     opacity: 0;
     transition: opacity .5s;
+    max-width: 80%;
   }
 
   &:hover &__date {
