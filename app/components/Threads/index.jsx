@@ -65,13 +65,13 @@ export default class ThreadsSection extends React.Component {
           <Tab id={1}>People</Tab>
           <Tab id={2}>Channels</Tab>
         </Tabs>
+
         <ThreadsList
           list={currentTabData.get('list')}
           local={local}
           setCurrentChannel={setCurrentChannel}
           type={currentTabData.get('name')}
         />
-
       </div>
     );
   }

@@ -71,7 +71,15 @@ export default class Application extends React.Component {
     const {messages, channels, local, dispatch, contacts} = this.props;
     const actionsCombine = Object.assign(actionsMessages, actionsLocal);
     const actions = bindActionCreators(actionsCombine, dispatch);
-    const threads = <Threads channels={channels} contacts={contacts} local={local} {...actions}/>;
+    const threads = (
+      <Threads
+        channels={channels}
+        contacts={contacts}
+        local={local}
+        {...actions}
+      />
+    );
+
     return (
       <div className='chat-page'>
         <Header
