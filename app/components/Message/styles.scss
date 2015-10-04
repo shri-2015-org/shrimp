@@ -29,7 +29,7 @@
     text-align: left;
     background: $c-message-cloud-default_bg;
 
-    @media (max-width: $message_cloud_width) {
+    @media (max-width: $message_cloud_width + $messages_avatar_left_padding) {
       max-width: calc(92vw - #{$messages_avatar_left_padding});
     }
 
@@ -73,7 +73,7 @@
     vertical-align: middle;
     word-wrap: break-word;
 
-    @media (max-width: $message_cloud_width) {
+    @media (max-width: $message_cloud_width + $messages_avatar_left_padding + 10px) {
       max-width: calc(92vw - #{$messages_avatar_left_padding} - 40px);
     }
   }
