@@ -24,7 +24,7 @@ export default class ChannelItem extends React.Component {
 
 
   shouldComponentUpdate(nextProps, nextState) {
-    return  !(
+    return !(
       Immutable.is(nextProps.isCurrent, this.props.isCurrent) &&
       Immutable.is(nextProps.item, this.props.item) &&
       nextState.favorite === this.state.favorite

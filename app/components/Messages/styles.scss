@@ -1,20 +1,32 @@
 @import '~styles/variables.scss';
+@import '~react-scrollbar/dist/css/scrollbar.css';
 
 .messages {
+  position: absolute;
   top: $header_height;
-  margin-bottom: $composer_height;
   left: 0;
   right: 0;
+  margin-bottom: $composer_height;
   padding-right: 2.5vw;
   padding-left: 2.5vw;
-  box-sizing: border-box;
-  max-height: 100vh;
-  overflow: auto;
   min-width: calc(100vw - #{$threads_width});
-  position: absolute;
+  max-height: calc(100vh - 150px);
+  box-sizing: border-box;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 
   @media (max-width: $mobile_width) {
     top: $header_height - 20px;
     max-width: 100vw;
+  }
+
+
+  .scrollbar-container {
+    opacity: .3;
+  }
+
+  .scrollbar {
+    border-radius: 5px;
+    background-color: $c-gray-10;
   }
 }

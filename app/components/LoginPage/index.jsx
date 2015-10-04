@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {Spring} from 'react-motion';
+import {Motion, spring} from 'react-motion';
 import LoginWindow from 'components/LoginWindow';
 import './styles.scss';
 
@@ -27,29 +27,24 @@ export default class LoginPage extends React.Component {
 
 
   render() {
-    const endRectStyle = {
-      y: {
-        val: this.state.open ? 50 : -30,
-        config: [120, 11],
-      },
-    };
-
-    const getRect = (interpolated) => (
+    const getRect = interpolated => (
       <div
         className='login-page__rect'
-        style={{top: interpolated.y.val + '%'}}
+        style={{top: interpolated.y + '%'}}
       />
     );
 
     return (
       <div className='login-page'>
         {this.state.showWindow ? <LoginWindow>{this.props.children}</LoginWindow> : null}
-        <Spring
-          defaultValue={{ y: { val: -15 } }}
-          endValue={endRectStyle}
+        {this.state.open ?
+        <Motion
+          defaultStyle={{y: spring(-30)}}
+          style={{y: spring(this.state.open ? 50 : -30, [120, 11])}}
         >
-          {interpolated => getRect(interpolated)}
-        </Spring>
+          {getRect}
+        </Motion>
+        : null}
       </div>
     );
   }

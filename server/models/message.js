@@ -23,7 +23,7 @@ message.statics.createTestMessage = function createTestMessage(idsSenders, idsCh
 };
 
 message.statics.add = function add(data, cb) {
-  return  new this(data).save(cb);
+  return new this(data).save(cb);
 };
 
 export default function getMessageModel() {
