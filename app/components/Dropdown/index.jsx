@@ -1,7 +1,7 @@
 import React from 'react';
 import DropdownItem from 'components/DropdownItem';
 import './styles.scss';
-
+import store from 'store.js';
 
 export default class Dropdown extends React.Component {
 
@@ -37,8 +37,9 @@ export default class Dropdown extends React.Component {
   }
 
 
-  handle = () => {
-    console.log('click');
+  logOut = () => {
+    document.cookie = 'sessionId=';
+    store.history.pushState(null, '/login');
   }
 
   render() {
@@ -50,7 +51,7 @@ export default class Dropdown extends React.Component {
         >{'●●●'}</button>
         <ul className='dropdown__menu' hidden={!this.state.open}>
            <DropdownItem text={'Settings'} />
-           <DropdownItem onClick={this.handle} text={'Log Out'} danger />
+           <DropdownItem onClick={this.logOut} text={'Log Out'} danger />
         </ul>
       </div>
     );
