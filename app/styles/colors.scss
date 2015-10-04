@@ -30,8 +30,15 @@ $c-message-date_text: $c-gray-10;
 // Header
 $c-header_bg: $c-gray-50;
 $c-header_text: #aeaeae;
-$c-header-menu_text: $c-gray-30;
 
+
+// Dropdown
+$c-dropdown-button_text: $c-gray-30;
+$c-dropdown-menu_bg: $c-gray-40;
+$c-dropdown-menu_text: $c-gray-60;
+$c-dropdown-item_border: $c-gray-30;
+$c-dropdown-item-hover_bg: $c-gray-20;
+$c-dropdown-item-danger_text: $c-red;
 
 // global
 $c-main-shadow: $c-shadow;
