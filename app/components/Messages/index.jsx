@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import Immutable, {List, Map} from 'immutable';
 import MessageList from 'components/MessageList';
 import MessageComposer from 'components/MessageComposer';
+import ScrollAria from 'react-scrollbar';
 import './styles.scss';
 
 
@@ -25,6 +26,7 @@ export default class Messages extends React.Component {
 
   componentDidMount = () => {
     this.baseTextareaHeight = null;
+    this.messagesNode = document.querySelector('.messages');
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -37,12 +39,11 @@ export default class Messages extends React.Component {
   }
 
   scrollToBottom = () => {
-    const list = this.refs.list.getDOMNode();
-    list.scrollTop = list.scrollHeight;
+    this.messagesNode.scrollTop = 999999;
   }
 
 
-  changeBottom = (height) => {
+  changeBottom = height => {
     if (this.baseTextareaHeight === null) {
       this.baseTextareaHeight = height;
     }
@@ -56,16 +57,17 @@ export default class Messages extends React.Component {
   render() {
     const {messages, local, newMessage} = this.props;
     return (
-      <div
-        className='messages'
-        ref='list'
-        style={{bottom: this.state.listBottom}}
-      >
-        <MessageList
-          messages={messages}
-          scroll={this.scrollToBottom}
-          local={local}
-        />
+      <div>
+        <ScrollAria
+          className='messages'
+          contentStyle={{bottom: this.state.listBottom}}
+        >
+          <MessageList
+            messages={messages}
+            scroll={this.scrollToBottom}
+            local={local}
+          />
+        </ScrollAria>
         <MessageComposer
           local={local}
           newMessage={newMessage}
