@@ -34,33 +34,37 @@
     }
 
     &:before {
-      display: none;
-      background: url('./default-horn.svg');
       position: absolute;
       bottom: -10px;
       right: 10px;
       height: 10px;
       width: 18px;
-      content: ' ';
+      display: none;
+      background: url('./default-horn.svg');
+      content: '';
     }
 
     &:hover .message__date {
       opacity: 1;
     }
+  }
 
-    &_other {
-      float: left;
-      background: $c-message-cloud-other_bg;
+  &_foreign {
+    min-height: 56px;
+  }
 
-      &:before {
-        display: block;
-        top: 17px;
-        left: -12px;
-        width: 12px;
-        height: 11px;
-        background: url('./other-horn.svg');
-        transform: translateY(-50%);
-      }
+  &_foreign &__cloud {
+    float: left;
+    background: $c-message-cloud-other_bg;
+
+    &:before {
+      display: block;
+      top: 17px;
+      left: -12px;
+      width: 12px;
+      height: 11px;
+      background: url('./other-horn.svg');
+      transform: translateY(-50%);
     }
   }
 
@@ -82,9 +86,7 @@
     position: absolute;
     top: -10px;
     left: -65px;
-    // transform: translateY(-50%);
     border-radius: $main-border-radius;
-    border: 1px solid $c-message-avatar_border;
   }
 
   &__username {

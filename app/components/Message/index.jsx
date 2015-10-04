@@ -65,10 +65,11 @@ export default class Message extends React.Component {
       <li className={cx('message', {
         'message_repeated': senderRepeated,
         'message_last': !nextMessageIsMain,
+        'message_foreign': !isSelfMessage,
       })}>
         {isSelfMessage ? null : this.renderAvatar(sender)}
         {isSelfMessage || senderRepeated ? null : <div className='message__username'>{sender.get('name')}</div>}
-        <div className={cx('message__cloud', {message__cloud_other: !isSelfMessage})}>
+        <div className='message__cloud'>
           <div className='message__text'>{text}</div>
           <div className='message__date'>{this.state.date + ' ago'}</div>
         </div>
