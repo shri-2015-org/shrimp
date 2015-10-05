@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import Immutable, {Map} from 'immutable';
 import cx from 'classnames';
 import Star from 'components/Star';
+import UnreadCounter from 'components/UnreadCounter';
 import './styles.scss';
 
 export default class ChannelItem extends React.Component {
@@ -47,17 +48,6 @@ export default class ChannelItem extends React.Component {
 
 
   render() {
-    const unreadCounter = (() => {
-      const unreadCount = this.props.item.get('unreadMessagesCount');
-      if (unreadCount) {
-        return (
-          <span className='channel__unread-counter'>
-            {unreadCount}
-          </span>
-        );
-      }
-    }());
-
     return (
       <div
         className={cx('channel', {
@@ -77,7 +67,10 @@ export default class ChannelItem extends React.Component {
           Commodi sed consequatur et deserunt molestias. Velit cupiditate laudantium
           exercitationem error et at. Doloribus voluptatem sint libero enim at et.
           </div>
-        {unreadCounter}
+        <UnreadCounter
+          className='channel__unread-counter'
+          count={this.props.item.get('unreadMessagesCount')}
+        />
       </div>
     );
   }

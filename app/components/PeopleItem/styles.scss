@@ -1,18 +1,90 @@
-.people-item {
-  height: 48px;
-  line-height: 48px;
-  border-bottom: 1px solid #fff;
+// .people-item {
+//   height: 48px;
+//   line-height: 48px;
+//   border-bottom: 1px solid #fff;
+//   position: relative;
+//   padding-left: 50px;
+//   font-size: 20px;
+//   padding-right: 33px;
+//   &__avatar {
+//     position: absolute;
+//     width: 30px;
+//     height: 30px;
+//     background: #000;
+//     top: 50%;
+//     margin-top: -15px;
+//     left: 10px;
+//   }
+// }
+
+@import '~styles/variables.scss';
+@import '~styles/colors.scss';
+
+.person {
   position: relative;
-  padding-left: 50px;
-  font-size: 20px;
-  padding-right: 33px;
-  &__avatar {
+  height: 60px;
+  margin-bottom: 1px;
+  background-color: $c-gray-30;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 $c-highlight;
+  transition-property: color, background, box-shadow;
+  transition-duration: .4s, .4s, .1s;
+
+  &_active {
+    cursor: default;
+    box-shadow: inset 2px 0 0 $c-highlight;
+    background-color: $c-gray-20;
+    color: $c-current-tab_text;
+  }
+
+  &:not(.channel_active):hover {
+    background-color: $c-gray-20;
+    color: $c-hover-tab_text;
+  }
+
+  &:not(.channel_active):active {
+    box-shadow: inset 7px 0 0 $c-highlight;
+    background-color: $c-gray-20;
+  }
+
+  &__star {
     position: absolute;
-    width: 30px;
-    height: 30px;
-    background: #000;
-    top: 50%;
-    margin-top: -15px;
+    top: 4px;
+    left: -11px;
+    transition: left .2s;
+
+    &_filled {
+      left: 10px;
+    }
+  }
+
+  &:hover &__star {
     left: 10px;
+  }
+
+  &__name {
+    padding-left: 25px;
+    padding-top: 5px;
+  }
+
+
+  &__last-message {
+    $font-size: 12px;
+    $line-height: 1.2;
+    $lines-to-show: 2;
+    padding-left: 20px;
+    padding-right: 30px;
+    font-weight: bolder;
+    color: $c-gray-50;
+    display: block; /* Fallback for non-webkit */
+    display: -webkit-box;
+    max-width: 400px;
+    height: $font-size * $line-height * $lines-to-show; /* Fallback for non-webkit */
+    font-size: $font-size;
+    line-height: $line-height;
+    -webkit-line-clamp: $lines-to-show;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
