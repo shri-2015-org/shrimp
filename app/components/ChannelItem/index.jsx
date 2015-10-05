@@ -9,6 +9,7 @@ export default class ChannelItem extends React.Component {
 
   static propTypes = {
     item: PropTypes.instanceOf(Map),
+    lastMessage: PropTypes.instanceOf(Map),
     isCurrent: PropTypes.bool,
     setCurrentChannel: PropTypes.func.isRequired,
     favorite: PropTypes.bool,
@@ -27,6 +28,7 @@ export default class ChannelItem extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     return !(
       Immutable.is(nextProps.isCurrent, this.props.isCurrent) &&
+      Immutable.is(nextProps.lastMessage, this.props.lastMessage) &&
       Immutable.is(nextProps.item, this.props.item) &&
       nextState.favorite === this.state.favorite
     );
@@ -64,9 +66,8 @@ export default class ChannelItem extends React.Component {
         />
         <div className='channel__name'>{this.props.item.get('name')}</div>
         <div className='channel__last-message'>
-          Commodi sed consequatur et deserunt molestias. Velit cupiditate laudantium
-          exercitationem error et at. Doloribus voluptatem sint libero enim at et.
-          </div>
+          {this.props.lastMessage ? this.props.lastMessage.get('text') : '🙊'}
+        </div>
         <UnreadCounter
           className='channel__unread-counter'
           count={this.props.item.get('unreadMessagesCount')}
