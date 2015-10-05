@@ -10,7 +10,7 @@ export default class ThreadsSection extends React.Component {
 
   static propTypes = {
     channels: PropTypes.instanceOf(List).isRequired,
-    users: PropTypes.instanceOf(List).isRequired,
+    contacts: PropTypes.instanceOf(List).isRequired,
     setCurrentChannel: PropTypes.func.isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
   }
@@ -33,7 +33,7 @@ export default class ThreadsSection extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     return !(
       Immutable.is(nextProps.channels, this.props.channels) &&
-      Immutable.is(nextProps.users, this.props.users) &&
+      Immutable.is(nextProps.contacts, this.props.contacts) &&
       Immutable.is(nextProps.local, this.props.local) &&
       Immutable.is(nextState.currentTabId, this.state.currentTabId)
     );
@@ -47,10 +47,10 @@ export default class ThreadsSection extends React.Component {
 
 
   render() {
-    const {channels, users, setCurrentChannel, local} = this.props;
+    const {channels, contacts, setCurrentChannel, local} = this.props;
 
     const tabs = List.of(
-      Map({id: 1, name: 'People', list: users }),
+      Map({id: 1, name: 'People', list: contacts }),
       Map({id: 2, name: 'Channels', list: channels }),
     );
 
