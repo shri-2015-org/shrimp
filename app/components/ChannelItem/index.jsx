@@ -18,7 +18,7 @@ export default class ChannelItem extends React.Component {
     super(props);
     this.state = {
       id: this.props.item.get('id'),
-      favorite: this.props.favorite,
+      favorite: this.props.favorite || false,
     };
   }
 
