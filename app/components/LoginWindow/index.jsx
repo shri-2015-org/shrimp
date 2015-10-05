@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {pushState} from 'redux-router';
 import {connect} from 'react-redux';
-import {Spring} from 'react-motion';
+import {Motion, spring} from 'react-motion';
 import Tabs from 'components/Tabs';
 import Tab from 'components/Tab';
 import './styles.scss';
@@ -40,10 +40,10 @@ export default class LoginWindow extends React.Component {
 
 
   render() {
-    const getLoginWindow = (interpolated) => (
+    const getLoginWindow = interpolated => (
       <div
         className='login-window'
-        style={{transform: `scale(${interpolated.val})`}}
+        style={{transform: `scale(${interpolated.scale})`}}
       >
         <Tabs
           className='login-window__tabs'
@@ -58,12 +58,12 @@ export default class LoginWindow extends React.Component {
     );
 
     return (
-      <Spring
-        defaultValue={{val: 0}}
-        endValue={{val: 1, config: [120, 11]}}
+      <Motion
+        defaultStyle={{scale: spring(0)}}
+        style={{scale: spring(1, [120, 11])}}
       >
         {interpolated => getLoginWindow(interpolated)}
-      </Spring>
+      </Motion>
     );
   }
 }

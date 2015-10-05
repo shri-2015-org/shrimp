@@ -14,7 +14,7 @@ export default class MessageList extends React.Component {
 
 
   shouldComponentUpdate(nextProps) {
-    return  !(
+    return !(
       Immutable.is(nextProps.messages, this.props.messages) &&
       Immutable.is(nextProps.local, this.props.local)
     );

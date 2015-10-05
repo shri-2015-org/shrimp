@@ -46,7 +46,7 @@ export default class Tab extends React.Component {
 
     if (this.props.link) {
       return (
-        <Link  {...properties} to={this.props.link}>
+        <Link {...properties} to={this.props.link}>
           {this.props.children}
         </Link>
       );

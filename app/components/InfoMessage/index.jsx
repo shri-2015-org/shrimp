@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {Spring} from 'react-motion';
+import {Motion, spring} from 'react-motion';
 import cx from 'classnames';
 import './styles.scss';
 
@@ -70,7 +70,7 @@ export default class InfoMessage extends React.Component {
     const getMessageText = (interpolated) => (
       <div
         className='info-message__text'
-        style={{transform: `translateX(-${interpolated.val}%)`}}
+        style={{transform: `translateX(-${interpolated.x}%)`}}
       >
         {this.state.children}
       </div>
@@ -78,12 +78,12 @@ export default class InfoMessage extends React.Component {
 
     return (
       <div className={classes}>
-        <Spring
-          defaultValue={{val: 0}}
-          endValue={{val: this.state.changing ? 100 : 0, config: [1000, 100]}}
+        <Motion
+          defaultStyle={{x: spring(0)}}
+          style={{x: spring(this.state.changing ? 100 : 0, [1000, 100])}}
         >
           {(interpolated) => getMessageText(interpolated)}
-        </Spring>
+        </Motion>
       </div>
     );
   }
