@@ -33,6 +33,10 @@
       height: 10px;
       width: 18px;
     }
+
+    &:hover .message__date {
+      opacity: 1;
+    }
   }
 
   &__cloud_other {
@@ -79,6 +83,7 @@
   }
 
   &__date {
+    @extend .ellipsis;
     position: absolute;
     color: $c-message-date_text;
     font-size: 9px;
@@ -87,9 +92,6 @@
     bottom: -4px;
     opacity: 0;
     transition: opacity .5s;
-  }
-
-  &:hover &__date {
-    opacity: 1;
+    max-width: 80%;
   }
 }
