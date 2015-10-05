@@ -1,7 +1,8 @@
 import React, {PropTypes} from 'react';
 import {List, Map} from 'immutable';
 import {connect} from 'react-redux';
-import {startSocketClient} from 'core/socket';
+import store from 'store';
+import {socketClient} from 'core/socket';
 import Messages from 'components/Messages';
 import Header from 'components/Header';
 import Threads from 'components/Threads';
@@ -13,8 +14,6 @@ import {currentChannelMessagesSelector} from 'selectors/messagesSelector';
 import {contactsSelector} from 'selectors/contactsSelector';
 import Sidebar from 'react-sidebar';
 
-
-startSocketClient();
 
 @connect(state => ({
   messages: currentChannelMessagesSelector(state),
@@ -44,6 +43,9 @@ export default class Application extends React.Component {
 
 
   componentWillMount = () => {
+    socketClient('SOCKET_INIT');
+    store.dispatch(actionsLocal.getInitData());
+
     const mql = window.matchMedia('(min-width: 800px)');
     mql.addListener(this.mediaQueryChanged);
     this.setState({mql: mql, sidebarDocked: mql.matches, sidebarOpen: mql.matches});

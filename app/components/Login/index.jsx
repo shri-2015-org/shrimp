@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {signIn} from 'actions/local';
+import {init, initUser} from 'actions/local';
 import store from 'store';
 import {connect} from 'react-redux';
 import Immutable, {Map} from 'immutable';
@@ -36,7 +36,7 @@ export default class Login extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (!Immutable.is(nextProps.local, this.props.local)) {
-      if (nextProps.local.get('sessionId')) {
+      if (nextProps.local.get('userId')) {
         cookies.set('sessionId', nextProps.local.get('sessionId'), {expires: 365});
         nextProps.history.pushState(null, '/');
       } else {
@@ -59,7 +59,28 @@ export default class Login extends React.Component {
       password: e.target.password.value,
     };
 
-    store.dispatch(signIn(authData));
+    // store.dispatch(signIn(authData));
+
+    fetch('/signin', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(authData),
+    }).then((res) => {
+      if (res.status === 200) {
+        res.json().then(data => {
+          if (data.local) {
+            store.dispatch(init(data));
+          } else {
+            store.dispatch(initUser(data));
+          }
+        });
+      } else {
+        return;
+      }
+    });
   }
 
 

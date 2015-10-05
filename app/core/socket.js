@@ -6,22 +6,27 @@ import {addMessage} from '../actions/messages';
 import {init, initUser} from '../actions/local';
 import {SC} from '../../constants';
 
-export const socket = io();
 
-export function startSocketClient() {
-  socket.on(SC.ADD_MESSAGE, (data) => {
-    store.dispatch(addMessage(Map(data)));
-  });
+export function socketClient(type = null, socketData) {
+  const socket = io();
 
-  socket.on(SC.ADD_CHANNEL, (data) => {
-    store.dispatch(addChannel(Map({id: 1, name: data.name})));
-  });
+  if (type === 'SOCKET_INIT') {
+    socket.on(SC.ADD_MESSAGE, (data) => {
+      store.dispatch(addMessage(Map(data)));
+    });
 
-  socket.on(SC.INIT, (data) => {
-    store.dispatch(init(data));
-  });
+    socket.on(SC.ADD_CHANNEL, (data) => {
+      store.dispatch(addChannel(Map({id: 1, name: data.name})));
+    });
 
-  socket.on(SC.SIGN_IN, (data) => {
-    store.dispatch(initUser(data));
-  });
+    socket.on(SC.INIT, (data) => {
+      store.dispatch(init(data));
+    });
+
+    socket.on(SC.SIGN_IN, (data) => {
+      store.dispatch(initUser(data));
+    });
+  } else if (type) {
+    socket.emit(type, socketData);
+  }
 }

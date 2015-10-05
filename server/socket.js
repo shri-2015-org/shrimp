@@ -15,23 +15,24 @@ export default function startSocketServer(http) {
 
   io.use(cookieParser);
 
-  io.set('authorization', function(handshakeData, callback) {
-    if (handshakeData.headers.cookie) {
-      const sessionId = handshakeData.headers.cookie.sessionId;
-
+  io.use((socket, callback) => {
+    if (socket.request.headers.cookie) {
+      const sessionId = socket.request.headers.cookie.sessionId;
+      console.log('Check');
       checkUserSession(sessionId).then(() => {
         console.log('Success');
-        callback(null, true);
+        socket.sessionId = sessionId;
+        callback();
       }).catch((exception) => {
-        console.log(exception);
-        callback(null, false);
+        console.log('Error');
+        callback(new Error(exception));
       });
     }
   });
 
   io.on('connection', socket => {
-    socket.on(CS.INIT, data => {
-      getInitState(data.sessionId).then(initState => {
+    socket.on(CS.INIT, () => {
+      getInitState(socket.sessionId).then(initState => {
         socket.emit(SC.INIT, initState);
       });
     });
