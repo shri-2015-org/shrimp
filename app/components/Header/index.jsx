@@ -2,6 +2,8 @@ import React, {PropTypes} from 'react';
 import Search from 'components/Search';
 import './styles.scss';
 import Dropdown from 'components/Dropdown';
+import DropdownItem from 'components/DropdownItem';
+import store from 'store.js';
 
 export default class Header extends React.Component {
   static propTypes = {
@@ -16,6 +18,11 @@ export default class Header extends React.Component {
   }
 
 
+  logOut = () => {
+    document.cookie = 'sessionId=';
+    store.history.pushState(null, '/login');
+  }
+
   render() {
     return (
       <header className='header'>
@@ -25,7 +32,10 @@ export default class Header extends React.Component {
           className='header__humburger'
         >{'☰'}</button>
         <Search className='header__search' />
-        <Dropdown />
+        <Dropdown>
+          <DropdownItem text={'Settings'} />
+          <DropdownItem onClick={this.logOut} text={'Log Out'} danger />
+        </Dropdown>
       </header>
     );
   }
