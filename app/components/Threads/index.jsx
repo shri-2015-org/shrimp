@@ -19,7 +19,7 @@ export default class ThreadsSection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentTabId: 1,
+      currentTabId: 2,
     };
   }
 
