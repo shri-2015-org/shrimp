@@ -92,6 +92,7 @@ export default class Application extends React.Component {
           setOpen={this.onSetSidebarOpen}
           open={this.state.sidebarOpen}
           docked={this.state.sidebarDocked}
+          {...actions}
           />
         <Sidebar
           sidebar={threads}

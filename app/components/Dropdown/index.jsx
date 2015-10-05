@@ -4,7 +4,7 @@ import './styles.scss';
 export default class Dropdown extends React.Component {
 
   static propTypes = {
-    children: React.PropTypes.element.isRequired,
+    children: React.PropTypes.arrayOf(React.PropTypes.element).isRequired,
   }
 
 

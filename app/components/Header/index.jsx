@@ -4,12 +4,15 @@ import './styles.scss';
 import Dropdown from 'components/Dropdown';
 import DropdownItem from 'components/DropdownItem';
 import store from 'store.js';
+import {erase} from 'browser-cookies';
+
 
 export default class Header extends React.Component {
   static propTypes = {
     setOpen: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
     docked: PropTypes.bool.isRequired,
+    logOut: PropTypes.func.isRequired,
   }
 
 
@@ -17,10 +20,10 @@ export default class Header extends React.Component {
     this.props.setOpen(true);
   }
 
-
   logOut = () => {
-    document.cookie = 'sessionId=';
+    erase('sessionId');
     store.history.pushState(null, '/login');
+    this.props.logOut();
   }
 
   render() {
