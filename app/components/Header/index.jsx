@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import Search from 'components/Search';
 import './styles.scss';
-
+import Dropdown from 'components/Dropdown';
 
 export default class Header extends React.Component {
   static propTypes = {
@@ -25,7 +25,7 @@ export default class Header extends React.Component {
           className='header__humburger'
         >{'☰'}</button>
         <Search className='header__search' />
-        <button className='header__menu'>{'●●●'}</button>
+        <Dropdown />
       </header>
     );
   }

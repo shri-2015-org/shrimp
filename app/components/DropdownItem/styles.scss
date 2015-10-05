@@ -1,0 +1,30 @@
+@import '~styles/variables.scss';
+@import '~styles/colors.scss';
+
+.dropdown-item {
+  width: 120px;
+  height: 35px;
+  padding: 8px 0 8px 0;
+  text-align: center;
+  cursor: pointer;
+
+  &:first-child {
+    border-radius: 5px 5px 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 0 5px 5px;
+  }
+
+  &:not(:first-child) {
+    border-top: 1px solid $c-dropdown-item_border;
+  }
+
+  &:hover {
+    background: $c-dropdown-item-hover_bg;
+  }
+
+  &_danger:hover {
+    color: $c-dropdown-item-danger_text;
+  }
+}

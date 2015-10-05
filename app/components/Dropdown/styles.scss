@@ -1,0 +1,36 @@
+@import '~styles/variables.scss';
+@import '~styles/colors.scss';
+
+
+.dropdown {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+
+  &__button {
+    font-size: 18px;
+    transform: translateY(-50%) rotate(90deg);
+    letter-spacing: 2px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    color: $c-dropdown-button_text;
+    background: transparent;
+    outline: none;
+    border: none;
+    padding: 0;
+  }
+
+  &__menu {
+    position: absolute;
+    top: -1px;
+    right: 5px;
+    background: $c-dropdown-menu_bg;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    border-radius: 5px;
+    color: $c-dropdown-menu_text;
+  }
+}
