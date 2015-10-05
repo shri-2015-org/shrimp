@@ -41,3 +41,17 @@ export function setSessionId(userId, sessionId, callback) {
     callback(sessionId);
   }).catch(exception => { debug(exception); });
 }
+
+
+export function checkUserSession(sessionId) {
+  return new Promise((resolve, reject) => {
+    User.find({ sessionId: sessionId }, (err, user) => {
+      if (err) reject(err);
+      if (user.length === 1) {
+        resolve();
+      } else {
+        reject();
+      }
+    });
+  });
+}

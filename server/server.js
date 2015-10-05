@@ -2,9 +2,13 @@ import express from 'express';
 import path from 'path';
 import http from 'http';
 import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
 import startSocketServer from './socket.js';
 import getConfig from './config.js';
 import {createTestCollections} from './fill-db.js';
+import {signInUser, setSessionId} from './db/db_core.js';
+import getInitState from './initial-state';
+import {generateSessionId} from './lib/core.js';
 // const debug = require('debug')('shrimp:server');
 
 const app = express();
@@ -36,6 +40,7 @@ if (isDev && isDebug && process.env.DEBUG.indexOf('shrimp:front') === 0) {
   app.use('/static', express.static(path.join(__dirname, '../static')));
 }
 
+app.use(bodyParser.json());
 
 startSocketServer(server);
 
@@ -46,6 +51,21 @@ if (isMongoConnect === 'yes') {
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../app/root.html'));
+});
+
+app.post('/signin', (req, res) => {
+  signInUser(req.body.login, req.body.password, (userData) => {
+    if (userData.status.type === 'success') {
+      const sessionId = generateSessionId();
+      setSessionId(userData.userId, sessionId, (userSessionId) => {
+        getInitState(userSessionId).then(initState => {
+          res.json(initState);
+        });
+      });
+    } else {
+      res.json({user: userData});
+    }
+  });
 });
 
 server.listen(port);
