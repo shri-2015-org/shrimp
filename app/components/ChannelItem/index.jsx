@@ -50,6 +50,7 @@ export default class ChannelItem extends React.Component {
 
 
   render() {
+    const {item, lastMessage} = this.props;
     return (
       <div
         className={cx('channel', {
@@ -64,13 +65,13 @@ export default class ChannelItem extends React.Component {
             channel__star_filled: this.state.favorite,
           })}
         />
-        <div className='channel__name'>{this.props.item.get('name')}</div>
+        <div className='channel__name'>{item.get('name') || item.get('nick')}</div>
         <div className='channel__last-message'>
-          {this.props.lastMessage ? this.props.lastMessage.get('text') : '🙊'}
+          {lastMessage ? lastMessage.get('text') : '🙊'}
         </div>
         <UnreadCounter
           className='channel__unread-counter'
-          count={this.props.item.get('unreadMessagesCount')}
+          count={item.get('unreadMessagesCount')}
         />
       </div>
     );

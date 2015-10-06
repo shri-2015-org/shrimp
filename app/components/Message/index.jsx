@@ -61,6 +61,12 @@ export default class Message extends React.Component {
   render() {
     const {sender, text, currentUserId, senderRepeated, nextMessageIsMain} = this.props;
     const isSelfMessage = sender.get('id') === currentUserId;
+    const userName = (() => {
+      if (isSelfMessage || senderRepeated) return null;
+      const name = sender.get('name') || sender.get('nick');
+      return <div className='message__username'>{name}</div>;
+    }());
+
     return (
       <li className={cx('message', {
         'message_repeated': senderRepeated,
@@ -68,7 +74,7 @@ export default class Message extends React.Component {
         'message_foreign': !isSelfMessage,
       })}>
         {isSelfMessage ? null : this.renderAvatar(sender)}
-        {isSelfMessage || senderRepeated ? null : <div className='message__username'>{sender.get('name')}</div>}
+        {userName}
         <div className='message__cloud'>
           <div className='message__text'>{text}</div>
           <div className='message__date'>{this.state.date + ' ago'}</div>

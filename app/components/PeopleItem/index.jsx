@@ -30,20 +30,21 @@ export default class PeopleItem extends React.Component {
 
 
   render() {
+    const {isCurrent, item, lastMessage} = this.props;
     return (
       <div
         className={cx('person', {
-          'person_active': this.props.isCurrent,
+          'person_active': isCurrent,
         })}
         onClick={this.setChannel}
       >
-        <div className='person__name'>{this.props.item.get('name')}</div>
+        <div className='person__name'>{item.get('name') || item.get('nick')}</div>
         <div className='person__last-message'>
-          {this.props.lastMessage ? this.props.lastMessage.get('text') : '🙊'}
+          {lastMessage ? lastMessage.get('text') : '🙊'}
         </div>
         <UnreadCounter
           className='person__unread-counter'
-          count={this.props.item.get('unreadMessagesCount')}
+          count={item.get('unreadMessagesCount')}
         />
       </div>
     );
