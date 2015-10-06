@@ -19,6 +19,7 @@ const A = {
   SET_CURRENT_CHANNEL: 'SET_CURRENT_CHANNEL',
   INIT: 'INIT',
   INIT_USER: 'INIT_USER',
+  FILTER_CHANNELS: 'FILTER_CHANNELS',
 };
 
 module.exports = {

@@ -4,6 +4,7 @@ import './styles.scss';
 import Tabs from 'components/Tabs';
 import Tab from 'components/Tab';
 import ThreadsList from 'components/ThreadsList';
+import Search from 'components/Search';
 
 
 export default class ThreadsSection extends React.Component {
@@ -72,6 +73,7 @@ export default class ThreadsSection extends React.Component {
           setCurrentChannel={setCurrentChannel}
           type={currentTabData.get('name')}
         />
+        <Search list={currentTabData} className='threads__search' />
       </div>
     );
   }

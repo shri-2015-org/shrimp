@@ -12,6 +12,8 @@ export function channels(state = EMPTY_LIST, action = {type: 'DEFAULT'}) {
   case A.REMOVE_CHANNEL:
     const index = state.map(item => item.get('id')).indexOf(action.channelId);
     return state.delete(index);
+  case A.FILTER_CHANNELS:
+    return action.payload;
   default:
     return state;
   }

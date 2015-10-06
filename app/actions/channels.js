@@ -14,3 +14,11 @@ export function removeChannel(channelId) {
     channelId: channelId,
   };
 }
+
+
+export function filterChannels(data) {
+  return {
+    type: A.FILTER_CHANNELS,
+    payload: data,
+  };
+}
