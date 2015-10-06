@@ -1,6 +1,5 @@
 import faker from 'faker';
 import getUserModel from '../models/user';
-import {generateSessionId} from './lib/core.js';
 
 const User = getUserModel();
 const debug = require('debug')('shrimp:server');
@@ -30,8 +29,7 @@ export function signInUser(login, password, callback) {
 }
 
 
-export function signUpUser(login, password, callback) {
-  const sessionId = generateSessionId();
+export function signUpUser(login, password, sessionId, callback) {
   const newUser = new User({
     nick: login,
     name: faker.name.firstName(),
@@ -63,7 +61,7 @@ export function setSessionId(userId, sessionId, callback) {
 }
 
 
-export function checkUserSession(sessionId) {
+export function checkSessionId(sessionId) {
   return new Promise((resolve, reject) => {
     User.find({ sessionId: sessionId }, (err, user) => {
       if (err) reject(err);
@@ -84,7 +82,7 @@ export function checkUserLogin(login, callback) {
         userId: user.id,
         status: {
           type: 'error',
-          text: 'These user already exist',
+          text: 'User with this login already exist',
         },
       };
       callback(userData);

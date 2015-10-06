@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 import startSocketServer from './socket.js';
 import getConfig from './config.js';
 import {createTestCollections} from './fill-db.js';
-import {signInUser, setSessionId} from './db/db_core.js';
+import {signInUser, signUpUser, checkUserLogin, setSessionId} from './db/db_core.js';
 import getInitState from './initial-state';
 import {generateSessionId} from './lib/core.js';
 // const debug = require('debug')('shrimp:server');
@@ -54,6 +54,33 @@ app.get('*', (req, res) => {
 });
 
 app.post('/signin', (req, res) => {
+  signInUser(req.body.login, req.body.password, (userData) => {
+    if (userData.status.type === 'success') {
+      const sessionId = generateSessionId();
+      setSessionId(userData.userId, sessionId, (userSessionId) => {
+        getInitState(userSessionId).then(initState => {
+          res.json(initState);
+        });
+      });
+    } else {
+      res.json({user: userData});
+    }
+  });
+});
+
+app.post('/signup', (req, res) => {
+  const login = req.body.login;
+  const password = req.body.password;
+
+  const status = checkUserLogin(login);
+  if (status.type === 'success') {
+    const sessionId = generateSessionId();
+    signUpUser(login, password, sessionId, () => {
+
+    });
+  } else {
+    res.json({user: status});
+  }
   signInUser(req.body.login, req.body.password, (userData) => {
     if (userData.status.type === 'success') {
       const sessionId = generateSessionId();
