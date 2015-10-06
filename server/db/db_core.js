@@ -1,4 +1,7 @@
+import faker from 'faker';
 import getUserModel from '../models/user';
+import {generateSessionId} from './lib/core.js';
+
 const User = getUserModel();
 const debug = require('debug')('shrimp:server');
 
@@ -23,6 +26,23 @@ export function signInUser(login, password, callback) {
       };
       callback(userData);
     }
+  });
+}
+
+
+export function signUpUser(login, password, callback) {
+  const sessionId = generateSessionId();
+  const newUser = new User({
+    nick: login,
+    name: faker.name.firstName(),
+    avatar: faker.image.avatar(),
+    password: faker.internet.password(),
+    sessionId: sessionId,
+  });
+
+  newUser.save(error => {
+    if (error) debug(error);
+    callback(sessionId);
   });
 }
 
@@ -53,5 +73,30 @@ export function checkUserSession(sessionId) {
         reject();
       }
     });
+  });
+}
+
+
+export function checkUserLogin(login, callback) {
+  User.findOne({ nick: login }, (err, user) => {
+    if (user) {
+      const userData = {
+        userId: user.id,
+        status: {
+          type: 'error',
+          text: 'These user already exist',
+        },
+      };
+      callback(userData);
+    } else {
+      const userData = {
+        userid: '',
+        status: {
+          type: 'success',
+          text: 'Welcome',
+        },
+      };
+      callback(userData);
+    }
   });
 }
