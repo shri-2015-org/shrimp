@@ -3,6 +3,7 @@ import store from 'store';
 import {connect} from 'react-redux';
 import Immutable, {Map} from 'immutable';
 import cookies from 'browser-cookies';
+import cx from 'classnames';
 import {init, initUser} from 'actions/local';
 import InfoMessage from 'components/InfoMessage';
 import PasswordInput from 'components/PasswordInput';
@@ -30,6 +31,12 @@ export default class SignUp extends React.Component {
         text: 'Fill these fields',
       },
       shakeInfo: false,
+      login: '',
+      password: '',
+      repeatedPassword: '',
+      showPasswordError: false,
+      showSecondPasswordError: false,
+      showLoginError: false,
     };
   }
 
@@ -58,12 +65,42 @@ export default class SignUp extends React.Component {
 
   signUp = (e) => {
     e.preventDefault();
-    const authData = {
-      login: e.target.login.value,
-      password: e.target.password.value,
-    };
 
-    // store.dispatch(signIn(authData));
+    if (!this.state.login) {
+      return this.setState({
+        showLoginError: true,
+        info: {
+          type: 'error',
+          text: 'Login is required',
+        },
+      });
+    }
+
+    if (!this.state.password) {
+      return this.setState({
+        showPasswordError: true,
+        showSecondPasswordError: true,
+        info: {
+          type: 'error',
+          text: 'Password is required',
+        },
+      });
+    }
+
+    if (this.state.password !== this.state.repeatedPassword) {
+      return this.setState({
+        showSecondPasswordError: true,
+        info: {
+          type: 'error',
+          text: 'The passwords don\'t match. Please check and try again.',
+        },
+      });
+    }
+
+    const authData = {
+      login: this.state.login,
+      password: this.state.password,
+    };
 
     fetch('/signup', {
       method: 'post',
@@ -88,27 +125,59 @@ export default class SignUp extends React.Component {
   }
 
 
+  loginChange = e => {
+    this.setState({
+      login: e.target.value,
+      showLoginError: false,
+    });
+  }
+
+
+  passwordChange = e => {
+    this.setState({
+      password: e.target.value,
+      showSecondPasswordError: false,
+      showPasswordError: false,
+    });
+  }
+
+
+  repeatedPasswordChange = e => {
+    this.setState({
+      repeatedPassword: e.target.value,
+      showSecondPasswordError: false,
+      showPasswordError: false,
+    });
+  }
+
+
   render() {
     return (
       <form className='sign-up' onSubmit={this.signUp} >
         <InfoMessage
           className='sign-up__info-message'
-           type={this.state.info.type}
+          type={this.state.info.type}
           shake={this.state.shakeInfo}
         >{this.state.info.text}</InfoMessage>
         <Input
-          className='sign-up__input'
-          name='login'
+          className={cx('sign-up__input', {
+            'input_type_error': this.state.showLoginError,
+          })}
           placeholder='Login'
+          onChange={this.loginChange}
         />
         <PasswordInput
           className='sign-up__input'
-          name='password'
           placeholder='Password'
+          onChange={this.passwordChange}
         />
         <PasswordInput
-          className='sign-up__input'
+          className={cx('sign-up__input', {
+            'input_type_error': this.state.showSecondPasswordError,
+            'input_type_succes': this.state.password && this.state.password === this.state.repeatedPassword,
+          })}
           placeholder='Repeat password'
+          onChange={this.repeatedPasswordChange}
         />
         <Button
           className='sign-up__submit-button button_type_green'
