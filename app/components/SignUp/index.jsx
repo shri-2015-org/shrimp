@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import store from 'store';
 import {connect} from 'react-redux';
+import Immutable, {Map} from 'immutable';
+import cookies from 'browser-cookies';
 import {init, initUser} from 'actions/local';
 import InfoMessage from 'components/InfoMessage';
 import PasswordInput from 'components/PasswordInput';
@@ -15,6 +17,41 @@ import './styles.scss';
 }))
 
 export default class SignUp extends React.Component {
+  static propTypes = {
+    local: PropTypes.instanceOf(Map).isRequired,
+  }
+
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      info: {
+        type: 'info',
+        text: 'Fill these fields',
+      },
+      shakeInfo: false,
+    };
+  }
+
+
+  componentWillReceiveProps(nextProps) {
+    if (!Immutable.is(nextProps.local, this.props.local)) {
+      debugger;
+      if (nextProps.local.get('sessionId')) {
+        cookies.set('sessionId', nextProps.local.get('sessionId'), {expires: 365});
+        nextProps.history.pushState(null, '/');
+      } else {
+        const user = nextProps.local.get('user');
+        this.setState({
+          info: {
+            type: user.status.type,
+            text: user.status.text,
+          },
+        });
+      }
+    }
+  }
+
 
   signUp = (e) => {
     e.preventDefault();
@@ -53,7 +90,9 @@ export default class SignUp extends React.Component {
       <form className='sign-up' onSubmit={this.signUp} >
         <InfoMessage
           className='sign-up__info-message'
-        >Enter login and password</InfoMessage>
+           type={this.state.info.type}
+          shake={this.state.shakeInfo}
+        >{this.state.info.text}</InfoMessage>
         <Input
           className='sign-up__input'
           name='login'
@@ -61,7 +100,7 @@ export default class SignUp extends React.Component {
         />
         <PasswordInput
           className='sign-up__input'
-          name='pasword'
+          name='password'
           placeholder='Password'
         />
         <PasswordInput

@@ -79,16 +79,14 @@ export function checkUserLogin(login, callback) {
   User.findOne({ nick: login }, (err, user) => {
     if (user) {
       const userData = {
-        userId: user.id,
         status: {
           type: 'error',
-          text: 'User with this login already exist',
+          text: 'User with this login already exists',
         },
       };
       callback(userData);
     } else {
       const userData = {
-        userid: '',
         status: {
           type: 'success',
           text: 'Welcome',

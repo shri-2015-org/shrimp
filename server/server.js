@@ -72,19 +72,10 @@ app.post('/signup', (req, res) => {
   const login = req.body.login;
   const password = req.body.password;
 
-  const status = checkUserLogin(login);
-  if (status.type === 'success') {
-    const sessionId = generateSessionId();
-    signUpUser(login, password, sessionId, () => {
-
-    });
-  } else {
-    res.json({user: status});
-  }
-  signInUser(req.body.login, req.body.password, (userData) => {
+  checkUserLogin(login, (userData) => {
     if (userData.status.type === 'success') {
-      const sessionId = generateSessionId();
-      setSessionId(userData.userId, sessionId, (userSessionId) => {
+      const userSessionId = generateSessionId();
+      signUpUser(login, password, userSessionId, () => {
         getInitState(userSessionId).then(initState => {
           res.json(initState);
         });
