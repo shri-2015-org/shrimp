@@ -36,11 +36,15 @@ export default class Login extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (!Immutable.is(nextProps.local, this.props.local)) {
-      if (nextProps.local.get('userId')) {
+      if (nextProps.local.get('sessionId')) {
         cookies.set('sessionId', nextProps.local.get('sessionId'), {expires: 365});
         nextProps.history.pushState(null, '/');
       } else {
         const user = nextProps.local.get('user');
+        if (user.status.text === this.state.info.text && user.status.type === this.state.info.type) {
+          this.setState({shakeInfo: true});
+          setTimeout(this.setState.bind(this, {shakeInfo: false}), 500);
+        }
         this.setState({
           info: {
             type: user.status.type,
@@ -58,8 +62,6 @@ export default class Login extends React.Component {
       login: e.target.login.value,
       password: e.target.password.value,
     };
-
-    // store.dispatch(signIn(authData));
 
     fetch('/signin', {
       method: 'post',
