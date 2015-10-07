@@ -73,7 +73,7 @@ export default class ThreadsSection extends React.Component {
           setCurrentChannel={setCurrentChannel}
           type={currentTabData.get('name')}
         />
-        <Search list={currentTabData} className='threads__search' />
+        <Search currentData={currentTabData} sendToServer={false} className='threads__search' />
       </div>
     );
   }

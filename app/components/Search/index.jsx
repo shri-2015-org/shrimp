@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import cx from 'classnames';
 import store from 'store';
 import {Map} from 'immutable';
-import {filterChannels} from 'actions/channels';
+import {filter} from 'actions/local';
 import './styles.scss';
 
 
@@ -10,8 +10,9 @@ export default class Search extends React.Component {
 
   static propTypes = {
     className: PropTypes.string,
-    list: PropTypes.instanceOf(Map),
+    currentData: PropTypes.instanceOf(Map),
     inputClassName: PropTypes.string,
+    sendToServer: PropTypes.bool,
   }
 
 
@@ -19,35 +20,43 @@ export default class Search extends React.Component {
     super(props);
     this.state = {
       filterText: '',
+      filterType: this.props.currentData.get('name'),
       oldData: '',
+      dictionary: {
+        'Channels': 'channels',
+        'People': 'users',
+      },
     };
   }
 
 
   filter = (e) => {
-    if (this.state.filterText !== '' && e.target.value === '') {
-      this.setState({
-        filterText: e.target.value,
-        oldData: '',
-      });
-      store.dispatch(filterChannels(this.state.oldData));
-    } else {
-      if (this.state.filterText === '' && e.target.value !== '') {
+    debugger;
+    if (!this.props.sendToServer) {
+      if (this.state.filterText !== '' && e.target.value === '') {
         this.setState({
           filterText: e.target.value,
-          oldData: this.props.list.get('list'),
+          oldData: '',
         });
+        store.dispatch(filter(this.state.oldData));
       } else {
-        this.setState({
-          filterText: e.target.value,
-        });
-      }
-      const channels = this.state.oldData.filter((listItem) => {
-        if (listItem.get('name').indexOf(e.target.value) !== -1) {
-          return listItem;
+        if (this.state.filterText === '' && e.target.value !== '') {
+          this.setState({
+            filterText: e.target.value,
+            oldData: this.props.currentData.get('list'),
+          });
+        } else {
+          this.setState({
+            filterText: e.target.value,
+          });
         }
-      });
-      store.dispatch(filterChannels(channels));
+        const channels = this.state.oldData.filter((listItem) => {
+          if (listItem.get('name').indexOf(e.target.value) !== -1) {
+            return listItem;
+          }
+        });
+        store.dispatch(filter(channels));
+      }
     }
   }
 

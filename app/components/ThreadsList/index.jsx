@@ -18,7 +18,7 @@ export default class ThreadsList extends React.Component {
     type: PropTypes.string,
     local: PropTypes.instanceOf(Map).isRequired,
   };
-zz
+
 
   render() {
     const list = (() => {

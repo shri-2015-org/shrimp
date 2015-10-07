@@ -20,6 +20,7 @@ const A = {
   INIT: 'INIT',
   INIT_USER: 'INIT_USER',
   FILTER_CHANNELS: 'FILTER_CHANNELS',
+  FILTER_USERS: 'FILTER_USERS',
 };
 
 module.exports = {
