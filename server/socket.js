@@ -18,13 +18,10 @@ export default function startSocketServer(http) {
   io.use((socket, callback) => {
     if (socket.request.headers.cookie) {
       const sessionId = socket.request.headers.cookie.sessionId;
-      console.log('Check');
       checkSessionId(sessionId).then(() => {
-        console.log('Success');
         socket.sessionId = sessionId;
         callback();
       }).catch((exception) => {
-        console.log('Error');
         callback(new Error(exception));
       });
     }

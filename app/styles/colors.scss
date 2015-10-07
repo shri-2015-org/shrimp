@@ -12,7 +12,7 @@ $c-red: #e92536;
 $c-green: #00d742;
 $c-white: #fff;
 $c-shadow: transparentize(#0e0e0e, .5);
-
+$c-white_transparent: transparentize($c-white, .8);
 
 // Composer
 $с-composer-sender_border: $c-gray-50;
