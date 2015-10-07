@@ -13,6 +13,8 @@ export default class Search extends React.Component {
     currentData: PropTypes.instanceOf(Map),
     inputClassName: PropTypes.string,
     sendToServer: PropTypes.bool,
+    filterData: PropTypes.object,
+    filter: PropTypes.func,
   }
 
 
@@ -29,45 +31,6 @@ export default class Search extends React.Component {
   }
 
 
-  filter = (e) => {
-    const tabName = this.props.currentData.get('name').toLowerCase();
-    const filterType = tabName ? this.state.typeDictionary[tabName] : '';
-    if (filterType) {
-      if (!this.props.sendToServer) {
-        if (this.state.filterText !== '' && e.target.value === '') {
-          this.setState({
-            filterText: e.target.value,
-            oldData: '',
-          });
-          store.dispatch(filter(filterType, this.state.oldData));
-        } else {
-          if (this.state.filterText === '' && e.target.value !== '') {
-            this.setState({
-              filterText: e.target.value,
-              oldData: this.props.currentData.get('list'),
-            });
-            const channels = this.props.currentData.get('list').filter((listItem) => {
-              if (listItem.get('name').indexOf(e.target.value) !== -1) {
-                return listItem;
-              }
-            });
-            store.dispatch(filter(filterType, channels));
-          } else {
-            this.setState({
-              filterText: e.target.value,
-            });
-            const channels = this.state.oldData.filter((listItem) => {
-              if (listItem.get('name').indexOf(e.target.value) !== -1) {
-                return listItem;
-              }
-            });
-            store.dispatch(filter(filterType, channels));
-          }
-        }
-      }
-    }
-  }
-
   render() {
     const {inputClassName} = this.props;
     const classes = cx('search', this.props.className);
@@ -79,7 +42,7 @@ export default class Search extends React.Component {
         <input
           placeholder='Search...'
           type='text'
-          onChange={this.props.currentData ? this.filter : null}
+          onChange={this.props.currentData ? this.props.filter : null}
           {...this.props}
           className={cx('search__input', inputClassName)}
         />
