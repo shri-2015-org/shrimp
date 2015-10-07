@@ -45,10 +45,3 @@ export function initUser(data) {
     payload: data,
   };
 }
-
-export function filter(type, data) {
-  return {
-    type: 'FILTER_' + type,
-    payload: data,
-  };
-}

@@ -1,8 +1,6 @@
 import React, {PropTypes} from 'react';
 import cx from 'classnames';
-import store from 'store';
 import {Map} from 'immutable';
-import {filter} from 'actions/local';
 import './styles.scss';
 
 
