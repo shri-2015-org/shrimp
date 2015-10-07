@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import './styles.scss';
 import ChannelItem from 'components/ChannelItem';
 import PeopleItem from 'components/PeopleItem';
+import NewChannelItem from 'components/NewChannelItem';
 
 
 @connect(state => ({
@@ -16,6 +17,8 @@ export default class ThreadsList extends React.Component {
     list: PropTypes.instanceOf(List),
     setCurrentChannel: PropTypes.func.isRequired,
     joinToChannel: PropTypes.func.isRequired,
+    replaceDirtyChannel: PropTypes.func.isRequired,
+    newChannel: PropTypes.func.isRequired,
     type: PropTypes.string,
     local: PropTypes.instanceOf(Map).isRequired,
   };
@@ -26,6 +29,10 @@ export default class ThreadsList extends React.Component {
       switch (this.props.type) {
       case 'Channels':
         return this.props.list.map((listItem, index) => {
+          if (listItem.get('isDirty')) {
+            return (<NewChannelItem replaceDirtyChannel={this.props.replaceDirtyChannel} newChannel={this.props.newChannel} />);
+          }
+
           const thisChannelId = listItem.get('id');
           const lastMessage = this.props.messages.findLast(m => m.get('channelId') === thisChannelId);
 
@@ -41,6 +48,7 @@ export default class ThreadsList extends React.Component {
             />
           );
         });
+
 
       case 'People':
         return this.props.list.map((listItem, index) => {

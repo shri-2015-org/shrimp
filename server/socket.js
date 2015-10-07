@@ -11,6 +11,7 @@ const Message = getMessageModel();
 const Channel = getChannelModel();
 const User = getUserModel();
 
+
 export default function startSocketServer(http) {
   const io = new Server(http);
 
@@ -59,7 +60,8 @@ export default function startSocketServer(http) {
     });
 
     socket.on(CS.ADD_CHANNEL, data => {
-      io.sockets.emit(SC.ADD_CHANNEL, {id: 0, name: data.text});
+      Channel.add(data, (err, result) =>
+        io.sockets.emit(SC.ADD_CHANNEL, result.toObject()));
     });
   });
 }

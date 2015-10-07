@@ -1,4 +1,4 @@
-import {A} from '../../constants.js';
+import {A, CS} from '../../constants.js';
 
 export function addChannel(channel) {
   return {
@@ -7,6 +7,13 @@ export function addChannel(channel) {
   };
 }
 
+export function newChannel(channel) {
+  return {
+    type: CS.ADD_CHANNEL,
+    payload: channel,
+    send: true,
+  };
+}
 
 export function removeChannel(channelId) {
   return {
@@ -15,7 +22,6 @@ export function removeChannel(channelId) {
   };
 }
 
-
 export function filterChannels(data) {
   return {
     type: A.FILTER_CHANNELS,
@@ -23,10 +29,23 @@ export function filterChannels(data) {
   };
 }
 
-
 export function addUserToChannel(data) {
   return {
     type: A.JOIN_TO_CHANNEL,
     payload: data,
+  };
+}
+
+
+export function replaceDirtyChannel(channel) {
+  return {
+    type: A.REPLACE_DIRTY_CHANNEL,
+    channel,
+  };
+}
+
+export function addDirtyChannel() {
+  return {
+    type: A.ADD_DIRTY_CHANNEL,
   };
 }
