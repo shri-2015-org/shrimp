@@ -4,6 +4,7 @@ import './styles.scss';
 import Tabs from 'components/Tabs';
 import Tab from 'components/Tab';
 import ThreadsList from 'components/ThreadsList';
+import Search from 'components/Search';
 
 
 export default class ThreadsSection extends React.Component {
@@ -20,6 +21,9 @@ export default class ThreadsSection extends React.Component {
     super(props);
     this.state = {
       currentTabId: 2,
+      filterData: '',
+      filterText: '',
+      oldData: '',
     };
   }
 
@@ -30,12 +34,13 @@ export default class ThreadsSection extends React.Component {
   }
 
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate = (nextProps, nextState) => {
     return !(
       Immutable.is(nextProps.channels, this.props.channels) &&
       Immutable.is(nextProps.contacts, this.props.contacts) &&
       Immutable.is(nextProps.local, this.props.local) &&
-      Immutable.is(nextState.currentTabId, this.state.currentTabId)
+      Immutable.is(nextState.currentTabId, this.state.currentTabId) &&
+      Immutable.is(nextState.filterData, this.state.filterData)
     );
   }
 
@@ -56,6 +61,49 @@ export default class ThreadsSection extends React.Component {
 
     const currentTabData = tabs.find(tab => tab.get('id') === this.state.currentTabId);
 
+    const filter = (e) => {
+      const filterText = e.target.value;
+
+      if (!currentTabData.get('sendToServer')) {
+        if (this.state.filterText !== '' && filterText === '') {
+          this.setState({
+            filterText: filterText,
+            oldData: '',
+          });
+          this.setState({
+            filterData: '',
+          });
+        } else {
+          if (this.state.filterText === '' && filterText !== '') {
+            this.setState({
+              filterText: filterText,
+              oldData: currentTabData.get('list'),
+            });
+            const items = currentTabData.get('list').filter((listItem) => {
+              if (listItem.get('name').indexOf(filterText) !== -1) {
+                return listItem;
+              }
+            });
+            this.setState({
+              filterData: items,
+            });
+          } else {
+            this.setState({
+              filterText: filterText,
+            });
+            const items = this.state.oldData.filter((listItem) => {
+              if (listItem.get('name').indexOf(filterText) !== -1) {
+                return listItem;
+              }
+            });
+            this.setState({
+              filterData: items,
+            });
+          }
+        }
+      }
+    };
+
     return (
       <div className='threads' ref='threads'>
         <Tabs
@@ -67,11 +115,12 @@ export default class ThreadsSection extends React.Component {
         </Tabs>
 
         <ThreadsList
-          list={currentTabData.get('list')}
+          list={this.state.filterData ? this.state.filterData : currentTabData.get('list')}
           local={local}
           setCurrentChannel={setCurrentChannel}
           type={currentTabData.get('name')}
         />
+        <Search currentData={currentTabData} filter={filter} sendToServer={false} className='threads__search' />
       </div>
     );
   }

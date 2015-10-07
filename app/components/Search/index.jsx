@@ -1,12 +1,14 @@
 import React, {PropTypes} from 'react';
-import './styles.scss';
 import cx from 'classnames';
+import './styles.scss';
+
 
 export default class Search extends React.Component {
 
   static propTypes = {
     className: PropTypes.string,
     inputClassName: PropTypes.string,
+    filter: PropTypes.func,
   }
 
 
@@ -21,6 +23,7 @@ export default class Search extends React.Component {
         <input
           placeholder='Search...'
           type='text'
+          onChange={this.props.filter}
           {...this.props}
           className={cx('search__input', inputClassName)}
         />
