@@ -7,7 +7,7 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "lint-ci": "./node_modules/.bin/eslint --ext .js --ext .jsx server/",
+    "lint-ci": "./node_modules/.bin/eslint --ext .js --ext .jsx app/ server/",
     "lint": "npm run lint-ci --silent; exit 0;",
     "csscomb": "./node_modules/.bin/csscomb app/",
     "csslint": "./node_modules/.bin/csscomb -l app/",
