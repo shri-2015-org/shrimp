@@ -4,7 +4,7 @@ import getInitState from './initial-state';
 import getMessageModel from './models/message';
 // import getUserModel from './models/user';
 import {SC, CS} from '../constants';
-import {signInUser, setSessionId, checkUserSession} from './db/db_core.js';
+import {signInUser, setSessionId, checkSessionId} from './db/db_core.js';
 import {generateSessionId} from './lib/core.js';
 // const debug = require('debug')('shrimp:server');
 const Message = getMessageModel();
@@ -19,7 +19,7 @@ export default function startSocketServer(http) {
     if (socket.request.headers.cookie) {
       const sessionId = socket.request.headers.cookie.sessionId;
       console.log('Check');
-      checkUserSession(sessionId).then(() => {
+      checkSessionId(sessionId).then(() => {
         console.log('Success');
         socket.sessionId = sessionId;
         callback();

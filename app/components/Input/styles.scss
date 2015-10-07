@@ -13,6 +13,16 @@
   transition-property: border, box-shadow;
   transition-duration: .3s;
 
+  &_type_error {
+    border: 1px solid $c-red !important;
+    box-shadow: 0 0 5px transparentize($c-red, .5) !important;
+  }
+
+  &_type_succes {
+    border: 1px solid $c-green !important;
+    box-shadow: 0 0 5px transparentize($c-green, .5) !important;
+  }
+
   &:focus {
     border: 1px solid $c-input_focus;
     box-shadow: 0 0 5px transparentize($c-input_focus, .5);
