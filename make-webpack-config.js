@@ -88,12 +88,11 @@ export default function MakeDefaultConfig(options) {
     );
     options.devtool = null;
     options.sourcemaps = null;
-  } else {
-    config.plugins.push(
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin(),
-    );
   }
+  config.plugins.push(
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+  );
 
   if (options.sourcemaps) {
     config.devtool = '#inline-source-map';
