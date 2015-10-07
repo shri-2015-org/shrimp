@@ -9,9 +9,12 @@ import cookies from 'browser-cookies';
 export default class Root extends React.Component {
 
   render() {
+    debugger;
     const cookieSessionId = cookies.get('sessionId');
     if (!cookieSessionId) {
-      store.history.pushState(null, '/login');
+      if (location.pathname !== '/login' && location.pathname !== '/signup') {
+        store.history.pushState(null, '/login');
+      }
     }
 
     const devTools = (() => {
