@@ -20,42 +20,50 @@ export default class Search extends React.Component {
     super(props);
     this.state = {
       filterText: '',
-      filterType: this.props.currentData.get('name'),
       oldData: '',
-      dictionary: {
-        'Channels': 'channels',
-        'People': 'users',
+      typeDictionary: {
+        'channels': 'CHANNELS',
+        'people': 'USERS',
       },
     };
   }
 
 
   filter = (e) => {
-    debugger;
-    if (!this.props.sendToServer) {
-      if (this.state.filterText !== '' && e.target.value === '') {
-        this.setState({
-          filterText: e.target.value,
-          oldData: '',
-        });
-        store.dispatch(filter(this.state.oldData));
-      } else {
-        if (this.state.filterText === '' && e.target.value !== '') {
+    const tabName = this.props.currentData.get('name').toLowerCase();
+    const filterType = tabName ? this.state.typeDictionary[tabName] : '';
+    if (filterType) {
+      if (!this.props.sendToServer) {
+        if (this.state.filterText !== '' && e.target.value === '') {
           this.setState({
             filterText: e.target.value,
-            oldData: this.props.currentData.get('list'),
+            oldData: '',
           });
+          store.dispatch(filter(filterType, this.state.oldData));
         } else {
-          this.setState({
-            filterText: e.target.value,
-          });
-        }
-        const channels = this.state.oldData.filter((listItem) => {
-          if (listItem.get('name').indexOf(e.target.value) !== -1) {
-            return listItem;
+          if (this.state.filterText === '' && e.target.value !== '') {
+            this.setState({
+              filterText: e.target.value,
+              oldData: this.props.currentData.get('list'),
+            });
+            const channels = this.props.currentData.get('list').filter((listItem) => {
+              if (listItem.get('name').indexOf(e.target.value) !== -1) {
+                return listItem;
+              }
+            });
+            store.dispatch(filter(filterType, channels));
+          } else {
+            this.setState({
+              filterText: e.target.value,
+            });
+            const channels = this.state.oldData.filter((listItem) => {
+              if (listItem.get('name').indexOf(e.target.value) !== -1) {
+                return listItem;
+              }
+            });
+            store.dispatch(filter(filterType, channels));
           }
-        });
-        store.dispatch(filter(channels));
+        }
       }
     }
   }
@@ -71,7 +79,7 @@ export default class Search extends React.Component {
         <input
           placeholder='Search...'
           type='text'
-          onChange={this.filter}
+          onChange={this.props.currentData ? this.filter : null}
           {...this.props}
           className={cx('search__input', inputClassName)}
         />
