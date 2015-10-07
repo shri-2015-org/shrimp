@@ -2,6 +2,13 @@
 
 .tabs {
   line-height: 40px;
+  position: absolute;
+  top: $header_height;
+  width: 100%;
+  z-index: 1;
+  @media (max-width: $mobile_width) {
+    top: $header_height - 20;
+  }
 
   &:after {
     content: '';

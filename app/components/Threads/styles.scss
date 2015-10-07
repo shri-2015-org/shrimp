@@ -2,13 +2,15 @@
 
 .threads {
   width: $threads_width;
-  padding-top: $header_height;
+  padding-top: $header_height + 40;
   height: 100vh;
   color: $c-threads_text;
   background-color: $c-threads_bg;
+  overflow: hidden;
+  position: relative;
 
   @media (max-width: $mobile_width) {
-    padding-top: $header_height - 20px;
+    padding-top: $header_height + 20px;
   }
 
   &__search {
