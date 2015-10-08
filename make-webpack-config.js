@@ -1,14 +1,13 @@
-import path from 'path';
-import webpack from 'webpack';
-import loadersByExtension from './utils/loadersByExtension.js';
-const autoprefixer = 'autoprefixer?browsers=last 2 version';
+var path = require('path');
+var webpack = require('webpack');
+var loadersByExtension = require('./utils/loadersByExtension.js');
+var autoprefixer = 'autoprefixer?browsers=last 2 version';
 
-const loadersByExt = loadersByExtension({
+var loadersByExt = loadersByExtension({
   'json': 'json',
   'png|jpg|gif': 'url?limit=5000',
   'woff|woff2': 'url?limit=1',
 });
-
 
 /** options
  * @option optimize {bool}    // optimize js and disabled redux dev tools if true
@@ -16,8 +15,8 @@ const loadersByExt = loadersByExtension({
  * @option devtool {string}   // specify devtool
  */
 
-export default function MakeDefaultConfig(options) {
-  const config = {
+module.exports = function MakeDefaultConfig(options) {
+  var config = {
     entry: [
       'webpack-hot-middleware/client',
       './app/Root',
@@ -37,10 +36,7 @@ export default function MakeDefaultConfig(options) {
     resolve: {
       root: path.join(__dirname, 'app'),
       extensions: ['', '.js', '.jsx'],
-      modulesDirectories: [
-        'app',
-        'node_modules',
-      ],
+      modulesDirectories: ['app', 'node_modules'],
     },
 
     resolveLoader: {
@@ -84,14 +80,14 @@ export default function MakeDefaultConfig(options) {
   if (options.optimize) {
     config.plugins.push(
       new webpack.optimize.UglifyJsPlugin(),
-      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.DedupePlugin()
     );
     options.devtool = null;
     options.sourcemaps = null;
   }
   config.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoErrorsPlugin()
   );
 
   if (options.sourcemaps) {
@@ -101,4 +97,4 @@ export default function MakeDefaultConfig(options) {
   }
 
   return config;
-}
+};
