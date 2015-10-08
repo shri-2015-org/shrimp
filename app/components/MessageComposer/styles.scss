@@ -4,6 +4,7 @@
 
 @keyframes bounce {
   0% {
+<<<<<<< HEAD
     transform: scale(1, 1) translate(0, 0);
   }
   15% {
@@ -14,6 +15,18 @@
   }
   45% {
     transform: scale(1, 1) translate(0, 0);
+=======
+    transform: scale(1,1) translateY(0);
+  }
+  15% {
+    transform: scale(1,.8) translateY(7px);
+  }
+  30% {
+    transform: scale(1,1.1) translateY(-14px);
+  }
+  45% {
+    transform: scale(1,1) translateY(0);
+>>>>>>> fix(redirect): fix redirect for authorized users
   }
 }
 

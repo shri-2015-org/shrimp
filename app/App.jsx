@@ -45,8 +45,11 @@ export default class Application extends React.Component {
 
   componentWillMount = () => {
     const cookieSessionId = cookies.get('sessionId');
-    if (!cookieSessionId || !store.local) {
-      store.history.pushState(null, '/login');
+    debugger;
+    if (!cookieSessionId) {
+      if (!store.local) {
+        store.history.pushState(null, '/login');
+      }
     } else {
       socketClient('SOCKET_INIT');
       store.dispatch(actionsLocal.getInitData());
