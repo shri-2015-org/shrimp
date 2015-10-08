@@ -45,7 +45,6 @@ export default class Application extends React.Component {
 
   componentWillMount = () => {
     const cookieSessionId = cookies.get('sessionId');
-    debugger;
     if (!cookieSessionId) {
       store.history.pushState(null, '/login');
     } else {
