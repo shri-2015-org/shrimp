@@ -25,7 +25,7 @@ if (isDev && isDebug && process.env.DEBUG.indexOf('shrimp:front') === 0) {
   const makeConfig = require('../make-webpack-config.js');
 
   const config = makeConfig({
-    sourcemaps: false,
+    sourcemaps: true,
     devtool: 'eval',
   });
   const compiler = webpack(config);

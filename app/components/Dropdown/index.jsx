@@ -29,7 +29,7 @@ export default class Dropdown extends React.Component {
 
 
   closeMenu = (e) => {
-    if (!this.refs.dropdown.getDOMNode().contains(e.target)) {
+    if (!this.refs.dropdown.contains(e.target)) {
       this.setState({
         open: false,
       });
