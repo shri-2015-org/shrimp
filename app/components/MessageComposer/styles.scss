@@ -2,6 +2,22 @@
 @import '~styles/colors.scss';
 
 
+@keyframes bounce {
+  0% {
+    transform: scale(1,1) translate(0px, 0px);
+  }
+  15% {
+    transform: scale(1,.8) translate(0px, 7px);
+  }
+  30% {
+    transform: scale(1,1.1) translate(0px, -14px);
+  }
+  45% {
+    transform: scale(1,1) translate(0px, 0px);
+  }
+}
+
+
 .composer {
   position: fixed;
   right: 0;
@@ -60,6 +76,7 @@
 
     &_error {
       background: $c-red;
+      animation: bounce 2s linear infinite;
     }
   }
 }
