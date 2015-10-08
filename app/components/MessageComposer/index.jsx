@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import Immutable, {Map} from 'immutable';
+import cx from 'classnames';
 import Textarea from 'react-textarea-autosize';
 import './styles.scss';
 
@@ -17,21 +18,30 @@ export default class MessageComposer extends React.Component {
     this.state = {
       text: '',
       messageMaxLength: 220,
-      errorMessage: 'Max length: 220 symbols',
+      showMessageError: false,
     };
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return !(
       Immutable.is(nextProps.local, this.props.local) &&
-      Immutable.is(nextState.text, this.state.text)
+      Immutable.is(nextState.text, this.state.text) &&
+      nextState.showMessageError === this.state.showMessageError
     );
   }
 
   textChange = (e) => {
-    this.setState({
-      text: e.target.value,
-    });
+    if (e.target.value.length === this.state.messageMaxLength) {
+      this.setState({
+        text: e.target.value,
+        showMessageError: true,
+      });
+    } else {
+      this.setState({
+        text: e.target.value,
+        showMessageError: false,
+      });
+    }
   }
 
 
@@ -74,9 +84,11 @@ export default class MessageComposer extends React.Component {
             className='composer__textarea'
           />
           <div
-            className='composer_error'
+            className={cx('composer__info', {
+              'composer__info_error': this.state.showMessageError,
+            })}
           >
-          {this.state.errorMessage}
+          {this.state.messageMaxLength - this.state.text.length}
           </div>
           <button
             type='button'

@@ -46,7 +46,7 @@ export default class Application extends React.Component {
   componentWillMount = () => {
     const cookieSessionId = cookies.get('sessionId');
     if (!cookieSessionId) {
-      if (location.pathname !== '/login' && location.pathname !== '/signup') {
+      if (!store.local) {
         store.history.pushState(null, '/login');
       }
     } else {

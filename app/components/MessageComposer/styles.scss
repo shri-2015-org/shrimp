@@ -1,6 +1,7 @@
 @import '~styles/variables.scss';
 @import '~styles/colors.scss';
 
+
 .composer {
   position: fixed;
   right: 0;
@@ -40,5 +41,25 @@
     resize: none;
     border: none;
     outline: none;
+  }
+
+  &__info {
+    position: absolute;
+    top: -11px;
+    right: 5px;
+    font-size: 12px;
+    padding-left: 5px;
+    padding-right: 5px;
+    min-width: 21px;
+    line-height: 21px;
+    font-size: 12px;
+    text-align: center;
+    color: white;
+    border-radius: 11px;
+    background: $c-blue;
+
+    &_error {
+      background: $c-red;
+    }
   }
 }
