@@ -47,9 +47,7 @@ export default class Application extends React.Component {
     const cookieSessionId = cookies.get('sessionId');
     debugger;
     if (!cookieSessionId) {
-      if (!store.local) {
-        store.history.pushState(null, '/login');
-      }
+      store.history.pushState(null, '/login');
     } else {
       socketClient('SOCKET_INIT');
       store.dispatch(actionsLocal.getInitData());
