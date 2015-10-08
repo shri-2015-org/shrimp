@@ -55,8 +55,8 @@ export default class ThreadsSection extends React.Component {
     const {channels, contacts, setCurrentChannel, local} = this.props;
 
     const tabs = List.of(
-      Map({id: 1, name: 'People', list: contacts }),
-      Map({id: 2, name: 'Channels', list: channels }),
+      Map({id: 1, name: 'People', sendToServer: false, list: contacts }),
+      Map({id: 2, name: 'Channels', sendToServer: false, list: channels }),
     );
 
     const currentTabData = tabs.find(tab => tab.get('id') === this.state.currentTabId);

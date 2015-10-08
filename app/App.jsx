@@ -1,6 +1,8 @@
 import React, {PropTypes} from 'react';
 import {List, Map} from 'immutable';
 import {connect} from 'react-redux';
+import cookies from 'browser-cookies';
+import Sidebar from 'react-sidebar';
 import store from 'store';
 import {socketClient} from 'core/socket';
 import Messages from 'components/Messages';
@@ -12,7 +14,6 @@ import * as actionsMessages from 'actions/messages.js';
 import * as actionsLocal from 'actions/local.js';
 import {currentChannelMessagesSelector} from 'selectors/messagesSelector';
 import {contactsSelector} from 'selectors/contactsSelector';
-import Sidebar from 'react-sidebar';
 
 
 @connect(state => ({
@@ -43,8 +44,13 @@ export default class Application extends React.Component {
 
 
   componentWillMount = () => {
-    socketClient('SOCKET_INIT');
-    store.dispatch(actionsLocal.getInitData());
+    const cookieSessionId = cookies.get('sessionId');
+    if (!cookieSessionId || !store.local) {
+      store.history.pushState(null, '/login');
+    } else {
+      socketClient('SOCKET_INIT');
+      store.dispatch(actionsLocal.getInitData());
+    }
 
     const mql = window.matchMedia('(min-width: 800px)');
     mql.addListener(this.mediaQueryChanged);
