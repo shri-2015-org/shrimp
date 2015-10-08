@@ -16,6 +16,8 @@ export default class MessageComposer extends React.Component {
     super(props);
     this.state = {
       text: '',
+      messageMaxLength: 220,
+      errorMessage: 'Max length: 220 symbols',
     };
   }
 
@@ -68,8 +70,14 @@ export default class MessageComposer extends React.Component {
             onHeightChange={changeBottom}
             minRows={1}
             maxRows={5}
+            maxLength={this.state.messageMaxLength}
             className='composer__textarea'
           />
+          <div
+            className='composer_error'
+          >
+          {this.state.errorMessage}
+          </div>
           <button
             type='button'
             onClick={this.sendMessage}
