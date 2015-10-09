@@ -5,10 +5,14 @@ import {isEmpty, getAll, getToObjectOptions} from './utils';
 const channel = new mongoose.Schema({
   name: String,
   isFavourite: Boolean,
+  userIds: Array,
 });
 
 channel.statics.getAll = getAll;
 channel.statics.isEmpty = isEmpty;
+
+channel.statics.getForUser = function getForUser(userId) { return this.find({ userIds: userId }); };
+
 channel.set('toObject', getToObjectOptions());
 
 channel.statics.createTestChannel = function createTestChannel() {

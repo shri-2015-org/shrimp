@@ -2,13 +2,15 @@ import Server from 'socket.io';
 import cookieParser from 'socket.io-cookie';
 import getInitState from './initial-state';
 import getMessageModel from './models/message';
-// import getUserModel from './models/user';
+import getChannelModel from './models/channel';
+import getUserModel from './models/user';
 import {SC, CS} from '../constants';
 import {signInUser, setSessionId, checkSessionId} from './db/db_core.js';
 import {generateSessionId} from './lib/core.js';
 // const debug = require('debug')('shrimp:server');
 const Message = getMessageModel();
-// const User = getUserModel();
+const Channel = getChannelModel();
+const User = getUserModel();
 
 export default function startSocketServer(http) {
   const io = new Server(http);
@@ -20,6 +22,19 @@ export default function startSocketServer(http) {
       const sessionId = socket.request.headers.cookie.sessionId;
       checkSessionId(sessionId).then(() => {
         socket.sessionId = sessionId;
+
+        User.getBySessionId(sessionId)
+          .then((user) => {
+            console.log(user);
+            return Channel.getForUser(user.id);
+          })
+          .then((channels) => {
+            channels.forEach(c => {
+              console.log(`joining to ${c.id}`);
+              socket.join(c.id);
+            });
+          });
+
         callback();
       }).catch((exception) => {
         callback(new Error(exception));
@@ -35,6 +50,7 @@ export default function startSocketServer(http) {
     });
 
     socket.on(CS.SIGN_IN, data => {
+      console.log('signin');
       signInUser(data.login, data.password, (userData) => {
         if (userData.status.type === 'success') {
           const sessionId = generateSessionId();
@@ -51,7 +67,7 @@ export default function startSocketServer(http) {
 
     socket.on(CS.ADD_MESSAGE, data => {
       Message.add(data, (err, result) => {
-        io.sockets.emit(SC.ADD_MESSAGE, result.toObject());
+        io.to(data.channelId).emit(SC.ADD_MESSAGE, result.toObject());
       });
     });
 
