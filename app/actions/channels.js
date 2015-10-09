@@ -40,7 +40,7 @@ export function addUserToChannel(data) {
 export function replaceDirtyChannel(channel) {
   return {
     type: A.REPLACE_DIRTY_CHANNEL,
-    channel,
+    payload: channel,
   };
 }
 

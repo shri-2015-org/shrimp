@@ -19,12 +19,8 @@ export default class ChannelItem extends React.Component {
 
 
   componentDidMount = () => {
-    const newChannelItem = this.refs.newChannel.getDOMNode();
     const newChannelInput = this.refs.newChannelInput.getDOMNode();
-    setTimeout(function timeout() {
-      newChannelItem.className = newChannelItem.className + ' new-channel_animated';
-      newChannelInput.focus();
-    }, 1);
+    newChannelInput.focus();
   }
 
   onKeyPress = (e) => {

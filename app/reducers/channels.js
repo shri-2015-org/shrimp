@@ -23,11 +23,11 @@ export function channels(state = EMPTY_LIST, action = {type: 'DEFAULT'}) {
     state.getIn([channelIndex, 'userIds']).push(action.payload.userId);
     return state;
   case A.REPLACE_DIRTY_CHANNEL:
-    const index = state.findIndex(item => item.get('isDirty'));
-    if (index === -1) {
+    const i = state.findIndex(item => item.get('isDirty'));
+    if (i === -1) {
       return state;
     }
-    return state.set(index, action.channel);
+    return state.set(i, action.channel);
   case A.ADD_DIRTY_CHANNEL:
     const existingItems = state.filter(item => item.get('isDirty'));
     if (existingItems.size > 0) {

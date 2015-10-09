@@ -5,6 +5,7 @@ import './styles.scss';
 import ChannelItem from 'components/ChannelItem';
 import PeopleItem from 'components/PeopleItem';
 import NewChannelItem from 'components/NewChannelItem';
+import {Motion, spring} from 'react-motion';
 
 
 @connect(state => ({
@@ -23,14 +24,38 @@ export default class ThreadsList extends React.Component {
     local: PropTypes.instanceOf(Map).isRequired,
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      animated: false,
+    };
+  }
+
+
+  componentDidMount() {
+    setTimeout(this.setState.bind(this, {animated: true}), 1);
+  }
+
 
   render() {
     const list = (() => {
       switch (this.props.type) {
       case 'Channels':
+        const newChannelItem = interpolated => (
+          <div style={{opacity: interpolated.x, transform: `translate(${interpolated.y}px, 0)`}}>
+            <NewChannelItem replaceDirtyChannel={this.props.replaceDirtyChannel} newChannel={this.props.newChannel} />
+          </div>
+        );
+
         return this.props.list.map((listItem, index) => {
           if (listItem.get('isDirty')) {
-            return (<NewChannelItem replaceDirtyChannel={this.props.replaceDirtyChannel} newChannel={this.props.newChannel} />);
+            return (
+              <Motion defaultStyle={{x: 0, y: 30}}
+                style={{x: spring(this.state.animated ? 1 : 0), y: spring(this.state.animated ? 0 : 30)}}
+              >
+              {newChannelItem}
+              </Motion>
+            );
           }
 
           const thisChannelId = listItem.get('id');
