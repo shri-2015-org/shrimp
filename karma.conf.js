@@ -1,7 +1,8 @@
+/* eslint-disable */
+
 var webpack = require('webpack');
 var webpackConfig = require('./make-webpack-config.js')({
   sourcemaps: true,
-  devtool: 'eval',
 });
 
 
@@ -12,7 +13,7 @@ module.exports = function(config) {
     autoWatch: true,
     browsers: browsers,
     singleRun: false,
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['mocha', 'chai-things', 'chai'],
     preprocessors: {
       'tests.webpack.js': ['webpack', 'sourcemap'],
     },

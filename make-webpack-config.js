@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 var path = require('path');
 var webpack = require('webpack');
 var loadersByExtension = require('./utils/loadersByExtension.js');
