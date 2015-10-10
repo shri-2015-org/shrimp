@@ -39,6 +39,7 @@ export default class Application extends React.Component {
     this.state = {
       sidebarOpen: false,
       sidebarDocked: true,
+      messagesFilterValue: '',
     };
   }
 
@@ -73,6 +74,13 @@ export default class Application extends React.Component {
   }
 
 
+  changeFilter = (e) => {
+    this.setState({
+      messagesFilterValue: e.target.value.toLowerCase(),
+    });
+  }
+
+
   render() {
     const {messages, channels, local, dispatch, contacts} = this.props;
     const actionsCombine = Object.assign(actionsMessages, actionsLocal);
@@ -93,6 +101,7 @@ export default class Application extends React.Component {
             setOpen={this.onSetSidebarOpen}
             open={this.state.sidebarOpen}
             docked={this.state.sidebarDocked}
+            changeFilter={this.changeFilter}
             {...actions}
             />
           <Sidebar
@@ -105,6 +114,7 @@ export default class Application extends React.Component {
               docked={this.state.sidebarDocked}
               messages={messages}
               local={local}
+              messagesFilterValue={this.state.messagesFilterValue}
               {...actions}
             />
           </Sidebar>
