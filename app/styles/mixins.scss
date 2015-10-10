@@ -1,15 +1,17 @@
 .clearfix {
   &:after {
-    content: '';
-    clear: both;
     display: table;
+    clear: both;
+
+    content: '';
   }
 }
 
 .ellipsis {
   overflow: hidden;
-  text-overflow: ellipsis;
+
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 @mixin placeholder {

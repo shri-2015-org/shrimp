@@ -8,20 +8,24 @@
     position: absolute;
     top: 10px;
     left: 10px;
-    font-size: 34px;
+
     transform: rotate(-45deg);
+
     color: $c-search_placeholder;
+
+    font-size: 34px;
   }
 
   &__input {
-    height: 100%;
     width: 100%;
-    background: $c-search_bg;
+    height: 100%;
+    padding-right: 5px;
+    padding-left: 40px;
+
     border: none;
     border-radius: 5px;
-    padding-left: 40px;
-    padding-right: 5px;
     outline: none;
+    background: $c-search_bg;
 
     &::placeholder {
       color: $c-search_placeholder;

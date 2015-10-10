@@ -1,44 +1,55 @@
 .new-channel {
-  padding: 3px 20px 0 15px;
-  height: 60px;
-  margin: 0 0 1px;
-  transition: .3s;
   position: relative;
 
+  height: 60px;
+  margin: 0 0 1px;
+  padding: 3px 20px 0 15px;
+
+  transition: .3s;
+
   &:after {
-    content: '';
-    display: block;
     position: absolute;
-    width: 0;
-    height: 0;
+    z-index: 2;
     top: 0;
     left: 0;
-    opacity: .1;
+
+    display: block;
+
+    width: 0;
+    height: 0;
+
+    content: '';
     transition: background .2s;
-    z-index: 2;
+
+    opacity: .1;
   }
 
   &_disabled {
     &:after {
       width: 100%;
       height: 100%;
+
       background: #fff;
     }
   }
 
   &__title {
     margin: 0 0 4px;
+
     color: #fff;
+
     font-size: 14px;
   }
 
   &__input {
     width: 100%;
-    background-color: #202528;
+    padding: 0 0 0 10px;
+
+    color: #fff;
     border: 1px solid #363e41;
     border-radius: 4px;
-    padding: 0 0 0 10px;
-    color: #fff;
+    background-color: #202528;
+
     font-size: 14px;
     line-height: 24px;
 

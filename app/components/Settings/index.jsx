@@ -119,29 +119,29 @@ export default class Settings extends React.Component {
 
   render() {
     const getSettingsWindow = interpolated => (
-      <div>
+      <div className='settings'>
         <div
-          className='popup-window'
+          className='settings__window'
           style={{transform: `scale(${interpolated.scale})`}}
         >
           <Tabs
-            className='login-window__tabs'
+            className='settings__tabs'
             currentTabId={1}
           >
             <Tab id={1}>Settings</Tab>
           </Tabs>
           <form
-            className='login'
+            className='settings__form'
             onSubmit={this.changeInfo}
           >
             <InfoMessage
-              className='login__info-message'
+              className='settings__info-message'
               type={this.state.info.type}
               shake={this.state.shakeInfo}
             >{this.state.info.text}</InfoMessage>
             <Input
-              className={cx('sign-up__input', {
-                'input_type_error': this.state.showLoginError,
+              className={cx('settings__input', {
+                'input_type_error': this.state.showEmailError,
               })}
               value={this.state.email}
               name='email'
@@ -149,8 +149,8 @@ export default class Settings extends React.Component {
               onChange={this.emailChange}
             />
             <Input
-              className={cx('sign-up__input', {
-                'input_type_error': this.state.showLoginError,
+              className={cx('settings__input', {
+                'input_type_error': this.state.showNameError,
               })}
               value={this.state.name}
               name='name'
@@ -158,13 +158,13 @@ export default class Settings extends React.Component {
               onChange={this.nameChange}
             />
             <Button
-              className='login__submit-button'
+              className='settings__submit-button'
               type='submit'
             >Save</Button>
           </form>
         </div>
         <Link to='/'>
-          <div className='popup-overlay' />
+          <div className='settings__overlay' />
         </Link>
       </div>
     );

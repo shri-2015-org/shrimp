@@ -4,7 +4,7 @@ import App from 'App';
 import LoginPage from 'components/LoginPage';
 import Login from 'components/Login';
 import SignUp from 'components/SignUp';
-import Settings from 'components/PopUp';
+import Settings from 'components/Settings';
 
 
 export default (

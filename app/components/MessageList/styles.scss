@@ -1,6 +1,7 @@
 @import '~styles/variables.scss';
 
 .messages-list__list {
-  list-style: none;
   padding-left: $messages_avatar_left_padding;
+
+  list-style: none;
 }

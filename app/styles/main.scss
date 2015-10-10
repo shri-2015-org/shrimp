@@ -12,9 +12,10 @@ html {
 }
 
 body {
-  font: 300 16px/18px Roboto, sans-serif;
-  background-color: $c-main_bg;
   color: $c-main_text;
+  background-color: $c-main_bg;
+
+  font: 300 16px/18px Roboto, sans-serif;
 }
 
 *,

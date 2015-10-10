@@ -22,13 +22,22 @@
 }
 
 .info-message {
+  $types: (
+    warning: $c-info-message_warning,
+    error: $c-info-message_error,
+    success: $c-info-message_success
+  );
+
   position: relative;
+
+  overflow: hidden;
+
   margin-right: auto;
   margin-left: auto;
   padding-left: 20px;
+
   font-size: 1.2em;
   line-height: 1.2em;
-  overflow: hidden;
 
   &__text {
     padding-top: 6px;
@@ -38,18 +47,15 @@
   &::before {
     position: absolute;
     left: 0;
+
     width: 3px;
     height: 100%;
-    background-color: $c-info-message_info;
-    border-radius: 2px;
-    content: '';
-  }
 
-  $types: (
-    warning: $c-info-message_warning,
-    error: $c-info-message_error,
-    success: $c-info-message_success
-  );
+    content: '';
+
+    border-radius: 2px;
+    background-color: $c-info-message_info;
+  }
 
   @each $type, $color in $types {
     &_type_#{$type}::before {

@@ -1,13 +1,20 @@
 @import '~styles/variables.scss';
 
 .button {
+  $types: (
+    green: $c-green
+  );
+
   width: 100%;
-  line-height: 45px;
-  background-color: $c-blue;
+
+  user-select: none;
+
   border: 0;
   border-radius: $main-border-radius;
   outline: none;
-  user-select: none;
+  background-color: $c-blue;
+
+  line-height: 45px;
 
   &:hover,
   &:focus {
@@ -17,11 +24,6 @@
   &:active {
     background-color: lighten($c-blue, 20);
   }
-
-
-  $types: (
-    green: $c-green
-  );
 
   @each $type, $color in $types {
     &_type_#{$type} {

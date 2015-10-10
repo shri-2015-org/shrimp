@@ -33,7 +33,7 @@ export default class Tabs extends React.Component {
 
 
     return (
-      <div className={cx('tabs', {[className]: !!className})}>
+      <div className={cx('tabs', className)}>
         {getChildren()}
       </div>
     );
