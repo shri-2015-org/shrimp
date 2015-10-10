@@ -78,7 +78,7 @@ export default class Message extends React.Component {
         {userName}
         <div className='message__cloud'>
           <div className='message__text'>
-            <Linkify properties={{className: 'message__url'}}>{text}</Linkify>
+            <Linkify properties={{className: 'message__url', target: '_blank'}}>{text}</Linkify>
           </div>
           <div className='message__date'>{this.state.date + ' ago'}</div>
         </div>
