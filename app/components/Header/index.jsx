@@ -3,6 +3,7 @@ import Search from 'components/Search';
 import './styles.scss';
 import Dropdown from 'components/Dropdown';
 import DropdownItem from 'components/DropdownItem';
+import {Link} from 'react-router';
 
 
 export default class Header extends React.Component {
@@ -33,8 +34,12 @@ export default class Header extends React.Component {
         >{'☰'}</button>
         <Search className='header__search' onChange={this.props.changeFilter}/>
         <Dropdown>
-          <DropdownItem text={'Settings'} />
-          <DropdownItem onClick={this.logOut} text={'Log Out'} danger />
+           <DropdownItem link='/settings'>
+            <Link to='/settings'>Settings</Link>
+          </DropdownItem>
+          <DropdownItem onClick={this.logOut} danger>
+            Log Out
+          </DropdownItem>
         </Dropdown>
       </header>
     );

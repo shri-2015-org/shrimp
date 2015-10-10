@@ -5,7 +5,7 @@ import getMessageModel from './models/message';
 import getChannelModel from './models/channel';
 import getUserModel from './models/user';
 import {SC, CS} from '../constants';
-import {checkSessionId, joinToChannel} from './db/db_core.js';
+import {checkSessionId, setUserInfo, joinToChannel} from './db/db_core.js';
 // const debug = require('debug')('shrimp:server');
 const Message = getMessageModel();
 const Channel = getChannelModel();
@@ -62,6 +62,16 @@ export default function startSocketServer(http) {
     socket.on(CS.ADD_CHANNEL, data => {
       Channel.add(data, (err, result) =>
         io.sockets.emit(SC.ADD_CHANNEL, result.toObject()));
+    });
+
+    socket.on(CS.TYPING, data => {
+      io.socket.emit(SC.TYPING, {channelId: data.id, typing: true});
+    });
+
+    socket.on(CS.CHANGE_USER_INFO, data => {
+      setUserInfo(socket.sessionId, data.email, data.name, (userData) => {
+        socket.emit(SC.CHANGE_USER_INFO, {user: userData});
+      });
     });
   });
 }

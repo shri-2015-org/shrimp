@@ -4,18 +4,18 @@ import './styles.scss';
 
 export default class DropdownItem extends React.Component {
   static propTypes = {
-    text: PropTypes.string.isRequired,
-    onClick: PropTypes.func,
+    children: PropTypes.node.isRequired,
+    onClick: PropTypes.func.isRequired,
     danger: PropTypes.bool,
   }
 
   render() {
-    const {text, onClick, danger} = this.props;
+    const {children, onClick, danger} = this.props;
     return (
       <li
         onClick={onClick}
         className={cx('dropdown-item', { 'dropdown-item_danger': danger})}
-      >{text}</li>
+      >{children}</li>
     );
   }
 }
