@@ -15,9 +15,9 @@ export default class MessageComposer extends React.Component {
 
   constructor(props) {
     super(props);
+    this.messageMaxLength = 220;
     this.state = {
       text: '',
-      messageMaxLength: 220,
       showMessageError: false,
     };
   }
@@ -31,7 +31,7 @@ export default class MessageComposer extends React.Component {
   }
 
   textChange = (e) => {
-    if (e.target.value.length === this.state.messageMaxLength) {
+    if (e.target.value.length === this.messageMaxLength) {
       this.setState({
         text: e.target.value,
         showMessageError: true,
@@ -55,6 +55,7 @@ export default class MessageComposer extends React.Component {
       });
       this.setState({
         text: '',
+        showMessageError: false,
       });
     }
   }
@@ -80,15 +81,15 @@ export default class MessageComposer extends React.Component {
             onHeightChange={changeBottom}
             minRows={1}
             maxRows={5}
-            maxLength={this.state.messageMaxLength}
+            maxLength={this.messageMaxLength}
             className='composer__textarea'
           />
           <div
             className={cx('composer__info', {
-              'composer__info_error': this.state.showMessageError,
+              'composer__info_error': this.showMessageError,
             })}
           >
-          {this.state.messageMaxLength - this.state.text.length}
+          {this.messageMaxLength - this.state.text.length}
           </div>
           <button
             type='button'
