@@ -1,7 +1,6 @@
 import React, {PropTypes} from 'react';
 import Immutable, {Map} from 'immutable';
 import cx from 'classnames';
-import Star from 'components/Star';
 import UnreadCounter from 'components/UnreadCounter';
 import './styles.scss';
 
@@ -63,13 +62,6 @@ export default class ChannelItem extends React.Component {
         })}
         onClick={this.setChannel}
       >
-        <Star
-          fill={this.state.favorite}
-          onClick={this.toggleFavorite}
-          className={cx('channel__star', {
-            channel__star_filled: this.state.favorite,
-          })}
-        />
         <div className='channel__name'>{item.get('name')}</div>
         <div className='channel__last-message'>
           {lastMessage ? lastMessage.get('text') : '🙊'}
