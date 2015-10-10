@@ -109,4 +109,12 @@
     transition: opacity .5s;
     max-width: 80%;
   }
+
+  &__url {
+    color: $c-message-cloud_text;
+  }
+
+  &__url:visited {
+    color: $c-gray-70;
+  }
 }
