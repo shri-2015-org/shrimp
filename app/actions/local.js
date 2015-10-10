@@ -52,3 +52,10 @@ export function logOut() {
     payload: null,
   };
 }
+export function joinToChannel(channelId) {
+  return {
+    type: CS.JOIN_TO_CHANNEL,
+    payload: channelId,
+    send: true,
+  };
+}

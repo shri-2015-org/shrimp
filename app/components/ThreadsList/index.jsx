@@ -15,6 +15,7 @@ export default class ThreadsList extends React.Component {
     messages: PropTypes.instanceOf(List).isRequired,
     list: PropTypes.instanceOf(List),
     setCurrentChannel: PropTypes.func.isRequired,
+    joinToChannel: PropTypes.func.isRequired,
     type: PropTypes.string,
     local: PropTypes.instanceOf(Map).isRequired,
   };
@@ -35,6 +36,8 @@ export default class ThreadsList extends React.Component {
               lastMessage={lastMessage}
               isCurrent={this.props.local.get('currentChannelId') === thisChannelId}
               setCurrentChannel={this.props.setCurrentChannel}
+              joinToChannel={this.props.joinToChannel}
+              local={this.props.local}
             />
           );
         });

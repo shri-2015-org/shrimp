@@ -12,7 +12,9 @@ export default class ChannelItem extends React.Component {
     lastMessage: PropTypes.instanceOf(Map),
     isCurrent: PropTypes.bool,
     setCurrentChannel: PropTypes.func.isRequired,
+    joinToChannel: PropTypes.func.isRequired,
     favorite: PropTypes.bool,
+    local: PropTypes.instanceOf(Map).isRequired,
   }
 
 
@@ -37,6 +39,10 @@ export default class ChannelItem extends React.Component {
 
   setChannel = () => {
     this.props.setCurrentChannel(this.state.id);
+    const joinedUser = this.props.item.get('userIds').find((userId) => userId === this.props.local.get('userId'));
+    if (!joinedUser) {
+      this.props.joinToChannel(this.state.id);
+    }
   }
 
 

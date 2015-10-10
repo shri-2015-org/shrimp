@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
 import store from '../store';
 import {Map} from 'immutable';
-import {addChannel} from '../actions/channels';
+import {addChannel, addUserToChannel} from '../actions/channels';
 import {addMessage} from '../actions/messages';
 import {init, initUser} from '../actions/local';
 import {SC} from '../../constants';
@@ -25,6 +25,10 @@ export function socketClient(type = null, socketData) {
 
     socket.on(SC.SIGN_IN, (data) => {
       store.dispatch(initUser(data));
+    });
+
+    socket.on(SC.JOIN_TO_CHANNEL, (data) => {
+      store.dispatch(addUserToChannel(data));
     });
   } else if (type) {
     socket.emit(type, socketData);

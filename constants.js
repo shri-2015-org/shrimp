@@ -3,6 +3,7 @@ const SC = {
   ADD_CHANNEL: 'SC_ADD_CHANNEL',
   INIT: 'SC_INIT',
   SIGN_IN: 'SC_SIGN_IN',
+  JOIN_TO_CHANNEL: 'SC_JOIN_TO_CHANNEL',
 };
 
 const CS = {
@@ -10,6 +11,7 @@ const CS = {
   ADD_CHANNEL: 'CS_ADD_CHANNEL',
   SIGN_IN: 'CS_SIGN_IN',
   INIT: 'CS_INIT',
+  JOIN_TO_CHANNEL: 'CS_JOIN_TO_CHANNEL',
 };
 
 const A = {
@@ -20,6 +22,7 @@ const A = {
   INIT: 'INIT',
   INIT_USER: 'INIT_USER',
   LOG_OUT: 'LOG_OUT',
+  JOIN_TO_CHANNEL: 'JOIN_TO_CHANNEL',
 };
 
 module.exports = {

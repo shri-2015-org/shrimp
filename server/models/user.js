@@ -13,6 +13,7 @@ const user = new mongoose.Schema({
 
 user.statics.getAll = getAll;
 user.statics.isEmpty = isEmpty;
+user.statics.getBySessionId = function getBySessionId(sessionId) { return this.findOne({ sessionId }); };
 user.set('toObject', getToObjectOptions());
 
 user.statics.createTestUser = function createTestUser() {

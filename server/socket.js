@@ -2,13 +2,14 @@ import Server from 'socket.io';
 import cookieParser from 'socket.io-cookie';
 import getInitState from './initial-state';
 import getMessageModel from './models/message';
-// import getUserModel from './models/user';
+import getChannelModel from './models/channel';
+import getUserModel from './models/user';
 import {SC, CS} from '../constants';
-import {signInUser, setSessionId, checkSessionId} from './db/db_core.js';
-import {generateSessionId} from './lib/core.js';
+import {checkSessionId, joinToChannel} from './db/db_core.js';
 // const debug = require('debug')('shrimp:server');
 const Message = getMessageModel();
-// const User = getUserModel();
+const Channel = getChannelModel();
+const User = getUserModel();
 
 export default function startSocketServer(http) {
   const io = new Server(http);
@@ -34,24 +35,26 @@ export default function startSocketServer(http) {
       });
     });
 
-    socket.on(CS.SIGN_IN, data => {
-      signInUser(data.login, data.password, (userData) => {
-        if (userData.status.type === 'success') {
-          const sessionId = generateSessionId();
-          setSessionId(userData.userId, sessionId, (userSessionId) => {
-            getInitState(userSessionId).then(initState => {
-              socket.emit(SC.INIT, initState);
-            });
-          });
-        } else {
-          socket.emit(SC.SIGN_IN, {user: userData});
-        }
+    User.getBySessionId(socket.sessionId)
+      .then((user) => {
+        return Channel.getForUser(user.id);
+      })
+      .then((channels) => {
+        channels.forEach(c => {
+          socket.join(c.id);
+        });
+      });
+
+    socket.on(CS.JOIN_TO_CHANNEL, channelId => {
+      joinToChannel(socket.sessionId, channelId, (userId) => {
+        socket.join(channelId);
+        socket.emit(SC.JOIN_TO_CHANNEL, {channelId, userId});
       });
     });
 
     socket.on(CS.ADD_MESSAGE, data => {
       Message.add(data, (err, result) => {
-        io.sockets.emit(SC.ADD_MESSAGE, result.toObject());
+        io.to(data.channelId).emit(SC.ADD_MESSAGE, result.toObject());
       });
     });
 

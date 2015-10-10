@@ -13,6 +13,7 @@ export default class ThreadsSection extends React.Component {
     channels: PropTypes.instanceOf(List).isRequired,
     contacts: PropTypes.instanceOf(List).isRequired,
     setCurrentChannel: PropTypes.func.isRequired,
+    joinToChannel: PropTypes.func.isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
   }
 
@@ -52,7 +53,7 @@ export default class ThreadsSection extends React.Component {
 
 
   render() {
-    const {channels, contacts, setCurrentChannel, local} = this.props;
+    const {channels, contacts, setCurrentChannel, local, joinToChannel} = this.props;
 
     const tabs = List.of(
       Map({id: 1, name: 'People', sendToServer: false, list: contacts }),
@@ -119,6 +120,7 @@ export default class ThreadsSection extends React.Component {
           local={local}
           setCurrentChannel={setCurrentChannel}
           type={currentTabData.get('name')}
+          joinToChannel={joinToChannel}
         />
         <Search currentData={currentTabData} filter={filter} sendToServer={false} className='threads__search' />
       </div>
