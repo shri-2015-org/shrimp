@@ -3,8 +3,6 @@ import Search from 'components/Search';
 import './styles.scss';
 import Dropdown from 'components/Dropdown';
 import DropdownItem from 'components/DropdownItem';
-import store from 'store.js';
-import {erase} from 'browser-cookies';
 
 
 export default class Header extends React.Component {
@@ -21,8 +19,6 @@ export default class Header extends React.Component {
   }
 
   logOut = () => {
-    erase('sessionId');
-    store.history.pushState(null, '/login');
     this.props.logOut();
   }
 
