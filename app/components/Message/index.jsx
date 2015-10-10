@@ -75,9 +75,9 @@ export default class Message extends React.Component {
 
     const renderText = text.split(' ').map((word) => {
       if (isURL(word)) {
-        return <a href={word} target='_blank' className='message__url'>{word}</a>;
+        return (<span><a href={word} target='_blank' className='message__url'>{word}</a>{' '}</span>);
       }
-      return word;
+      return word + ' ';
     });
 
     return (
