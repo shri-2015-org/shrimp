@@ -6,8 +6,14 @@ const user = new mongoose.Schema({
   email: String,
   name: String,
   avatar: String,
-  passwordHash: String,
-  sessionId: String,
+  passwordHash: {
+    type: String,
+    select: false,
+  },
+  sessionId: {
+    type: String,
+    select: false,
+  },
 });
 
 user.statics.getAll = getAll;
