@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import Immutable, {Map} from 'immutable';
 import cookies from 'browser-cookies';
 import cx from 'classnames';
+import DocumentTitle from 'react-document-title';
 import {init, initUser} from 'actions/local';
 import InfoMessage from 'components/InfoMessage';
 import PasswordInput from 'components/PasswordInput';
@@ -211,46 +212,48 @@ export default class SignUp extends React.Component {
 
   render() {
     return (
-      <form className='sign-up' onSubmit={this.signUp} >
-        <InfoMessage
-          className='sign-up__info-message'
-          type={this.state.info.type}
-          shake={this.state.shakeInfo}
-        >{this.state.info.text}</InfoMessage>
-        <Input
-          className={cx('sign-up__input', {
-            'input_type_error': this.state.showEmailError,
-            'input_type_succes': !this.state.emailExist && this.state.email,
-          })}
-          placeholder='Email'
-          onChange={this.emailChange}
-        />
-        <Input
-          className={cx('sign-up__input', {
-            'input_type_error': this.state.showNameError,
-            'input_type_succes': !this.state.nameExist && this.state.name,
-          })}
-          placeholder='Name'
-          onChange={this.nameChange}
-        />
-        <PasswordInput
-          className='sign-up__input'
-          placeholder='Password'
-          onChange={this.passwordChange}
-        />
-        <PasswordInput
-          className={cx('sign-up__input', {
-            'input_type_error': this.state.showSecondPasswordError,
-            'input_type_succes': this.state.password && this.state.password === this.state.repeatedPassword,
-          })}
-          placeholder='Repeat password'
-          onChange={this.repeatedPasswordChange}
-        />
-        <Button
-          className='sign-up__submit-button button_type_green'
-          type='submit'
-        >Sign Up</Button>
-      </form>
+      <DocumentTitle title='Sign Up'>
+        <form className='sign-up' onSubmit={this.signUp} >
+          <InfoMessage
+            className='sign-up__info-message'
+            type={this.state.info.type}
+            shake={this.state.shakeInfo}
+          >{this.state.info.text}</InfoMessage>
+          <Input
+            className={cx('sign-up__input', {
+              'input_type_error': this.state.showEmailError,
+              'input_type_succes': !this.state.emailExist && this.state.email,
+            })}
+            placeholder='Email'
+            onChange={this.emailChange}
+          />
+          <Input
+            className={cx('sign-up__input', {
+              'input_type_error': this.state.showNameError,
+              'input_type_succes': !this.state.nameExist && this.state.name,
+            })}
+            placeholder='Name'
+            onChange={this.nameChange}
+          />
+          <PasswordInput
+            className='sign-up__input'
+            placeholder='Password'
+            onChange={this.passwordChange}
+          />
+          <PasswordInput
+            className={cx('sign-up__input', {
+              'input_type_error': this.state.showSecondPasswordError,
+              'input_type_succes': this.state.password && this.state.password === this.state.repeatedPassword,
+            })}
+            placeholder='Repeat password'
+            onChange={this.repeatedPasswordChange}
+          />
+          <Button
+            className='sign-up__submit-button button_type_green'
+            type='submit'
+          >Sign Up</Button>
+        </form>
+      </DocumentTitle>
     );
   }
 }
