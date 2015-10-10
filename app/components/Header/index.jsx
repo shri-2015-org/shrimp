@@ -11,6 +11,7 @@ export default class Header extends React.Component {
     open: PropTypes.bool.isRequired,
     docked: PropTypes.bool.isRequired,
     logOut: PropTypes.func.isRequired,
+    changeFilter: PropTypes.func.isRequired,
   }
 
 
@@ -30,7 +31,7 @@ export default class Header extends React.Component {
           hidden={this.props.open || this.props.docked}
           className='header__humburger'
         >{'☰'}</button>
-        <Search className='header__search' />
+        <Search className='header__search' onChange={this.props.changeFilter}/>
         <Dropdown>
           <DropdownItem text={'Settings'} />
           <DropdownItem onClick={this.logOut} text={'Log Out'} danger />
