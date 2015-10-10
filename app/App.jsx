@@ -32,7 +32,7 @@ export default class Application extends React.Component {
     contacts: PropTypes.instanceOf(List).isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
     dispatch: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
   }
 
 
@@ -99,13 +99,14 @@ export default class Application extends React.Component {
     return (
       <DocumentTitle title='Chat' >
         <div className='chat-page'>
+          {this.props.children}
           <Header
             setOpen={this.onSetSidebarOpen}
             open={this.state.sidebarOpen}
             docked={this.state.sidebarDocked}
             changeFilter={this.changeFilter}
             {...actions}
-            />
+          />
           <Sidebar
             sidebar={threads}
             open={this.state.sidebarOpen}

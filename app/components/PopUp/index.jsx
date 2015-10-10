@@ -54,7 +54,7 @@ export default class Settings extends React.Component {
       const currentUser = this.props.users.find(user => user.get('id') === this.props.local.get('userId'));
 
       this.setState({
-        email: currentUser.get('nick'),
+        email: currentUser.get('email'),
         name: currentUser.get('name'),
       });
     }
@@ -128,7 +128,7 @@ export default class Settings extends React.Component {
             className='login-window__tabs'
             currentTabId={1}
           >
-            <Tab id={1} link='/settings'>Settings</Tab>
+            <Tab id={1}>Settings</Tab>
           </Tabs>
           <form
             className='login'
