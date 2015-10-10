@@ -8,13 +8,11 @@ export function channels(state = EMPTY_LIST, action = {type: 'DEFAULT'}) {
   case A.INIT:
     return fromJS(action.payload.channels);
   case A.ADD_CHANNEL:
-    {
-      const dirtyChannelIndex = state.findIndex(item => item.get('isDirty') && action.channel.get('name') === item.get('name'));
-      if (dirtyChannelIndex !== -1) {
-        return state.set(dirtyChannelIndex, action.channel);
-      }
-      return state.push(action.channel);
+    const dirtyChannelIndex = state.findIndex(item => item.get('isDirty') && action.channel.get('name') === item.get('name'));
+    if (dirtyChannelIndex !== -1) {
+      return state.set(dirtyChannelIndex, action.channel);
     }
+    return state.push(action.channel);
   case A.REMOVE_CHANNEL:
     const index = state.map(item => item.get('id')).indexOf(action.channelId);
     return state.delete(index);
@@ -27,7 +25,7 @@ export function channels(state = EMPTY_LIST, action = {type: 'DEFAULT'}) {
     if (i === -1) {
       return state;
     }
-    return state.set(i, action.channel);
+    return state.set(i, action.payload);
   case A.ADD_DIRTY_CHANNEL:
     const existingItems = state.filter(item => item.get('isDirty'));
     if (existingItems.size > 0) {
