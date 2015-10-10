@@ -13,7 +13,7 @@
     "csslint": "./node_modules/.bin/csscomb -l app/",
     "test-server": "./node_modules/.bin/mocha --compilers js:babel/register --require ./server/test/test_helper.js --recursive ./server/test/test_message_model.js",
     "test-client": "karma start --single-run=true; ./node_modules/.bin/mocha --compilers js:babel/register --recursive ./app/tests",
-    "test": "npm run test-server && npm run test-client && npm run lint-ci --silent && npm run csslint",
+    "test": "npm run test-client && npm run lint-ci --silent && npm run csslint",
     "dev": "NODE_ENV=development DEBUG=shrimp:front MONGO_CONNECT=yes NODE_PATH=./node_modules:./app nodemon --watch server/ --exec babel-node server/server",
     "compile": "./node_modules/.bin/babel-node compile.js",
     "dev-server": "npm run compile; NODE_ENV=development DEBUG=shrimp:server MONGO_CONNECT=yes NODE_PATH=./node_modules:./app nodemon --exec babel-node server/server",
