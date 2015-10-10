@@ -71,11 +71,12 @@ app.post('/signin', (req, res) => {
 app.post('/signup', (req, res) => {
   const login = req.body.login;
   const password = req.body.password;
+  const email = req.body.email;
 
   checkUserLogin(login, (userData) => {
     if (userData.status.type === 'success') {
       const userSessionId = generateSessionId();
-      signUpUser(login, password, userSessionId, () => {
+      signUpUser(login, password, email, userSessionId, () => {
         getInitState(userSessionId).then(initState => {
           res.json(initState);
         });

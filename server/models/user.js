@@ -5,6 +5,7 @@ import {isEmpty, getAll, getToObjectOptions} from './utils';
 const user = new mongoose.Schema({
   nick: String,
   name: String,
+  email: String,
   avatar: String,
   password: String,
   sessionId: String,
@@ -18,6 +19,7 @@ user.statics.createTestUser = function createTestUser() {
   return new this({
     nick: faker.internet.userName(),
     name: faker.name.firstName(),
+    email: faker.internet.getEmail(),
     avatar: faker.image.avatar(),
     password: faker.internet.password(),
   });

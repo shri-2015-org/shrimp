@@ -1,4 +1,4 @@
-import faker from 'faker';
+import gravatar from 'gravatar';
 import getUserModel from '../models/user';
 
 const User = getUserModel();
@@ -29,15 +29,14 @@ export function signInUser(login, password, callback) {
 }
 
 
-export function signUpUser(login, password, sessionId, callback) {
+export function signUpUser(login, password, email, sessionId, callback) {
   const newUser = new User({
     nick: login,
-    name: faker.name.firstName(),
-    avatar: faker.image.avatar(),
-    password: faker.internet.password(),
+    email: email,
+    avatar: gravatar.url(email),
+    password: password,
     sessionId: sessionId,
   });
-
   newUser.save(error => {
     if (error) debug(error);
     callback(sessionId);
