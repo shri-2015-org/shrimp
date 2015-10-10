@@ -34,8 +34,8 @@ export default class Header extends React.Component {
         >{'☰'}</button>
         <Search className='header__search' onChange={this.props.changeFilter}/>
         <Dropdown>
-           <DropdownItem link='/settings'>
-            <Link to='/settings'>Settings</Link>
+           <DropdownItem>
+            <Link className='dropdown-item__link' to='/settings'>Settings</Link>
           </DropdownItem>
           <DropdownItem onClick={this.logOut} danger>
             Log Out

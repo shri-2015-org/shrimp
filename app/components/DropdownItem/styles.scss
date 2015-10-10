@@ -8,7 +8,10 @@
   text-align: center;
   cursor: pointer;
 
-  a {
+  &__link {
+    display: block;
+    margin-top: -8px;
+    padding: 8px 0;
     color: $c-gray-60;
     text-decoration: none;
   }
