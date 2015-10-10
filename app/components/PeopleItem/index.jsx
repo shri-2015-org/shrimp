@@ -38,7 +38,7 @@ export default class PeopleItem extends React.Component {
         })}
         onClick={this.setChannel}
       >
-        <div className='person__name'>{item.get('name') || item.get('nick')}</div>
+        <div className='person__name'>{item.get('name')}</div>
         <div className='person__last-message'>
           {lastMessage ? lastMessage.get('text') : '🙊'}
         </div>

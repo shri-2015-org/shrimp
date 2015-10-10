@@ -6,8 +6,8 @@ const Channel = getChannelModel();
 const User = getUserModel();
 const debug = require('debug')('shrimp:server');
 
-export function signInUser(login, password, callback) {
-  User.findOne({ nick: login }, (err, user) => {
+export function signInUser(email, password, callback) {
+  User.findOne({ email }, (err, user) => {
     if (user) {
       const userData = {
         userId: user.id,
@@ -31,10 +31,10 @@ export function signInUser(login, password, callback) {
 }
 
 
-export function signUpUser(login, password, email, sessionId, callback) {
+export function signUpUser(email, password, name, sessionId, callback) {
   const newUser = new User({
-    nick: login,
     email: email,
+    name: name,
     avatar: gravatar.url(email),
     password: password,
     sessionId: sessionId,
@@ -76,13 +76,13 @@ export function checkSessionId(sessionId) {
 }
 
 
-export function checkUserLogin(login, callback) {
-  User.findOne({ nick: login }, (err, user) => {
+export function checkUserEmail(email, callback) {
+  User.findOne({ email }, (err, user) => {
     if (user) {
       const userData = {
         status: {
           type: 'error',
-          text: 'User with this login already exists',
+          text: 'User with this email already exists',
         },
       };
       callback(userData);
@@ -98,8 +98,8 @@ export function checkUserLogin(login, callback) {
   });
 }
 
-export function checkLoginExist(login, callback) {
-  User.findOne({nick: login}, (err, user) => {
+export function checkEmailExist(email, callback) {
+  User.findOne({ email }, (err, user) => {
     if (user) {
       callback(true);
     } else {

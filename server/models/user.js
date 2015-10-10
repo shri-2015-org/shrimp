@@ -3,9 +3,8 @@ import faker from 'faker';
 import {isEmpty, getAll, getToObjectOptions} from './utils';
 
 const user = new mongoose.Schema({
-  nick: String,
-  name: String,
   email: String,
+  name: String,
   avatar: String,
   password: String,
   sessionId: String,
@@ -18,9 +17,8 @@ user.set('toObject', getToObjectOptions());
 
 user.statics.createTestUser = function createTestUser() {
   return new this({
-    nick: faker.internet.userName(),
-    name: faker.name.firstName(),
     email: faker.internet.getEmail(),
+    name: faker.name.firstName(),
     avatar: faker.image.avatar(),
     password: faker.internet.password(),
   });
