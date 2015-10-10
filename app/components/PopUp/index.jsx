@@ -20,7 +20,7 @@ import './styles.scss';
   users: state.users,
 }))
 
-export default class LoginWindow extends React.Component {
+export default class Settings extends React.Component {
 
   static propTypes = {
     children: PropTypes.node.isRequired,
