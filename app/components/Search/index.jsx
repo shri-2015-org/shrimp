@@ -8,17 +8,18 @@ export default class Search extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     inputClassName: PropTypes.string,
+    iconClassName: PropTypes.string,
     filter: PropTypes.func,
   }
 
 
   render() {
-    const {inputClassName} = this.props;
+    const {inputClassName, iconClassName} = this.props;
     const classes = cx('search', this.props.className);
     return (
       <div className={classes}>
         <div
-          className='search__icon'
+          className={cx('search__icon', iconClassName)}
         >{'⚲'}</div>
         <input
           placeholder='Search...'

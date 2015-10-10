@@ -3,6 +3,7 @@
 .threads {
   width: $threads_width;
   padding-top: $header_height + 40;
+  padding-bottom: 40px;
   height: 100vh;
   color: $c-threads_text;
   background-color: $c-threads_bg;
@@ -14,11 +15,73 @@
   }
 
   &__search {
-    right: 0;
-    bottom: 0;
-    width: 80%;
-    height: 35px;
+    right: 5px;
+    width: 160px;
+    height: 30px;
     font-size: 16px;
     overflow: hidden;
+
+    &__icon{
+      top: 5px;
+      left: 5px;
+    }
+
+    &__input{
+      padding-left: 35px;
+    }
+  }
+}
+
+.treads-bottom{
+  height: 40px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 5px;
+  background: #1b1e20;
+}
+
+.add-channel-button{
+  width: 24px;
+  height: 30px;
+  border: 0;
+  background: transparent;
+  display: block;
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  padding: 0;
+
+  &:before,
+  &:after{
+    content: '';
+    background: $c-blue;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transition: background 0.3s;
+  }
+
+  &:before{
+    width: 2px;
+    height: 18px;
+    margin-top: -9px;
+    margin-left: -1px;
+  }
+
+  &:after{
+    width: 18px;
+    height: 2px;
+    margin-top: -1px;
+    margin-left: -9px;
+  }
+
+  &:hover{
+    &:before,
+    &:after{
+      background: #fff;
+    }
   }
 }

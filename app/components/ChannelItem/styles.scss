@@ -4,12 +4,15 @@
 .channel {
   position: relative;
   height: 60px;
-  margin-bottom: 1px;
   background-color: $c-gray-30;
   cursor: pointer;
   box-shadow: inset 0 0 0 $c-highlight;
   transition-property: color, background, box-shadow;
   transition-duration: .4s, .4s, .1s;
+
+  & + .channel{
+    margin-top: 1px;
+  }
 
   &_active {
     cursor: default;
