@@ -2,13 +2,15 @@ import gravatar from 'gravatar';
 import getUserModel from '../models/user';
 import getChannelModel from '../models/channel';
 
-const Channel = getChannelModel();
+import bcrypt from 'bcrypt';
 const User = getUserModel();
+const Channel = getChannelModel();
 const debug = require('debug')('shrimp:server');
+
 
 export function signInUser(email, password, callback) {
   User.findOne({ email }, (err, user) => {
-    if (user) {
+    if (user && bcrypt.compareSync(password, user.passwordHash)) {
       const userData = {
         userId: user.id,
         status: {
@@ -32,11 +34,12 @@ export function signInUser(email, password, callback) {
 
 
 export function signUpUser(email, password, name, sessionId, callback) {
+  const hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
   const newUser = new User({
     email: email,
     name: name,
     avatar: gravatar.url(email),
-    password: password,
+    passwordHash: hash,
     sessionId: sessionId,
   });
   newUser.save(error => {
