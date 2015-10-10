@@ -5,7 +5,6 @@ const User = getUserModel();
 const Channel = getChannelModel();
 const Message = getMessageModel();
 
-
 export default function getInitState(sessionId) {
   return new Promise((resolve, reject) => {
     const state = {};
@@ -18,9 +17,14 @@ export default function getInitState(sessionId) {
 
       const userId = currentUser.id;
 
-
       channels = channels.map((channel) => {
         const channelObj = channel.toObject();
+        const userPrefsForChannel = channelObj.users.find(user => user._id.toString() === userId);
+        if (userPrefsForChannel) {
+          channelObj.joined = true;
+          channelObj.lastSeen = userPrefsForChannel.lastSeen !== undefined ? userPrefsForChannel.lastSeen : null;
+        }
+        delete channelObj.users;
         return channelObj;
       });
 

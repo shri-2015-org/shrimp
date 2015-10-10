@@ -1,5 +1,5 @@
 import {List, Map, fromJS} from 'immutable';
-import {A} from '../../constants';
+import {A, CS} from '../../constants';
 
 const EMPTY_LIST = List();
 
@@ -18,8 +18,10 @@ export function channels(state = EMPTY_LIST, action = {type: 'DEFAULT'}) {
     return state.delete(index);
   case A.JOIN_TO_CHANNEL:
     const channelIndex = state.map(item => item.get('id')).indexOf(action.payload.channelId);
-    state.getIn([channelIndex, 'userIds']).push(action.payload.userId);
-    return state;
+    return state.setIn([channelIndex, 'joined'], true);
+  case CS.MARK_AS_READ:
+    const channelIndex1 = state.map(item => item.get('id')).indexOf(action.payload.channelId);
+    return state.setIn([channelIndex1, 'lastSeen'], action.payload.lastSeen);
   case A.REPLACE_DIRTY_CHANNEL:
     const i = state.findIndex(item => item.get('isDirty'));
     if (i === -1) {

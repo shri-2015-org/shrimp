@@ -19,6 +19,7 @@ export default class ThreadsList extends React.Component {
     list: PropTypes.instanceOf(List),
     setCurrentChannel: PropTypes.func.isRequired,
     joinToChannel: PropTypes.func.isRequired,
+    markChannelAsRead: PropTypes.func.isRequired,
     replaceDirtyChannel: PropTypes.func.isRequired,
     newChannel: PropTypes.func.isRequired,
     type: PropTypes.string,
@@ -66,16 +67,20 @@ export default class ThreadsList extends React.Component {
           }
 
           const thisChannelId = listItem.get('id');
+          const lastSeen = listItem.get('lastSeen');
           const lastMessage = this.props.messages.findLast(m => m.get('channelId') === thisChannelId);
+          const unreadCount = this.props.messages.filter(m => m.get('channelId') === thisChannelId && Date.parse(m.get('timestamp')) > Date.parse(lastSeen)).size;
 
           return (
             <ChannelItem
               key={index}
               item={listItem}
               lastMessage={lastMessage}
+              unreadCount={unreadCount}
               isCurrent={this.props.local.get('currentChannelId') === thisChannelId}
               setCurrentChannel={this.props.setCurrentChannel}
               joinToChannel={this.props.joinToChannel}
+              markChannelAsRead={this.props.markChannelAsRead}
               local={this.props.local}
             />
           );
