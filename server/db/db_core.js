@@ -101,7 +101,6 @@ export function checkUserLogin(login, callback) {
 export function checkLoginExist(login, callback) {
   User.findOne({nick: login}, (err, user) => {
     if (user) {
-      console.log(user);
       callback(true);
     } else {
       callback(false);

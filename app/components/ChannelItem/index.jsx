@@ -39,7 +39,7 @@ export default class ChannelItem extends React.Component {
 
   setChannel = () => {
     this.props.setCurrentChannel(this.state.id);
-    const joinedUser = this.props.item.get('userIds').find((userId) => { return userId === this.props.local.get('userId');});
+    const joinedUser = this.props.item.get('userIds').find((userId) => userId === this.props.local.get('userId'));
     if (!joinedUser) {
       this.props.joinToChannel(this.state.id);
     }
