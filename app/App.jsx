@@ -60,6 +60,15 @@ export default class Application extends React.Component {
     this.setState({mql: mql, sidebarDocked: mql.matches, sidebarOpen: mql.matches});
   }
 
+  componentDidMount = () => {
+    setTimeout(() => {
+      const channel = document.querySelector('.channel');
+      if (channel) {
+        channel.click();
+      }
+    }, 500);
+  }
+
 
   componentWillUnmount = () => {
     this.state.mql.removeListener(this.mediaQueryChanged);
