@@ -98,6 +98,7 @@
     "immutable": "^3.7.5",
     "json-loader": "^0.5.3",
     "jsx-loader": "^0.13.2",
+    "lodash.throttle": "^3.0.4",
     "moment": "^2.10.6",
     "mongoose": "^4.1.9",
     "node-sass": "^3.3.3",

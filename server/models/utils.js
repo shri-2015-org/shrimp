@@ -1,7 +1,6 @@
 export function isEmpty() {
-  const self = this;
   return new Promise((resolve, reject) => {
-    self.count((err, count) => {
+    this.count((err, count) => {
       if (err) reject(err);
       else resolve(count > 0);
     });
@@ -9,9 +8,8 @@ export function isEmpty() {
 }
 
 export function getAll() {
-  const self = this;
   return new Promise((resolve, reject) => {
-    self.find({}, (err, users) => {
+    this.find({}, (err, users) => {
       if (err) {
         reject(err);
       } else {

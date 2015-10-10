@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 import startSocketServer from './socket.js';
 import getConfig from './config.js';
 import {createTestCollections} from './fill-db.js';
-import {signInUser, signUpUser, checkUserLogin, setSessionId} from './db/db_core.js';
+import {signInUser, signUpUser, checkUserLogin, checkLoginExist, setSessionId} from './db/db_core.js';
 import getInitState from './initial-state';
 import {generateSessionId} from './lib/core.js';
 // const debug = require('debug')('shrimp:server');
@@ -83,6 +83,13 @@ app.post('/signup', (req, res) => {
     } else {
       res.json({user: userData});
     }
+  });
+});
+
+app.post('/checkloginexist', (req, res) => {
+  const login = req.body.login;
+  checkLoginExist(login, (exist) => {
+    res.json(exist);
   });
 });
 

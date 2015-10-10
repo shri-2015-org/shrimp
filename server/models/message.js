@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import faker from 'faker';
-import {isEmpty, getAll, getToObjectOptions} from './utils';
+import {isEmpty, getToObjectOptions} from './utils';
 
 const message = new mongoose.Schema({
   senderId: mongoose.Schema.Types.ObjectId,
@@ -9,7 +9,18 @@ const message = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
 });
 
-message.statics.getAll = getAll;
+message.statics.getAll = function getAll() {
+  return new Promise((resolve, reject) => {
+    this.find({}, null, {sort: {timestamp: 1}}, (err, users) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(users);
+      }
+    });
+  });
+};
+
 message.statics.isEmpty = isEmpty;
 message.set('toObject', getToObjectOptions());
 

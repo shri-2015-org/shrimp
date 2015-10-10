@@ -9,9 +9,8 @@ import InfoMessage from 'components/InfoMessage';
 import PasswordInput from 'components/PasswordInput';
 import Input from 'components/Input';
 import Button from 'components/Button';
-
 import './styles.scss';
-
+import throttle from 'lodash.throttle';
 
 @connect(state => ({
   local: state.local,
@@ -38,6 +37,7 @@ export default class SignUp extends React.Component {
       showSecondPasswordError: false,
       showLoginError: false,
     };
+    this.checkLogin = throttle(this.checkLogin, 800);
   }
 
 
@@ -124,12 +124,51 @@ export default class SignUp extends React.Component {
     });
   }
 
+  checkLogin = (value) => {
+    fetch('/checkloginexist', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(value),
+    }).then((res) => {
+      if (res.status === 200) {
+        res.json().then(data => {
+          if (data) {
+            this.setState({
+              info: {
+                type: 'error',
+                text: 'Login exist',
+              },
+              login: value.login,
+              showLoginError: true,
+              loginExist: true,
+            });
+          } else {
+            this.setState({
+              info: {
+                type: 'info',
+                text: 'Fill these fields',
+              },
+              login: value.login,
+              showLoginError: false,
+              loginExist: false,
+            });
+          }
+        });
+      } else {
+        return;
+      }
+    });
+  }
 
   loginChange = e => {
-    this.setState({
+    const value = {
       login: e.target.value,
-      showLoginError: false,
-    });
+    };
+
+    this.checkLogin(value);
   }
 
 
@@ -162,6 +201,7 @@ export default class SignUp extends React.Component {
         <Input
           className={cx('sign-up__input', {
             'input_type_error': this.state.showLoginError,
+            'input_type_succes': !this.state.loginExist && this.state.login,
           })}
           placeholder='Login'
           onChange={this.loginChange}
