@@ -193,6 +193,14 @@ export default class SignUp extends React.Component {
   }
 
 
+  emailChange = e => {
+    this.setState({
+      email: e.target.value,
+      showEmailError: false,
+    });
+  }
+
+
   passwordChange = e => {
     this.setState({
       password: e.target.value,
