@@ -21,7 +21,6 @@ export default function getInitState(sessionId) {
 
       channels = channels.map((channel) => {
         const channelObj = channel.toObject();
-        channelObj.unreadMessagesCount = 20;
         return channelObj;
       });
 
