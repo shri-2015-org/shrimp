@@ -1,25 +1,45 @@
 @import '~styles/variables.scss';
 
 .threads {
+  position: relative;
+
+  overflow: hidden;
+
   width: $threads_width;
+  height: 100vh;
   padding-top: $header_height + 40;
   padding-bottom: 40px;
-  height: 100vh;
+
   color: $c-threads_text;
   background-color: $c-threads_bg;
-  overflow: hidden;
-  position: relative;
 
   @media (max-width: $mobile_width) {
     padding-top: $header_height + 20px;
   }
 
+
+  &__tabs {
+    position: absolute;
+    z-index: 1;
+    top: $header_height;
+
+    width: 100%;
+
+    line-height: 40px;
+    @media (max-width: $mobile_width) {
+      top: $header_height - 20;
+    }
+  }
+
   &__search {
     right: 5px;
+
+    overflow: hidden;
+
     width: 160px;
     height: 30px;
+
     font-size: 16px;
-    overflow: hidden;
 
     &__icon {
       top: 5px;
@@ -33,35 +53,44 @@
 }
 
 .treads-bottom {
-  height: 40px;
   position: absolute;
-  left: 0;
   bottom: 0;
+  left: 0;
+
   width: 100%;
+  height: 40px;
   padding: 5px;
+
   background: #1b1e20;
 }
 
 .add-channel-button {
-  width: 24px;
-  height: 30px;
-  border: 0;
-  background: transparent;
-  display: block;
-  cursor: pointer;
   position: relative;
   left: 0;
+
+  display: block;
+
+  width: 24px;
+  height: 30px;
   padding: 0;
+
+  cursor: pointer;
+
+  border: 0;
+  background: transparent;
 
   &:before,
   &:after {
-    content: '';
-    background: $c-blue;
-    display: block;
     position: absolute;
     top: 50%;
     left: 50%;
+
+    display: block;
+
+    content: '';
     transition: background .3s;
+
+    background: $c-blue;
   }
 
   &:before {

@@ -1,8 +1,10 @@
 .threads-list {
+  overflow: scroll;
+
+  width: 200px;
+  height: 100%;
   margin: 0;
   padding: 0;
+
   background: #272c30;
-  height: 100%;
-  overflow: scroll;
-  width: 200px;
 }

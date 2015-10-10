@@ -3,15 +3,22 @@
 
 .input {
   width: 100%;
-  line-height: 50px;
-  padding-left: 20px;
   padding-right: 20px;
-  background: $c-input_bg;
+  padding-left: 20px;
+
+  transition-duration: .3s;
+  transition-property: border, box-shadow;
+
   border: 1px solid $c-input_border;
   border-radius: $main-border-radius;
   outline: none;
-  transition-property: border, box-shadow;
-  transition-duration: .3s;
+  background: $c-input_bg;
+
+  line-height: 50px;
+
+  @include placeholder {
+    color: $c-input_placeholder;
+  }
 
   &_type_error {
     border: 1px solid $c-red !important;
@@ -26,9 +33,5 @@
   &:focus {
     border: 1px solid $c-input_focus;
     box-shadow: 0 0 5px transparentize($c-input_focus, .5);
-  }
-
-  @include placeholder {
-    color: $c-input_placeholder;
   }
 }

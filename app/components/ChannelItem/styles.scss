@@ -3,12 +3,15 @@
 
 .channel {
   position: relative;
+
   height: 60px;
-  background-color: $c-gray-30;
+
   cursor: pointer;
-  box-shadow: inset 0 0 0 $c-highlight;
-  transition-property: color, background, box-shadow;
   transition-duration: .4s, .4s, .1s;
+  transition-property: color, background, box-shadow;
+
+  background-color: $c-gray-30;
+  box-shadow: inset 0 0 0 $c-highlight;
 
   & + .channel {
     margin-top: 1px;
@@ -16,25 +19,27 @@
 
   &_active {
     cursor: default;
-    box-shadow: inset 2px 0 0 $c-highlight;
-    background-color: $c-gray-20;
+
     color: $c-current-tab_text;
+    background-color: $c-gray-20;
+    box-shadow: inset 2px 0 0 $c-highlight;
   }
 
   &:not(.channel_active):hover {
-    background-color: $c-gray-20;
     color: $c-hover-tab_text;
+    background-color: $c-gray-20;
   }
 
   &:not(.channel_active):active {
-    box-shadow: inset 7px 0 0 $c-highlight;
     background-color: $c-gray-20;
+    box-shadow: inset 7px 0 0 $c-highlight;
   }
 
   &__star {
     position: absolute;
     top: 4px;
     left: -11px;
+
     transition: left .2s;
 
     &_filled {
@@ -47,8 +52,8 @@
   }
 
   &__name {
-    padding-left: 25px;
     padding-top: 5px;
+    padding-left: 25px;
   }
 
 
@@ -56,19 +61,25 @@
     $font-size: 12px;
     $line-height: 1.2;
     $lines-to-show: 2;
-    padding-left: 20px;
-    padding-right: 30px;
-    font-weight: bolder;
-    color: $c-gray-65;
+
     display: block; /* Fallback for non-webkit */
     display: -webkit-box;
+    overflow: hidden;
+
     max-width: 400px;
     height: $font-size * $line-height * $lines-to-show; /* Fallback for non-webkit */
+    padding-right: 30px;
+    padding-left: 20px;
+
+    text-overflow: ellipsis;
+
+    color: $c-gray-65;
+
     font-size: $font-size;
+    font-weight: bolder;
     line-height: $line-height;
+
     -webkit-line-clamp: $lines-to-show;
     -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 }

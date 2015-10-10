@@ -2,28 +2,33 @@
 
 .spinner {
   position: absolute;
-  right: 0;
   top: 50%;
+  right: 0;
+
+  width: $spinner_medium_diameter;
+  height: $spinner_medium_diameter;
   margin-top: -$spinner_medium_diameter/2;
+
+  transform: translateZ(0);
+  animation: spin 1.1s infinite linear;
+
   border-top: $spinner_medium_diameter/5 solid $c-white_transparent;
   border-right: $spinner_medium_diameter/5 solid $c-white_transparent;
   border-bottom: $spinner_medium_diameter/5 solid $c-white_transparent;
   border-left: $spinner_medium_diameter/5 solid $c-white;
-  transform: translateZ(0);
-  animation: spin 1.1s infinite linear;
   border-radius: 50%;
-  width: $spinner_medium_diameter;
-  height: $spinner_medium_diameter;
   &:after {
-    border-radius: 50%;
     width: $spinner_medium_diameter;
     height: $spinner_medium_diameter;
+
+    border-radius: 50%;
   }
   &_small {
-    border-width: $spinner_small_diameter/5;
     width: $spinner_small_diameter;
     height: $spinner_small_diameter;
     margin-top: -$spinner_small_diameter/2;
+
+    border-width: $spinner_small_diameter/5;
     &:after {
       width: $spinner_small_diameter;
       height: $spinner_small_diameter;

@@ -2,12 +2,14 @@
 @import '~styles/colors.scss';
 
 .header {
-  height: $header_height;
-  width: 100%;
-  color: $c-header_text;
-  background-color: $c-header_bg;
   position: fixed;
   z-index: 10;
+
+  width: 100%;
+  height: $header_height;
+
+  color: $c-header_text;
+  background-color: $c-header_bg;
 
   &__user {
     position: absolute;
@@ -21,21 +23,24 @@
 
   &__user-avatar {
     float: left;
-    height: 50px;
+
     width: 50px;
+    height: 50px;
     margin-right: 20px;
     @media (max-width: $mobile_width) {
-      height: 24px;
       width: 24px;
+      height: 24px;
       margin-right: 10px;
     }
   }
 
   &__user-name {
     float: left;
-    line-height: 50px;
-    font-size: 18px;
+
     text-transform: capitalize;
+
+    font-size: 18px;
+    line-height: 50px;
     @media (max-width: $mobile_width) {
       line-height: 22px;
     }
@@ -46,22 +51,28 @@
   }
 
   &__humburger {
-    background: transparent;
-    outline: none;
-    border: none;
-    font-size: 30px;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
     left: 2%;
+
+    transform: translateY(-50%);
+
+    border: none;
+    outline: none;
+    background: transparent;
+
+    font-size: 30px;
   }
 
   &__search {
-    right: 50px;
     top: 50%;
-    transform: translateY(-50%);
+    right: 50px;
+
     width: 180px;
     height: 40px;
+
+    transform: translateY(-50%);
+
     font-size: 18px;
   }
 }

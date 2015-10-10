@@ -5,15 +5,19 @@
   width: 120px;
   height: 35px;
   padding: 8px 0 8px 0;
-  text-align: center;
+
   cursor: pointer;
+  text-align: center;
 
   &__link {
     display: block;
+
     margin-top: -8px;
     padding: 8px 0;
-    color: $c-gray-60;
+
     text-decoration: none;
+
+    color: $c-gray-60;
   }
 
   &:first-child {

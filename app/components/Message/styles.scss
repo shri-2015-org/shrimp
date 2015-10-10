@@ -3,12 +3,14 @@
 @import '~styles/colors.scss';
 
 .message {
-  @extend .clearfix;
   position: relative;
+
   min-height: 40px;
   margin-top: 20px;
   padding-top: 2px;
   padding-bottom: 2px;
+
+  @extend .clearfix;
 
   &_repeated {
     margin-top: 0;
@@ -20,13 +22,17 @@
 
   &__cloud {
     position: relative;
+
     float: right;
+
     min-width: 50px;
     max-width: $message_cloud_width;
     padding: 9px 15px;
-    border-radius: 5px;
-    color: $c-message-cloud_text;
+
     text-align: left;
+
+    color: $c-message-cloud_text;
+    border-radius: 5px;
     background: $c-message-cloud-default_bg;
 
     @media (max-width: $message_cloud_width + $messages_avatar_left_padding) {
@@ -35,13 +41,17 @@
 
     &:before {
       position: absolute;
-      bottom: -10px;
       right: 10px;
-      height: 10px;
-      width: 18px;
+      bottom: -10px;
+
       display: none;
-      background: url('./default-horn.svg');
+
+      width: 18px;
+      height: 10px;
+
       content: '';
+
+      background: url('./default-horn.svg');
     }
 
     &:hover .message__date {
@@ -55,27 +65,35 @@
 
   &_foreign &__cloud {
     float: left;
+
     background: $c-message-cloud-other_bg;
 
     &:before {
-      display: block;
       top: 17px;
       left: -12px;
+
+      display: block;
+
       width: 12px;
       height: 11px;
-      background: url('./other-horn.svg');
+
       transform: translateY(-50%);
+
+      background: url('./other-horn.svg');
     }
   }
 
   &__text {
-    max-width: $message_cloud_width - 40px;
     display: inline-block;
+
+    max-width: $message_cloud_width - 40px;
+
+    vertical-align: middle;
+    white-space: pre-line;
+    word-wrap: break-word;
+
     font-size: 16px;
     line-height: 18px;
-    white-space: pre-line;
-    vertical-align: middle;
-    word-wrap: break-word;
 
     @media (max-width: $message_cloud_width + $messages_avatar_left_padding + 10px) {
       max-width: calc(92vw - #{$messages_avatar_left_padding} - 40px);
@@ -86,6 +104,7 @@
     position: absolute;
     top: -10px;
     left: -65px;
+
     border-radius: $main-border-radius;
   }
 
@@ -93,21 +112,28 @@
     position: absolute;
     top: -15px;
     left: 10px;
-    font-size: .7em;
+
     color: $c-gray-70;
+
+    font-size: .7em;
   }
 
   &__date {
-    @extend .ellipsis;
     position: absolute;
-    color: $c-message-date_text;
-    font-size: 9px;
-    font-weight: bolder;
     right: 5px;
     bottom: -4px;
-    opacity: 0;
-    transition: opacity .5s;
+
     max-width: 80%;
+
+    transition: opacity .5s;
+
+    opacity: 0;
+    color: $c-message-date_text;
+
+    font-size: 9px;
+    font-weight: bolder;
+
+    @extend .ellipsis;
   }
 
   &__url {

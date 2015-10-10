@@ -117,6 +117,7 @@ export default class ThreadsSection extends React.Component {
         <Tabs
           currentTabId={this.state.currentTabId}
           changeTab={this.changeTab}
+          className='threads__tabs'
         >
           <Tab id={2}>Channels</Tab>
         </Tabs>

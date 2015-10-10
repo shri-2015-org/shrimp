@@ -119,13 +119,13 @@ export default class Settings extends React.Component {
 
   render() {
     const getSettingsWindow = interpolated => (
-      <div>
+      <div className='settings'>
         <div
-          className='popup-window'
+          className='settings__window'
           style={{transform: `scale(${interpolated.scale})`}}
         >
           <Tabs
-            className='login-window__tabs'
+            className='settings__tabs'
             currentTabId={1}
           >
             <Tab id={1}>Settings</Tab>
@@ -164,7 +164,7 @@ export default class Settings extends React.Component {
           </form>
         </div>
         <Link to='/'>
-          <div className='popup-overlay' />
+          <div className='settings__overlay' />
         </Link>
       </div>
     );

@@ -22,8 +22,10 @@
   position: fixed;
   right: 0;
   bottom: 0;
-  background: $c-main_bg;
+
   width: calc(100vw - #{$threads_width});
+
+  background: $c-main_bg;
 
   @media (max-width: $mobile_width) {
     width: 100vw;
@@ -31,52 +33,64 @@
 
   &__sender {
     position: relative;
+
     margin: 5px 15px 15px 15px;
+
     border: 1px solid $с-composer-sender_border;
-    background-color: $с-composer-sender_bg;
     border-radius: 5px;
+    background-color: $с-composer-sender_bg;
   }
 
   &__send-button {
     position: absolute;
-    bottom: 10px;
     right: 3px;
+    bottom: 10px;
+
     width: 60px;
+
     color: $c-composer-send-button_text;
-    background: none;
     border: none;
     outline: none;
+    background: none;
   }
 
   &__textarea {
     position: relative;
-    margin: 10px;
+
     width: calc(100% - 63px);
-    background-color: $с-composer-sender_bg;
-    color: $c-composer-textarea_text;
+    margin: 10px;
+
     resize: none;
+
+    color: $c-composer-textarea_text;
     border: none;
     outline: none;
+    background-color: $с-composer-sender_bg;
   }
 
   &__info {
     position: absolute;
     top: -11px;
     right: 5px;
-    font-size: 12px;
-    padding-left: 5px;
-    padding-right: 5px;
+
     min-width: 21px;
-    line-height: 21px;
-    font-size: 12px;
+    padding-right: 5px;
+    padding-left: 5px;
+
     text-align: center;
+
     color: white;
     border-radius: 11px;
     background: $c-blue;
 
+    font-size: 12px;
+    font-size: 12px;
+    line-height: 21px;
+
     &_error {
-      background: $c-red;
       animation: bounce 2s linear infinite;
+
+      background: $c-red;
     }
   }
 }
