@@ -112,9 +112,9 @@
 
   &__url {
     color: $c-message-cloud_text;
-  }
 
-  &__url:visited {
-    color: $c-gray-70;
+    &:visited {
+      color: $c-gray-70;
+    }
   }
 }
