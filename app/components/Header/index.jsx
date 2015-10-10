@@ -4,10 +4,11 @@ import './styles.scss';
 import Dropdown from 'components/Dropdown';
 import DropdownItem from 'components/DropdownItem';
 import {Link} from 'react-router';
-
+import {Map} from 'immutable';
 
 export default class Header extends React.Component {
   static propTypes = {
+    local: PropTypes.instanceOf(Map).isRequired,
     setOpen: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
     docked: PropTypes.bool.isRequired,
@@ -25,8 +26,18 @@ export default class Header extends React.Component {
   }
 
   render() {
+    const user = (<div className='header__user'>
+                    <img
+                      className='header__user-avatar'
+                      src={this.props.local.get('avatar')}
+                    />
+                    <div className='header__user-name'>
+                      {this.props.local.get('name')}
+                    </div>
+                  </div>);
     return (
       <header className='header'>
+        {this.props.local.size ? user : null}
         <button
           onClick={this.setOpen}
           hidden={this.props.open || this.props.docked}

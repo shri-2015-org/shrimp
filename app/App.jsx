@@ -115,6 +115,7 @@ export default class Application extends React.Component {
             open={this.state.sidebarOpen}
             docked={this.state.sidebarDocked}
             changeFilter={this.changeFilter}
+            local={local}
             {...actions}
           />
           <Sidebar
