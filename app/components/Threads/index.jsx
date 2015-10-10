@@ -130,8 +130,10 @@ export default class ThreadsSection extends React.Component {
           type={currentTabData.get('name')}
           joinToChannel={joinToChannel}
         />
-        <Search currentData={currentTabData} filter={filter} sendToServer={false} className='threads__search' />
-        <button onClick={this.addDirtyChannel}>+</button>
+        <div className='treads-bottom'>
+          <Search currentData={currentTabData} filter={filter} sendToServer={false} className='threads__search' inputClassName='threads__search__input' iconClassName='threads__search__icon' />
+          <button onClick={this.addDirtyChannel} className='add-channel-button'></button>
+        </div>
       </div>
     );
   }
