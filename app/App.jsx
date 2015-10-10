@@ -14,7 +14,7 @@ import * as actionsMessages from 'actions/messages.js';
 import * as actionsLocal from 'actions/local.js';
 import {currentChannelMessagesSelector} from 'selectors/messagesSelector';
 import {contactsSelector} from 'selectors/contactsSelector';
-
+import DocumentTitle from 'react-document-title';
 
 @connect(state => ({
   messages: currentChannelMessagesSelector(state),
@@ -87,27 +87,29 @@ export default class Application extends React.Component {
     );
 
     return (
-      <div className='chat-page'>
-        <Header
-          setOpen={this.onSetSidebarOpen}
-          open={this.state.sidebarOpen}
-          docked={this.state.sidebarDocked}
-          {...actions}
-          />
-        <Sidebar
-          sidebar={threads}
-          open={this.state.sidebarOpen}
-          onSetOpen={this.onSetSidebarOpen}
-          docked={this.state.sidebarDocked}
-        >
-          <Messages
+      <DocumentTitle title='Chat' >
+        <div className='chat-page'>
+          <Header
+            setOpen={this.onSetSidebarOpen}
+            open={this.state.sidebarOpen}
             docked={this.state.sidebarDocked}
-            messages={messages}
-            local={local}
             {...actions}
-          />
-        </Sidebar>
-      </div>
+            />
+          <Sidebar
+            sidebar={threads}
+            open={this.state.sidebarOpen}
+            onSetOpen={this.onSetSidebarOpen}
+            docked={this.state.sidebarDocked}
+          >
+            <Messages
+              docked={this.state.sidebarDocked}
+              messages={messages}
+              local={local}
+              {...actions}
+            />
+          </Sidebar>
+        </div>
+      </DocumentTitle>
     );
   }
 }
