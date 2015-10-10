@@ -22,3 +22,11 @@ export function filterChannels(data) {
     payload: data,
   };
 }
+
+
+export function addUserToChannel(data) {
+  return {
+    type: A.JOIN_TO_CHANNEL,
+    payload: data,
+  };
+}

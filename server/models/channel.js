@@ -19,6 +19,7 @@ channel.statics.createTestChannel = function createTestChannel() {
   return new this({
     name: faker.hacker.noun(),
     isFavourite: faker.random.boolean(),
+    userIds: [],
   });
 };
 
