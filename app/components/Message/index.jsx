@@ -3,12 +3,7 @@ import {Map} from 'immutable';
 import cx from 'classnames';
 import './styles.scss';
 import moment from 'moment';
-
-function isURL(str) {
-  const urlRegex = '^(?!mailto:)(?:(?:http|https|ftp)://)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:(/|\\?|#)[^\\s]*)?$';
-  const url = new RegExp(urlRegex, 'i');
-  return str.length < 2083 && url.test(str);
-}
+import Linkify from 'react-linkify';
 
 
 export default class Message extends React.Component {
@@ -73,13 +68,6 @@ export default class Message extends React.Component {
       return <div className='message__username'>{name}</div>;
     }());
 
-    const renderText = text.split(' ').map((word) => {
-      if (isURL(word)) {
-        return (<span><a href={word} target='_blank' className='message__url'>{word}</a>{' '}</span>);
-      }
-      return word + ' ';
-    });
-
     return (
       <li className={cx('message', {
         'message_repeated': senderRepeated,
@@ -89,7 +77,9 @@ export default class Message extends React.Component {
         {isSelfMessage ? null : this.renderAvatar(sender)}
         {userName}
         <div className='message__cloud'>
-          <div className='message__text'>{renderText}</div>
+          <div className='message__text'>
+            <Linkify properties={{className: 'message__url'}}>{text}</Linkify>
+          </div>
           <div className='message__date'>{this.state.date + ' ago'}</div>
         </div>
       </li>
