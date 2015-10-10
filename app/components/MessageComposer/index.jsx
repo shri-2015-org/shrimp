@@ -18,15 +18,13 @@ export default class MessageComposer extends React.Component {
     this.messageMaxLength = 220;
     this.state = {
       text: '',
-      showMessageError: false,
     };
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return !(
       Immutable.is(nextProps.local, this.props.local) &&
-      Immutable.is(nextState.text, this.state.text) &&
-      nextState.showMessageError === this.state.showMessageError
+      Immutable.is(nextState.text, this.state.text)
     );
   }
 
@@ -34,12 +32,10 @@ export default class MessageComposer extends React.Component {
     if (e.target.value.length === this.messageMaxLength) {
       this.setState({
         text: e.target.value,
-        showMessageError: true,
       });
     } else {
       this.setState({
         text: e.target.value,
-        showMessageError: false,
       });
     }
   }
@@ -55,7 +51,6 @@ export default class MessageComposer extends React.Component {
       });
       this.setState({
         text: '',
-        showMessageError: false,
       });
     }
   }
@@ -71,6 +66,8 @@ export default class MessageComposer extends React.Component {
 
   render() {
     const {changeBottom} = this.props;
+    const leftSymbols = this.messageMaxLength - this.state.text.length;
+
     return (
       <div className='composer'>
         <div className='composer__sender'>
@@ -86,10 +83,10 @@ export default class MessageComposer extends React.Component {
           />
           <div
             className={cx('composer__info', {
-              'composer__info_error': this.showMessageError,
+              'composer__info_error': leftSymbols <= 0,
             })}
           >
-          {this.messageMaxLength - this.state.text.length}
+          {leftSymbols}
           </div>
           <button
             type='button'
