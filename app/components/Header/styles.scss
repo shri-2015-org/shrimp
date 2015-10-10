@@ -9,6 +9,38 @@
   position: fixed;
   z-index: 10;
 
+  &__user {
+    position: absolute;
+    top: 10px;
+    left: 25px;
+    @media (max-width: $mobile_width) {
+      top: 12px;
+      left: 60px;
+    }
+  }
+
+  &__user-avatar {
+    float: left;
+    height: 50px;
+    width: 50px;
+    margin-right: 20px;
+    @media (max-width: $mobile_width) {
+      height: 24px;
+      width: 24px;
+      margin-right: 10px;
+    }
+  }
+
+  &__user-name {
+    float: left;
+    line-height: 50px;
+    font-size: 18px;
+    text-transform: capitalize;
+    @media (max-width: $mobile_width) {
+      line-height: 22px;
+    }
+  }
+
   @media (max-width: $mobile_width) {
     height: $header_height - 20px;
   }
