@@ -8,7 +8,7 @@ import InfoMessage from 'components/InfoMessage';
 import PasswordInput from 'components/PasswordInput';
 import Input from 'components/Input';
 import Button from 'components/Button';
-
+import DocumentTitle from 'react-document-title';
 import './styles.scss';
 
 
@@ -88,30 +88,32 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <form
-        className='login'
-        onSubmit={this.auth}
-      >
-        <InfoMessage
-          className='login__info-message'
-          type={this.state.info.type}
-          shake={this.state.shakeInfo}
-        >{this.state.info.text}</InfoMessage>
-        <Input
-          className='login__input'
-          value={this.state.email}
-          name='email'
-          placeholder='Email'
-        />
-        <PasswordInput
-          className='login__input'
-          name='password'
-        />
-        <Button
-          className='login__submit-button'
-          type='submit'
-        >Log In</Button>
-      </form>
+      <DocumentTitle title='Login page'>
+        <form
+          className='login'
+          onSubmit={this.auth}
+        >
+          <InfoMessage
+            className='login__info-message'
+            type={this.state.info.type}
+            shake={this.state.shakeInfo}
+          >{this.state.info.text}</InfoMessage>
+          <Input
+            className='login__input'
+            value={this.state.email}
+            name='email'
+            placeholder='Email'
+          />
+          <PasswordInput
+            className='login__input'
+            name='password'
+          />
+          <Button
+            className='login__submit-button'
+            type='submit'
+          >Log In</Button>
+        </form>
+      </DocumentTitle>
     );
   }
 }
