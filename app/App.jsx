@@ -10,9 +10,9 @@ import Header from 'components/Header';
 import Threads from 'components/Threads';
 import 'styles/main.scss';
 import {bindActionCreators} from 'redux';
-import * as actionsMessages from 'actions/messages.js';
-import * as actionsLocal from 'actions/local.js';
-import * as actionsChannels from 'actions/channels.js';
+import * as actionsChannels from 'actions/channels';
+import * as actionsMessages from 'actions/messages';
+import * as actionsLocal from 'actions/local';
 import {currentChannelMessagesSelector} from 'selectors/messagesSelector';
 import {contactsSelector} from 'selectors/contactsSelector';
 import DocumentTitle from 'react-document-title';
@@ -32,6 +32,7 @@ export default class Application extends React.Component {
     contacts: PropTypes.instanceOf(List).isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
     dispatch: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired,
   }
 
 

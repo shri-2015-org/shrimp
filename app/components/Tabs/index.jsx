@@ -19,18 +19,23 @@ export default class Tabs extends React.Component {
     const {className, currentTabId, changeTab} = this.props;
     const tabWidth = (100 / this.props.children.length) + '%';
 
-    const children = this.props.children.map((tabElement, i) => {
-      return cloneElement(tabElement, {
-        isCurrent: currentTabId === tabElement.props.id,
-        width: tabWidth,
-        key: i,
-        changeTab,
-      });
-    });
+    const getChildren = (() => {
+      if (this.props.children.map) {
+        return this.props.children.map((tabElement, i) => {
+          return cloneElement(tabElement, {
+            isCurrent: currentTabId === tabElement.props.id,
+            width: tabWidth,
+            key: i,
+            changeTab,
+          });
+        });
+      }
+    })();
+
 
     return (
       <div className={cx('tabs', {[className]: !!className})}>
-        {children}
+        {getChildren ? getChildren : this.props.children}
       </div>
     );
   }

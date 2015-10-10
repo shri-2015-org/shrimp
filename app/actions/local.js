@@ -46,16 +46,28 @@ export function initUser(data) {
   };
 }
 
+
 export function logOut() {
   return {
     type: A.LOG_OUT,
     payload: null,
   };
 }
+
+
 export function joinToChannel(channelId) {
   return {
     type: CS.JOIN_TO_CHANNEL,
     payload: channelId,
+    send: true,
+  };
+}
+
+
+export function changeUserInfo(data) {
+  return {
+    type: CS.CHANGE_USER_INFO,
+    payload: data,
     send: true,
   };
 }

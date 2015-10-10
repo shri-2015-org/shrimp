@@ -113,6 +113,7 @@ export function checkUserEmail(email, callback) {
   });
 }
 
+
 export function checkEmailExist(email, callback) {
   User.findOne({ email }, (err, user) => {
     if (user) {
@@ -122,6 +123,7 @@ export function checkEmailExist(email, callback) {
     }
   });
 }
+
 
 export function joinToChannel(sessionId, channelId, callback) {
   return new Promise((resolve, reject) => {
@@ -139,4 +141,15 @@ export function joinToChannel(sessionId, channelId, callback) {
   }).then(({userId}) => {
     callback(userId, channelId);
   }).catch(exception => { debug(exception); });
+}
+
+
+export function setUserInfo(sessionId, email, name, callback) {
+  return User.findOneAndUpdate({ sessionId: sessionId }, {
+    email: email,
+    name: name,
+  }, (error, changedUser) => {
+    if (error) debug(error);
+    callback(changedUser.toObject());
+  });
 }
