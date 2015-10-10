@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {ReduxRouter} from 'redux-router';
 import store from 'store';
@@ -28,7 +29,7 @@ export default class Root extends React.Component {
     return (
       <div>
         <Provider store={store}>
-          {() => <ReduxRouter routes={routes} />}
+          <ReduxRouter routes={routes} />
         </Provider>
         {devTools}
       </div>
@@ -36,4 +37,4 @@ export default class Root extends React.Component {
   }
 }
 
-React.render(<Root />, document.getElementById('root'));
+ReactDOM.render(<Root />, document.getElementById('root'));

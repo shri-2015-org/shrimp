@@ -5,7 +5,7 @@ import './styles.scss';
 export default class DropdownItem extends React.Component {
   static propTypes = {
     text: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
+    onClick: PropTypes.func,
     danger: PropTypes.bool,
   }
 

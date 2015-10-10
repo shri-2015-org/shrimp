@@ -29,7 +29,7 @@ export default class ThreadsSection extends React.Component {
 
 
   componentDidMount = () => {
-    const threadsWrapper = this.refs.threads.getDOMNode().parentNode;
+    const threadsWrapper = this.refs.threads.parentNode;
     threadsWrapper.style.overflowX = 'hidden';
   }
 
