@@ -10,11 +10,12 @@ export default function getInitState(sessionId) {
   return new Promise((resolve, reject) => {
     const state = {};
 
-    Promise.all([ Channel.getAll(), Message.getAll(), User.getAll() ]).then((results) => {
+    Promise.all([ Channel.getAll(), Message.getAll(), User.getAll(), User.findOne({ sessionId }).select({ sessionId: 1 }) ]).then((results) => {
       let channels = results[0];
       let messages = results[1];
       let users = results[2];
-      const currentUser = users.find(user => user.sessionId === sessionId );
+      const currentUser = results[3];
+
       const userId = currentUser.id;
 
 

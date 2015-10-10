@@ -21,7 +21,7 @@ function hashPassword(password) {
 }
 
 export function signInUser(email, password, callback) {
-  User.findOne({ email }, (err, user) => {
+  User.findOne({ email }).select({ passwordHash: 1 }).exec((err, user) => {
     if (user && (user.passwordHash === hashPassword(password))) {
       const userData = {
         userId: user.id,
