@@ -1,16 +1,26 @@
 import gravatar from 'gravatar';
+import crypto from 'crypto';
 import getUserModel from '../models/user';
 import getChannelModel from '../models/channel';
 
-import bcrypt from 'bcrypt';
 const User = getUserModel();
 const Channel = getChannelModel();
 const debug = require('debug')('shrimp:server');
+const salt = 'pepper';
 
+function hashPassword(password) {
+  const passHash = crypto.createHash('sha256');
+  passHash.update(password);
+
+  const allHash = crypto.createHash('sha256');
+  allHash.update(passHash.digest('hex') + salt);
+
+  return allHash.digest('hex');
+}
 
 export function signInUser(email, password, callback) {
   User.findOne({ email }, (err, user) => {
-    if (user && bcrypt.compareSync(password, user.passwordHash)) {
+    if (user && (user.passwordHash === hashPassword(password))) {
       const userData = {
         userId: user.id,
         status: {
@@ -34,7 +44,7 @@ export function signInUser(email, password, callback) {
 
 
 export function signUpUser(email, password, name, sessionId, callback) {
-  const hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+  const hash = hashPassword(password);
   const newUser = new User({
     email: email,
     name: name,
