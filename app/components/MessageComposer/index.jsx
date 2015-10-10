@@ -15,31 +15,27 @@ export default class MessageComposer extends React.Component {
 
   constructor(props) {
     super(props);
+    this.messageMaxLength = 220;
     this.state = {
       text: '',
-      messageMaxLength: 220,
-      showMessageError: false,
     };
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return !(
       Immutable.is(nextProps.local, this.props.local) &&
-      Immutable.is(nextState.text, this.state.text) &&
-      nextState.showMessageError === this.state.showMessageError
+      Immutable.is(nextState.text, this.state.text)
     );
   }
 
   textChange = (e) => {
-    if (e.target.value.length === this.state.messageMaxLength) {
+    if (e.target.value.length === this.messageMaxLength) {
       this.setState({
         text: e.target.value,
-        showMessageError: true,
       });
     } else {
       this.setState({
         text: e.target.value,
-        showMessageError: false,
       });
     }
   }
@@ -70,6 +66,8 @@ export default class MessageComposer extends React.Component {
 
   render() {
     const {changeBottom} = this.props;
+    const leftSymbols = this.messageMaxLength - this.state.text.length;
+
     return (
       <div className='composer'>
         <div className='composer__sender'>
@@ -80,15 +78,15 @@ export default class MessageComposer extends React.Component {
             onHeightChange={changeBottom}
             minRows={1}
             maxRows={5}
-            maxLength={this.state.messageMaxLength}
+            maxLength={this.messageMaxLength}
             className='composer__textarea'
           />
           <div
             className={cx('composer__info', {
-              'composer__info_error': this.state.showMessageError,
+              'composer__info_error': leftSymbols <= 0,
             })}
           >
-          {this.state.messageMaxLength - this.state.text.length}
+          {leftSymbols}
           </div>
           <button
             type='button'
