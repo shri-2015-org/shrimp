@@ -63,7 +63,7 @@ export default class Message extends React.Component {
     const isSelfMessage = sender.get('id') === currentUserId;
     const userName = (() => {
       if (isSelfMessage || senderRepeated) return null;
-      const name = sender.get('name') || sender.get('nick');
+      const name = sender.get('name');
       return <div className='message__username'>{name}</div>;
     }());
 

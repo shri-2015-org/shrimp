@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 import startSocketServer from './socket.js';
 import getConfig from './config.js';
 import {createTestCollections} from './fill-db.js';
-import {signInUser, signUpUser, checkUserLogin, checkLoginExist, setSessionId} from './db/db_core.js';
+import {signInUser, signUpUser, checkUserEmail, checkEmailExist, setSessionId} from './db/db_core.js';
 import getInitState from './initial-state';
 import {generateSessionId} from './lib/core.js';
 // const debug = require('debug')('shrimp:server');
@@ -54,7 +54,7 @@ app.get('*', (req, res) => {
 });
 
 app.post('/signin', (req, res) => {
-  signInUser(req.body.login, req.body.password, (userData) => {
+  signInUser(req.body.email, req.body.password, (userData) => {
     if (userData.status.type === 'success') {
       const sessionId = generateSessionId();
       setSessionId(userData.userId, sessionId, (userSessionId) => {
@@ -69,14 +69,15 @@ app.post('/signin', (req, res) => {
 });
 
 app.post('/signup', (req, res) => {
-  const login = req.body.login;
-  const password = req.body.password;
   const email = req.body.email;
+  const name = req.body.name;
+  const password = req.body.password;
 
-  checkUserLogin(login, (userData) => {
+  checkUserEmail(email, (userData) => {
+    console.log(userData);
     if (userData.status.type === 'success') {
       const userSessionId = generateSessionId();
-      signUpUser(login, password, email, userSessionId, () => {
+      signUpUser(email, password, name, userSessionId, () => {
         getInitState(userSessionId).then(initState => {
           res.json(initState);
         });
@@ -87,9 +88,9 @@ app.post('/signup', (req, res) => {
   });
 });
 
-app.post('/checkloginexist', (req, res) => {
-  const login = req.body.login;
-  checkLoginExist(login, (exist) => {
+app.post('/checkemailexist', (req, res) => {
+  const email = req.body.email;
+  checkEmailExist(email, (exist) => {
     res.json(exist);
   });
 });

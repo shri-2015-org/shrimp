@@ -27,7 +27,7 @@ export default class Login extends React.Component {
     this.state = {
       info: {
         type: 'info',
-        text: 'Enter your login and password',
+        text: 'Enter your email and password',
       },
       shakeInfo: false,
     };
@@ -59,7 +59,7 @@ export default class Login extends React.Component {
   auth = (e) => {
     e.preventDefault();
     const authData = {
-      login: e.target.login.value,
+      email: e.target.email.value,
       password: e.target.password.value,
     };
 
@@ -99,9 +99,9 @@ export default class Login extends React.Component {
         >{this.state.info.text}</InfoMessage>
         <Input
           className='login__input'
-          value={this.state.login}
-          name='login'
-          placeholder='Login'
+          value={this.state.email}
+          name='email'
+          placeholder='Email'
         />
         <PasswordInput
           className='login__input'

@@ -71,7 +71,7 @@ export default class ChannelItem extends React.Component {
             channel__star_filled: this.state.favorite,
           })}
         />
-        <div className='channel__name'>{item.get('name') || item.get('nick')}</div>
+        <div className='channel__name'>{item.get('name')}</div>
         <div className='channel__last-message'>
           {lastMessage ? lastMessage.get('text') : '🙊'}
         </div>

@@ -30,16 +30,16 @@ export default class SignUp extends React.Component {
         text: 'Fill these fields',
       },
       shakeInfo: false,
-      login: '',
+      name: '',
       email: '',
       password: '',
       repeatedPassword: '',
       showPasswordError: false,
       showSecondPasswordError: false,
-      showLoginError: false,
       showEmailError: false,
+      showNameError: false,
     };
-    this.checkLogin = throttle(this.checkLogin, 800);
+    this.checkEmail = throttle(this.checkEmail, 800);
   }
 
 
@@ -68,22 +68,22 @@ export default class SignUp extends React.Component {
   signUp = (e) => {
     e.preventDefault();
 
-    if (!this.state.login) {
-      return this.setState({
-        showLoginError: true,
-        info: {
-          type: 'error',
-          text: 'Login is required',
-        },
-      });
-    }
-
     if (!/\S+@\S+\.\S+/.test(this.state.email)) {
       return this.setState({
         showEmailError: true,
         info: {
           type: 'error',
-          text: 'Valid email is required',
+          text: 'Email is required',
+        },
+      });
+    }
+
+    if (!this.state.name) {
+      return this.setState({
+        showNameError: true,
+        info: {
+          type: 'error',
+          text: 'Name is required',
         },
       });
     }
@@ -109,10 +109,10 @@ export default class SignUp extends React.Component {
       });
     }
 
-    const authData = {
-      login: this.state.login,
-      password: this.state.password,
+    const signupData = {
+      name: this.state.name,
       email: this.state.email,
+      password: this.state.password,
     };
 
     fetch('/signup', {
@@ -121,7 +121,7 @@ export default class SignUp extends React.Component {
         'Accept': 'application/json',
         'Content-type': 'application/json',
       },
-      body: JSON.stringify(authData),
+      body: JSON.stringify(signupData),
     }).then((res) => {
       if (res.status === 200) {
         res.json().then(data => {
@@ -137,8 +137,8 @@ export default class SignUp extends React.Component {
     });
   }
 
-  checkLogin = (value) => {
-    fetch('/checkloginexist', {
+  checkEmail = (value) => {
+    fetch('/checkemailexist', {
       method: 'post',
       headers: {
         'Accept': 'application/json',
@@ -152,11 +152,11 @@ export default class SignUp extends React.Component {
             this.setState({
               info: {
                 type: 'error',
-                text: 'Login exist',
+                text: 'Email exists',
               },
-              login: value.login,
-              showLoginError: true,
-              loginExist: true,
+              email: value.email,
+              showEmailError: true,
+              emailExist: true,
             });
           } else {
             this.setState({
@@ -164,9 +164,9 @@ export default class SignUp extends React.Component {
                 type: 'info',
                 text: 'Fill these fields',
               },
-              login: value.login,
-              showLoginError: false,
-              loginExist: false,
+              email: value.email,
+              showEmailError: false,
+              emailExist: false,
             });
           }
         });
@@ -176,22 +176,20 @@ export default class SignUp extends React.Component {
     });
   }
 
-  loginChange = e => {
+  emailChange = e => {
     const value = {
-      login: e.target.value,
+      email: e.target.value,
     };
 
-    this.checkLogin(value);
+    this.checkEmail(value);
   }
 
-
-  emailChange = e => {
+  nameChange = e => {
     this.setState({
-      email: e.target.value,
-      showEmailError: false,
+      name: e.target.value,
+      showNameError: false,
     });
   }
-
 
   passwordChange = e => {
     this.setState({
@@ -221,18 +219,19 @@ export default class SignUp extends React.Component {
         >{this.state.info.text}</InfoMessage>
         <Input
           className={cx('sign-up__input', {
-            'input_type_error': this.state.showLoginError,
-            'input_type_succes': !this.state.loginExist && this.state.login,
-          })}
-          placeholder='Login'
-          onChange={this.loginChange}
-        />
-        <Input
-          className={cx('sign-up__input', {
             'input_type_error': this.state.showEmailError,
+            'input_type_succes': !this.state.emailExist && this.state.email,
           })}
           placeholder='Email'
           onChange={this.emailChange}
+        />
+        <Input
+          className={cx('sign-up__input', {
+            'input_type_error': this.state.showNameError,
+            'input_type_succes': !this.state.nameExist && this.state.name,
+          })}
+          placeholder='Name'
+          onChange={this.nameChange}
         />
         <PasswordInput
           className='sign-up__input'
