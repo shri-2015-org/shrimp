@@ -16,12 +16,13 @@ import * as actionsLocal from 'actions/local';
 import {currentChannelMessagesSelector} from 'selectors/messagesSelector';
 import {contactsSelector} from 'selectors/contactsSelector';
 import DocumentTitle from 'react-document-title';
+import {localSelector} from 'selectors/localSelector';
 
 @connect(state => ({
   messages: currentChannelMessagesSelector(state),
   channels: state.channels,
   users: state.users,
-  local: state.local,
+  local: localSelector(state),
   contacts: contactsSelector(state),
 }))
 export default class Application extends React.Component {
