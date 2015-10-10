@@ -21,7 +21,6 @@ export default class ChannelItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.item.get('id'),
       favorite: this.props.favorite || false,
     };
   }
@@ -38,10 +37,10 @@ export default class ChannelItem extends React.Component {
 
 
   setChannel = () => {
-    this.props.setCurrentChannel(this.state.id);
+    this.props.setCurrentChannel(this.props.item.get('id'));
     const joinedUser = this.props.item.get('userIds').find((userId) => userId === this.props.local.get('userId'));
     if (!joinedUser) {
-      this.props.joinToChannel(this.state.id);
+      this.props.joinToChannel(this.props.item.get('id'));
     }
   }
 

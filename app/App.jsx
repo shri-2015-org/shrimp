@@ -12,6 +12,7 @@ import 'styles/main.scss';
 import {bindActionCreators} from 'redux';
 import * as actionsMessages from 'actions/messages.js';
 import * as actionsLocal from 'actions/local.js';
+import * as actionsChannels from 'actions/channels.js';
 import {currentChannelMessagesSelector} from 'selectors/messagesSelector';
 import {contactsSelector} from 'selectors/contactsSelector';
 import DocumentTitle from 'react-document-title';
@@ -83,7 +84,7 @@ export default class Application extends React.Component {
 
   render() {
     const {messages, channels, local, dispatch, contacts} = this.props;
-    const actionsCombine = Object.assign(actionsMessages, actionsLocal);
+    const actionsCombine = Object.assign(actionsMessages, actionsLocal, actionsChannels);
     const actions = bindActionCreators(actionsCombine, dispatch);
     const threads = (
       <Threads

@@ -14,6 +14,9 @@ export default class ThreadsSection extends React.Component {
     contacts: PropTypes.instanceOf(List).isRequired,
     setCurrentChannel: PropTypes.func.isRequired,
     joinToChannel: PropTypes.func.isRequired,
+    replaceDirtyChannel: PropTypes.func.isRequired,
+    newChannel: PropTypes.func.isRequired,
+    addDirtyChannel: PropTypes.func.isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
   }
 
@@ -51,10 +54,14 @@ export default class ThreadsSection extends React.Component {
     });
   };
 
+  addDirtyChannel = () => {
+    const threadsWrapper = this.refs.threads.getDOMNode().parentNode;
+    threadsWrapper.scrollTop = 0;
+    this.props.addDirtyChannel();
+  };
 
   render() {
-    const {channels, contacts, setCurrentChannel, local, joinToChannel} = this.props;
-
+    const {channels, contacts, setCurrentChannel, local, replaceDirtyChannel, newChannel, joinToChannel} = this.props;
     const tabs = List.of(
       Map({id: 1, name: 'People', sendToServer: false, list: contacts }),
       Map({id: 2, name: 'Channels', sendToServer: false, list: channels }),
@@ -119,10 +126,13 @@ export default class ThreadsSection extends React.Component {
           list={this.state.filterData ? this.state.filterData : currentTabData.get('list')}
           local={local}
           setCurrentChannel={setCurrentChannel}
+          replaceDirtyChannel={replaceDirtyChannel}
+          newChannel={newChannel}
           type={currentTabData.get('name')}
           joinToChannel={joinToChannel}
         />
         <Search currentData={currentTabData} filter={filter} sendToServer={false} className='threads__search' />
+        <button onClick={this.addDirtyChannel}>+</button>
       </div>
     );
   }

@@ -74,7 +74,6 @@ app.post('/signup', (req, res) => {
   const password = req.body.password;
 
   checkUserEmail(email, (userData) => {
-    console.log(userData);
     if (userData.status.type === 'success') {
       const userSessionId = generateSessionId();
       signUpUser(email, password, name, userSessionId, () => {

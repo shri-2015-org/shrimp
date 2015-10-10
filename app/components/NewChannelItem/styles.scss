@@ -1,0 +1,49 @@
+.new-channel {
+  padding: 3px 20px 0 15px;
+  height: 60px;
+  margin: 0 0 1px;
+  transition: .3s;
+  position: relative;
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    left: 0;
+    opacity: .1;
+    transition: background .2s;
+    z-index: 2;
+  }
+
+  &_disabled {
+    &:after {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+    }
+  }
+
+  &__title {
+    margin: 0 0 4px;
+    color: #fff;
+    font-size: 14px;
+  }
+
+  &__input {
+    width: 100%;
+    background-color: #202528;
+    border: 1px solid #363e41;
+    border-radius: 4px;
+    padding: 0 0 0 10px;
+    color: #fff;
+    font-size: 14px;
+    line-height: 24px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

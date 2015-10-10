@@ -1,10 +1,12 @@
+import mongoose from 'mongoose';
 import gravatar from 'gravatar';
 import crypto from 'crypto';
 import getUserModel from '../models/user';
 import getChannelModel from '../models/channel';
 
-const User = getUserModel();
+const ObjectId = mongoose.Types.ObjectId;
 const Channel = getChannelModel();
+const User = getUserModel();
 const debug = require('debug')('shrimp:server');
 const salt = 'pepper';
 
@@ -123,7 +125,7 @@ export function checkEmailExist(email, callback) {
 
 export function joinToChannel(sessionId, channelId, callback) {
   return new Promise((resolve, reject) => {
-    Channel.findOne({_id: channelId})
+    Channel.findOne({_id: new ObjectId(channelId)})
     .then((channel) => {
       User.getBySessionId(sessionId)
         .then((user) => {

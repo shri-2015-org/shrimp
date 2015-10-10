@@ -27,6 +27,10 @@ channel.statics.createTestChannel = function createTestChannel() {
   });
 };
 
+channel.statics.add = function add(data, cb) {
+  return new this(data).save(cb);
+};
+
 export default function getChannelModel() {
   return mongoose.model('Channel', channel);
 }
