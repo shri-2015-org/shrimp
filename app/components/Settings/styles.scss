@@ -1,7 +1,9 @@
 @import '~styles/variables.scss';
 
 .settings {
-  padding: 40px 75px;
+  &__form {
+    padding: 40px 75px;
+  }
   &__info-message {
     margin-bottom: 10px;
 
@@ -44,9 +46,10 @@
   &__overlay {
     position: fixed;
     z-index: 14;
-
-    width: 100vw;
-    height: 100vh;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 
     background: rgba(0, 0, 0, .7);
   }
