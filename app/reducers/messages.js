@@ -9,6 +9,8 @@ export function messages(state = EMPTY_LIST, action) {
     return fromJS(action.payload.messages);
   case A.ADD_MESSAGE:
     return state.push(action.message);
+  case A.LOG_OUT:
+    return EMPTY_LIST;
   default:
     return state;
   }

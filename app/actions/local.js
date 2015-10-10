@@ -45,3 +45,10 @@ export function initUser(data) {
     payload: data,
   };
 }
+
+export function logOut() {
+  return {
+    type: A.LOG_OUT,
+    payload: null,
+  };
+}

@@ -1,9 +1,12 @@
 import React from 'react';
-import DropdownItem from 'components/DropdownItem';
 import './styles.scss';
-import store from 'store.js';
 
 export default class Dropdown extends React.Component {
+
+  static propTypes = {
+    children: React.PropTypes.arrayOf(React.PropTypes.element).isRequired,
+  }
+
 
   constructor(props) {
     super(props);
@@ -17,9 +20,11 @@ export default class Dropdown extends React.Component {
     window.addEventListener('click', this.closeMenu);
   }
 
+
   componentWillUnmount = () => {
     window.removeEventListener('click', this.closeMenu);
   }
+
 
   toggleMenu = () => {
     this.setState({
@@ -37,11 +42,6 @@ export default class Dropdown extends React.Component {
   }
 
 
-  logOut = () => {
-    document.cookie = 'sessionId=';
-    store.history.pushState(null, '/login');
-  }
-
   render() {
     return (
       <div className='dropdown' ref='dropdown'>
@@ -50,8 +50,7 @@ export default class Dropdown extends React.Component {
           onClick={this.toggleMenu}
         >{'●●●'}</button>
         <ul className='dropdown__menu' hidden={!this.state.open}>
-           <DropdownItem text={'Settings'} />
-           <DropdownItem onClick={this.logOut} text={'Log Out'} danger />
+          {this.props.children}
         </ul>
       </div>
     );
