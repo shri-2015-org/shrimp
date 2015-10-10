@@ -31,11 +31,13 @@ export default class SignUp extends React.Component {
       },
       shakeInfo: false,
       login: '',
+      email: '',
       password: '',
       repeatedPassword: '',
       showPasswordError: false,
       showSecondPasswordError: false,
       showLoginError: false,
+      showEmailError: false,
     };
     this.checkLogin = throttle(this.checkLogin, 800);
   }
@@ -76,6 +78,16 @@ export default class SignUp extends React.Component {
       });
     }
 
+    if (!/\S+@\S+\.\S+/.test(this.state.email)) {
+      return this.setState({
+        showEmailError: true,
+        info: {
+          type: 'error',
+          text: 'Valid email is required',
+        },
+      });
+    }
+
     if (!this.state.password) {
       return this.setState({
         showPasswordError: true,
@@ -100,6 +112,7 @@ export default class SignUp extends React.Component {
     const authData = {
       login: this.state.login,
       password: this.state.password,
+      email: this.state.email,
     };
 
     fetch('/signup', {
@@ -172,6 +185,14 @@ export default class SignUp extends React.Component {
   }
 
 
+  emailChange = e => {
+    this.setState({
+      email: e.target.value,
+      showEmailError: false,
+    });
+  }
+
+
   passwordChange = e => {
     this.setState({
       password: e.target.value,
@@ -205,6 +226,13 @@ export default class SignUp extends React.Component {
           })}
           placeholder='Login'
           onChange={this.loginChange}
+        />
+        <Input
+          className={cx('sign-up__input', {
+            'input_type_error': this.state.showEmailError,
+          })}
+          placeholder='Email'
+          onChange={this.emailChange}
         />
         <PasswordInput
           className='sign-up__input'
