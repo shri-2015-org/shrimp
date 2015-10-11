@@ -25,7 +25,7 @@ export default class PeopleItem extends React.Component {
 
 
   setChannel = () => {
-    this.props.setCurrentChannel(this.state.id);
+    this.props.setCurrentChannel(this.props.item.get('id'));
   }
 
 
