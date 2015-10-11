@@ -37,10 +37,13 @@ export default class ChannelItem extends React.Component {
   }
 
   addChannel = () => {
-    this.props.replaceDirtyChannel(new Map({name: this.state.channelName, isDirty: true}));
-    this.props.newChannel({name: this.state.channelName});
-    const newChannelItem = this.refs.newChannel.getDOMNode();
-    newChannelItem.className = newChannelItem.className + ' new-channel_disabled';
+    const channelName = this.state.channelName.trim();
+    if (channelName) {
+      this.props.replaceDirtyChannel(new Map({name: this.state.channelName, isDirty: true}));
+      this.props.newChannel({name: this.state.channelName});
+      const newChannelItem = this.refs.newChannel.getDOMNode();
+      newChannelItem.className = newChannelItem.className + ' new-channel_disabled';
+    }
   }
 
   handleChange = (e) => {
