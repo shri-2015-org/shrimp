@@ -15,6 +15,14 @@ export function newChannel(channel) {
   };
 }
 
+export function setFavoriteChannel(channelId, status) {
+  return {
+    type: CS.SET_FAVORITE_CHANNEL,
+    payload: {channelId, status},
+    send: true,
+  };
+}
+
 export function removeChannel(channelId) {
   return {
     type: A.REMOVE_CHANNEL,

@@ -35,6 +35,9 @@ export default function getInitState(sessionId) {
         userObj.isOnline = true;
         return userObj;
       });
+
+      const favoritesChannels = users.find(user => `${user.id}` === userId).favoritesChannels;
+
       state.users = users;
       state.channels = channels;
       state.messages = messages;
@@ -43,6 +46,7 @@ export default function getInitState(sessionId) {
         sessionId,
         currentChannelId: channels[0].id,
         pendingMessages: [],
+        favoritesChannels,
       };
       resolve(state);
     }).catch((exeption) => {
