@@ -17,6 +17,7 @@ export default class ThreadsSection extends React.Component {
     replaceDirtyChannel: PropTypes.func.isRequired,
     newChannel: PropTypes.func.isRequired,
     addDirtyChannel: PropTypes.func.isRequired,
+    removeDirtyChannel: PropTypes.func.isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
   }
 
@@ -35,7 +36,8 @@ export default class ThreadsSection extends React.Component {
   componentDidMount = () => {
     const threadsWrapper = this.refs.threads.getDOMNode().parentNode;
     threadsWrapper.style.overflowX = 'hidden';
-  }
+    window.addEventListener('keydown', this.removeDirtyChannel);
+  };
 
 
   shouldComponentUpdate = (nextProps, nextState) => {
@@ -46,7 +48,13 @@ export default class ThreadsSection extends React.Component {
       Immutable.is(nextState.currentTabId, this.state.currentTabId) &&
       Immutable.is(nextState.filterData, this.state.filterData)
     );
-  }
+  };
+
+
+  componentWillUnmount = () => {
+    window.removeEventListener('keydown', this.removeDirtyChannel);
+  };
+
 
   changeTab = (tabId) => {
     this.setState({
@@ -54,10 +62,18 @@ export default class ThreadsSection extends React.Component {
     });
   };
 
+
   addDirtyChannel = () => {
     const threadsWrapper = this.refs.threads.getDOMNode().parentNode;
     threadsWrapper.scrollTop = 0;
     this.props.addDirtyChannel();
+  };
+
+
+  removeDirtyChannel = (e) => {
+    if (e.keyCode === 27) {
+      this.props.removeDirtyChannel();
+    }
   };
 
   render() {
@@ -132,8 +148,18 @@ export default class ThreadsSection extends React.Component {
           joinToChannel={joinToChannel}
         />
         <div className='treads-bottom'>
-          <Search currentData={currentTabData} filter={filter} sendToServer={false} className='threads__search' inputClassName='threads__search__input' iconClassName='threads__search__icon' />
-          <button onClick={this.addDirtyChannel} className='add-channel-button'></button>
+          <Search
+            currentData={currentTabData}
+            filter={filter}
+            sendToServer={false}
+            className='threads__search'
+            inputClassName='threads__search__input'
+            iconClassName='threads__search__icon'
+          />
+          <button
+            onClick={this.addDirtyChannel}
+            className='add-channel-button'
+          ></button>
         </div>
       </div>
     );

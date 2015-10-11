@@ -32,6 +32,8 @@ export function channels(state = EMPTY_LIST, action = {type: 'DEFAULT'}) {
       return state;
     }
     return state.unshift(new Map({isDirty: true}));
+  case A.REMOVE_DIRTY_CHANNEL:
+    return state.filter(item => !item.get('isDirty'));
   default:
     return state;
   }
