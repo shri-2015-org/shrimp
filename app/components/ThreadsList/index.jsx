@@ -15,6 +15,7 @@ export default class ThreadsList extends React.Component {
 
   static propTypes = {
     messages: PropTypes.instanceOf(List).isRequired,
+    channels: PropTypes.instanceOf(List).isRequired,
     list: PropTypes.instanceOf(List),
     setCurrentChannel: PropTypes.func.isRequired,
     joinToChannel: PropTypes.func.isRequired,
@@ -43,15 +44,21 @@ export default class ThreadsList extends React.Component {
       case 'Channels':
         const newChannelItem = interpolated => (
           <div style={{opacity: interpolated.x, transform: `translate(${interpolated.y}px, 0)`}}>
-            <NewChannelItem replaceDirtyChannel={this.props.replaceDirtyChannel} newChannel={this.props.newChannel} />
+            <NewChannelItem
+              replaceDirtyChannel={this.props.replaceDirtyChannel}
+              newChannel={this.props.newChannel}
+              channels={this.props.channels}
+            />
           </div>
         );
 
         return this.props.list.map((listItem, index) => {
           if (listItem.get('isDirty')) {
             return (
-              <Motion defaultStyle={{x: 0, y: 30}}
+              <Motion
+                defaultStyle={{x: 0, y: 30}}
                 style={{x: spring(this.state.animated ? 1 : 0), y: spring(this.state.animated ? 0 : 30)}}
+                key={index}
               >
               {newChannelItem}
               </Motion>

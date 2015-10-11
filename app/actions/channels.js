@@ -49,3 +49,9 @@ export function addDirtyChannel() {
     type: A.ADD_DIRTY_CHANNEL,
   };
 }
+
+export function removeDirtyChannel() {
+  return {
+    type: A.REMOVE_DIRTY_CHANNEL,
+  };
+}
