@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {Motion, spring} from 'react-motion';
-import {Map, List} from 'immutable';
+import Immutable, {Map, List} from 'immutable';
 import cx from 'classnames';
 import store from 'store';
 import {Link} from 'react-router';
@@ -52,6 +52,17 @@ export default class Settings extends React.Component {
   componentWillMount = () => {
     if (this.props.users.size) {
       const currentUser = this.props.users.find(user => user.get('id') === this.props.local.get('userId'));
+
+      this.setState({
+        email: currentUser.get('email'),
+        name: currentUser.get('name'),
+      });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!Immutable.is(nextProps.users, this.props.users)) {
+      const currentUser = nextProps.users.find(user => user.get('id') === nextProps.local.get('userId'));
 
       this.setState({
         email: currentUser.get('email'),
