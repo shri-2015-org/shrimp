@@ -141,6 +141,7 @@ export default class ThreadsSection extends React.Component {
         <ThreadsList
           list={this.state.filterData ? this.state.filterData : currentTabData.get('list')}
           local={local}
+          channels={channels}
           setCurrentChannel={setCurrentChannel}
           replaceDirtyChannel={replaceDirtyChannel}
           newChannel={newChannel}

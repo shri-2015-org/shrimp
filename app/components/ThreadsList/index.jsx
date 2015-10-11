@@ -15,6 +15,7 @@ export default class ThreadsList extends React.Component {
 
   static propTypes = {
     messages: PropTypes.instanceOf(List).isRequired,
+    channels: PropTypes.instanceOf(List).isRequired,
     list: PropTypes.instanceOf(List),
     setCurrentChannel: PropTypes.func.isRequired,
     joinToChannel: PropTypes.func.isRequired,
@@ -46,6 +47,7 @@ export default class ThreadsList extends React.Component {
             <NewChannelItem
               replaceDirtyChannel={this.props.replaceDirtyChannel}
               newChannel={this.props.newChannel}
+              channels={this.props.channels}
             />
           </div>
         );

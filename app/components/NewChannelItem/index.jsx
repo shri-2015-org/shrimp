@@ -1,10 +1,11 @@
 import React, {PropTypes} from 'react';
-import {Map} from 'immutable';
+import {Map, List} from 'immutable';
 import './styles.scss';
 
 export default class ChannelItem extends React.Component {
 
   static propTypes = {
+    channels: PropTypes.instanceOf(List).isRequired,
     replaceDirtyChannel: PropTypes.func.isRequired,
     newChannel: PropTypes.func.isRequired,
   }
@@ -38,9 +39,10 @@ export default class ChannelItem extends React.Component {
 
   addChannel = () => {
     const channelName = this.state.channelName.trim();
-    if (channelName) {
+    const sameChannel = this.props.channels.find(channel => channel.get('name') === channelName);
+    if (channelName && !sameChannel) {
       this.props.replaceDirtyChannel(new Map({name: this.state.channelName, isDirty: true}));
-      this.props.newChannel({name: this.state.channelName});
+      this.props.newChannel({name: channelName});
       const newChannelItem = this.refs.newChannel.getDOMNode();
       newChannelItem.className = newChannelItem.className + ' new-channel_disabled';
     }
