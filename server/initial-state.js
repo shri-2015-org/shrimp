@@ -8,48 +8,44 @@ const Message = getMessageModel();
 export default function getInitState(sessionId) {
   return new Promise((resolve, reject) => {
     const state = {};
+    User.getBySessionId(sessionId)
+      .then(user => Channel.getChannelsByUserId(user._id))
+      .then(channels => {
+        Promise.all([Message.getForChannels(channels.map(c => c._id)), User.getAll(), User.findOne({sessionId}).select({sessionId: 1})]).then(([messages, users, currentUser]) => {
+          const userId = currentUser.id;
 
-    Promise.all([ Channel.getAll(), Message.getAll(), User.getAll(), User.findOne({ sessionId }).select({ sessionId: 1 }) ]).then((results) => {
-      let channels = results[0];
-      let messages = results[1];
-      let users = results[2];
-      const currentUser = results[3];
+          const channelObjects = channels.map((channel) => {
+            const channelObj = channel.toObject();
+            const userPrefsForChannel = channelObj.users.find(user => user._id.toString() === userId);
+            if (userPrefsForChannel) {
+              channelObj.joined = true;
+              channelObj.lastSeen = userPrefsForChannel.lastSeen !== undefined ? userPrefsForChannel.lastSeen : null;
+              channelObj.isFavorite = !!userPrefsForChannel.isFavorite;
+            }
+            delete channelObj.users;
+            return channelObj;
+          });
+          
+          state.users = users.map((user) => {
+            const userObj = user.toObject();
+            userObj.isOnline = true;
+            return userObj;
+          });
 
-      const userId = currentUser.id;
+          const favoritesChannels = users.find(user => `${user.id}` === userId).favoritesChannels;
 
-      channels = channels.map((channel) => {
-        const channelObj = channel.toObject();
-        const userPrefsForChannel = channelObj.users.find(user => user._id.toString() === userId);
-        if (userPrefsForChannel) {
-          channelObj.joined = true;
-          channelObj.lastSeen = userPrefsForChannel.lastSeen !== undefined ? userPrefsForChannel.lastSeen : null;
-          channelObj.isFavorite = !!userPrefsForChannel.isFavorite;
-        }
-        delete channelObj.users;
-        return channelObj;
+          state.channels = channelObjects;
+          state.messages = messages.map((message) => message.toObject());
+          state.local = {
+            userId,
+            sessionId,
+            currentChannelId: channelObjects[0].id,
+            pendingMessages: [],
+          };
+          resolve(state);
+        }).catch((exeption) => {
+          reject(exeption);
+        });
       });
-
-      messages = messages.map((message) => message.toObject());
-
-      users = users.map((user) => {
-        const userObj = user.toObject();
-        userObj.isOnline = true;
-        return userObj;
-      });
-
-
-      state.users = users;
-      state.channels = channels;
-      state.messages = messages;
-      state.local = {
-        userId,
-        sessionId,
-        currentChannelId: channels[0].id,
-        pendingMessages: [],
-      };
-      resolve(state);
-    }).catch((exeption) => {
-      reject(exeption);
-    });
   });
 }

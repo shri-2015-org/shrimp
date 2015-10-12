@@ -33,6 +33,8 @@ message.statics.createTestMessage = function createTestMessage(idsSenders, idsCh
   });
 };
 
+message.statics.getForChannels = function getForChannels(channelIds) { return this.find({ channelId: { $in: channelIds } }); };
+
 message.statics.add = function add(data, cb) {
   return new this(data).save(cb);
 };
