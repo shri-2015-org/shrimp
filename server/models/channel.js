@@ -10,7 +10,7 @@ const channel = new mongoose.Schema({
     lastSeen: {
       type: Date,
     },
-    isFavourite: {
+    isFavorite: {
       type: Boolean,
     },
   }],
@@ -56,6 +56,18 @@ channel.statics.markAsRead = function add(data, userId) {
     foundChannel.save();
   });
 };
+
+
+channel.statics.markAsFavorite = function add(data, userId) {
+  this.findOne( { '_id': data.channelId }, (err, foundChannel) => {
+    const userPrefsIndex = foundChannel.users.findIndex(u => u._id.toString() === userId);
+    if (foundChannel.users[userPrefsIndex]) {
+      foundChannel.users[userPrefsIndex].isFavorite = data.isFavorite;
+    }
+    foundChannel.save();
+  });
+};
+
 
 export default function getChannelModel() {
   return mongoose.model('Channel', channel);

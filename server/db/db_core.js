@@ -145,19 +145,11 @@ export function joinToChannel(sessionId, channelId, callback) {
   }).catch(exception => { debug(exception); });
 }
 
-export function setFavoriteChannel(sessionId, channelId, status, callback) {
-  const changes = status ? {
-    $push: {favoritesChannels: channelId},
-  } : {
-    $pull: {favoritesChannels: channelId},
-  };
-
-  User.update({ sessionId }, changes, (error, data) => {
-    if (error) debug(error);
-    if (typeof callback === 'function') {
-      callback(error, data);
-    }
-  });
+export function setFavoriteChannel(sessionId, data) {
+  User.getBySessionId(sessionId)
+    .then((user) => {
+      Channel.markAsFavorite(data, user.id);
+    });
 }
 
 

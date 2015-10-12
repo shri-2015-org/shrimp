@@ -23,6 +23,7 @@ export default function getInitState(sessionId) {
         if (userPrefsForChannel) {
           channelObj.joined = true;
           channelObj.lastSeen = userPrefsForChannel.lastSeen !== undefined ? userPrefsForChannel.lastSeen : null;
+          channelObj.isFavorite = !!userPrefsForChannel.isFavorite;
         }
         delete channelObj.users;
         return channelObj;
@@ -36,7 +37,6 @@ export default function getInitState(sessionId) {
         return userObj;
       });
 
-      const favoritesChannels = users.find(user => `${user.id}` === userId).favoritesChannels;
 
       state.users = users;
       state.channels = channels;
@@ -46,7 +46,6 @@ export default function getInitState(sessionId) {
         sessionId,
         currentChannelId: channels[0].id,
         pendingMessages: [],
-        favoritesChannels,
       };
       resolve(state);
     }).catch((exeption) => {
