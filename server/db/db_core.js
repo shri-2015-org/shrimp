@@ -163,7 +163,7 @@ export function setUserInfo(sessionId, email, name, callback) {
   return User.findOneAndUpdate({ sessionId: sessionId }, {
     email: email,
     name: name,
-  }, (error, changedUser) => {
+  }, { new: true }, (error, changedUser) => {
     if (error) debug(error);
     callback(changedUser.toObject());
   });
