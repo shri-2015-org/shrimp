@@ -24,6 +24,9 @@ export default class Threads extends React.Component {
     indirectChannels: PropTypes.instanceOf(List).isRequired,
     directChannels: PropTypes.instanceOf(List).isRequired,
     addDirectChannel: PropTypes.func.isRequired,
+    addDirtyDirectChannel: PropTypes.func.isRequired,
+    replaceDirtyDirectChannel: PropTypes.func.isRequired,
+    removeDirtyDirectChannel: PropTypes.func.isRequired,
   }
 
 
@@ -42,16 +45,21 @@ export default class Threads extends React.Component {
     window.addEventListener('keydown', this.removeDirtyChannel);
   };
 
-
   shouldComponentUpdate = (nextProps, nextState) => {
     if (nextProps.directChannels.size > this.props.directChannels.size) {
-      const addedChannel = nextProps.directChannels.toArray()[nextProps.directChannels.size - 1];
+      const addedChannel = nextProps.directChannels.last();
       const addedChannelName = addedChannel.get('name');
-      console.log('added id ', addedChannel.get('id'), ' name ', addedChannelName);
-      if (this.state.currentTabId !== 1) return true;
+      if (this.state.currentTabId !== 1) return false;
 
-      this.props.setCurrentChannel(addedChannel.get('id'));
+      const dirtyChannel = this.props.channels.find(
+          c => c.get('isDirty') && c.get('isDirect') && c.get('dirtyName') === addedChannelName);
+
+      if (dirtyChannel) {
+        this.props.removeDirtyDirectChannel();
+        this.props.setCurrentChannel(addedChannel.get('id'));
+      }
     }
+
     return !(
       Immutable.is(nextProps.indirectChannels, this.props.indirectChannels) &&
       Immutable.is(nextProps.contacts, this.props.contacts) &&
@@ -87,6 +95,7 @@ export default class Threads extends React.Component {
         userIds: [this.props.local.get('userId'), userId],
         name: channelId,
       });
+      this.props.addDirtyDirectChannel(channelId);
       return;
     }
     this.props.setCurrentChannel(directChannel.get('id'));
