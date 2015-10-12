@@ -17,6 +17,8 @@ import {currentChannelMessagesSelector} from 'selectors/messagesSelector';
 import {contactsSelector} from 'selectors/contactsSelector';
 import DocumentTitle from 'react-document-title';
 import {localSelector} from 'selectors/localSelector';
+import {indirectChannelsSelector} from 'selectors/channelsSelector';
+import {directChannelsSelector} from 'selectors/directChannelsSelector';
 
 @connect(state => ({
   messages: currentChannelMessagesSelector(state),
@@ -24,6 +26,8 @@ import {localSelector} from 'selectors/localSelector';
   users: state.users,
   local: localSelector(state),
   contacts: contactsSelector(state),
+  indirectChannels: indirectChannelsSelector(state),
+  directChannels: directChannelsSelector(state),
 }))
 export default class Application extends React.Component {
   static propTypes = {
@@ -34,6 +38,8 @@ export default class Application extends React.Component {
     local: PropTypes.instanceOf(Map).isRequired,
     dispatch: PropTypes.func.isRequired,
     children: PropTypes.node,
+    indirectChannels: PropTypes.instanceOf(List).isRequired,
+    directChannels: PropTypes.instanceOf(List).isRequired,
   }
 
 
@@ -94,7 +100,7 @@ export default class Application extends React.Component {
 
 
   render() {
-    const {messages, channels, local, dispatch, contacts} = this.props;
+    const {messages, channels, local, dispatch, contacts, indirectChannels, directChannels} = this.props;
     const actionsCombine = Object.assign(actionsMessages, actionsLocal, actionsChannels);
     const actions = bindActionCreators(actionsCombine, dispatch);
     const threads = (
@@ -102,6 +108,8 @@ export default class Application extends React.Component {
         channels={channels}
         contacts={contacts}
         local={local}
+        indirectChannels={indirectChannels}
+        directChannels={directChannels}
         {...actions}
       />
     );

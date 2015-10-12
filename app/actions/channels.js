@@ -80,3 +80,11 @@ export function removeDirtyChannel() {
     type: A.REMOVE_DIRTY_CHANNEL,
   };
 }
+
+export function addDirectChannel(data) {
+  return {
+    type: CS.ADD_DIRECT_CHANNEL,
+    payload: data,
+    send: true,
+  };
+}
