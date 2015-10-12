@@ -8,9 +8,10 @@ export default class PeopleItem extends React.Component {
   static propTypes = {
     item: PropTypes.instanceOf(Map),
     lastMessage: PropTypes.instanceOf(Map),
-    setCurrentChannel: PropTypes.func.isRequired,
     isCurrent: PropTypes.bool,
     isOnline: PropTypes.bool,
+    currentChannelId: PropTypes.string.isRequired,
+    setCurrentDirectChannel: PropTypes.func.isRequired,
   };
 
 
@@ -19,22 +20,24 @@ export default class PeopleItem extends React.Component {
       Immutable.is(nextProps.isOnline, this.props.isOnline) &&
       Immutable.is(nextProps.isCurrent, this.props.isCurrent) &&
       Immutable.is(nextProps.lastMessage, this.props.lastMessage) &&
-      Immutable.is(nextProps.item, this.props.item)
+      Immutable.is(nextProps.item, this.props.item) &&
+      Immutable.is(nextProps.currentChannelId, this.props.currentChannelId)
     );
   }
 
 
   setChannel = () => {
-    this.props.setCurrentChannel(this.props.item.get('id'));
+    this.props.setCurrentDirectChannel(this.props.item.get('id'));
   }
 
 
   render() {
-    const {isCurrent, item, lastMessage} = this.props;
+    const {isCurrent, item, lastMessage, isOnline} = this.props;
     return (
       <div
         className={cx('person', {
           'person_active': isCurrent,
+          'person_offline': !isOnline,
         })}
         onClick={this.setChannel}
       >

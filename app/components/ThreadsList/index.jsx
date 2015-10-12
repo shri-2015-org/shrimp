@@ -25,6 +25,9 @@ export default class ThreadsList extends React.Component {
     newChannel: PropTypes.func.isRequired,
     type: PropTypes.string,
     local: PropTypes.instanceOf(Map).isRequired,
+    setCurrentDirectChannel: PropTypes.func.isRequired,
+    isCurrentDirectChannel: PropTypes.func.isRequired,
+
   };
 
   constructor(props) {
@@ -99,7 +102,9 @@ export default class ThreadsList extends React.Component {
               item={listItem}
               lastMessage={lastMessage}
               isCurrent={this.props.local.get('currentChannelId') === thisChannelId}
-              setCurrentChannel={this.props.setCurrentChannel}
+              currentChannelId={this.props.local.get('currentChannelId')}
+              isCurrent={this.props.isCurrentDirectChannel(listItem.get('id'))}
+              setCurrentDirectChannel={this.props.setCurrentDirectChannel}
             />
           );
         });

@@ -14,6 +14,7 @@ const channel = new mongoose.Schema({
       type: Boolean,
     },
   }],
+  isDirect: Boolean,
 });
 
 channel.statics.getAll = function getAll() {
@@ -41,6 +42,14 @@ channel.statics.createTestChannel = function createTestChannel() {
     name: faker.hacker.noun(),
     users: [],
   });
+};
+
+channel.statics.addDirectChannel = function addDirectChannel(data, cb) {
+  return new this({
+    isDirect: true,
+    userIds: data.userIds.map(i => new ObjectId(i)),
+    name: data.name,
+  }).save(cb);
 };
 
 channel.statics.add = function add(data, cb) {

@@ -99,5 +99,36 @@ export default function startSocketServer(http) {
         Channel.markAsRead(data, user.id);
       });
     });
+
+    function findClientsSocket(roomId, namespace) {
+      const res = [];
+      const ns = io.of(namespace || '/');    // the default namespace is "/"
+
+      if (ns) {
+        for (const id in ns.connected) {
+          if (roomId) {
+            if (ns.connected[id].rooms.indexOf(roomId) !== -1) {
+              res.push(ns.connected[id]);
+            }
+          } else {
+            res.push(ns.connected[id]);
+          }
+        }
+      }
+      return res;
+    }
+
+    socket.on(CS.ADD_DIRECT_CHANNEL, data => {
+      Channel.addDirectChannel(data, (err, result) => {
+        const channelId = result._id;
+        Promise.all(data.userIds.map(uid => User.getById(uid)))
+          .then(users => {
+            const sessionIds = new Set(users.map(u => u.sessionId));
+            const clients = findClientsSocket();
+            clients.filter(c => sessionIds.has(c.sessionId)).forEach(c => c.join(channelId));
+            io.to(channelId).emit(SC.ADD_DIRECT_CHANNEL, result.toObject());
+          });
+      });
+    });
   });
 }
