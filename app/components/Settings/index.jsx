@@ -71,6 +71,14 @@ export default class Settings extends React.Component {
     }
   }
 
+  shouldComponentUpdate(nextProps) {
+    if (this.props.users.size > 0 && !Immutable.is(nextProps.users, this.props.users)) {
+      nextProps.history.pushState(null, '/');
+    }
+
+    return true;
+  }
+
   changeInfo = (e) => {
     e.preventDefault();
 
