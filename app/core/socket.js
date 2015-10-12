@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 import store from '../store';
 import {Map} from 'immutable';
 import {addChannel, addUserToChannel} from '../actions/channels';
-import {addMessage} from '../actions/messages';
+import {addMessage, loadChannelHistory} from '../actions/messages';
 import {setUserInfo} from 'actions/users';
 import {init, initUser} from '../actions/local';
 import {SC} from '../../constants';
@@ -16,24 +16,34 @@ export function socketClient(type = null, socketData) {
       store.dispatch(addMessage(Map(data)));
     });
 
+
     socket.on(SC.ADD_CHANNEL, (data) => {
       store.dispatch(addChannel(Map({id: data.id, name: data.name, joined: false})));
     });
+
 
     socket.on(SC.INIT, (data) => {
       store.dispatch(init(data));
     });
 
+
     socket.on(SC.SIGN_IN, (data) => {
       store.dispatch(initUser(data));
     });
+
 
     socket.on(SC.JOIN_TO_CHANNEL, (data) => {
       store.dispatch(addUserToChannel(data));
     });
 
+
     socket.on(SC.CHANGE_USER_INFO, (data) => {
       store.dispatch(setUserInfo(data));
+    });
+
+
+    socket.on(SC.SET_CHANNEL_HISTORY, (data) => {
+      store.dispatch(loadChannelHistory(data));
     });
   } else if (type) {
     socket.emit(type, socketData);

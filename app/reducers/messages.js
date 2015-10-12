@@ -11,6 +11,9 @@ export function messages(state = EMPTY_LIST, action) {
     return state.push(action.message);
   case A.LOG_OUT:
     return EMPTY_LIST;
+  case A.LOAD_CHANNEL_HISTORY:
+    debugger;
+    return state.push(fromJS(action.payload.messages));
   default:
     return state;
   }

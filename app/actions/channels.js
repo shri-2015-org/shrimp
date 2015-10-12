@@ -7,6 +7,7 @@ export function addChannel(channel) {
   };
 }
 
+
 export function newChannel(channel) {
   return {
     type: CS.ADD_CHANNEL,
@@ -14,6 +15,7 @@ export function newChannel(channel) {
     send: true,
   };
 }
+
 
 export function setFavoriteChannel(channelId, status) {
   return {
@@ -23,6 +25,7 @@ export function setFavoriteChannel(channelId, status) {
   };
 }
 
+
 export function removeChannel(channelId) {
   return {
     type: A.REMOVE_CHANNEL,
@@ -30,12 +33,6 @@ export function removeChannel(channelId) {
   };
 }
 
-export function filterChannels(data) {
-  return {
-    type: A.FILTER_CHANNELS,
-    payload: data,
-  };
-}
 
 export function addUserToChannel(data) {
   return {
@@ -44,10 +41,20 @@ export function addUserToChannel(data) {
   };
 }
 
+
 export function markChannelAsRead(data) {
   return {
     type: CS.MARK_AS_READ,
     payload: data,
+    send: true,
+  };
+}
+
+
+export function joinToChannel(channelId) {
+  return {
+    type: CS.JOIN_TO_CHANNEL,
+    payload: channelId,
     send: true,
   };
 }
@@ -60,14 +67,24 @@ export function replaceDirtyChannel(channel) {
   };
 }
 
+
 export function addDirtyChannel() {
   return {
     type: A.ADD_DIRTY_CHANNEL,
   };
 }
 
+
 export function removeDirtyChannel() {
   return {
     type: A.REMOVE_DIRTY_CHANNEL,
+  };
+}
+
+
+export function setChannelHistory(data) {
+  return {
+    type: A.SET_CHANNEL_HISTORY,
+    payload: data,
   };
 }

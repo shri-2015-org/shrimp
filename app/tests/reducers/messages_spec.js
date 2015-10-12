@@ -1,7 +1,7 @@
 import {List, Map} from 'immutable';
 import {expect} from 'chai';
 import {messages} from '../../reducers/messages';
-import {addMessage} from '../../actions/messages';
+import {addMessage, loadChannelHistory} from '../../actions/messages';
 
 describe('messages reducer', () => {
   it('handles ADD_MESSAGE', () => {
@@ -14,6 +14,22 @@ describe('messages reducer', () => {
       List.of(
         Map({id: 123, channelId: 0, text: 'first message'}),
         Map({id: 124, channelId: 0, text: 'second message'}),
+      ),
+    );
+  });
+
+  it('handles LOAD_CHANNEL_HISTORY', () => {
+    const initialState = List.of(
+      Map({id: 123, channelId: 0, text: 'first message'}),
+      Map({id: 124, channelId: 0, text: 'second message'}),
+    );
+    const nextState = messages(initialState, loadChannelHistory({ messages: {id: 125, channelId: 0, text: 'third message'} }));
+
+    expect(nextState).to.equal(
+      List.of(
+        Map({id: 123, channelId: 0, text: 'first message'}),
+        Map({id: 124, channelId: 0, text: 'second message'}),
+        Map({id: 125, channelId: 0, text: 'third message'})
       ),
     );
   });

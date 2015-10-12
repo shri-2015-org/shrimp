@@ -5,7 +5,7 @@ import getMessageModel from './models/message';
 import getChannelModel from './models/channel';
 import getUserModel from './models/user';
 import {SC, CS} from '../constants';
-import {checkSessionId, setUserInfo, joinToChannel, setFavoriteChannel} from './db/db_core.js';
+import {checkSessionId, setUserInfo, joinToChannel, setFavoriteChannel, loadChannelHistory} from './db/db_core.js';
 // const debug = require('debug')('shrimp:server');
 const Message = getMessageModel();
 const Channel = getChannelModel();
@@ -30,12 +30,6 @@ export default function startSocketServer(http) {
   });
 
   io.on('connection', socket => {
-    socket.on(CS.INIT, () => {
-      getInitState(socket.sessionId).then(initState => {
-        socket.emit(SC.INIT, initState);
-      });
-    });
-
     User.getBySessionId(socket.sessionId)
       .then((user) => {
         return Channel.getForUser(user.id);
@@ -46,12 +40,26 @@ export default function startSocketServer(http) {
         });
       });
 
+
+    socket.on(CS.INIT, () => {
+      getInitState(socket.sessionId).then(initState => {
+        socket.emit(SC.INIT, initState);
+      });
+    });
+
+
     socket.on(CS.JOIN_TO_CHANNEL, channelId => {
       joinToChannel(socket.sessionId, channelId, (userId) => {
         socket.join(channelId);
         socket.emit(SC.JOIN_TO_CHANNEL, {channelId, userId});
+        loadChannelHistory(channelId, (messages) => {
+          if (messages.length) {
+            socket.emit(SC.SET_CHANNEL_HISTORY, { messages });
+          }
+        });
       });
     });
+
 
     socket.on(CS.ADD_MESSAGE, data => {
       Message.add(data, (err, result) => {
@@ -59,24 +67,29 @@ export default function startSocketServer(http) {
       });
     });
 
+
     socket.on(CS.ADD_CHANNEL, data => {
       Channel.add(data, (err, result) =>
         io.sockets.emit(SC.ADD_CHANNEL, result.toObject()));
     });
 
+
     socket.on(CS.TYPING, data => {
       io.socket.emit(SC.TYPING, {channelId: data.id, typing: true});
     });
 
+
     socket.on(CS.SET_FAVORITE_CHANNEL, data => {
       setFavoriteChannel(socket.sessionId, data.channelId, data.status);
     });
+
 
     socket.on(CS.CHANGE_USER_INFO, data => {
       setUserInfo(socket.sessionId, data.email, data.name, (userData) => {
         socket.emit(SC.CHANGE_USER_INFO, {user: userData});
       });
     });
+
 
     socket.on(CS.MARK_AS_READ, data => {
       User.getBySessionId(socket.sessionId)

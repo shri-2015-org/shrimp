@@ -14,3 +14,11 @@ export function addMessage(message) {
     message,
   };
 }
+
+
+export function loadChannelHistory(data) {
+  return {
+    type: A.LOAD_CHANNEL_HISTORY,
+    payload: data,
+  };
+}
