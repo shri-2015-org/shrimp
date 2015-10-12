@@ -5,7 +5,7 @@ import getMessageModel from './models/message';
 import getChannelModel from './models/channel';
 import getUserModel from './models/user';
 import {SC, CS} from '../constants';
-import {checkSessionId, setUserInfo, joinToChannel} from './db/db_core.js';
+import {checkSessionId, setUserInfo, joinToChannel, setFavoriteChannel} from './db/db_core.js';
 // const debug = require('debug')('shrimp:server');
 const Message = getMessageModel();
 const Channel = getChannelModel();
@@ -66,6 +66,10 @@ export default function startSocketServer(http) {
 
     socket.on(CS.TYPING, data => {
       io.socket.emit(SC.TYPING, {channelId: data.id, typing: true});
+    });
+
+    socket.on(CS.SET_FAVORITE_CHANNEL, data => {
+      setFavoriteChannel(socket.sessionId, data.channelId, data.status);
     });
 
     socket.on(CS.CHANGE_USER_INFO, data => {

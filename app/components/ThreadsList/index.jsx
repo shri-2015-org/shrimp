@@ -17,10 +17,11 @@ export default class ThreadsList extends React.Component {
     messages: PropTypes.instanceOf(List).isRequired,
     channels: PropTypes.instanceOf(List).isRequired,
     list: PropTypes.instanceOf(List),
+    replaceDirtyChannel: PropTypes.func.isRequired,
+    setFavoriteChannel: PropTypes.func.isRequired,
     setCurrentChannel: PropTypes.func.isRequired,
     joinToChannel: PropTypes.func.isRequired,
     markChannelAsRead: PropTypes.func.isRequired,
-    replaceDirtyChannel: PropTypes.func.isRequired,
     newChannel: PropTypes.func.isRequired,
     type: PropTypes.string,
     local: PropTypes.instanceOf(Map).isRequired,
@@ -53,13 +54,13 @@ export default class ThreadsList extends React.Component {
           </div>
         );
 
-        return this.props.list.map((listItem, index) => {
+        return this.props.list.map((listItem) => {
           if (listItem.get('isDirty')) {
             return (
               <Motion
                 defaultStyle={{x: 0, y: 30}}
                 style={{x: spring(this.state.animated ? 1 : 0), y: spring(this.state.animated ? 0 : 30)}}
-                key={index}
+                key={'dirty'}
               >
               {newChannelItem}
               </Motion>
@@ -73,7 +74,7 @@ export default class ThreadsList extends React.Component {
 
           return (
             <ChannelItem
-              key={index}
+              key={thisChannelId}
               item={listItem}
               lastMessage={lastMessage}
               unreadCount={unreadCount}
@@ -81,6 +82,7 @@ export default class ThreadsList extends React.Component {
               setCurrentChannel={this.props.setCurrentChannel}
               joinToChannel={this.props.joinToChannel}
               markChannelAsRead={this.props.markChannelAsRead}
+              setFavoriteChannel={this.props.setFavoriteChannel}
               local={this.props.local}
             />
           );
@@ -88,12 +90,12 @@ export default class ThreadsList extends React.Component {
 
 
       case 'People':
-        return this.props.list.map((listItem, index) => {
+        return this.props.list.map((listItem) => {
           const thisChannelId = listItem.get('id');
           const lastMessage = this.props.messages.findLast(m => m.get('channelId') === thisChannelId);
           return (
             <PeopleItem
-              key={index}
+              key={thisChannelId}
               item={listItem}
               lastMessage={lastMessage}
               isCurrent={this.props.local.get('currentChannelId') === thisChannelId}

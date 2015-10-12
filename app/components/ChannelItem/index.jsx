@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import Immutable, {Map} from 'immutable';
 import cx from 'classnames';
+import Star from 'components/Star';
 import UnreadCounter from 'components/UnreadCounter';
 import './styles.scss';
 
@@ -11,6 +12,7 @@ export default class ChannelItem extends React.Component {
     lastMessage: PropTypes.instanceOf(Map),
     unreadCount: PropTypes.integer,
     isCurrent: PropTypes.bool,
+    setFavoriteChannel: PropTypes.func.isRequired,
     setCurrentChannel: PropTypes.func.isRequired,
     joinToChannel: PropTypes.func.isRequired,
     markChannelAsRead: PropTypes.func.isRequired,
@@ -21,8 +23,9 @@ export default class ChannelItem extends React.Component {
 
   constructor(props) {
     super(props);
+    const channelId = this.props.item.get('id');
     this.state = {
-      favorite: this.props.favorite || false,
+      favorite: !!this.props.local.get('favoritesChannels').find(id => id === channelId),
     };
   }
 
@@ -50,7 +53,7 @@ export default class ChannelItem extends React.Component {
 
 
   toggleFavorite = e => {
-    // TODO: run action which set channel as favorite
+    this.props.setFavoriteChannel(this.props.item.get('id'), !this.state.favorite);
     e.stopPropagation();
     this.setState({
       favorite: !this.state.favorite,
@@ -69,6 +72,13 @@ export default class ChannelItem extends React.Component {
         })}
         onClick={this.setChannel}
       >
+        <Star
+          fill={this.state.favorite}
+          onClick={this.toggleFavorite}
+          className={cx('channel__star', {
+            channel__star_filled: this.state.favorite,
+          })}
+        />
         <div className='channel__name'>{item.get('name')}</div>
         <div className='channel__last-message'>
           {lastMessage ? lastMessage.get('text') : '🙊'}

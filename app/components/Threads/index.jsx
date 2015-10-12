@@ -12,10 +12,11 @@ export default class Threads extends React.Component {
   static propTypes = {
     channels: PropTypes.instanceOf(List).isRequired,
     contacts: PropTypes.instanceOf(List).isRequired,
+    replaceDirtyChannel: PropTypes.func.isRequired,
+    setFavoriteChannel: PropTypes.func.isRequired,
     setCurrentChannel: PropTypes.func.isRequired,
     joinToChannel: PropTypes.func.isRequired,
     markChannelAsRead: PropTypes.func.isRequired,
-    replaceDirtyChannel: PropTypes.func.isRequired,
     newChannel: PropTypes.func.isRequired,
     addDirtyChannel: PropTypes.func.isRequired,
     removeDirtyChannel: PropTypes.func.isRequired,
@@ -78,7 +79,18 @@ export default class Threads extends React.Component {
   };
 
   render() {
-    const {channels, contacts, setCurrentChannel, local, replaceDirtyChannel, newChannel, joinToChannel, markChannelAsRead} = this.props;
+    const {
+      channels,
+      contacts,
+      setCurrentChannel,
+      local,
+      replaceDirtyChannel,
+      newChannel,
+      joinToChannel,
+      setFavoriteChannel,
+      markChannelAsRead,
+    } = this.props;
+
     const tabs = List.of(
       Map({id: 1, name: 'People', sendToServer: false, list: contacts }),
       Map({id: 2, name: 'Channels', sendToServer: false, list: channels }),
@@ -144,6 +156,7 @@ export default class Threads extends React.Component {
           local={local}
           channels={channels}
           setCurrentChannel={setCurrentChannel}
+          setFavoriteChannel={setFavoriteChannel}
           replaceDirtyChannel={replaceDirtyChannel}
           newChannel={newChannel}
           type={currentTabData.get('name')}
