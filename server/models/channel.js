@@ -30,6 +30,9 @@ channel.statics.getAll = function getAll() {
 };
 
 channel.statics.isEmpty = isEmpty;
+channel.statics.getChannelsByUserId = function getChannelsByUserId(userId) {
+  return this.find({ $or: [{isDirect: null}, { isDirect: true, userIds: new ObjectId(userId) }] });
+};
 
 channel.statics.getForUser = function getForUser(userId) {
   return this.find( { 'users._id': new ObjectId(userId) } );
