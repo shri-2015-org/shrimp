@@ -23,7 +23,7 @@ describe('messages reducer', () => {
       Map({id: 123, channelId: 0, text: 'first message'}),
       Map({id: 124, channelId: 0, text: 'second message'}),
     );
-    const nextState = messages(initialState, loadChannelHistory({ messages: {id: 125, channelId: 0, text: 'third message'} }));
+    const nextState = messages(initialState, loadChannelHistory({ messages: [{id: 125, channelId: 0, text: 'third message'}] }));
 
     expect(nextState).to.equal(
       List.of(

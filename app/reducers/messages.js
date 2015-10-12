@@ -12,8 +12,7 @@ export function messages(state = EMPTY_LIST, action) {
   case A.LOG_OUT:
     return EMPTY_LIST;
   case A.LOAD_CHANNEL_HISTORY:
-    debugger;
-    return state.push(fromJS(action.payload.messages));
+    return state.concat(fromJS(action.payload.messages));
   default:
     return state;
   }

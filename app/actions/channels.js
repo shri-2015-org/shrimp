@@ -80,11 +80,3 @@ export function removeDirtyChannel() {
     type: A.REMOVE_DIRTY_CHANNEL,
   };
 }
-
-
-export function setChannelHistory(data) {
-  return {
-    type: A.SET_CHANNEL_HISTORY,
-    payload: data,
-  };
-}

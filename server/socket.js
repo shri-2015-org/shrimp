@@ -54,7 +54,8 @@ export default function startSocketServer(http) {
         socket.emit(SC.JOIN_TO_CHANNEL, {channelId, userId});
         loadChannelHistory(channelId, (messages) => {
           if (messages.length) {
-            socket.emit(SC.SET_CHANNEL_HISTORY, { messages });
+            const messagesObj = messages.map((message) => message.toObject());
+            socket.emit(SC.SET_CHANNEL_HISTORY, { messages: messagesObj });
           }
         });
       });
