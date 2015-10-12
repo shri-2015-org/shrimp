@@ -7,13 +7,14 @@ import ThreadsList from 'components/ThreadsList';
 import Search from 'components/Search';
 
 
-export default class ThreadsSection extends React.Component {
+export default class Threads extends React.Component {
 
   static propTypes = {
     channels: PropTypes.instanceOf(List).isRequired,
     contacts: PropTypes.instanceOf(List).isRequired,
     setCurrentChannel: PropTypes.func.isRequired,
     joinToChannel: PropTypes.func.isRequired,
+    markChannelAsRead: PropTypes.func.isRequired,
     replaceDirtyChannel: PropTypes.func.isRequired,
     newChannel: PropTypes.func.isRequired,
     addDirtyChannel: PropTypes.func.isRequired,
@@ -77,7 +78,7 @@ export default class ThreadsSection extends React.Component {
   };
 
   render() {
-    const {channels, contacts, setCurrentChannel, local, replaceDirtyChannel, newChannel, joinToChannel} = this.props;
+    const {channels, contacts, setCurrentChannel, local, replaceDirtyChannel, newChannel, joinToChannel, markChannelAsRead} = this.props;
     const tabs = List.of(
       Map({id: 1, name: 'People', sendToServer: false, list: contacts }),
       Map({id: 2, name: 'Channels', sendToServer: false, list: channels }),
@@ -147,6 +148,7 @@ export default class ThreadsSection extends React.Component {
           newChannel={newChannel}
           type={currentTabData.get('name')}
           joinToChannel={joinToChannel}
+          markChannelAsRead={markChannelAsRead}
         />
         <div className='treads-bottom'>
           <Search

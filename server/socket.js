@@ -73,5 +73,12 @@ export default function startSocketServer(http) {
         socket.emit(SC.CHANGE_USER_INFO, {user: userData});
       });
     });
+
+    socket.on(CS.MARK_AS_READ, data => {
+      User.getBySessionId(socket.sessionId)
+      .then((user) => {
+        Channel.markAsRead(data, user.id);
+      });
+    });
   });
 }

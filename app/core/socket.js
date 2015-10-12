@@ -17,7 +17,7 @@ export function socketClient(type = null, socketData) {
     });
 
     socket.on(SC.ADD_CHANNEL, (data) => {
-      store.dispatch(addChannel(Map({id: data.id, name: data.name, userIds: []})));
+      store.dispatch(addChannel(Map({id: data.id, name: data.name, joined: false})));
     });
 
     socket.on(SC.INIT, (data) => {

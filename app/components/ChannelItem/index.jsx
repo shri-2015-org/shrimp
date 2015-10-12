@@ -9,9 +9,11 @@ export default class ChannelItem extends React.Component {
   static propTypes = {
     item: PropTypes.instanceOf(Map),
     lastMessage: PropTypes.instanceOf(Map),
+    unreadCount: PropTypes.integer,
     isCurrent: PropTypes.bool,
     setCurrentChannel: PropTypes.func.isRequired,
     joinToChannel: PropTypes.func.isRequired,
+    markChannelAsRead: PropTypes.func.isRequired,
     favorite: PropTypes.bool,
     local: PropTypes.instanceOf(Map).isRequired,
   }
@@ -37,10 +39,13 @@ export default class ChannelItem extends React.Component {
 
   setChannel = () => {
     this.props.setCurrentChannel(this.props.item.get('id'));
-    const joinedUser = this.props.item.get('userIds').find((userId) => userId === this.props.local.get('userId'));
+    const joinedUser = this.props.item.get('joined');
     if (!joinedUser) {
       this.props.joinToChannel(this.props.item.get('id'));
     }
+    // When switching channels, mark both current and next channels as read
+    this.props.markChannelAsRead({ channelId: this.props.local.get('currentChannelId'), lastSeen: new Date().toUTCString() });
+    this.props.markChannelAsRead({ channelId: this.props.item.get('id'), lastSeen: new Date().toUTCString() });
   }
 
 
@@ -55,6 +60,8 @@ export default class ChannelItem extends React.Component {
 
   render() {
     const {item, lastMessage} = this.props;
+    // Don't show unread count for current channel
+    const unreadCount = this.props.isCurrent || this.props.unreadCount === 0 ? null : this.props.unreadCount;
     return (
       <div
         className={cx('channel', {
@@ -68,7 +75,7 @@ export default class ChannelItem extends React.Component {
         </div>
         <UnreadCounter
           className='channel__unread-counter'
-          count={item.get('unreadMessagesCount')}
+          count={unreadCount}
         />
       </div>
     );

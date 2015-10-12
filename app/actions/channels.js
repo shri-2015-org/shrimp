@@ -36,6 +36,14 @@ export function addUserToChannel(data) {
   };
 }
 
+export function markChannelAsRead(data) {
+  return {
+    type: CS.MARK_AS_READ,
+    payload: data,
+    send: true,
+  };
+}
+
 
 export function replaceDirtyChannel(channel) {
   return {
