@@ -31,11 +31,6 @@ export default class ChannelItem extends React.Component {
     this.addChannel();
   }
 
-  onBlur = () => {
-    if (this.state.channelName) {
-      this.addChannel();
-    }
-  }
 
   addChannel = () => {
     const channelName = this.state.channelName.trim();
