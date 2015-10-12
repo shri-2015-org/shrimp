@@ -46,7 +46,7 @@ export function channels(state = EMPTY_LIST, action = {type: 'DEFAULT'}) {
 
   case A.ADD_DIRTY_DIRECT_CHANNEL:
     return state.unshift(new Map({isDirect: true, isDirty: true, dirtyName: action.payload}));
-  
+
   case A.REMOVE_DIRTY_DIRECT_CHANNEL:
     return state.shift();
   default:

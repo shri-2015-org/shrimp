@@ -75,15 +75,9 @@ export default class Threads extends React.Component {
   };
 
 
-  changeTab = (tabId) => {
-    this.setState({
-      currentTabId: tabId,
-    });
-  };
-  
   getDirectChannelByUserId = (userId) => {
     return this.props.directChannels
-      .find(c => c.get('userIds') && c.get('userIds').indexOf(userId) >= 0);
+      .find(c => c.get('users') && c.get('users').find(u => u._id === userId));
   }
 
 
@@ -100,6 +94,8 @@ export default class Threads extends React.Component {
     }
     this.props.setCurrentChannel(directChannel.get('id'));
   }
+
+
   addDirtyChannel = () => {
     const threadsWrapper = this.refs.threads.getDOMNode().parentNode;
     threadsWrapper.scrollTop = 0;

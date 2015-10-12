@@ -13,6 +13,9 @@ const channel = new mongoose.Schema({
     isFavorite: {
       type: Boolean,
     },
+    _id: {
+      type: mongoose.Schema.ObjectId,
+    },
   }],
   isDirect: Boolean,
 });
@@ -31,7 +34,7 @@ channel.statics.getAll = function getAll() {
 
 channel.statics.isEmpty = isEmpty;
 channel.statics.getChannelsByUserId = function getChannelsByUserId(userId) {
-  return this.find({ $or: [{isDirect: null}, { isDirect: true, userIds: new ObjectId(userId) }] });
+  return this.find({ $or: [{isDirect: null}, { isDirect: true, 'users._id': new ObjectId(userId) }] });
 };
 
 channel.statics.getForUser = function getForUser(userId) {
@@ -50,7 +53,9 @@ channel.statics.createTestChannel = function createTestChannel() {
 channel.statics.addDirectChannel = function addDirectChannel(data, cb) {
   return new this({
     isDirect: true,
-    userIds: data.userIds.map(i => new ObjectId(i)),
+    users: data.userIds.map(i => ({
+      _id: new ObjectId(i),
+    })),
     name: data.name,
   }).save(cb);
 };

@@ -25,7 +25,7 @@ export default function getInitState(sessionId) {
             delete channelObj.users;
             return channelObj;
           });
-          
+
           state.users = users.map((user) => {
             const userObj = user.toObject();
             userObj.isOnline = true;
