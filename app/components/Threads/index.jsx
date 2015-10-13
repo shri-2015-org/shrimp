@@ -133,7 +133,6 @@ export default class Threads extends React.Component {
         <div className='treads-bottom'>
           <Search
             onChange={this.changeFilterValue}
-            sendToServer={false}
             className='threads__search'
             inputClassName='threads__search__input'
             iconClassName='threads__search__icon'
