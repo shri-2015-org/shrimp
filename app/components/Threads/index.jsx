@@ -77,7 +77,7 @@ export default class Threads extends React.Component {
 
   getDirectChannelByUserId = (userId) => {
     return this.props.directChannels
-      .find(c => c.get('users') && c.get('users').find(u => u._id === userId));
+      .find(c => c.get('users') && c.get('users').find(u => u._id === userId || (u.get && u.get('_id') === userId)));
   }
 
 
@@ -189,6 +189,7 @@ export default class Threads extends React.Component {
           setCurrentDirectChannel={this.setCurrentDirectChannel}
           isCurrentDirectChannel={this.isCurrentDirectChannel}
           markChannelAsRead={markChannelAsRead}
+          getDirectChannelByUserId={this.getDirectChannelByUserId}
         />
         <div className='treads-bottom'>
           <Search
