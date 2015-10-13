@@ -16,16 +16,14 @@ export default class ChannelItem extends React.Component {
     setCurrentChannel: PropTypes.func.isRequired,
     joinToChannel: PropTypes.func.isRequired,
     markChannelAsRead: PropTypes.func.isRequired,
-    favorite: PropTypes.bool,
     local: PropTypes.instanceOf(Map).isRequired,
   }
 
 
   constructor(props) {
     super(props);
-    const channelId = this.props.item.get('id');
     this.state = {
-      favorite: !!this.props.local.get('favoritesChannels').find(id => id === channelId),
+      favorite: !!this.props.item.get('isFavorite'),
     };
   }
 

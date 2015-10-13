@@ -17,10 +17,10 @@ export function newChannel(channel) {
 }
 
 
-export function setFavoriteChannel(channelId, status) {
+export function setFavoriteChannel(channelId, isFavorite) {
   return {
     type: CS.SET_FAVORITE_CHANNEL,
-    payload: {channelId, status},
+    payload: {channelId, isFavorite},
     send: true,
   };
 }

@@ -81,7 +81,8 @@ export default function startSocketServer(http) {
 
 
     socket.on(CS.SET_FAVORITE_CHANNEL, data => {
-      setFavoriteChannel(socket.sessionId, data.channelId, data.status);
+      // setFavoriteChannel(socket.sessionId, data.channelId, data.status);
+      setFavoriteChannel(socket.sessionId, data);
     });
 
 
