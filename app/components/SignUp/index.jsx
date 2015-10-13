@@ -69,12 +69,24 @@ export default class SignUp extends React.Component {
   signUp = (e) => {
     e.preventDefault();
 
-    if (!/\S+@\S+\.\S+/.test(this.state.email)) {
+
+    if (!this.state.email) {
       return this.setState({
         showEmailError: true,
         info: {
           type: 'error',
           text: 'Email is required',
+        },
+      });
+    }
+
+
+    if (!/\S+@\S+\.\S+/.test(this.state.email)) {
+      return this.setState({
+        showEmailError: true,
+        info: {
+          type: 'error',
+          text: 'Valid email is required',
         },
       });
     }
@@ -182,6 +194,16 @@ export default class SignUp extends React.Component {
       email: e.target.value,
     };
 
+    if (!/\S+@\S+\.\S+/.test(e.target.value)) {
+      return this.setState({
+        showEmailError: true,
+        info: {
+          type: 'error',
+          text: 'Valid email is required',
+        },
+      });
+    }
+
     this.checkEmail(value);
   }
 
@@ -222,7 +244,7 @@ export default class SignUp extends React.Component {
           <Input
             className={cx('sign-up__input', {
               'input_type_error': this.state.showEmailError,
-              'input_type_succes': !this.state.emailExist && this.state.email,
+              'input_type_succes': !this.state.emailExist && !this.state.showEmailError && this.state.email,
             })}
             placeholder='Email'
             onChange={this.emailChange}
@@ -230,7 +252,7 @@ export default class SignUp extends React.Component {
           <Input
             className={cx('sign-up__input', {
               'input_type_error': this.state.showNameError,
-              'input_type_succes': !this.state.nameExist && this.state.name,
+              'input_type_succes': !this.state.showNameError && this.state.name,
             })}
             placeholder='Name'
             onChange={this.nameChange}
