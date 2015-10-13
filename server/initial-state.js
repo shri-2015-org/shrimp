@@ -34,8 +34,6 @@ export default function getInitState(sessionId) {
             return userObj;
           });
 
-          const favoritesChannels = users.find(user => `${user.id}` === userId).favoritesChannels;
-
           state.channels = channelObjects;
           state.messages = messages.map((message) => message.toObject());
           state.local = {
