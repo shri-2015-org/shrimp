@@ -55,15 +55,6 @@ export function logOut() {
 }
 
 
-export function joinToChannel(channelId) {
-  return {
-    type: CS.JOIN_TO_CHANNEL,
-    payload: channelId,
-    send: true,
-  };
-}
-
-
 export function changeUserInfo(data) {
   return {
     type: CS.CHANGE_USER_INFO,

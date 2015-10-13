@@ -3,10 +3,12 @@ import gravatar from 'gravatar';
 import crypto from 'crypto';
 import getUserModel from '../models/user';
 import getChannelModel from '../models/channel';
+import getMessageModel from '../models/message';
 
 const ObjectId = mongoose.Types.ObjectId;
 const Channel = getChannelModel();
 const User = getUserModel();
+const Message = getMessageModel();
 const debug = require('debug')('shrimp:server');
 const salt = 'pepper';
 
@@ -127,11 +129,11 @@ export function checkEmailExist(email, callback) {
 
 export function joinToChannel(sessionId, channelId, callback) {
   return new Promise((resolve, reject) => {
-    Channel.findOne({_id: new ObjectId(channelId)})
+    Channel.findOne({ _id: new ObjectId(channelId) })
     .then((channel) => {
       User.getBySessionId(sessionId)
         .then((user) => {
-          channel.users.push({_id: user._id, lastSeen: Date.now()});
+          channel.users.push({ _id: user._id, lastSeen: Date.now() });
           channel.save(error => {
             if (error) reject(error);
             resolve({userId: user._id});
@@ -150,7 +152,7 @@ export function setFavoriteChannel(sessionId, channelId, status, callback) {
     $pull: {favoritesChannels: channelId},
   };
 
-  User.update({sessionId}, changes, (error, data) => {
+  User.update({ sessionId }, changes, (error, data) => {
     if (error) debug(error);
     if (typeof callback === 'function') {
       callback(error, data);
@@ -166,5 +168,13 @@ export function setUserInfo(sessionId, email, name, callback) {
   }, { new: true }, (error, changedUser) => {
     if (error) debug(error);
     callback(changedUser.toObject());
+  });
+}
+
+
+export function loadChannelHistory(channelId, callback) {
+  return Message.find({ channelId }, (error, messages) => {
+    if (error) debug(error);
+    callback(messages);
   });
 }

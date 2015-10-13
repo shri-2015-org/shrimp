@@ -2,7 +2,6 @@ import {compose, createStore, applyMiddleware} from 'redux';
 import {devTools, persistState} from 'redux-devtools';
 import {appReducer} from 'reducers/app_reducer';
 import {socketClient} from 'core/socket';
-
 import {reduxReactRouter} from 'redux-router';
 import createHistory from 'history/lib/createBrowserHistory';
 import {A} from '../constants';
