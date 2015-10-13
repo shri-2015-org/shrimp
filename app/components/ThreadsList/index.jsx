@@ -27,7 +27,7 @@ export default class ThreadsList extends React.Component {
     local: PropTypes.instanceOf(Map).isRequired,
     setCurrentDirectChannel: PropTypes.func.isRequired,
     isCurrentDirectChannel: PropTypes.func.isRequired,
-
+    getDirectChannelByUserId: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -44,15 +44,29 @@ export default class ThreadsList extends React.Component {
 
 
   render() {
+    const {
+      getDirectChannelByUserId,
+      local,
+      isCurrentDirectChannel,
+      setCurrentDirectChannel,
+      messages,
+      setCurrentChannel,
+      joinToChannel,
+      markChannelAsRead,
+      setFavoriteChannel,
+      type,
+      channels,
+      newChannel,
+      replaceDirtyChannel} = this.props;
     const list = (() => {
-      switch (this.props.type) {
+      switch (type) {
       case 'Channels':
         const newChannelItem = interpolated => (
           <div style={{opacity: interpolated.x, transform: `translate(${interpolated.y}px, 0)`}}>
             <NewChannelItem
-              replaceDirtyChannel={this.props.replaceDirtyChannel}
-              newChannel={this.props.newChannel}
-              channels={this.props.channels}
+              replaceDirtyChannel={replaceDirtyChannel}
+              newChannel={newChannel}
+              channels={channels}
             />
           </div>
         );
@@ -72,8 +86,8 @@ export default class ThreadsList extends React.Component {
 
           const thisChannelId = listItem.get('id');
           const lastSeen = listItem.get('lastSeen');
-          const lastMessage = this.props.messages.findLast(m => m.get('channelId') === thisChannelId);
-          const unreadCount = this.props.messages.filter(m => m.get('channelId') === thisChannelId && Date.parse(m.get('timestamp')) > Date.parse(lastSeen)).size;
+          const lastMessage = messages.findLast(m => m.get('channelId') === thisChannelId);
+          const unreadCount = messages.filter(m => m.get('channelId') === thisChannelId && Date.parse(m.get('timestamp')) > Date.parse(lastSeen)).size;
 
           return (
             <ChannelItem
@@ -81,12 +95,12 @@ export default class ThreadsList extends React.Component {
               item={listItem}
               lastMessage={lastMessage}
               unreadCount={unreadCount}
-              isCurrent={this.props.local.get('currentChannelId') === thisChannelId}
-              setCurrentChannel={this.props.setCurrentChannel}
-              joinToChannel={this.props.joinToChannel}
-              markChannelAsRead={this.props.markChannelAsRead}
-              setFavoriteChannel={this.props.setFavoriteChannel}
-              local={this.props.local}
+              isCurrent={local.get('currentChannelId') === thisChannelId}
+              setCurrentChannel={setCurrentChannel}
+              joinToChannel={joinToChannel}
+              markChannelAsRead={markChannelAsRead}
+              setFavoriteChannel={setFavoriteChannel}
+              local={local}
             />
           );
         });
@@ -94,17 +108,16 @@ export default class ThreadsList extends React.Component {
 
       case 'People':
         return this.props.list.map((listItem) => {
-          const thisChannelId = listItem.get('id');
-          const lastMessage = this.props.messages.findLast(m => m.get('channelId') === thisChannelId);
+          const thisContactId = listItem.get('id');
+          const lastDirectMessage = messages.findLast(m => getDirectChannelByUserId(thisContactId) ? m.get('channelId') === getDirectChannelByUserId(thisContactId).get('id') : undefined);
           return (
             <PeopleItem
-              key={thisChannelId}
+              key={thisContactId}
               item={listItem}
-              lastMessage={lastMessage}
-              isCurrent={this.props.local.get('currentChannelId') === thisChannelId}
-              currentChannelId={this.props.local.get('currentChannelId')}
-              isCurrent={this.props.isCurrentDirectChannel(listItem.get('id'))}
-              setCurrentDirectChannel={this.props.setCurrentDirectChannel}
+              lastMessage={lastDirectMessage}
+              currentChannelId={local.get('currentChannelId')}
+              isCurrent={isCurrentDirectChannel(listItem.get('id'))}
+              setCurrentDirectChannel={setCurrentDirectChannel}
             />
           );
         });

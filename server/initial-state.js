@@ -22,7 +22,9 @@ export default function getInitState(sessionId) {
               channelObj.lastSeen = userPrefsForChannel.lastSeen !== undefined ? userPrefsForChannel.lastSeen : null;
               channelObj.isFavorite = !!userPrefsForChannel.isFavorite;
             }
-            delete channelObj.users;
+            if (!channelObj.isDirect) {
+              delete channelObj.users;
+            }
             return channelObj;
           });
 
