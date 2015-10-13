@@ -32,6 +32,7 @@ export default function startSocketServer(http) {
   io.on('connection', socket => {
     User.getBySessionId(socket.sessionId)
       .then((user) => {
+        socket.broadcast.emit(SC.JOIN_USER, { user: user.toObject() });
         return Channel.getForUser(user.id);
       })
       .then((channels) => {
@@ -81,7 +82,6 @@ export default function startSocketServer(http) {
 
 
     socket.on(CS.SET_FAVORITE_CHANNEL, data => {
-      // setFavoriteChannel(socket.sessionId, data.channelId, data.status);
       setFavoriteChannel(socket.sessionId, data);
     });
 
