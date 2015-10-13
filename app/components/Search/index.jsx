@@ -9,7 +9,6 @@ export default class Search extends React.Component {
     className: PropTypes.string,
     inputClassName: PropTypes.string,
     iconClassName: PropTypes.string,
-    filter: PropTypes.func,
   }
 
 
@@ -24,7 +23,6 @@ export default class Search extends React.Component {
         <input
           placeholder='Search...'
           type='text'
-          onChange={this.props.filter}
           {...this.props}
           className={cx('search__input', inputClassName)}
         />

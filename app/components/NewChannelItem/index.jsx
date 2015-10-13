@@ -31,11 +31,6 @@ export default class ChannelItem extends React.Component {
     this.addChannel();
   }
 
-  onBlur = () => {
-    if (this.state.channelName) {
-      this.addChannel();
-    }
-  }
 
   addChannel = () => {
     const channelName = this.state.channelName.trim();
@@ -60,7 +55,6 @@ export default class ChannelItem extends React.Component {
           className='new-channel__input'
           ref='newChannelInput'
           onKeyPress={this.onKeyPress}
-          onBlur={this.onBlur}
           onChange={this.handleChange}
           value={this.state.channelName} />
       </div>
