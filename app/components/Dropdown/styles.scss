@@ -25,6 +25,10 @@
     background: transparent;
 
     font-size: 18px;
+
+    @media (max-width: $mobile_width) {
+      font-size: 10px;
+    }
   }
 
   &__menu {
