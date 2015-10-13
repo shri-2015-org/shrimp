@@ -33,4 +33,14 @@ describe('messages reducer', () => {
       ),
     );
   });
+
+  it('LOAD_CHANNEL_HISTORY shouldn\'t add the existing messages', () => {
+    const initialState = List.of(
+      Map({id: 123, channelId: 0, text: 'first message'}),
+      Map({id: 124, channelId: 0, text: 'second message'}),
+    );
+    const nextState = messages(initialState, loadChannelHistory({ messages: [{id: 124, channelId: 0, text: 'second message'}] }));
+
+    expect(nextState).to.equal(initialState);
+  });
 });
