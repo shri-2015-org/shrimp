@@ -22,6 +22,7 @@ function hashPassword(password) {
   return allHash.digest('hex');
 }
 
+
 export function signInUser(email, password, callback) {
   User.findOne({ email }).select({ passwordHash: 1 }).exec((err, user) => {
     if (user && (user.passwordHash === hashPassword(password))) {
@@ -144,6 +145,7 @@ export function joinToChannel(sessionId, channelId, callback) {
     callback(userId, channelId);
   }).catch(exception => { debug(exception); });
 }
+
 
 export function setFavoriteChannel(sessionId, data) {
   User.getBySessionId(sessionId)
