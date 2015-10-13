@@ -44,6 +44,9 @@
     @media (max-width: $mobile_width) {
       line-height: 22px;
     }
+    @media (max-width: 550px) {
+      display: none;
+    }
   }
 
   @media (max-width: $mobile_width) {
