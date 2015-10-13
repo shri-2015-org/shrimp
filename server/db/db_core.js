@@ -59,6 +59,7 @@ export function signUpUser(email, password, name, sessionId, callback) {
   });
   newUser.save(error => {
     if (error) debug(error);
+    Channel.subscribeOnDefaultChannel(newUser.id);
     callback(sessionId);
   });
 }

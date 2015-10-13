@@ -69,6 +69,16 @@ channel.statics.markAsFavorite = function add(data, userId) {
 };
 
 
+channel.statics.subscribeOnDefaultChannel = function add(userId) {
+  this.find({}, null, {sort: {name: 1}}, (err, channels) => {
+    channels[0].users.push({
+      _id: new ObjectId(userId),
+      lastSeen: new Date(),
+    });
+    channels[0].save();
+  });
+};
+
 export default function getChannelModel() {
   return mongoose.model('Channel', channel);
 }
