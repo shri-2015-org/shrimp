@@ -8,10 +8,14 @@ export default class PeopleItem extends React.Component {
   static propTypes = {
     item: PropTypes.instanceOf(Map),
     lastMessage: PropTypes.instanceOf(Map),
+    directChannel: PropTypes.instanceOf(Map),
     isCurrent: PropTypes.bool,
     isOnline: PropTypes.bool,
     currentChannelId: PropTypes.string.isRequired,
     setCurrentDirectChannel: PropTypes.func.isRequired,
+    markChannelAsRead: PropTypes.func.isRequired,
+    getDirectChannelByUserId: PropTypes.func.isRequired,
+    unreadCount: PropTypes.integer,
   };
 
 
@@ -28,11 +32,17 @@ export default class PeopleItem extends React.Component {
 
   setChannel = () => {
     this.props.setCurrentDirectChannel(this.props.item.get('id'));
+
+    this.props.markChannelAsRead({ channelId: this.props.currentChannelId, lastSeen: new Date().toUTCString() });
+    this.props.markChannelAsRead({ channelId: this.props.getDirectChannelByUserId(this.props.item.get('id')).get('id'), lastSeen: new Date().toUTCString() });
   }
 
 
   render() {
     const {isCurrent, item, lastMessage, isOnline} = this.props;
+    // Don't show unread count for current channel
+
+    const unreadCount = this.props.isCurrent || this.props.unreadCount === 0 ? null : this.props.unreadCount;
     return (
       <div
         className={cx('person', {
@@ -47,7 +57,7 @@ export default class PeopleItem extends React.Component {
         </div>
         <UnreadCounter
           className='person__unread-counter'
-          count={item.get('unreadMessagesCount')}
+          count={unreadCount}
         />
       </div>
     );

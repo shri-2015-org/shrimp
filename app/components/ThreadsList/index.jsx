@@ -47,7 +47,6 @@ export default class ThreadsList extends React.Component {
     const {
       getDirectChannelByUserId,
       local,
-      isCurrentDirectChannel,
       setCurrentDirectChannel,
       messages,
       setCurrentChannel,
@@ -109,15 +108,23 @@ export default class ThreadsList extends React.Component {
       case 'People':
         return this.props.list.map((listItem) => {
           const thisContactId = listItem.get('id');
-          const lastDirectMessage = messages.findLast(m => getDirectChannelByUserId(thisContactId) ? m.get('channelId') === getDirectChannelByUserId(thisContactId).get('id') : undefined);
+          const directChannel = getDirectChannelByUserId(thisContactId);
+          const lastSeen = directChannel ? directChannel.get('lastSeen') : null;
+          const lastDirectMessage = messages.findLast(m => getDirectChannelByUserId(thisContactId) ? m.get('channelId') === directChannel.get('id') : undefined);
+          const unreadCount = !lastSeen ? 0 : messages.filter(m => m.get('channelId') === directChannel.get('id') && Date.parse(m.get('timestamp')) > Date.parse(lastSeen)).size;
+
           return (
             <PeopleItem
               key={thisContactId}
               item={listItem}
               lastMessage={lastDirectMessage}
               currentChannelId={local.get('currentChannelId')}
-              isCurrent={isCurrentDirectChannel(listItem.get('id'))}
+              isCurrent={directChannel && local.get('currentChannelId') === directChannel.get('id')}
               setCurrentDirectChannel={setCurrentDirectChannel}
+              markChannelAsRead={markChannelAsRead}
+              unreadCount={unreadCount}
+              directChannel={directChannel}
+              getDirectChannelByUserId={getDirectChannelByUserId}
             />
           );
         });

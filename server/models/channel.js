@@ -55,6 +55,7 @@ channel.statics.addDirectChannel = function addDirectChannel(data, cb) {
     isDirect: true,
     users: data.userIds.map(i => ({
       _id: new ObjectId(i),
+      lastSeen: new Date().toUTCString(),
     })),
     name: data.name,
   }).save(cb);

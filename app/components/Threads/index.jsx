@@ -102,11 +102,6 @@ export default class Threads extends React.Component {
     this.props.addDirtyChannel();
   };
 
-  isCurrentDirectChannel = (userId) => {
-    const directChannel = this.getDirectChannelByUserId(userId);
-    return directChannel && this.props.local.get('currentChannelId') === directChannel.get('id');
-  }
-
   changeTab = (tabId) => {
     this.setState({
       currentTabId: tabId,
@@ -175,7 +170,6 @@ export default class Threads extends React.Component {
           type={currentTabData.get('name')}
           joinToChannel={joinToChannel}
           setCurrentDirectChannel={this.setCurrentDirectChannel}
-          isCurrentDirectChannel={this.isCurrentDirectChannel}
           markChannelAsRead={markChannelAsRead}
           getDirectChannelByUserId={this.getDirectChannelByUserId}
         />
