@@ -49,14 +49,14 @@ export default class Threads extends React.Component {
     if (nextProps.directChannels.size > this.props.directChannels.size) {
       const addedChannel = nextProps.directChannels.last();
       const addedChannelName = addedChannel.get('name');
-      if (this.state.currentTabId !== 1) return false;
+      if (this.state.currentTabId === 1) {
+        const dirtyChannel = this.props.channels.find(
+            c => c.get('isDirty') && c.get('isDirect') && c.get('dirtyName') === addedChannelName);
 
-      const dirtyChannel = this.props.channels.find(
-          c => c.get('isDirty') && c.get('isDirect') && c.get('dirtyName') === addedChannelName);
-
-      if (dirtyChannel) {
-        this.props.removeDirtyDirectChannel();
-        this.props.setCurrentChannel(addedChannel.get('id'));
+        if (dirtyChannel) {
+          this.props.removeDirtyDirectChannel();
+          this.props.setCurrentChannel(addedChannel.get('id'));
+        }
       }
     }
 
