@@ -34,7 +34,9 @@ export default class PeopleItem extends React.Component {
     this.props.setCurrentDirectChannel(this.props.item.get('id'));
 
     this.props.markChannelAsRead({ channelId: this.props.currentChannelId, lastSeen: new Date().toUTCString() });
-    this.props.markChannelAsRead({ channelId: this.props.getDirectChannelByUserId(this.props.item.get('id')).get('id'), lastSeen: new Date().toUTCString() });
+    if (this.props.getDirectChannelByUserId(this.props.item.get('id'))) {
+      this.props.markChannelAsRead({ channelId: this.props.getDirectChannelByUserId(this.props.item.get('id')).get('id'), lastSeen: new Date().toUTCString() });
+    }
   }
 
 

@@ -42,6 +42,16 @@ export default class ThreadsList extends React.Component {
     setTimeout(this.setState.bind(this, {animated: true}), 1);
   }
 
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.messages.size > this.props.messages.size) {
+      const lastMessage = (nextProps.messages.toJS()[nextProps.messages.size - 1]);
+      if (lastMessage.channelId === this.props.local.get('currentChannelId')) {
+        this.props.markChannelAsRead({ channelId: this.props.local.get('currentChannelId'), lastSeen: new Date()});
+      }
+    }
+    return true;
+  }
+
 
   render() {
     const {
@@ -61,7 +71,7 @@ export default class ThreadsList extends React.Component {
       switch (type) {
       case 'Channels':
         const newChannelItem = interpolated => (
-          <div style={{opacity: interpolated.x, transform: `translate(${interpolated.y}px, 0)`}}>
+        <div style={{opacity: interpolated.x, transform: `translate(${interpolated.y}px, 0)`}}>
             <NewChannelItem
               replaceDirtyChannel={replaceDirtyChannel}
               newChannel={newChannel}
@@ -78,7 +88,7 @@ export default class ThreadsList extends React.Component {
                 style={{x: spring(this.state.animated ? 1 : 0), y: spring(this.state.animated ? 0 : 30)}}
                 key={'dirty'}
               >
-              {newChannelItem}
+            {newChannelItem}
               </Motion>
             );
           }
@@ -111,7 +121,7 @@ export default class ThreadsList extends React.Component {
           const directChannel = getDirectChannelByUserId(thisContactId);
           const lastSeen = directChannel ? directChannel.get('lastSeen') : null;
           const lastDirectMessage = messages.findLast(m => getDirectChannelByUserId(thisContactId) ? m.get('channelId') === directChannel.get('id') : undefined);
-          const unreadCount = !lastSeen ? 0 : messages.filter(m => m.get('channelId') === directChannel.get('id') && Date.parse(m.get('timestamp')) > Date.parse(lastSeen)).size;
+          const unreadCount = !lastSeen ? 0 : messages.filter(m => m.get('channelId') === directChannel.get('id') && Date.parse(m.get('timestamp')) >= Date.parse(lastSeen)).size;
 
           return (
             <PeopleItem
