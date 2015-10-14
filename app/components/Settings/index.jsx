@@ -79,6 +79,11 @@ export default class Settings extends React.Component {
     return true;
   }
 
+  checkEmailExists(email) {
+    const userIndexWithEmail = this.props.users.findIndex(item => item.get('email') === email);
+    return (userIndexWithEmail === -1) ? false : true;
+  }
+
   changeInfo = (e) => {
     e.preventDefault();
 
@@ -102,6 +107,16 @@ export default class Settings extends React.Component {
       });
     }
 
+    if (this.checkEmailExists(this.state.email)) {
+      return this.setState({
+        showEmailError: true,
+        info: {
+          type: 'error',
+          text: 'Email already exsisted',
+        },
+      });
+    }
+
     if (!this.state.name) {
       return this.setState({
         showNameError: true,
@@ -112,10 +127,12 @@ export default class Settings extends React.Component {
       });
     }
 
+
     const changedData = {
       email: this.state.email,
       name: this.state.name,
     };
+
 
     store.dispatch(changeUserInfo(changedData));
   }

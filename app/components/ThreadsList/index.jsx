@@ -26,7 +26,6 @@ export default class ThreadsList extends React.Component {
     type: PropTypes.string,
     local: PropTypes.instanceOf(Map).isRequired,
     setCurrentDirectChannel: PropTypes.func.isRequired,
-    isCurrentDirectChannel: PropTypes.func.isRequired,
     getDirectChannelByUserId: PropTypes.func.isRequired,
   };
 
@@ -66,7 +65,8 @@ export default class ThreadsList extends React.Component {
       type,
       channels,
       newChannel,
-      replaceDirtyChannel} = this.props;
+      replaceDirtyChannel,
+    } = this.props;
     const list = (() => {
       switch (type) {
       case 'Channels':
@@ -120,9 +120,8 @@ export default class ThreadsList extends React.Component {
           const thisContactId = listItem.get('id');
           const directChannel = getDirectChannelByUserId(thisContactId);
           const lastSeen = directChannel ? directChannel.get('lastSeen') : null;
-          const lastDirectMessage = messages.findLast(m => getDirectChannelByUserId(thisContactId) ? m.get('channelId') === directChannel.get('id') : undefined);
           const unreadCount = !lastSeen ? 0 : messages.filter(m => m.get('channelId') === directChannel.get('id') && Date.parse(m.get('timestamp')) >= Date.parse(lastSeen)).size;
-
+          const lastDirectMessage = messages.findLast(m => getDirectChannelByUserId(thisContactId) ? m.get('channelId') === getDirectChannelByUserId(thisContactId).get('id') : undefined);
           return (
             <PeopleItem
               key={thisContactId}

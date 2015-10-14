@@ -6,3 +6,11 @@ export function setUserInfo(data) {
     payload: data,
   };
 }
+
+
+export function joinUser(data) {
+  return {
+    type: A.JOIN_USER,
+    payload: data,
+  };
+}

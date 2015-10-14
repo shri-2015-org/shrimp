@@ -3,7 +3,7 @@ import store from '../store';
 import {Map} from 'immutable';
 import {addChannel, addUserToChannel} from '../actions/channels';
 import {addMessage, loadChannelHistory} from '../actions/messages';
-import {setUserInfo} from 'actions/users';
+import {setUserInfo, joinUser} from 'actions/users';
 import {init, initUser} from '../actions/local';
 import {SC} from '../../constants';
 
@@ -19,6 +19,11 @@ export function socketClient(type = null, socketData) {
 
     socket.on(SC.ADD_CHANNEL, (data) => {
       store.dispatch(addChannel(Map({id: data.id, name: data.name, joined: false})));
+    });
+
+
+    socket.on(SC.JOIN_USER, (data) => {
+      store.dispatch(joinUser(data));
     });
 
 

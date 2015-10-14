@@ -32,7 +32,6 @@ export default class PeopleItem extends React.Component {
 
   setChannel = () => {
     this.props.setCurrentDirectChannel(this.props.item.get('id'));
-
     this.props.markChannelAsRead({ channelId: this.props.currentChannelId, lastSeen: new Date().toUTCString() });
     if (this.props.getDirectChannelByUserId(this.props.item.get('id'))) {
       this.props.markChannelAsRead({ channelId: this.props.getDirectChannelByUserId(this.props.item.get('id')).get('id'), lastSeen: new Date().toUTCString() });
@@ -43,7 +42,6 @@ export default class PeopleItem extends React.Component {
   render() {
     const {isCurrent, item, lastMessage, isOnline} = this.props;
     // Don't show unread count for current channel
-
     const unreadCount = this.props.isCurrent || this.props.unreadCount === 0 ? null : this.props.unreadCount;
     return (
       <div
