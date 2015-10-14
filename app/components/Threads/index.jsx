@@ -104,9 +104,21 @@ export default class Threads extends React.Component {
 
     const currentTabData = tabs.find(tab => tab.get('id') === this.state.currentTabId);
 
-    const filterData = currentTabData.get('list').filter(listItem => {
+    let filterData = currentTabData.get('list').filter(listItem => {
       return listItem.get('isDirty') || listItem.get('name').indexOf(this.state.filterValue) !== -1;
     });
+
+    if (currentTabData.get('name') === 'Channels') {
+      filterData = filterData.sort((a, b) => {
+        if (a.get('isFavorite') && !b.get('isFavorite')) {
+          return -1;
+        }
+        if (!a.get('isFavorite') && b.get('isFavorite')) {
+          return 1;
+        }
+        return 0;
+      });
+    }
 
     return (
       <div className='threads' ref='threads'>
