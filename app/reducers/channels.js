@@ -44,6 +44,10 @@ export function channels(state = EMPTY_LIST, action = {type: 'DEFAULT'}) {
   case A.REMOVE_DIRTY_CHANNEL:
     return state.filter(item => !item.get('isDirty'));
 
+  case CS.SET_FAVORITE_CHANNEL:
+    const foundIndex = state.findIndex(item => item.get('id') === action.payload.channelId);
+    return state.set(foundIndex, state.get(foundIndex).set('isFavorite', action.payload.isFavorite));
+
   default:
     return state;
   }
