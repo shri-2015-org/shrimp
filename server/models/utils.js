@@ -19,6 +19,7 @@ export function getAll() {
   });
 }
 
+
 export function getToObjectOptions() {
   return {
     transform: (doc, ret) => {

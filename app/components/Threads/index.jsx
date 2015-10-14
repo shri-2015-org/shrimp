@@ -21,6 +21,12 @@ export default class Threads extends React.Component {
     addDirtyChannel: PropTypes.func.isRequired,
     removeDirtyChannel: PropTypes.func.isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
+    indirectChannels: PropTypes.instanceOf(List).isRequired,
+    directChannels: PropTypes.instanceOf(List).isRequired,
+    addDirectChannel: PropTypes.func.isRequired,
+    addDirtyDirectChannel: PropTypes.func.isRequired,
+    replaceDirtyDirectChannel: PropTypes.func.isRequired,
+    removeDirtyDirectChannel: PropTypes.func.isRequired,
   }
 
 
@@ -39,10 +45,24 @@ export default class Threads extends React.Component {
     window.addEventListener('keydown', this.removeDirtyChannel);
   };
 
-
   shouldComponentUpdate = (nextProps, nextState) => {
+    if (nextProps.directChannels.size > this.props.directChannels.size) {
+      const addedChannel = nextProps.directChannels.last();
+      const addedChannelName = addedChannel.get('name');
+      this.props.markChannelAsRead({channelId: addedChannel.get('id'), lastSeen: new Date().toUTCString()});
+      if (this.state.currentTabId === 1) {
+        const dirtyChannel = this.props.channels.find(
+            c => c.get('isDirty') && c.get('isDirect') && c.get('dirtyName') === addedChannelName);
+
+        if (dirtyChannel) {
+          this.props.removeDirtyDirectChannel();
+          this.props.setCurrentChannel(addedChannel.get('id'));
+        }
+      }
+    }
+
     return !(
-      Immutable.is(nextProps.channels, this.props.channels) &&
+      Immutable.is(nextProps.indirectChannels, this.props.indirectChannels) &&
       Immutable.is(nextProps.contacts, this.props.contacts) &&
       Immutable.is(nextProps.local, this.props.local) &&
       Immutable.is(nextState.currentTabId, this.state.currentTabId) &&
@@ -56,17 +76,42 @@ export default class Threads extends React.Component {
   };
 
 
-  changeTab = (tabId) => {
-    this.setState({
-      currentTabId: tabId,
-    });
-  };
+  getDirectChannelByUserId = (userId) => {
+    return this.props.directChannels
+      .find(c => c.get('users') && c.get('users').find(u => u._id === userId || (u.get && u.get('_id') === userId)));
+  }
+
+
+  setCurrentDirectChannel = (userId) => {
+    const directChannel = this.getDirectChannelByUserId(userId);
+    if (!directChannel) {
+      const channelId = [this.props.local.get('userId'), userId].sort().join('');
+      this.props.addDirectChannel({
+        userIds: [this.props.local.get('userId'), userId],
+        name: channelId,
+      });
+      this.props.addDirtyDirectChannel(channelId);
+      return;
+    }
+    this.props.setCurrentChannel(directChannel.get('id'));
+  }
 
 
   addDirtyChannel = () => {
     const threadsWrapper = this.refs.threads.getDOMNode().parentNode;
     threadsWrapper.scrollTop = 0;
     this.props.addDirtyChannel();
+  };
+
+  isCurrentDirectChannel = (userId) => {
+    const directChannel = this.getDirectChannelByUserId(userId);
+    return directChannel && this.props.local.get('currentChannelId') === directChannel.get('id');
+  }
+
+  changeTab = (tabId) => {
+    this.setState({
+      currentTabId: tabId,
+    });
   };
 
 
@@ -86,6 +131,7 @@ export default class Threads extends React.Component {
 
   render() {
     const {
+      indirectChannels,
       channels,
       contacts,
       setCurrentChannel,
@@ -99,7 +145,7 @@ export default class Threads extends React.Component {
 
     const tabs = List.of(
       Map({id: 1, name: 'People', sendToServer: false, list: contacts }),
-      Map({id: 2, name: 'Channels', sendToServer: false, list: channels }),
+      Map({id: 2, name: 'Channels', sendToServer: false, list: indirectChannels }),
     );
 
     const currentTabData = tabs.find(tab => tab.get('id') === this.state.currentTabId);
@@ -127,6 +173,7 @@ export default class Threads extends React.Component {
           changeTab={this.changeTab}
           className='threads__tabs'
         >
+          <Tab id={1}>People</Tab>
           <Tab id={2}>Channels</Tab>
         </Tabs>
 
@@ -140,7 +187,10 @@ export default class Threads extends React.Component {
           newChannel={newChannel}
           type={currentTabData.get('name')}
           joinToChannel={joinToChannel}
+          setCurrentDirectChannel={this.setCurrentDirectChannel}
+          isCurrentDirectChannel={this.isCurrentDirectChannel}
           markChannelAsRead={markChannelAsRead}
+          getDirectChannelByUserId={this.getDirectChannelByUserId}
         />
         <div className='treads-bottom'>
           <Search

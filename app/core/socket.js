@@ -50,6 +50,16 @@ export function socketClient(type = null, socketData) {
     socket.on(SC.SET_CHANNEL_HISTORY, (data) => {
       store.dispatch(loadChannelHistory(data));
     });
+
+
+    socket.on(SC.ADD_DIRECT_CHANNEL, (data) => {
+      store.dispatch(addChannel(Map({
+        id: data.id,
+        name: data.name,
+        users: data.users,
+        isDirect: data.isDirect,
+      })));
+    });
   } else if (type) {
     socket.emit(type, socketData);
   }

@@ -13,7 +13,11 @@ const channel = new mongoose.Schema({
     isFavorite: {
       type: Boolean,
     },
+    _id: {
+      type: mongoose.Schema.ObjectId,
+    },
   }],
+  isDirect: Boolean,
 });
 
 channel.statics.getAll = function getAll() {
@@ -29,6 +33,9 @@ channel.statics.getAll = function getAll() {
 };
 
 channel.statics.isEmpty = isEmpty;
+channel.statics.getChannelsByUserId = function getChannelsByUserId(userId) {
+  return this.find({ $or: [{isDirect: null}, { isDirect: true, 'users._id': new ObjectId(userId) }] });
+};
 
 channel.statics.getForUser = function getForUser(userId) {
   return this.find( { 'users._id': new ObjectId(userId) } );
@@ -41,6 +48,17 @@ channel.statics.createTestChannel = function createTestChannel() {
     name: faker.hacker.noun(),
     users: [],
   });
+};
+
+channel.statics.addDirectChannel = function addDirectChannel(data, cb) {
+  return new this({
+    isDirect: true,
+    users: data.userIds.map(i => ({
+      _id: new ObjectId(i),
+      lastSeen: new Date().toUTCString(),
+    })),
+    name: data.name,
+  }).save(cb);
 };
 
 channel.statics.add = function add(data, cb) {
@@ -71,11 +89,13 @@ channel.statics.markAsFavorite = function add(data, userId) {
 
 channel.statics.subscribeOnDefaultChannel = function add(userId) {
   this.find({}, null, {sort: {name: 1}}, (err, channels) => {
-    channels[0].users.push({
-      _id: new ObjectId(userId),
-      lastSeen: new Date(),
-    });
-    channels[0].save();
+    if (channels.length) {
+      channels[0].users.push({
+        _id: new ObjectId(userId),
+        lastSeen: new Date(),
+      });
+      channels[0].save();
+    }
   });
 };
 
