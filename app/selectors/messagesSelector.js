@@ -17,5 +17,5 @@ const filterValue = state => state.messagesFilterValue;
 export const messageFilterSelector = createSelector(
   currentChannelMessagesSelector,
   filterValue,
-  (messages, value) => messages.filter(message => message.get('text').indexOf(value) !== -1)
+  (messages, value) => messages.filter(message => message.get('text').toLowerCase().indexOf(value) !== -1)
 );
