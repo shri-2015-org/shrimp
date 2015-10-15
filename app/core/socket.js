@@ -60,6 +60,11 @@ export function socketClient(type = null, socketData) {
         isDirect: data.isDirect,
       })));
     });
+
+
+    socket.on('error', () => {
+      store.history.pushState(null, '/login');
+    });
   } else if (type) {
     socket.emit(type, socketData);
   }

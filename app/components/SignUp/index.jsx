@@ -101,6 +101,16 @@ export default class SignUp extends React.Component {
       });
     }
 
+    if (this.state.name.length > 25) {
+      return this.setState({
+        showNameError: true,
+        info: {
+          type: 'error',
+          text: 'Max name length - 25 symbols',
+        },
+      });
+    }
+
     if (!this.state.password) {
       return this.setState({
         showPasswordError: true,
@@ -208,10 +218,17 @@ export default class SignUp extends React.Component {
   }
 
   nameChange = e => {
-    this.setState({
-      name: e.target.value,
-      showNameError: false,
-    });
+    if (e.target.value.length < 26) {
+      this.setState({
+        name: e.target.value,
+        showNameError: false,
+      });
+    } else {
+      this.setState({
+        name: e.target.value,
+        showNameError: true,
+      });
+    }
   }
 
   passwordChange = e => {
