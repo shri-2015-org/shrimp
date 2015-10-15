@@ -10,15 +10,13 @@ export default class MessageList extends React.Component {
     messages: PropTypes.instanceOf(List).isRequired,
     scroll: PropTypes.func.isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
-    messagesFilterValue: PropTypes.string.isRequired,
   }
 
 
   shouldComponentUpdate(nextProps) {
     return !(
       Immutable.is(nextProps.messages, this.props.messages) &&
-      Immutable.is(nextProps.local, this.props.local) &&
-        nextProps.messagesFilterValue === this.props.messagesFilterValue
+      Immutable.is(nextProps.local, this.props.local)
     );
   }
 
@@ -28,13 +26,10 @@ export default class MessageList extends React.Component {
   }
 
   render() {
-    const {local, messagesFilterValue} = this.props;
+    const {local} = this.props;
 
     let prevId = null;
     const messages = this.props.messages
-      .filter(message => {
-        return message.get('text').toLowerCase().indexOf(messagesFilterValue) > -1;
-      })
       .map((message, i, arr) => {
         const sender = message.get('sender');
         const id = sender.get('id');

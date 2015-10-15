@@ -13,7 +13,7 @@ import {bindActionCreators} from 'redux';
 import * as actionsChannels from 'actions/channels';
 import * as actionsMessages from 'actions/messages';
 import * as actionsLocal from 'actions/local';
-import {currentChannelMessagesSelector} from 'selectors/messagesSelector';
+import {messageFilterSelector} from 'selectors/messagesSelector';
 import {contactsSelector} from 'selectors/contactsSelector';
 import DocumentTitle from 'react-document-title';
 import {localSelector} from 'selectors/localSelector';
@@ -21,13 +21,14 @@ import {indirectChannelsSelector} from 'selectors/channelsSelector';
 import {directChannelsSelector} from 'selectors/directChannelsSelector';
 
 @connect(state => ({
-  messages: currentChannelMessagesSelector(state),
+  messages: messageFilterSelector(state),
   channels: state.channels,
   users: state.users,
   local: localSelector(state),
   contacts: contactsSelector(state),
   indirectChannels: indirectChannelsSelector(state),
   directChannels: directChannelsSelector(state),
+  messagesFilterValue: state.messagesFilterValue,
 }))
 export default class Application extends React.Component {
   static propTypes = {
@@ -40,6 +41,7 @@ export default class Application extends React.Component {
     children: PropTypes.node,
     indirectChannels: PropTypes.instanceOf(List).isRequired,
     directChannels: PropTypes.instanceOf(List).isRequired,
+    messagesFilterValue: PropTypes.string.isRequired,
   }
 
 
@@ -48,7 +50,6 @@ export default class Application extends React.Component {
     this.state = {
       sidebarOpen: false,
       sidebarDocked: true,
-      messagesFilterValue: '',
     };
   }
 
@@ -83,15 +84,8 @@ export default class Application extends React.Component {
   }
 
 
-  changeFilter = (e) => {
-    this.setState({
-      messagesFilterValue: e.target.value.toLowerCase(),
-    });
-  }
-
-
   render() {
-    const {messages, channels, local, dispatch, contacts, indirectChannels, directChannels} = this.props;
+    const {messages, channels, local, dispatch, contacts, indirectChannels, directChannels, messagesFilterValue} = this.props;
     const actionsCombine = Object.assign(actionsMessages, actionsLocal, actionsChannels);
     const actions = bindActionCreators(actionsCombine, dispatch);
     const threads = (
@@ -113,7 +107,7 @@ export default class Application extends React.Component {
             setOpen={this.onSetSidebarOpen}
             open={this.state.sidebarOpen}
             docked={this.state.sidebarDocked}
-            changeFilter={this.changeFilter}
+            messagesFilterValue={messagesFilterValue}
             local={local}
             {...actions}
           />
@@ -127,7 +121,6 @@ export default class Application extends React.Component {
               docked={this.state.sidebarDocked}
               messages={messages}
               local={local}
-              messagesFilterValue={this.state.messagesFilterValue}
               {...actions}
             />
           </Sidebar>

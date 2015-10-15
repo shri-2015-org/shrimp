@@ -12,7 +12,6 @@ export default class Messages extends React.Component {
     local: PropTypes.instanceOf(Map).isRequired,
     newMessage: PropTypes.func.isRequired,
     docked: PropTypes.bool.isRequired,
-    messagesFilterValue: PropTypes.string.isRequired,
   }
 
 
@@ -33,8 +32,7 @@ export default class Messages extends React.Component {
       Immutable.is(nextProps.messages, this.props.messages) &&
       Immutable.is(nextProps.local, this.props.local) &&
         nextProps.docked === this.props.docked &&
-        nextState.listBottom === this.state.listBottom &&
-        nextProps.messagesFilterValue === this.props.messagesFilterValue
+        nextState.listBottom === this.state.listBottom
     );
   }
 
@@ -56,7 +54,7 @@ export default class Messages extends React.Component {
 
 
   render() {
-    const {messages, local, newMessage, messagesFilterValue} = this.props;
+    const {messages, local, newMessage} = this.props;
     return (
       <div
         className='messages'
@@ -67,7 +65,6 @@ export default class Messages extends React.Component {
           messages={messages}
           scroll={this.scrollToBottom}
           local={local}
-          messagesFilterValue={messagesFilterValue}
         />
         <MessageComposer
           local={local}

@@ -6,7 +6,16 @@ const messagesSelector = state =>
     return message.set('sender', senderObj);
   });
 
-export const currentChannelMessagesSelector = createSelector(
+
+const currentChannelMessagesSelector = createSelector(
   [state => state, messagesSelector],
   (state, messages) => messages.filter(m => m.get('channelId') === state.local.get('currentChannelId'))
+);
+
+const filterValue = state => state.messagesFilterValue;
+
+export const messageFilterSelector = createSelector(
+  currentChannelMessagesSelector,
+  filterValue,
+  (messages, value) => messages.filter(message => message.get('text').indexOf(value) !== -1)
 );
