@@ -28,7 +28,6 @@ import {directChannelsSelector} from 'selectors/directChannelsSelector';
   contacts: contactsSelector(state),
   indirectChannels: indirectChannelsSelector(state),
   directChannels: directChannelsSelector(state),
-  messagesFilterValue: state.messagesFilterValue,
 }))
 export default class Application extends React.Component {
   static propTypes = {
@@ -41,7 +40,6 @@ export default class Application extends React.Component {
     children: PropTypes.node,
     indirectChannels: PropTypes.instanceOf(List).isRequired,
     directChannels: PropTypes.instanceOf(List).isRequired,
-    messagesFilterValue: PropTypes.string.isRequired,
   }
 
 
@@ -85,7 +83,7 @@ export default class Application extends React.Component {
 
 
   render() {
-    const {messages, channels, local, dispatch, contacts, indirectChannels, directChannels, messagesFilterValue} = this.props;
+    const {messages, channels, local, dispatch, contacts, indirectChannels, directChannels} = this.props;
     const actionsCombine = Object.assign(actionsMessages, actionsLocal, actionsChannels);
     const actions = bindActionCreators(actionsCombine, dispatch);
     const threads = (
@@ -107,7 +105,6 @@ export default class Application extends React.Component {
             setOpen={this.onSetSidebarOpen}
             open={this.state.sidebarOpen}
             docked={this.state.sidebarDocked}
-            messagesFilterValue={messagesFilterValue}
             local={local}
             {...actions}
           />
