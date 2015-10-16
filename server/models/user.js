@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import faker from 'faker';
 import {isEmpty, getAll, getToObjectOptions} from './utils';
 
 const ObjectId = mongoose.Types.ObjectId;
@@ -24,15 +23,6 @@ user.statics.isEmpty = isEmpty;
 user.statics.getBySessionId = function getBySessionId(sessionId) { return this.findOne({ sessionId }); };
 user.statics.getById = function getById(id) { return this.findOne({ _id: new ObjectId(id) }).select({ sessionId: 1 }); };
 user.set('toObject', getToObjectOptions());
-
-user.statics.createTestUser = function createTestUser() {
-  return new this({
-    email: faker.internet.getEmail(),
-    name: faker.name.firstName(),
-    avatar: faker.image.avatar(),
-    password: faker.internet.password(),
-  });
-};
 
 export default function getUserModel() {
   return mongoose.model('User', user);

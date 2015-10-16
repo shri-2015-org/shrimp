@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import faker from 'faker';
 import {isEmpty, getToObjectOptions} from './utils';
 
 const ObjectId = mongoose.Types.ObjectId;
@@ -43,9 +42,9 @@ channel.statics.getForUser = function getForUser(userId) {
 
 channel.set('toObject', getToObjectOptions());
 
-channel.statics.createTestChannel = function createTestChannel() {
+channel.statics.createTestChannel = function createTestChannel(name) {
   return new this({
-    name: faker.hacker.noun(),
+    name: name,
     users: [],
   });
 };
@@ -88,14 +87,12 @@ channel.statics.markAsFavorite = function add(data, userId) {
 
 
 channel.statics.subscribeOnDefaultChannel = function add(userId) {
-  this.find({}, null, {sort: {name: 1}}, (err, channels) => {
-    if (channels.length) {
-      channels[0].users.push({
-        _id: new ObjectId(userId),
-        lastSeen: new Date(),
-      });
-      channels[0].save();
-    }
+  this.findOne( { name: 'Default' }, (err, c) => {
+    c.users.push({
+      _id: new ObjectId(userId),
+      lastSeen: new Date(),
+    });
+    c.save();
   });
 };
 
