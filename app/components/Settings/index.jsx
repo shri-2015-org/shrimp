@@ -80,8 +80,8 @@ export default class Settings extends React.Component {
   }
 
   checkEmailExists(email) {
-    const userIndexWithEmail = this.props.users.findIndex(item => item.get('email') === email);
-    return (userIndexWithEmail === -1) ? false : true;
+    const userWithSuchEmail = this.props.users.find(item => item.get('email') === email);
+    return (!userWithSuchEmail || (userWithSuchEmail.get('id') === this.props.local.get('userId'))) ? false : true;
   }
 
   changeInfo = (e) => {
