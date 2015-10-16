@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {Map, List} from 'immutable';
+import Immutable, {Map, List} from 'immutable';
 import './styles.scss';
 import InfoMessage from 'components/InfoMessage';
 
@@ -27,6 +27,17 @@ export default class ChannelItem extends React.Component {
     const newChannelInput = this.refs.newChannelInput;
     newChannelInput.focus();
   }
+
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !(
+      Immutable.is(nextProps.channels, this.props.channels) &&
+      nextState.validationError === this.state.validationError &&
+      nextState.channelName === this.state.channelName &&
+      nextState.infoType === this.state.infoType
+    );
+  }
+
 
   onKeyPress = (e) => {
     if (e.which === 13) {
@@ -88,6 +99,7 @@ export default class ChannelItem extends React.Component {
         <InfoMessage
           className='new-channel__info_message'
           type={this.state.infoType}
+          shake={false}
         ><span>{this.state.validationError}</span></InfoMessage>
         <input type='text'
           className='new-channel__input'
