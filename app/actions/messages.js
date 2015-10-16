@@ -22,3 +22,10 @@ export function loadChannelHistory(data) {
     payload: data,
   };
 }
+
+export function changeMessageFilterValue(value) {
+  return {
+    type: A.CHANGE_MESSAGE_FILTER_VALUE,
+    payload: value,
+  };
+}

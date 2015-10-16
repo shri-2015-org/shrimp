@@ -13,7 +13,7 @@ export default class Header extends React.Component {
     open: PropTypes.bool.isRequired,
     docked: PropTypes.bool.isRequired,
     logOut: PropTypes.func.isRequired,
-    changeFilter: PropTypes.func.isRequired,
+    changeMessageFilterValue: PropTypes.func.isRequired,
   }
 
 
@@ -23,6 +23,10 @@ export default class Header extends React.Component {
 
   logOut = () => {
     this.props.logOut();
+  }
+
+  changeFilter = (e) => {
+    this.props.changeMessageFilterValue(e.target.value.trim().toLowerCase());
   }
 
   render() {
@@ -43,7 +47,7 @@ export default class Header extends React.Component {
           hidden={this.props.open || this.props.docked}
           className='header__humburger'
         >{'☰'}</button>
-        <Search className='header__search' onChange={this.props.changeFilter}/>
+        <Search className='header__search' onChange={this.changeFilter} />
         <Dropdown>
            <DropdownItem>
             <Link className='dropdown-item__link' to='/settings'>Settings</Link>
