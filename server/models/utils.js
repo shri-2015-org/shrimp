@@ -1,4 +1,4 @@
-export function isEmpty() {
+export function notEmpty() {
   return new Promise((resolve, reject) => {
     this.count((err, count) => {
       if (err) reject(err);

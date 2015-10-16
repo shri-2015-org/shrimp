@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import {isEmpty, getToObjectOptions} from './utils';
+import {notEmpty, getToObjectOptions} from './utils';
 
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -31,7 +31,7 @@ channel.statics.getAll = function getAll() {
   });
 };
 
-channel.statics.isEmpty = isEmpty;
+channel.statics.isEmpty = notEmpty;
 channel.statics.getChannelsByUserId = function getChannelsByUserId(userId) {
   return this.find({ $or: [{isDirect: null}, { isDirect: true, 'users._id': new ObjectId(userId) }] });
 };
