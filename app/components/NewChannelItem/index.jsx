@@ -14,11 +14,11 @@ export default class ChannelItem extends React.Component {
 
   constructor(props) {
     super(props);
-    this.channelNameMaxLength = 15;
+    this.channelNameMaxLength = 25;
     this.state = {
       channelName: '',
-      validationError: 'Add new channel',
-      infoType: null,
+      validationMessage: 'Add new channel',
+      infoType: 'info',
     };
   }
 
@@ -32,8 +32,7 @@ export default class ChannelItem extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     return !(
       Immutable.is(nextProps.channels, this.props.channels) &&
-      nextState.validationError === this.state.validationError &&
-      nextState.channelName === this.state.channelName &&
+      nextState.validationMessage === this.state.validationMessage &&
       nextState.infoType === this.state.infoType
     );
   }
@@ -67,28 +66,28 @@ export default class ChannelItem extends React.Component {
     const sameChannel = this.props.channels.find(channel => channel.get('name') === channelName);
     if (channelName.length > this.channelNameMaxLength) {
       this.setState({
-        validationError: 'Name is very long',
+        validationMessage: 'Name is very long',
         infoType: 'error',
       });
       return true;
     }
     if (channelName.length === 0) {
       this.setState({
-        validationError: 'Require channel name',
+        validationMessage: 'Required channel name',
         infoType: 'error',
       });
       return true;
     }
     if (sameChannel) {
       this.setState({
-        validationError: 'Channel already exist',
+        validationMessage: 'Channel already exists',
         infoType: 'error',
       });
       return true;
     }
     this.setState({
-      validationError: 'Add new channel',
-      infoType: null,
+      validationMessage: 'Channel name correctly',
+      infoType: 'success',
     });
     return false;
   }
@@ -100,13 +99,13 @@ export default class ChannelItem extends React.Component {
           className='new-channel__info_message'
           type={this.state.infoType}
           shake={false}
-        ><span>{this.state.validationError}</span></InfoMessage>
+        >{this.state.validationMessage}</InfoMessage>
         <input type='text'
           className='new-channel__input'
           ref='newChannelInput'
           onKeyPress={this.onKeyPress}
           onChange={this.handleChange}
-          value={this.state.channelName} />
+        />
       </div>
     );
   }

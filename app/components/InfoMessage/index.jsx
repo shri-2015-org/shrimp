@@ -20,18 +20,16 @@ export default class InfoMessage extends React.Component {
     this.state = {
       shaking: false,
       changing: false,
-      children: this.props.children,
     };
   }
 
 
   shouldComponentUpdate(nextProps, nextState) {
     if (nextProps.children === this.props.children &&
-        nextProps.type === this.props.type &&
-        nextProps.shake === this.props.shake &&
-        nextState.changing === this.state.changing &&
-        nextState.children === this.state.children &&
-        nextState.shaking === this.state.shaking) {
+      nextProps.type === this.props.type &&
+      nextProps.shake === this.props.shake &&
+      nextState.changing === this.state.changing &&
+      nextState.shaking === this.state.shaking) {
       return false;
     }
     if (nextProps.shake !== this.props.shake) {
@@ -47,7 +45,6 @@ export default class InfoMessage extends React.Component {
       this.timers.push(setTimeout(() => {
         this.setState({
           changing: false,
-          children: nextProps.children,
         });
       }, 500));
     }
@@ -79,8 +76,8 @@ export default class InfoMessage extends React.Component {
       <div
         className='info-message__text'
         style={{transform: `translateX(-${interpolated.x}%)`}}
-      >
-        {this.state.children}
+        >
+        {this.props.children}
       </div>
     );
 
@@ -89,7 +86,7 @@ export default class InfoMessage extends React.Component {
         <Motion
           defaultStyle={{x: spring(0)}}
           style={{x: spring(this.state.changing ? 100 : 0, [1000, 100])}}
-        >
+          >
           {(interpolated) => getMessageText(interpolated)}
         </Motion>
       </div>
