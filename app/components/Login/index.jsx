@@ -30,6 +30,7 @@ export default class Login extends React.Component {
         text: 'Enter your email and password',
       },
       shakeInfo: false,
+      inProgress: false,
     };
   }
 
@@ -63,6 +64,8 @@ export default class Login extends React.Component {
       password: e.target.password.value,
     };
 
+    this.setState({inProgress: true});
+
     fetch('/signin', {
       method: 'post',
       headers: {
@@ -73,6 +76,7 @@ export default class Login extends React.Component {
     }).then((res) => {
       if (res.status === 200) {
         res.json().then(data => {
+          this.setState({inProgress: false});
           if (data.local) {
             store.dispatch(init(data));
           } else {
@@ -111,7 +115,8 @@ export default class Login extends React.Component {
           <Button
             className='login__submit-button'
             type='submit'
-          >Log In</Button>
+            inProgress={this.state.inProgress}
+          >{this.state.inProgress ? 'Logging in' : 'Log In'}</Button>
         </form>
       </DocumentTitle>
     );
