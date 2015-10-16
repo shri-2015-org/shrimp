@@ -33,12 +33,22 @@
     }
   }
 
-  &__title {
+
+  &__info_message {
+    height: 20px;
     margin: 0 0 4px;
 
     color: #fff;
+  }
+
+  &__info_message.info-message {
+    padding-left: 10px;
 
     font-size: 14px;
+  }
+
+  &__info_message .info-message__text {
+    padding-top: 3px;
   }
 
   &__input {
