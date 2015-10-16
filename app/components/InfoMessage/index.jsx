@@ -76,7 +76,7 @@ export default class InfoMessage extends React.Component {
       <div
         className='info-message__text'
         style={{transform: `translateX(-${interpolated.x}%)`}}
-        >
+      >
         {this.props.children}
       </div>
     );
@@ -86,7 +86,7 @@ export default class InfoMessage extends React.Component {
         <Motion
           defaultStyle={{x: spring(0)}}
           style={{x: spring(this.state.changing ? 100 : 0, [1000, 100])}}
-          >
+        >
           {(interpolated) => getMessageText(interpolated)}
         </Motion>
       </div>
