@@ -25,6 +25,7 @@ export default class SignUp extends React.Component {
 
   constructor(props) {
     super(props);
+    this.timers = this.timers;
     this.state = {
       info: {
         type: 'info',
@@ -54,7 +55,7 @@ export default class SignUp extends React.Component {
         const user = nextProps.local.get('user');
         if (user.status.text === this.state.info.text && user.status.type === this.state.info.type) {
           this.setState({shakeInfo: true});
-          setTimeout(this.setState.bind(this, {shakeInfo: false}), 500);
+          this.timers.push(setTimeout(this.setState.bind(this, {shakeInfo: false}), 500));
         }
         this.setState({
           info: {
@@ -63,6 +64,13 @@ export default class SignUp extends React.Component {
           },
         });
       }
+    }
+  }
+
+
+  componentWillUnmount = () => {
+    for (const timer of this.timers) {
+      clearTimeout(timer);
     }
   }
 

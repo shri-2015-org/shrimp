@@ -15,7 +15,7 @@ export default class PeopleItem extends React.Component {
     setCurrentDirectChannel: PropTypes.func.isRequired,
     markChannelAsRead: PropTypes.func.isRequired,
     getDirectChannelByUserId: PropTypes.func.isRequired,
-    unreadCount: PropTypes.integer,
+    unreadCount: PropTypes.number,
   };
 
 

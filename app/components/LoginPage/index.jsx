@@ -13,6 +13,7 @@ export default class LoginPage extends React.Component {
 
   constructor(props) {
     super(props);
+    this.timers = [];
     this.state = {
       open: false,
       showWindow: false,
@@ -21,8 +22,15 @@ export default class LoginPage extends React.Component {
 
 
   componentDidMount() {
-    setTimeout(this.setState.bind(this, {open: true}), 500);
-    setTimeout(this.setState.bind(this, {showWindow: true}), 1000);
+    this.timers.push(setTimeout(this.setState.bind(this, {open: true}), 500));
+    this.timers.push(setTimeout(this.setState.bind(this, {showWindow: true}), 1000));
+  }
+
+
+  componentWillUnmount = () => {
+    for (const timer of this.timers) {
+      clearTimeout(timer);
+    }
   }
 
 
