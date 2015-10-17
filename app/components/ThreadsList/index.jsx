@@ -25,6 +25,7 @@ export default class ThreadsList extends React.Component {
 
   constructor(props) {
     super(props);
+    this.timers = [];
     this.state = {
       animated: false,
     };
@@ -32,7 +33,7 @@ export default class ThreadsList extends React.Component {
 
 
   componentDidMount() {
-    setTimeout(this.setState.bind(this, {animated: true}), 1);
+    this.timers.push(setTimeout(this.setState.bind(this, {animated: true}), 1));
   }
 
   shouldComponentUpdate(nextProps) {
@@ -43,6 +44,13 @@ export default class ThreadsList extends React.Component {
       }
     }
     return true;
+  }
+
+
+  componentWillUnmount = () => {
+    for (const timer of this.timers) {
+      clearTimeout(timer);
+    }
   }
 
 

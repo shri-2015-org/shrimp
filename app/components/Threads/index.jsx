@@ -35,7 +35,7 @@ export default class Threads extends React.Component {
 
 
   componentDidMount = () => {
-    const threadsWrapper = this.refs.threads.getDOMNode().parentNode;
+    const threadsWrapper = this.refs.threads.parentNode;
     threadsWrapper.style.overflowX = 'hidden';
     window.addEventListener('keydown', this.removeDirtyChannel);
   };
@@ -93,7 +93,7 @@ export default class Threads extends React.Component {
 
 
   addDirtyChannel = () => {
-    const threadsWrapper = this.refs.threads.getDOMNode().parentNode;
+    const threadsWrapper = this.refs.threads.parentNode;
     threadsWrapper.scrollTop = 0;
     this.props.addDirtyChannel();
   };

@@ -20,7 +20,7 @@ export default class ChannelItem extends React.Component {
 
 
   componentDidMount = () => {
-    const newChannelInput = this.refs.newChannelInput.getDOMNode();
+    const newChannelInput = this.refs.newChannelInput;
     newChannelInput.focus();
   }
 
@@ -38,7 +38,7 @@ export default class ChannelItem extends React.Component {
     if (channelName && !sameChannel) {
       this.props.replaceDirtyChannel(new Map({name: this.state.channelName, isDirty: true}));
       this.props.newChannel({name: channelName});
-      const newChannelItem = this.refs.newChannel.getDOMNode();
+      const newChannelItem = this.refs.newChannel;
       newChannelItem.className = newChannelItem.className + ' new-channel_disabled';
     }
   }

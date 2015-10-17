@@ -16,6 +16,7 @@ export default class InfoMessage extends React.Component {
 
   constructor(props) {
     super(props);
+    this.timers = [];
     this.state = {
       shaking: false,
       changing: false,
@@ -43,14 +44,21 @@ export default class InfoMessage extends React.Component {
       this.setState({
         changing: true,
       });
-      setTimeout(() => {
+      this.timers.push(setTimeout(() => {
         this.setState({
           changing: false,
           children: nextProps.children,
         });
-      }, 500);
+      }, 500));
     }
     return true;
+  }
+
+
+  componentWillUnmount = () => {
+    for (const timer of this.timers) {
+      clearTimeout(timer);
+    }
   }
 
 

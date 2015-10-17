@@ -8,4 +8,5 @@ export const localSelector = createSelector(
       return local.set('avatar', userObj.get('avatar')).set('name', userObj.get('name'));
     }
     return local;
-  });
+  }
+);
