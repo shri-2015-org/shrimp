@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import startSocketServer from './socket.js';
 import getConfig from './config.js';
-import {createTestCollections} from './fill-db.js';
+import {createDefaultChannel} from './fill-db.js';
 import {signInUser, signUpUser, checkUserEmail, checkEmailExist, setSessionId} from './db/db_core.js';
 import getInitState from './initial-state';
 import {generateSessionId} from './lib/core.js';
@@ -46,7 +46,7 @@ startSocketServer(server);
 
 if (isMongoConnect === 'yes') {
   mongoose.connect(appConfig.db[env]);
-  createTestCollections();
+  createDefaultChannel();
 }
 
 app.get('*', (req, res) => {

@@ -25,7 +25,7 @@ export default class SignUp extends React.Component {
 
   constructor(props) {
     super(props);
-    this.timers = this.timers;
+    this.timers = [];
     this.state = {
       info: {
         type: 'info',

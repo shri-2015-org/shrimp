@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import faker from 'faker';
 import {isEmpty, getToObjectOptions} from './utils';
 
 const message = new mongoose.Schema({
@@ -23,15 +22,6 @@ message.statics.getAll = function getAll() {
 
 message.statics.isEmpty = isEmpty;
 message.set('toObject', getToObjectOptions());
-
-message.statics.createTestMessage = function createTestMessage(idsSenders, idsChannels) {
-  return new this({
-    senderId: faker.random.arrayElement(idsSenders),
-    channelId: faker.random.arrayElement(idsChannels),
-    text: faker.lorem.sentences(),
-    timestamp: faker.date.between( new Date(Date.now() - 100 * 1000), new Date(Date.now())),
-  });
-};
 
 message.statics.getForChannels = function getForChannels(channelIds) { return this.find({ channelId: { $in: channelIds } }); };
 
