@@ -25,13 +25,19 @@ export default class InfoMessage extends React.Component {
   }
 
 
+/*
+  We need to save children in state because we must't change text
+  until message is moving to left.
+*/
+
+
   shouldComponentUpdate(nextProps, nextState) {
     if (nextProps.children === this.props.children &&
-        nextProps.type === this.props.type &&
-        nextProps.shake === this.props.shake &&
-        nextState.changing === this.state.changing &&
-        nextState.children === this.state.children &&
-        nextState.shaking === this.state.shaking) {
+      nextProps.type === this.props.type &&
+      nextProps.shake === this.props.shake &&
+      nextState.changing === this.state.changing &&
+      nextState.chidlren === this.state.chidlren &&
+      nextState.shaking === this.state.shaking) {
       return false;
     }
     if (nextProps.shake !== this.props.shake) {
@@ -47,7 +53,7 @@ export default class InfoMessage extends React.Component {
       this.timers.push(setTimeout(() => {
         this.setState({
           changing: false,
-          children: nextProps.children,
+          children: this.props.children,
         });
       }, 500));
     }
