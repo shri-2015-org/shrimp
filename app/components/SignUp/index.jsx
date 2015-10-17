@@ -39,6 +39,7 @@ export default class SignUp extends React.Component {
       showSecondPasswordError: false,
       showEmailError: false,
       showNameError: false,
+      inProgress: false,
     };
     this.checkEmail = throttle(this.checkEmail, 800);
   }
@@ -138,6 +139,7 @@ export default class SignUp extends React.Component {
       password: this.state.password,
     };
 
+    this.setState({inProgress: true});
     fetch('/signup', {
       method: 'post',
       headers: {
@@ -148,6 +150,7 @@ export default class SignUp extends React.Component {
     }).then((res) => {
       if (res.status === 200) {
         res.json().then(data => {
+          this.setState({inProgress: false});
           if (data.local) {
             store.dispatch(init(data));
           } else {
@@ -290,7 +293,8 @@ export default class SignUp extends React.Component {
           <Button
             className='sign-up__submit-button button_type_green'
             type='submit'
-          >Sign Up</Button>
+            inProgress={this.state.inProgress}
+          >{this.state.inProgress ? 'Signing Up' : 'Sign Up'}</Button>
         </form>
       </DocumentTitle>
     );

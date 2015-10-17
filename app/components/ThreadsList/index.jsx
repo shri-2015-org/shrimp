@@ -16,17 +16,11 @@ export default class ThreadsList extends React.Component {
   static propTypes = {
     messages: PropTypes.instanceOf(List).isRequired,
     channels: PropTypes.instanceOf(List).isRequired,
-    list: PropTypes.instanceOf(List),
-    replaceDirtyChannel: PropTypes.func.isRequired,
-    setFavoriteChannel: PropTypes.func.isRequired,
-    setCurrentChannel: PropTypes.func.isRequired,
-    joinToChannel: PropTypes.func.isRequired,
-    markChannelAsRead: PropTypes.func.isRequired,
-    newChannel: PropTypes.func.isRequired,
-    type: PropTypes.string,
     local: PropTypes.instanceOf(Map).isRequired,
-    setCurrentDirectChannel: PropTypes.func.isRequired,
+    markChannelAsRead: PropTypes.func.isRequired,
     getDirectChannelByUserId: PropTypes.func.isRequired,
+    list: PropTypes.instanceOf(List),
+    type: PropTypes.string,
   };
 
   constructor(props) {
@@ -54,27 +48,20 @@ export default class ThreadsList extends React.Component {
 
   render() {
     const {
-      getDirectChannelByUserId,
       local,
-      setCurrentDirectChannel,
       messages,
-      setCurrentChannel,
-      joinToChannel,
-      markChannelAsRead,
-      setFavoriteChannel,
       type,
       channels,
-      newChannel,
-      replaceDirtyChannel,
+      getDirectChannelByUserId,
     } = this.props;
+
     const list = (() => {
       switch (type) {
       case 'Channels':
         const newChannelItem = interpolated => (
         <div style={{opacity: interpolated.x, transform: `translate(${interpolated.y}px, 0)`}}>
             <NewChannelItem
-              replaceDirtyChannel={replaceDirtyChannel}
-              newChannel={newChannel}
+              {...this.props}
               channels={channels}
             />
           </div>
@@ -100,15 +87,12 @@ export default class ThreadsList extends React.Component {
 
           return (
             <ChannelItem
+              {...this.props}
               key={thisChannelId}
               item={listItem}
               lastMessage={lastMessage}
               unreadCount={unreadCount}
               isCurrent={local.get('currentChannelId') === thisChannelId}
-              setCurrentChannel={setCurrentChannel}
-              joinToChannel={joinToChannel}
-              markChannelAsRead={markChannelAsRead}
-              setFavoriteChannel={setFavoriteChannel}
               local={local}
             />
           );
@@ -124,16 +108,14 @@ export default class ThreadsList extends React.Component {
           const lastDirectMessage = messages.findLast(m => getDirectChannelByUserId(thisContactId) ? m.get('channelId') === getDirectChannelByUserId(thisContactId).get('id') : undefined);
           return (
             <PeopleItem
+              {...this.props}
               key={thisContactId}
               item={listItem}
               lastMessage={lastDirectMessage}
               currentChannelId={local.get('currentChannelId')}
               isCurrent={directChannel && local.get('currentChannelId') === directChannel.get('id')}
-              setCurrentDirectChannel={setCurrentDirectChannel}
-              markChannelAsRead={markChannelAsRead}
               unreadCount={unreadCount}
               directChannel={directChannel}
-              getDirectChannelByUserId={getDirectChannelByUserId}
             />
           );
         });

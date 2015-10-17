@@ -12,12 +12,8 @@ export default class Threads extends React.Component {
   static propTypes = {
     channels: PropTypes.instanceOf(List).isRequired,
     contacts: PropTypes.instanceOf(List).isRequired,
-    replaceDirtyChannel: PropTypes.func.isRequired,
-    setFavoriteChannel: PropTypes.func.isRequired,
     setCurrentChannel: PropTypes.func.isRequired,
-    joinToChannel: PropTypes.func.isRequired,
     markChannelAsRead: PropTypes.func.isRequired,
-    newChannel: PropTypes.func.isRequired,
     addDirtyChannel: PropTypes.func.isRequired,
     removeDirtyChannel: PropTypes.func.isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
@@ -25,7 +21,6 @@ export default class Threads extends React.Component {
     directChannels: PropTypes.instanceOf(List).isRequired,
     addDirectChannel: PropTypes.func.isRequired,
     addDirtyDirectChannel: PropTypes.func.isRequired,
-    replaceDirtyDirectChannel: PropTypes.func.isRequired,
     removeDirtyDirectChannel: PropTypes.func.isRequired,
   }
 
@@ -134,13 +129,7 @@ export default class Threads extends React.Component {
       indirectChannels,
       channels,
       contacts,
-      setCurrentChannel,
       local,
-      replaceDirtyChannel,
-      newChannel,
-      joinToChannel,
-      setFavoriteChannel,
-      markChannelAsRead,
     } = this.props;
 
     const tabs = List.of(
@@ -178,18 +167,13 @@ export default class Threads extends React.Component {
         </Tabs>
 
         <ThreadsList
+          {...this.props}
           list={filterData}
           local={local}
           channels={channels}
-          setCurrentChannel={setCurrentChannel}
-          setFavoriteChannel={setFavoriteChannel}
-          replaceDirtyChannel={replaceDirtyChannel}
-          newChannel={newChannel}
           type={currentTabData.get('name')}
-          joinToChannel={joinToChannel}
           setCurrentDirectChannel={this.setCurrentDirectChannel}
           isCurrentDirectChannel={this.isCurrentDirectChannel}
-          markChannelAsRead={markChannelAsRead}
           getDirectChannelByUserId={this.getDirectChannelByUserId}
         />
         <div className='treads-bottom'>

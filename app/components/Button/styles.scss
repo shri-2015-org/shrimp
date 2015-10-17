@@ -25,6 +25,14 @@
     background-color: lighten($c-blue, 20);
   }
 
+  &_type_in-progress {
+    background-color: $c-gray-70 !important;
+
+    &::after {
+      content: '...';
+    }
+  }
+
   @each $type, $color in $types {
     &_type_#{$type} {
       background-color: $color;

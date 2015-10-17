@@ -45,6 +45,7 @@ export default class Settings extends React.Component {
       showSecondPasswordError: false,
       showEmailError: false,
       showNameError: false,
+      inProgress: false,
     };
   }
 
@@ -134,6 +135,9 @@ export default class Settings extends React.Component {
     };
 
 
+    this.setState({
+      inProgress: true,
+    });
     store.dispatch(changeUserInfo(changedData));
   }
 
@@ -196,7 +200,8 @@ export default class Settings extends React.Component {
             <Button
               className='settings__submit-button'
               type='submit'
-            >Save</Button>
+              inProgress={this.state.inProgress}
+            >{this.state.inProgress ? 'Saving' : 'Save'}</Button>
           </form>
         </div>
         <Link to='/'>
