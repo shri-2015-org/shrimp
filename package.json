@@ -1,6 +1,6 @@
 {
   "name": "shrimp",
-  "version": "1.0.0-beta1",
+  "version": "1.0.0-rc1",
   "description": "chat",
   "main": "index.js",
   "engines": {
