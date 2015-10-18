@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {pushState} from 'redux-router';
 import {connect} from 'react-redux';
-import {Motion, spring} from 'react-motion';
+import PopUp from 'components/PopUp';
 import Tabs from 'components/Tabs';
 import Tab from 'components/Tab';
 import './styles.scss';
@@ -40,10 +40,9 @@ export default class LoginWindow extends React.Component {
 
 
   render() {
-    const getLoginWindow = interpolated => (
-      <div
+    return (
+      <PopUp
         className='login-window'
-        style={{transform: `scale(${interpolated.scale})`}}
       >
         <Tabs
           className='login-window__tabs'
@@ -54,16 +53,7 @@ export default class LoginWindow extends React.Component {
           <Tab id={2} link='/signup'>Sign Up</Tab>
         </Tabs>
         {this.props.children}
-      </div>
-    );
-
-    return (
-      <Motion
-        defaultStyle={{scale: spring(0)}}
-        style={{scale: spring(1, [120, 11])}}
-      >
-        {interpolated => getLoginWindow(interpolated)}
-      </Motion>
+      </PopUp>
     );
   }
 }

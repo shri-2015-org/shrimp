@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {Motion, spring} from 'react-motion';
+import PopUp from 'components/PopUp';
 import Immutable, {Map, List} from 'immutable';
 import cx from 'classnames';
 import store from 'store';
@@ -23,10 +23,10 @@ import './styles.scss';
 export default class Settings extends React.Component {
 
   static propTypes = {
-    children: PropTypes.node.isRequired,
     location: PropTypes.string.isRequired,
     users: PropTypes.instanceOf(List).isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
+    children: PropTypes.node,
   }
 
   constructor(props) {
@@ -158,12 +158,9 @@ export default class Settings extends React.Component {
 
 
   render() {
-    const getSettingsWindow = interpolated => (
+    return (
       <div className='settings'>
-        <div
-          className='settings__window'
-          style={{transform: `scale(${interpolated.scale})`}}
-        >
+        <PopUp className='settings__window'>
           <Tabs
             className='settings__tabs'
             currentTabId={1}
@@ -203,20 +200,11 @@ export default class Settings extends React.Component {
               inProgress={this.state.inProgress}
             >{this.state.inProgress ? 'Saving' : 'Save'}</Button>
           </form>
-        </div>
+        </PopUp>
         <Link to='/'>
           <div className='settings__overlay' />
         </Link>
       </div>
-    );
-
-    return (
-      <Motion
-        defaultStyle={{scale: spring(0)}}
-        style={{scale: spring(1, [120, 11])}}
-      >
-        {interpolated => getSettingsWindow(interpolated)}
-      </Motion>
     );
   }
 }

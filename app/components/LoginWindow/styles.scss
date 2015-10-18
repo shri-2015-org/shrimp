@@ -1,19 +1,11 @@
 @import '~styles/variables.scss';
 
 .login-window {
-  $width: 500px;
-  $height: 400px;
-
-  position: absolute;
   z-index: 1; // highly then .login-page__rect
-  top: 50%;
-  left: 50%;
 
   overflow: hidden;
 
-  width: $width;
-  margin-top: -$height / 2;
-  margin-left: -$width / 2;
+  width: 500px;
 
   border: 1px solid $c-login-window_border;
   border-radius: $main-border-radius;
@@ -21,7 +13,6 @@
   box-shadow: 0 0 30px 2px $c-main-shadow;
 
   font-size: 20px;
-
   &__tabs {
     border-bottom: solid 1px $c-login-window_border;
 
