@@ -59,7 +59,16 @@ export default class PeopleItem extends React.Component {
           className='person__unread-counter'
           count={unreadCount}
         />
-        <img className='person__avatar' src={item.get('avatar')} alt={item.get('name')}/>
+        <img
+          className={cx('person__avatar', {
+            'person_offline__avatar': !isOnline,
+          })}
+          src={item.get('avatar')}
+          alt={item.get('name')}
+        />
+        <div className={cx('person__status', {
+          'person_offline__status': !isOnline,
+        })}></div>
       </div>
     );
   }
