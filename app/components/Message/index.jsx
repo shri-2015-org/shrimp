@@ -4,7 +4,7 @@ import cx from 'classnames';
 import './styles.scss';
 import moment from 'moment';
 import Linkify from 'react-linkify';
-
+import Textarea from 'react-textarea-autosize';
 
 export default class Message extends React.Component {
 
@@ -25,6 +25,8 @@ export default class Message extends React.Component {
     this.state = {
       date: null,
       isEdit: false,
+      editorHeight: 0,
+      editorWidth: 0,
     };
   }
 
@@ -37,40 +39,62 @@ export default class Message extends React.Component {
   };
 
 
+  componentDidUpdate = () => {
+    if (this.state.isEdit) {
+      this.refs.editor.focus();
+    }
+  };
+
+
   componentWillUnmount = () => {
     clearInterval(this.timer);
   };
-
 
   updateTime = (timestamp) => {
     const date = moment.duration(moment().diff(moment(timestamp))).humanize();
     this.setState({
       date: date,
     });
-  }
+  };
 
 
   editStart = () => {
+    const textCloud = window.getComputedStyle(this.refs.text);
     this.setState({
       isEdit: true,
+      editorHeight: textCloud.height,
+      editorWidth: textCloud.width,
     });
   };
 
 
   editEnd = () => {
-    const newText = this.refs.editor.value;
+    const newText = this.refs.editor.value.trim();
     if (newText !== this.props.text) {
       this.props.sendEditedMessage({
         text: newText,
         edited: true,
         messageId: this.props.messageId,
       });
-      this.setState({
-        isEdit: false,
-      });
+    }
+    this.setState({
+      isEdit: false,
+    });
+  };
+
+
+  editorKeyPress = (e) => {
+    if (e.which === 13) {
+      this.editEnd();
     }
   };
 
+
+  cancelEdit = () => {
+    this.setState({
+      isEdit: false,
+    });
+  };
 
   renderAvatar = (sender) => {
     return (
@@ -102,19 +126,46 @@ export default class Message extends React.Component {
         {isSelfMessage ? null : this.renderAvatar(sender)}
         {userName}
         <div className='message__cloud'>
-          <div className='message__text'>
-            <Linkify properties={{className: 'message__url', target: '_blank'}}>{text}</Linkify>
+          {(isSelfMessage && !this.state.isEdit)
+            ? <div className='message__edit'>
+                <a
+                  onClick={this.editStart}
+                  className='message__edit-btn'>{'✎'}</a>
+              </div>
+            : null }
+          <div className='message__text' ref='text'>
+            <div hidden={this.state.isEdit}>
+              <Linkify properties={{className: 'message__url', target: '_blank'}}>{text}
+              </Linkify>
+            </div>
+            <Textarea
+              defaultValue={text}
+              hidden={!this.state.isEdit}
+              onKeyPress={this.editorKeyPress}
+              className='message__editor'
+              ref='editor'
+              minRows={2}
+              maxRows={10}
+              style={{width: this.state.editorWidth, height: this.state.editorHeight}}
+            />
           </div>
-          <div className='message__date'>{this.state.date + ' ago'}</div>
-          <textarea
-            defaultValue={text}
+          <div
+            className='message__save-btn'
             hidden={!this.state.isEdit}
-            className='message__editor'
-            ref='editor'
-          ></textarea>
-          <button onClick={this.editStart}>edit</button>
-          <button onClick={this.editEnd}>save</button>
+            onClick={this.editEnd}
+          >{'enter to '}<u>{'save'}</u>{' changes'}</div>
+          <div
+            className='message__cancel-btn'
+            hidden={!this.state.isEdit}
+            onClick={this.cancelEdit}
+          >{'esc to '}<u>{'cancel'}</u></div>
+          <div
+            className='message__date'
+            hidden={this.state.isEdit}
+          >{this.state.date + ' ago'}</div>
         </div>
+        <button onClick={this.editStart}>edit</button>
+        <button onClick={this.editEnd}>save</button>
       </li>
     );
   }
