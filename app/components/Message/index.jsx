@@ -13,15 +13,18 @@ export default class Message extends React.Component {
     text: PropTypes.string.isRequired,
     timestamp: PropTypes.string.isRequired,
     currentUserId: PropTypes.string.isRequired,
+    messageId: PropTypes.string.isRequired,
     senderRepeated: PropTypes.bool.isRequired,
     nextMessageIsMain: PropTypes.bool.isRequired,
-  }
+    sendEditedMessage: PropTypes.func.isRequired,
+  };
 
 
   constructor(props) {
     super(props);
     this.state = {
       date: null,
+      isEdit: false,
     };
   }
 
@@ -31,12 +34,12 @@ export default class Message extends React.Component {
     this.timer = setInterval(()=>{
       this.updateTime(this.props.timestamp);
     }, 5000);
-  }
+  };
 
 
   componentWillUnmount = () => {
     clearInterval(this.timer);
-  }
+  };
 
 
   updateTime = (timestamp) => {
@@ -45,6 +48,28 @@ export default class Message extends React.Component {
       date: date,
     });
   }
+
+
+  editStart = () => {
+    this.setState({
+      isEdit: true,
+    });
+  };
+
+
+  editEnd = () => {
+    const newText = this.refs.editor.value;
+    if (newText !== this.props.text) {
+      this.props.sendEditedMessage({
+        text: newText,
+        edited: true,
+        messageId: this.props.messageId,
+      });
+      this.setState({
+        isEdit: false,
+      });
+    }
+  };
 
 
   renderAvatar = (sender) => {
@@ -56,7 +81,7 @@ export default class Message extends React.Component {
         height='50'
       />
     );
-  }
+  };
 
 
   render() {
@@ -81,6 +106,14 @@ export default class Message extends React.Component {
             <Linkify properties={{className: 'message__url', target: '_blank'}}>{text}</Linkify>
           </div>
           <div className='message__date'>{this.state.date + ' ago'}</div>
+          <textarea
+            defaultValue={text}
+            hidden={!this.state.isEdit}
+            className='message__editor'
+            ref='editor'
+          ></textarea>
+          <button onClick={this.editStart}>edit</button>
+          <button onClick={this.editEnd}>save</button>
         </div>
       </li>
     );

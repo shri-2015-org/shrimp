@@ -70,6 +70,14 @@ export default function startSocketServer(http) {
     });
 
 
+    socket.on(CS.EDIT_MESSAGE, data => {
+      Message.edit(data, (err, result) => {
+        const channelId = result.channelId.toString();
+        io.to(channelId).emit(SC.EDIT_MESSAGE, result.toObject());
+      });
+    });
+
+
     socket.on(CS.ADD_CHANNEL, data => {
       Channel.add(data, (err, result) =>
         io.sockets.emit(SC.ADD_CHANNEL, result.toObject()));
