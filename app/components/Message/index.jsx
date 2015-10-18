@@ -27,6 +27,7 @@ export default class Message extends React.Component {
       isEdit: false,
       editorHeight: 0,
       editorWidth: 0,
+      editorValue: this.props.text,
     };
   }
 
@@ -83,9 +84,11 @@ export default class Message extends React.Component {
   };
 
 
-  editorKeyPress = (e) => {
-    if (e.which === 13) {
+  editorKeyDown = (e) => {
+    if (e.which === 13 && !e.shiftKey) {
       this.editEnd();
+    } else if (e.which === 27) {
+      this.cancelEdit();
     }
   };
 
@@ -93,8 +96,15 @@ export default class Message extends React.Component {
   cancelEdit = () => {
     this.setState({
       isEdit: false,
+      editorValue: this.props.text,
     });
   };
+
+  editorChange = (e) => {
+    this.setState({
+      editorValue: e.target.value,
+    });
+  }
 
   renderAvatar = (sender) => {
     return (
@@ -139,9 +149,10 @@ export default class Message extends React.Component {
               </Linkify>
             </div>
             <Textarea
-              defaultValue={text}
+              value={this.state.editorValue}
               hidden={!this.state.isEdit}
-              onKeyPress={this.editorKeyPress}
+              onKeyDown={this.editorKeyDown}
+              onChange={this.editorChange}
               className='message__editor'
               ref='editor'
               minRows={2}
@@ -164,8 +175,6 @@ export default class Message extends React.Component {
             hidden={this.state.isEdit}
           >{this.state.date + ' ago'}</div>
         </div>
-        <button onClick={this.editStart}>edit</button>
-        <button onClick={this.editEnd}>save</button>
       </li>
     );
   }

@@ -145,24 +145,29 @@
   }
 
   &__editor {
-    color: black;
     min-width: 200px;
-    border: none;
     padding: 0;
+    padding-left: 2px;
+
     resize: none;
+
+    color: black;
+    border: none;
     border-radius: 5px;
   }
 
   &__edit {
     float: right;
+
     width: 30px;
   }
 
   &__edit-btn {
-    cursor: pointer;
     position: absolute;
     top: 5px;
     right: 5px;
+
+    cursor: pointer;
 
     &:hover {
       color: red;
@@ -173,31 +178,25 @@
     position: absolute;
     right: 5px;
     bottom: -2px;
+
     cursor: pointer;
 
     color: $c-message-date_text;
 
     font-size: 12px;
     font-weight: bolder;
-
-    //&:hover {
-    //  text-decoration: underline;
-    //}
   }
 
   &__cancel-btn {
     position: absolute;
-    left: 5px;
     bottom: -2px;
+    left: 5px;
+
     cursor: pointer;
 
     color: $c-message-date_text;
 
     font-size: 12px;
     font-weight: bolder;
-
-    //&:hover {
-    //  text-decoration: underline;
-    //}
   }
 }
