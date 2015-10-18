@@ -12,7 +12,20 @@ const Channel = getChannelModel();
 const User = getUserModel();
 
 
-export default function startSocketServer(http) {
+export function getOnlineSessions(io) {
+  const connected = io.of('/').connected;
+  const sessionIds = [];
+
+  for (const id in connected) {
+    if (connected.hasOwnProperty(id)) {
+      sessionIds.push(connected[id].sessionId);
+    }
+  }
+
+  return new Set(sessionIds);
+}
+
+export function startSocketServer(http) {
   const io = new Server(http);
 
   io.use(cookieParser);
@@ -33,6 +46,7 @@ export default function startSocketServer(http) {
     User.getBySessionId(socket.sessionId)
       .then((user) => {
         socket.broadcast.emit(SC.JOIN_USER, { user: user.toObject() });
+        socket.broadcast.emit(SC.USER_ONLINE, { userId: user.id });
         return Channel.getForUser(user.id);
       })
       .then((channels) => {
@@ -43,7 +57,7 @@ export default function startSocketServer(http) {
 
 
     socket.on(CS.INIT, () => {
-      getInitState(socket.sessionId).then(initState => {
+      getInitState(socket.sessionId, getOnlineSessions(io)).then(initState => {
         socket.emit(SC.INIT, initState);
       });
     });
@@ -95,9 +109,9 @@ export default function startSocketServer(http) {
 
     socket.on(CS.MARK_AS_READ, data => {
       User.getBySessionId(socket.sessionId)
-      .then((user) => {
-        Channel.markAsRead(data, user.id);
-      });
+        .then((user) => {
+          Channel.markAsRead(data, user.id);
+        });
     });
 
     function findClientsSocket(roomId, namespace) {
@@ -130,5 +144,14 @@ export default function startSocketServer(http) {
           });
       });
     });
+
+    socket.on('disconnect', () => {
+      User.getBySessionId(socket.sessionId)
+        .then((user) => {
+          socket.broadcast.emit(SC.USER_OFFLINE, { userId: user.id });
+        });
+    });
   });
+
+  return io;
 }

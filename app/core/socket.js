@@ -3,8 +3,8 @@ import store from '../store';
 import {Map} from 'immutable';
 import {addChannel, addUserToChannel} from '../actions/channels';
 import {addMessage, loadChannelHistory} from '../actions/messages';
-import {setUserInfo, joinUser} from 'actions/users';
 import {init, initUser, logOut} from '../actions/local';
+import {setUserInfo, joinUser, setUserOnline, setUserOffline} from 'actions/users';
 import {SC} from '../../constants';
 
 
@@ -49,6 +49,16 @@ export function socketClient(type = null, socketData) {
 
     socket.on(SC.SET_CHANNEL_HISTORY, (data) => {
       store.dispatch(loadChannelHistory(data));
+    });
+
+
+    socket.on(SC.USER_ONLINE, (data) => {
+      store.dispatch(setUserOnline(data));
+    });
+
+
+    socket.on(SC.USER_OFFLINE, (data) => {
+      store.dispatch(setUserOffline(data));
     });
 
 

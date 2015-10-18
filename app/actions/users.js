@@ -14,3 +14,19 @@ export function joinUser(data) {
     payload: data,
   };
 }
+
+
+export function setUserOnline(data) {
+  return {
+    type: A.USER_ONLINE,
+    payload: data,
+  };
+}
+
+
+export function setUserOffline(data) {
+  return {
+    type: A.USER_OFFLINE,
+    payload: data,
+  };
+}

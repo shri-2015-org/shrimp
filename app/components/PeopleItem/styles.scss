@@ -22,6 +22,10 @@
     box-shadow: inset 2px 0 0 $c-highlight;
   }
 
+  &_offline {
+    color: red;
+  }
+
   &:not(.channel_active):hover {
     color: $c-hover-tab_text;
     background-color: $c-gray-20;

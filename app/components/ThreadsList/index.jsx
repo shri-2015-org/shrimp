@@ -121,6 +121,7 @@ export default class ThreadsList extends React.Component {
               item={listItem}
               lastMessage={lastDirectMessage}
               currentChannelId={local.get('currentChannelId')}
+              isOnline={listItem.get('isOnline')}
               isCurrent={directChannel && local.get('currentChannelId') === directChannel.get('id')}
               unreadCount={unreadCount}
               directChannel={directChannel}
