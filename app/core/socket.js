@@ -4,7 +4,7 @@ import {Map} from 'immutable';
 import {addChannel, addUserToChannel} from '../actions/channels';
 import {addMessage, loadChannelHistory} from '../actions/messages';
 import {setUserInfo, joinUser} from 'actions/users';
-import {init, initUser} from '../actions/local';
+import {init, initUser, logOut} from '../actions/local';
 import {SC} from '../../constants';
 
 
@@ -63,7 +63,7 @@ export function socketClient(type = null, socketData) {
 
 
     socket.on('error', () => {
-      store.history.pushState(null, '/login');
+      store.dispatch(logOut());
     });
   } else if (type) {
     socket.emit(type, socketData);
