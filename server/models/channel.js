@@ -96,6 +96,10 @@ channel.statics.subscribeOnDefaultChannel = function add(userId) {
   });
 };
 
+channel.statics.getDefaultChannel = function getDefaultChannel() {
+  return this.findOne( {name: 'Default' });
+};
+
 export default function getChannelModel() {
   return mongoose.model('Channel', channel);
 }
