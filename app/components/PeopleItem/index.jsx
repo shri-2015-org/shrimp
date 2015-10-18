@@ -59,6 +59,7 @@ export default class PeopleItem extends React.Component {
           className='person__unread-counter'
           count={unreadCount}
         />
+        <img className='person__avatar' src={item.get('avatar')} alt={item.get('name')}/>
       </div>
     );
   }

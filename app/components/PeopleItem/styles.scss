@@ -49,25 +49,34 @@
   }
 
   &__name {
-    padding-top: 5px;
-    padding-left: 25px;
+    position: relative;
+
+    overflow: hidden;
+
+    padding-top: 11px;
+    padding-right: 10px;
+    padding-left: 60px;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
 
   &__last-message {
     $font-size: 12px;
     $line-height: 1.2;
-    $lines-to-show: 2;
+
+    position: relative;
 
     display: block; /* Fallback for non-webkit */
-    display: -webkit-box;
     overflow: hidden;
 
     max-width: 400px;
-    height: $font-size * $line-height * $lines-to-show; /* Fallback for non-webkit */
-    padding-right: 30px;
-    padding-left: 20px;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-left: 60px;
 
+    white-space: nowrap;
     text-overflow: ellipsis;
 
     color: $c-gray-65;
@@ -75,8 +84,20 @@
     font-size: $font-size;
     font-weight: bolder;
     line-height: $line-height;
+  }
 
-    -webkit-line-clamp: $lines-to-show;
-    -webkit-box-orient: vertical;
+
+  &__avatar {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+
+    overflow: hidden;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 5px;
+    background: #000;
   }
 }
