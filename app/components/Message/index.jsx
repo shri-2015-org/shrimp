@@ -12,6 +12,7 @@ export default class Message extends React.Component {
     sender: PropTypes.instanceOf(Map).isRequired,
     text: PropTypes.string.isRequired,
     timestamp: PropTypes.string.isRequired,
+    edited: PropTypes.bool.isRequired,
     currentUserId: PropTypes.string.isRequired,
     messageId: PropTypes.string.isRequired,
     senderRepeated: PropTypes.bool.isRequired,
@@ -22,6 +23,7 @@ export default class Message extends React.Component {
 
   constructor(props) {
     super(props);
+    this.messageMaxLength = 220;
     this.state = {
       date: null,
       isEdit: false,
@@ -60,18 +62,19 @@ export default class Message extends React.Component {
 
 
   editStart = () => {
-    const textCloud = window.getComputedStyle(this.refs.text);
+    const textCloud = window.getComputedStyle(this.refs.cloud);
     this.setState({
       isEdit: true,
       editorHeight: textCloud.height,
       editorWidth: textCloud.width,
+      editorValue: this.props.text,
     });
   };
 
 
   editEnd = () => {
-    const newText = this.refs.editor.value.trim();
-    if (newText !== this.props.text) {
+    const newText = this.state.editorValue.trim();
+    if (newText !== this.props.text && newText) {
       this.props.sendEditedMessage({
         text: newText,
         edited: true,
@@ -102,9 +105,9 @@ export default class Message extends React.Component {
 
   editorChange = (e) => {
     this.setState({
-      editorValue: e.target.value,
+      editorValue: e.target.value.slice(0, this.messageMaxLength = 220),
     });
-  }
+  };
 
   renderAvatar = (sender) => {
     return (
@@ -119,7 +122,7 @@ export default class Message extends React.Component {
 
 
   render() {
-    const {sender, text, currentUserId, senderRepeated, nextMessageIsMain} = this.props;
+    const {sender, text, currentUserId, senderRepeated, nextMessageIsMain, edited} = this.props;
     const isSelfMessage = sender.get('id') === currentUserId;
     const userName = (() => {
       if (isSelfMessage || senderRepeated) return null;
@@ -135,17 +138,16 @@ export default class Message extends React.Component {
       })}>
         {isSelfMessage ? null : this.renderAvatar(sender)}
         {userName}
-        <div className='message__cloud'>
-          {(isSelfMessage && !this.state.isEdit)
-            ? <div className='message__edit'>
-                <a
-                  onClick={this.editStart}
-                  className='message__edit-btn'>{'✎'}</a>
-              </div>
-            : null }
-          <div className='message__text' ref='text'>
+        <div className='message__cloud' ref='cloud'>
+          <div className='message__edit' hidden={!isSelfMessage || this.state.isEdit}>
+            <a
+              onClick={this.editStart}
+              className='message__edit-btn'>{'✎'}</a>
+          </div>
+          <div className='message__text'>
             <div hidden={this.state.isEdit}>
-              <Linkify properties={{className: 'message__url', target: '_blank'}}>{text}
+              <Linkify properties={{className: 'message__url', target: '_blank'}}>
+                {text}
               </Linkify>
             </div>
             <Textarea
@@ -173,7 +175,7 @@ export default class Message extends React.Component {
           <div
             className='message__date'
             hidden={this.state.isEdit}
-          >{this.state.date + ' ago'}</div>
+          >{edited ? 'edited ' + this.state.date + ' ago' : this.state.date + ' ago' }</div>
         </div>
       </li>
     );

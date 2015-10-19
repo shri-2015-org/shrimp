@@ -155,6 +155,11 @@
     color: black;
     border: none;
     border-radius: 5px;
+
+    &:focus {
+      outline: #3c3b37 auto 5px;
+      outline-offset: -2px;
+    }
   }
 
   &__edit {
