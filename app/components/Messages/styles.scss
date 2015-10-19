@@ -12,8 +12,8 @@
   min-width: calc(100vw - #{$threads_width});
   max-height: 100vh;
   margin-bottom: $composer_height;
-  padding-right: 2.5vw;
-  padding-left: 2.5vw;
+  padding-right: 30px;
+  padding-left: 30px;
 
   @media (max-width: $mobile_width) {
     top: $header_height - 20px;

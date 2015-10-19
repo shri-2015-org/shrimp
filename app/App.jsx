@@ -20,6 +20,7 @@ import DocumentTitle from 'react-document-title';
 import {localSelector} from 'selectors/localSelector';
 import {indirectChannelsSelector} from 'selectors/channelsSelector';
 import {directChannelsSelector} from 'selectors/directChannelsSelector';
+import {currentChannelSelector} from 'selectors/currentChannelSelector';
 
 @connect(state => ({
   messages: messageFilterSelector(state),
@@ -30,6 +31,7 @@ import {directChannelsSelector} from 'selectors/directChannelsSelector';
   indirectChannels: indirectChannelsSelector(state),
   directChannels: directChannelsSelector(state),
   pinnedMessages: pinnedMessagesSelector(state),
+  currentChannel: currentChannelSelector(state),
 }))
 export default class Application extends React.Component {
   static propTypes = {
@@ -43,6 +45,7 @@ export default class Application extends React.Component {
     children: PropTypes.node,
     indirectChannels: PropTypes.instanceOf(List).isRequired,
     directChannels: PropTypes.instanceOf(List).isRequired,
+    currentChannel: PropTypes.instanceOf(Map).isRequired,
   }
 
 
@@ -86,7 +89,7 @@ export default class Application extends React.Component {
 
 
   render() {
-    const {messages, pinnedMessages, channels, local, dispatch, contacts, indirectChannels, directChannels} = this.props;
+    const {messages, channels, local, dispatch, contacts, indirectChannels, directChannels, pinnedMessages, currentChannel} = this.props;
     const actionsCombine = Object.assign(actionsMessages, actionsLocal, actionsChannels);
     const actions = bindActionCreators(actionsCombine, dispatch);
     const threads = (
@@ -109,6 +112,7 @@ export default class Application extends React.Component {
             open={this.state.sidebarOpen}
             docked={this.state.sidebarDocked}
             local={local}
+            currentChannel={currentChannel}
             {...actions}
           />
           <Sidebar
