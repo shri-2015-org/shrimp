@@ -62,7 +62,7 @@ export default class Message extends React.Component {
 
 
   editStart = () => {
-    const textCloud = window.getComputedStyle(this.refs.cloud);
+    const textCloud = window.getComputedStyle(this.refs.text);
     this.setState({
       isEdit: true,
       editorHeight: textCloud.height,
@@ -138,13 +138,13 @@ export default class Message extends React.Component {
       })}>
         {isSelfMessage ? null : this.renderAvatar(sender)}
         {userName}
-        <div className='message__cloud' ref='cloud'>
+        <div className='message__cloud'>
           <div className='message__edit' hidden={!isSelfMessage || this.state.isEdit}>
             <a
               onClick={this.editStart}
               className='message__edit-btn'>{'✎'}</a>
           </div>
-          <div className='message__text'>
+          <div className='message__text' ref='text'>
             <div hidden={this.state.isEdit}>
               <Linkify properties={{className: 'message__url', target: '_blank'}}>
                 {text}
