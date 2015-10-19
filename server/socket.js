@@ -6,6 +6,7 @@ import getChannelModel from './models/channel';
 import getUserModel from './models/user';
 import {SC, CS} from '../constants';
 import {checkSessionId, setUserInfo, joinToChannel, setFavoriteChannel, loadChannelHistory} from './db/db_core.js';
+import {checkEditPermission} from './validation';
 // const debug = require('debug')('shrimp:server');
 const Message = getMessageModel();
 const Channel = getChannelModel();
@@ -71,9 +72,11 @@ export default function startSocketServer(http) {
 
 
     socket.on(CS.EDIT_MESSAGE, data => {
-      Message.edit(data, (err, result) => {
-        const channelId = result.channelId.toString();
-        io.to(channelId).emit(SC.EDIT_MESSAGE, result.toObject());
+      checkEditPermission(socket.sessionId, data.messageId).then(() => {
+        Message.edit(data, (err, result) => {
+          const channelId = result.channelId.toString();
+          io.to(channelId).emit(SC.EDIT_MESSAGE, result.toObject());
+        });
       });
     });
 
@@ -140,3 +143,4 @@ export default function startSocketServer(http) {
     });
   });
 }
+

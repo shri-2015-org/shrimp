@@ -41,6 +41,17 @@ message.statics.edit = function edit(data, cb) {
   });
 };
 
+message.statics.getById = function getById(id) {
+  return new Promise((resolve, reject) => {
+    this.findOne({_id: new ObjectId(id)}, (err, m) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(m);
+      }
+    });
+  });
+};
 
 export default function getMessageModel() {
   return mongoose.model('Message', message);
