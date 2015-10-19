@@ -140,7 +140,69 @@
     color: $c-message-cloud_text;
 
     &:visited {
-      color: $c-gray-70;
+      color: $c-message-cloud-visited_text;
     }
+  }
+
+  &__editor {
+    min-width: 200px;
+    margin-bottom: 7px;
+    padding: 0;
+    padding-left: 2px;
+
+    resize: none;
+
+    color: black;
+    border: none;
+    border-radius: 5px;
+
+    &:focus {
+      outline: #3c3b37 auto 5px;
+      outline-offset: -2px;
+    }
+  }
+
+  &__edit {
+    float: right;
+
+    width: 30px;
+  }
+
+  &__edit-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+
+    cursor: pointer;
+
+    &:hover {
+      color: red;
+    }
+  }
+
+  &__save-btn {
+    position: absolute;
+    right: 5px;
+    bottom: 0;
+
+    cursor: pointer;
+
+    color: $c-message-date_text;
+
+    font-size: 12px;
+    font-weight: bolder;
+  }
+
+  &__cancel-btn {
+    position: absolute;
+    bottom: 0;
+    left: 5px;
+
+    cursor: pointer;
+
+    color: $c-message-date_text;
+
+    font-size: 12px;
+    font-weight: bolder;
   }
 }

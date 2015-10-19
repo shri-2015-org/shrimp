@@ -11,6 +11,7 @@ export default class Messages extends React.Component {
     messages: PropTypes.instanceOf(List).isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
     docked: PropTypes.bool.isRequired,
+    sendEditedMessage: PropTypes.func.isRequired,
   }
 
 
@@ -53,7 +54,7 @@ export default class Messages extends React.Component {
 
 
   render() {
-    const {messages, local} = this.props;
+    const {messages, local, sendEditedMessage} = this.props;
     return (
       <div
         className='messages'
@@ -61,9 +62,11 @@ export default class Messages extends React.Component {
         style={{bottom: this.state.listBottom}}
       >
         <MessageList
+          {...this.props}
           messages={messages}
           scroll={this.scrollToBottom}
           local={local}
+          sendEditedMessage={sendEditedMessage}
         />
         <MessageComposer
           {...this.props}

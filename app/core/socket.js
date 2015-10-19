@@ -2,18 +2,22 @@ import io from 'socket.io-client';
 import store from '../store';
 import {Map} from 'immutable';
 import {addChannel, addUserToChannel} from '../actions/channels';
-import {addMessage, loadChannelHistory} from '../actions/messages';
+import {addMessage, loadChannelHistory, setEditedMessage} from '../actions/messages';
 import {setUserInfo, joinUser} from 'actions/users';
 import {init, initUser, logOut} from '../actions/local';
 import {SC} from '../../constants';
 
 
-export function socketClient(type = null, socketData) {
+export function socketClient(type = null, socketData = null) {
   const socket = io();
 
   if (type === 'SOCKET_INIT') {
     socket.on(SC.ADD_MESSAGE, (data) => {
       store.dispatch(addMessage(Map(data)));
+    });
+
+    socket.on(SC.EDIT_MESSAGE, (data) => {
+      store.dispatch(setEditedMessage(Map(data)));
     });
 
 

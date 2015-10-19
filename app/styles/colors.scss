@@ -11,6 +11,7 @@ $c-yellow: #e8df63;
 $c-red: #e92536;
 $c-green: #00d742;
 $c-white: #fff;
+$c-purple: #609;
 $c-shadow: transparentize(#0e0e0e, .5);
 $c-white_transparent: transparentize($c-white, .8);
 
@@ -23,6 +24,7 @@ $c-composer-textarea_text: $c-white;
 
 // Message
 $c-message-cloud_text: $c-white;
+$c-message-cloud-visited_text: $c-purple;
 $c-message-cloud-default_bg: $c-blue;
 $c-message-cloud-other_bg: $c-green;
 $c-message-avatar_border: $c-gray-60;

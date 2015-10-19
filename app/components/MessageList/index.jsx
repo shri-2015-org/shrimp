@@ -9,6 +9,7 @@ export default class MessageList extends React.Component {
   static propTypes = {
     messages: PropTypes.instanceOf(List).isRequired,
     scroll: PropTypes.func.isRequired,
+    sendEditedMessage: PropTypes.func.isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
   }
 
@@ -26,7 +27,7 @@ export default class MessageList extends React.Component {
   }
 
   render() {
-    const {local} = this.props;
+    const {local, sendEditedMessage} = this.props;
 
     let prevId = null;
     const messages = this.props.messages
@@ -47,8 +48,11 @@ export default class MessageList extends React.Component {
             senderRepeated={senderRepeated}
             nextMessageIsMain={nextMessageIsMain}
             text={message.get('text')}
+            edited={message.get('edited')}
             currentUserId={local.get('userId')}
+            messageId={message.get('id')}
             timestamp={message.get('timestamp')}
+            sendEditedMessage={sendEditedMessage}
           />
         );
       });

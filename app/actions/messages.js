@@ -29,3 +29,18 @@ export function changeMessageFilterValue(value) {
     payload: value,
   };
 }
+
+export function sendEditedMessage(data) {
+  return {
+    type: CS.EDIT_MESSAGE,
+    payload: data,
+    send: true,
+  };
+}
+
+export function setEditedMessage(data) {
+  return {
+    type: A.EDIT_MESSAGE,
+    payload: data,
+  };
+}
