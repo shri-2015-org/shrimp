@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 import store from '../store';
 import {Map} from 'immutable';
 import {addChannel, addUserToChannel} from '../actions/channels';
-import {addMessage, loadChannelHistory} from '../actions/messages';
+import {addMessage, loadChannelHistory, messagePinned} from '../actions/messages';
 import {init, initUser, logOut} from '../actions/local';
 import {setUserInfo, joinUser, setUserOnline, setUserOffline} from 'actions/users';
 import {SC} from '../../constants';
@@ -59,6 +59,10 @@ export function socketClient(type = null, socketData) {
 
     socket.on(SC.USER_OFFLINE, (data) => {
       store.dispatch(setUserOffline(data));
+    });
+
+    socket.on(SC.PIN_MESSAGE, (data) => {
+      store.dispatch(messagePinned(data));
     });
 
 

@@ -27,7 +27,7 @@ export default class LoginWindow extends React.Component {
           return 1;
         }
         return 1;
-      }(this.props.location)),
+      }(props.location)),
     };
   }
 

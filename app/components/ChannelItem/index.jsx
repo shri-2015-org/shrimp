@@ -23,7 +23,7 @@ export default class ChannelItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      favorite: !!this.props.item.get('isFavorite'),
+      favorite: !!props.item.get('isFavorite'),
     };
   }
 

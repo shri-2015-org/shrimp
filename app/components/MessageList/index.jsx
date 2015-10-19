@@ -10,6 +10,7 @@ export default class MessageList extends React.Component {
     messages: PropTypes.instanceOf(List).isRequired,
     scroll: PropTypes.func.isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
+    pinMessage: PropTypes.func.isRequired,
   }
 
 
@@ -42,6 +43,8 @@ export default class MessageList extends React.Component {
         }());
         return (
           <Message
+            id={message.get('id')}
+            pinMessage={this.props.pinMessage}
             key={i}
             sender={sender}
             senderRepeated={senderRepeated}

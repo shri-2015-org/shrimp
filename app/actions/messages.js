@@ -29,3 +29,18 @@ export function changeMessageFilterValue(value) {
     payload: value,
   };
 }
+
+export function pinMessage(messageId) {
+  return {
+    type: CS.PIN_MESSAGE,
+    payload: messageId,
+    send: true,
+  };
+}
+
+export function messagePinned(messageId) {
+  return {
+    type: A.PIN_MESSAGE,
+    payload: messageId,
+  };
+}

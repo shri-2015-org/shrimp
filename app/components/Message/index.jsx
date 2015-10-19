@@ -15,6 +15,8 @@ export default class Message extends React.Component {
     currentUserId: PropTypes.string.isRequired,
     senderRepeated: PropTypes.bool.isRequired,
     nextMessageIsMain: PropTypes.bool.isRequired,
+    pinMessage: PropTypes.func.isRequired,
+    id: PropTypes.string.isRequired,
   }
 
 
@@ -46,6 +48,9 @@ export default class Message extends React.Component {
     });
   }
 
+  pin = () => {
+    this.props.pinMessage(this.props.id);
+  }
 
   renderAvatar = (sender) => {
     return (
@@ -77,6 +82,7 @@ export default class Message extends React.Component {
         {isSelfMessage ? null : this.renderAvatar(sender)}
         {userName}
         <div className='message__cloud'>
+          <div onClick={this.pin} style={{fontSize: '9px'}}>Запинь мессагу без напряга!</div>
           <div className='message__text'>
             <Linkify properties={{className: 'message__url', target: '_blank'}}>{text}</Linkify>
           </div>

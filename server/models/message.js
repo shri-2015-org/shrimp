@@ -1,11 +1,14 @@
 import mongoose from 'mongoose';
 import {isEmpty, getToObjectOptions} from './utils';
 
+const ObjectId = mongoose.Types.ObjectId;
+
 const message = new mongoose.Schema({
   senderId: mongoose.Schema.Types.ObjectId,
   channelId: mongoose.Schema.Types.ObjectId,
   text: String,
   timestamp: { type: Date, default: Date.now },
+  pinned: Boolean,
 });
 
 message.statics.getAll = function getAll() {
@@ -22,6 +25,10 @@ message.statics.getAll = function getAll() {
 
 message.statics.isEmpty = isEmpty;
 message.set('toObject', getToObjectOptions());
+
+message.statics.pin = function pin(messageId) {
+  return this.update({ _id: new ObjectId(messageId) }, { $set: { pinned: true } });
+};
 
 message.statics.getForChannels = function getForChannels(channelIds) { return this.find({ channelId: { $in: channelIds } }); };
 

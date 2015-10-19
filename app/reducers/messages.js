@@ -15,6 +15,11 @@ export function messages(state = EMPTY_LIST, action) {
     const newMessages = fromJS(action.payload.messages)
       .filter(message => !state.find(m => m.get('id') === message.get('id')));
     return state.concat(newMessages);
+  case A.PIN_MESSAGE:
+    return state.map(m =>
+      m.get('id') === action.payload
+        ? m.set('pinned', true)
+        : m);
   default:
     return state;
   }

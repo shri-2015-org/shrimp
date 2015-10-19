@@ -145,6 +145,18 @@ export function startSocketServer(http) {
       });
     });
 
+
+    socket.on(CS.PIN_MESSAGE, messageId => {
+      Message.pin(messageId)
+        .then(() => {
+          socket.emit(SC.PIN_MESSAGE, messageId);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    });
+
+
     socket.on('disconnect', () => {
       User.getBySessionId(socket.sessionId)
         .then((user) => {

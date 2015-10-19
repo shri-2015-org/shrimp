@@ -8,12 +8,13 @@ import {socketClient} from 'core/socket';
 import Messages from 'components/Messages';
 import Header from 'components/Header';
 import Threads from 'components/Threads';
+import PinnedMessages from 'components/PinnedMessages';
 import 'styles/main.scss';
 import {bindActionCreators} from 'redux';
 import * as actionsChannels from 'actions/channels';
 import * as actionsMessages from 'actions/messages';
 import * as actionsLocal from 'actions/local';
-import {messageFilterSelector} from 'selectors/messagesSelector';
+import {messageFilterSelector, pinnedMessagesSelector} from 'selectors/messagesSelector';
 import {contactsSelector} from 'selectors/contactsSelector';
 import DocumentTitle from 'react-document-title';
 import {localSelector} from 'selectors/localSelector';
@@ -28,10 +29,12 @@ import {directChannelsSelector} from 'selectors/directChannelsSelector';
   contacts: contactsSelector(state),
   indirectChannels: indirectChannelsSelector(state),
   directChannels: directChannelsSelector(state),
+  pinnedMessages: pinnedMessagesSelector(state),
 }))
 export default class Application extends React.Component {
   static propTypes = {
     messages: PropTypes.instanceOf(List).isRequired,
+    pinnedMessages: PropTypes.instanceOf(List).isRequired,
     channels: PropTypes.instanceOf(List).isRequired,
     users: PropTypes.instanceOf(List).isRequired,
     contacts: PropTypes.instanceOf(List).isRequired,
@@ -83,7 +86,7 @@ export default class Application extends React.Component {
 
 
   render() {
-    const {messages, channels, local, dispatch, contacts, indirectChannels, directChannels} = this.props;
+    const {messages, pinnedMessages, channels, local, dispatch, contacts, indirectChannels, directChannels} = this.props;
     const actionsCombine = Object.assign(actionsMessages, actionsLocal, actionsChannels);
     const actions = bindActionCreators(actionsCombine, dispatch);
     const threads = (
@@ -114,12 +117,23 @@ export default class Application extends React.Component {
             onSetOpen={this.onSetSidebarOpen}
             docked={this.state.sidebarDocked}
           >
-            <Messages
+            <Sidebar
+              sidebar={
+                (<PinnedMessages
+                  messages={pinnedMessages}
+                />)
+              }
+              open={this.state.sidebarOpen}
+              onSetOpen={this.onSetSidebarOpen}
               docked={this.state.sidebarDocked}
-              messages={messages}
-              local={local}
-              {...actions}
-            />
+            >
+              <Messages
+                docked={this.state.sidebarDocked}
+                messages={messages}
+                local={local}
+                {...actions}
+              />
+            </Sidebar>
           </Sidebar>
         </div>
       </DocumentTitle>
