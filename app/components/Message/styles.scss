@@ -140,12 +140,13 @@
     color: $c-message-cloud_text;
 
     &:visited {
-      color: $c-gray-70;
+      color: $c-message-cloud-visited_text;
     }
   }
 
   &__editor {
     min-width: 200px;
+    margin-bottom: 7px;
     padding: 0;
     padding-left: 2px;
 
@@ -177,7 +178,7 @@
   &__save-btn {
     position: absolute;
     right: 5px;
-    bottom: -2px;
+    bottom: 0;
 
     cursor: pointer;
 
@@ -189,7 +190,7 @@
 
   &__cancel-btn {
     position: absolute;
-    bottom: -2px;
+    bottom: 0;
     left: 5px;
 
     cursor: pointer;
