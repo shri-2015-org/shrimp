@@ -157,6 +157,17 @@ export function startSocketServer(http) {
     });
 
 
+    socket.on(CS.UNPIN_MESSAGE, messageId => {
+      Message.unpin(messageId)
+        .then(() => {
+          socket.emit(SC.UNPIN_MESSAGE, messageId);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    });
+
+
     socket.on('disconnect', () => {
       User.getBySessionId(socket.sessionId)
         .then((user) => {

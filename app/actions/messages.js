@@ -38,9 +38,25 @@ export function pinMessage(messageId) {
   };
 }
 
+export function unpinMessage(messageId) {
+  return {
+    type: CS.UNPIN_MESSAGE,
+    payload: messageId,
+    send: true,
+  };
+}
+
 export function messagePinned(messageId) {
   return {
     type: A.PIN_MESSAGE,
+    payload: messageId,
+  };
+}
+
+
+export function messageUnpinned(messageId) {
+  return {
+    type: A.UNPIN_MESSAGE,
     payload: messageId,
   };
 }

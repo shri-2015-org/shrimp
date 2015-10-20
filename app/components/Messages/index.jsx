@@ -12,6 +12,7 @@ export default class Messages extends React.Component {
     local: PropTypes.instanceOf(Map).isRequired,
     docked: PropTypes.bool.isRequired,
     pinMessage: PropTypes.func.isRequired,
+    unpinMessage: PropTypes.func.isRequired,
   }
 
 
@@ -67,6 +68,7 @@ export default class Messages extends React.Component {
             scroll={this.scrollToBottom}
             local={local}
             pinMessage={this.props.pinMessage}
+            unpinMessage={this.props.unpinMessage}
           />
         </div>
         <MessageComposer

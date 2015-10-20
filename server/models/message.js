@@ -30,6 +30,10 @@ message.statics.pin = function pin(messageId) {
   return this.update({ _id: new ObjectId(messageId) }, { $set: { pinned: true } });
 };
 
+message.statics.unpin = function unpin(messageId) {
+  return this.update({ _id: new ObjectId(messageId) }, { $set: { pinned: false } });
+};
+
 message.statics.getForChannels = function getForChannels(channelIds) { return this.find({ channelId: { $in: channelIds } }); };
 
 message.statics.add = function add(data, cb) {

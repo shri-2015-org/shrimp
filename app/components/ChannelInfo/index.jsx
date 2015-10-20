@@ -9,6 +9,7 @@ export default class ChannelInfo extends React.Component {
   static propTypes = {
     pinnedMessages: PropTypes.instanceOf(List).isRequired,
     currentChannel: PropTypes.instanceOf(Map).isRequired,
+    unpinMessage: PropTypes.func.isRequired,
   }
 
   render() {
@@ -18,7 +19,7 @@ export default class ChannelInfo extends React.Component {
       ? <PinnedMessages
           pinnedMessages={pinnedMessages}
           containerClass='channel-info__section'
-
+          unpinMessage={this.props.unpinMessage}
     />
       : null;
 

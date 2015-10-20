@@ -20,6 +20,11 @@ export function messages(state = EMPTY_LIST, action) {
       m.get('id') === action.payload
         ? m.set('pinned', true)
         : m);
+  case A.UNPIN_MESSAGE:
+    return state.map(m =>
+      m.get('id') === action.payload
+        ? m.set('pinned', false)
+        : m);
   default:
     return state;
   }

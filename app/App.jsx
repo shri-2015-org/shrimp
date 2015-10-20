@@ -134,6 +134,7 @@ export default class Application extends React.Component {
                 <ChannelInfo
                   pinnedMessages={pinnedMessages}
                   currentChannel={currentChannel}
+                  unpinMessage={actions.unpinMessage}
                 />
               }
               open={this.state.sidebarOpen}

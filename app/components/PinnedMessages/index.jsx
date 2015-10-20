@@ -10,6 +10,7 @@ export default class PinnedMessages extends React.Component {
   static propTypes = {
     pinnedMessages: PropTypes.instanceOf(List).isRequired,
     containerClass: PropTypes.string,
+    unpinMessage: PropTypes.func.isRequired,
   }
 
   render() {
@@ -24,9 +25,14 @@ export default class PinnedMessages extends React.Component {
           </div>
         </div>
         <div className={cx('pinned-messages__list', containerClass + '__body')}>
-          <PinnedMessage
-            messages={pinnedMessages}
-          />
+          <div>
+            {this.props.pinnedMessages.map((message, i) => (
+              <PinnedMessage
+                message={message}
+                key={i}
+                unpinMessage={this.props.unpinMessage}
+              />))}
+          </div>
         </div>
       </div>
     );

@@ -14,8 +14,10 @@ export default class Message extends React.Component {
     timestamp: PropTypes.string.isRequired,
     currentUserId: PropTypes.string.isRequired,
     senderRepeated: PropTypes.bool.isRequired,
+    pinned: PropTypes.bool,
     nextMessageIsMain: PropTypes.bool.isRequired,
     pinMessage: PropTypes.func.isRequired,
+    unpinMessage: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
   }
 
@@ -48,8 +50,12 @@ export default class Message extends React.Component {
     });
   }
 
-  pin = () => {
-    this.props.pinMessage(this.props.id);
+  togglePin = () => {
+    if (this.props.pinned) {
+      this.props.unpinMessage(this.props.id);
+    } else {
+      this.props.pinMessage(this.props.id);
+    }
   }
 
   renderAvatar = (sender) => {
@@ -82,7 +88,7 @@ export default class Message extends React.Component {
         {isSelfMessage ? null : this.renderAvatar(sender)}
         {userName}
         <div className='message__cloud'>
-          <div onClick={this.pin} style={{fontSize: '9px'}}>Запинь мессагу без напряга!</div>
+          <div onClick={this.togglePin} style={{fontSize: '9px'}}>{this.props.pinned ? 'Отпинь' : 'Запинь'} мессагу без напряга!</div>
           <div className='message__text'>
             <Linkify properties={{className: 'message__url', target: '_blank'}}>{text}</Linkify>
           </div>

@@ -11,6 +11,7 @@ export default class MessageList extends React.Component {
     scroll: PropTypes.func.isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
     pinMessage: PropTypes.func.isRequired,
+    unpinMessage: PropTypes.func.isRequired,
   }
 
 
@@ -45,11 +46,13 @@ export default class MessageList extends React.Component {
           <Message
             id={message.get('id')}
             pinMessage={this.props.pinMessage}
+            unpinMessage={this.props.unpinMessage}
             key={i}
             sender={sender}
             senderRepeated={senderRepeated}
             nextMessageIsMain={nextMessageIsMain}
             text={message.get('text')}
+            pinned={message.get('pinned')}
             currentUserId={local.get('userId')}
             timestamp={message.get('timestamp')}
           />
