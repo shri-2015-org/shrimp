@@ -15,7 +15,11 @@ const user = new mongoose.Schema({
     type: String,
     select: false,
   },
-  favoritesChannels: {type: Array, default: []},
+  language: {
+    type: String,
+    select: false,
+    default: 'en',
+  },
 });
 
 user.statics.getAll = getAll;

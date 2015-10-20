@@ -6,7 +6,6 @@ import Tab from 'components/Tab';
 import ThreadsList from 'components/ThreadsList';
 import Search from 'components/Search';
 
-
 export default class Threads extends React.Component {
 
   static propTypes = {
@@ -24,6 +23,9 @@ export default class Threads extends React.Component {
     removeDirtyDirectChannel: PropTypes.func.isRequired,
   }
 
+  static contextTypes = {
+    __: PropTypes.func.isRequired,
+  };
 
   constructor(props) {
     super(props);
@@ -40,7 +42,7 @@ export default class Threads extends React.Component {
     window.addEventListener('keydown', this.removeDirtyChannel);
   };
 
-  shouldComponentUpdate = (nextProps, nextState) => {
+  shouldComponentUpdate = (nextProps, nextState, nextContext) => {
     if (nextProps.directChannels.size > this.props.directChannels.size) {
       const addedChannel = nextProps.directChannels.last();
       const addedChannelName = addedChannel.get('name');
@@ -61,7 +63,8 @@ export default class Threads extends React.Component {
       Immutable.is(nextProps.contacts, this.props.contacts) &&
       Immutable.is(nextProps.local, this.props.local) &&
       Immutable.is(nextState.currentTabId, this.state.currentTabId) &&
-      Immutable.is(nextState.filterValue, this.state.filterValue)
+      Immutable.is(nextState.filterValue, this.state.filterValue) &&
+      (nextContext.__.messages === this.context.__.messages)
     );
   };
 
@@ -131,10 +134,10 @@ export default class Threads extends React.Component {
       contacts,
       local,
     } = this.props;
-
+    const __ = this.context.__;
     const tabs = List.of(
-      Map({id: 1, name: 'People', sendToServer: false, list: contacts }),
-      Map({id: 2, name: 'Channels', sendToServer: false, list: indirectChannels }),
+      Map({id: 1, name: __('People'), sendToServer: false, list: contacts }),
+      Map({id: 2, name: __('Channels'), sendToServer: false, list: indirectChannels }),
     );
 
     const currentTabData = tabs.find(tab => tab.get('id') === this.state.currentTabId);
@@ -143,7 +146,7 @@ export default class Threads extends React.Component {
       return listItem.get('isDirty') || listItem.get('name').indexOf(this.state.filterValue) !== -1;
     });
 
-    if (currentTabData.get('name') === 'Channels') {
+    if (currentTabData.get('id') === 2) {
       filterData = filterData.sort((a, b) => {
         if (a.get('isFavorite') && !b.get('isFavorite')) {
           return -1;
@@ -162,8 +165,8 @@ export default class Threads extends React.Component {
           changeTab={this.changeTab}
           className='threads__tabs'
         >
-          <Tab id={1}>People</Tab>
-          <Tab id={2}>Channels</Tab>
+          <Tab id={tabs.getIn([0, 'id'])}>{tabs.getIn([0, 'name'])}</Tab>
+          <Tab id={tabs.getIn([1, 'id'])}>{tabs.getIn([1, 'name'])}</Tab>
         </Tabs>
 
         <ThreadsList
@@ -171,7 +174,7 @@ export default class Threads extends React.Component {
           list={filterData}
           local={local}
           channels={channels}
-          type={currentTabData.get('name')}
+          type={currentTabData.get('id')}
           setCurrentDirectChannel={this.setCurrentDirectChannel}
           isCurrentDirectChannel={this.isCurrentDirectChannel}
           getDirectChannelByUserId={this.getDirectChannelByUserId}

@@ -15,6 +15,8 @@ export function local(state = EMPTY_MAP, action) {
     return state.set('user', action.payload.user);
   case A.LOG_OUT:
     return EMPTY_MAP;
+  case A.SET_LANGUAGE:
+    return state.set('language', action.payload);
   default:
     return state;
   }

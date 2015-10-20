@@ -10,13 +10,15 @@ export default class MessageList extends React.Component {
     messages: PropTypes.instanceOf(List).isRequired,
     scroll: PropTypes.func.isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
+    language: PropTypes.string.isRequired,
   }
 
 
   shouldComponentUpdate(nextProps) {
     return !(
       Immutable.is(nextProps.messages, this.props.messages) &&
-      Immutable.is(nextProps.local, this.props.local)
+      Immutable.is(nextProps.local, this.props.local) &&
+      nextProps.language === this.props.language
     );
   }
 
@@ -49,6 +51,7 @@ export default class MessageList extends React.Component {
             text={message.get('text')}
             currentUserId={local.get('userId')}
             timestamp={message.get('timestamp')}
+            language={this.props.language}
           />
         );
       });

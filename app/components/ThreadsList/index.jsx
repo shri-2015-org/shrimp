@@ -20,7 +20,7 @@ export default class ThreadsList extends React.Component {
     markChannelAsRead: PropTypes.func.isRequired,
     getDirectChannelByUserId: PropTypes.func.isRequired,
     list: PropTypes.instanceOf(List),
-    type: PropTypes.string,
+    type: PropTypes.number,
   };
 
   constructor(props) {
@@ -65,7 +65,7 @@ export default class ThreadsList extends React.Component {
 
     const list = (() => {
       switch (type) {
-      case 'Channels':
+      case 2:
         const newChannelItem = interpolated => (
         <div style={{opacity: interpolated.x, transform: `translate(${interpolated.y}px, 0)`}}>
             <NewChannelItem
@@ -107,7 +107,7 @@ export default class ThreadsList extends React.Component {
         });
 
 
-      case 'People':
+      case 1:
         return this.props.list.map((listItem) => {
           const thisContactId = listItem.get('id');
           const directChannel = getDirectChannelByUserId(thisContactId);

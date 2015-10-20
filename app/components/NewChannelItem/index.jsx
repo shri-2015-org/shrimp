@@ -11,13 +11,16 @@ export default class ChannelItem extends React.Component {
     newChannel: PropTypes.func.isRequired,
   }
 
+  static contextTypes = {
+    __: PropTypes.func.isRequired,
+  };
 
-  constructor(props) {
-    super(props);
+
+  componentWillMount = () => {
     this.channelNameMaxLength = 25;
     this.state = {
       channelName: '',
-      validationMessage: 'Add new channel',
+      validationMessage: this.__('Add new channel'),
       infoType: 'info',
     };
   }
@@ -44,6 +47,7 @@ export default class ChannelItem extends React.Component {
     }
   }
 
+  __ = this.context.__;
 
   addChannel = () => {
     const channelName = this.state.channelName.trim();
@@ -66,27 +70,27 @@ export default class ChannelItem extends React.Component {
     const sameChannel = this.props.channels.find(channel => channel.get('name') === channelName);
     if (channelName.length > this.channelNameMaxLength) {
       this.setState({
-        validationMessage: 'Name is very long',
+        validationMessage: this.__('Name is very long'),
         infoType: 'error',
       });
       return true;
     }
     if (channelName.length === 0) {
       this.setState({
-        validationMessage: 'Required channel name',
+        validationMessage: this.__('Required channel name'),
         infoType: 'error',
       });
       return true;
     }
     if (sameChannel) {
       this.setState({
-        validationMessage: 'Channel already exists',
+        validationMessage: this.__('Channel already exists'),
         infoType: 'error',
       });
       return true;
     }
     this.setState({
-      validationMessage: 'Channel name correctly',
+      validationMessage: this.__('Channel name correctly'),
       infoType: 'success',
     });
     return false;

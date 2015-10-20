@@ -12,6 +12,9 @@ export default class MessageComposer extends React.Component {
     changeBottom: PropTypes.func.isRequired,
   }
 
+  static contextTypes = {
+    __: PropTypes.func.isRequired,
+  };
 
   constructor(props) {
     super(props);
@@ -92,7 +95,7 @@ export default class MessageComposer extends React.Component {
             type='button'
             onClick={this.sendMessage}
             className='composer__send-button'
-          >Send
+          >{this.context.__('Send')}
           </button>
         </div>
       </div>

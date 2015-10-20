@@ -55,6 +55,14 @@ export function logOut() {
 }
 
 
+export function setLanguage(data) {
+  return {
+    type: A.SET_LANGUAGE,
+    payload: data,
+  };
+}
+
+
 export function changeUserInfo(data) {
   return {
     type: CS.CHANGE_USER_INFO,
