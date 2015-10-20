@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 import store from '../store';
-import {Map} from 'immutable';
+import {fromJS} from 'immutable';
 import {addChannel, addUserToChannel} from '../actions/channels';
 import {addMessage, loadChannelHistory, messagePinned} from '../actions/messages';
 import {init, initUser, logOut} from '../actions/local';
@@ -13,12 +13,12 @@ export function socketClient(type = null, socketData) {
 
   if (type === 'SOCKET_INIT') {
     socket.on(SC.ADD_MESSAGE, (data) => {
-      store.dispatch(addMessage(Map(data)));
+      store.dispatch(addMessage(fromJS(data)));
     });
 
 
     socket.on(SC.ADD_CHANNEL, (data) => {
-      store.dispatch(addChannel(Map({id: data.id, name: data.name, joined: false})));
+      store.dispatch(addChannel(fromJS({id: data.id, name: data.name, joined: false})));
     });
 
 
@@ -67,7 +67,7 @@ export function socketClient(type = null, socketData) {
 
 
     socket.on(SC.ADD_DIRECT_CHANNEL, (data) => {
-      store.dispatch(addChannel(Map({
+      store.dispatch(addChannel(fromJS({
         id: data.id,
         name: data.name,
         users: data.users,
