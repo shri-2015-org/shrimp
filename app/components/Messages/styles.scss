@@ -2,22 +2,16 @@
 
 .messages {
   position: absolute;
-  top: $header_height;
+  top: $channel_header_height;
   right: 0;
   left: 0;
 
   overflow: auto;
 
   box-sizing: border-box;
-  min-width: calc(100vw - #{$threads_width});
+  width: 100%;
   max-height: 100vh;
   margin-bottom: $composer_height;
-  padding-right: 30px;
-  padding-left: 30px;
-
-  @media (max-width: $mobile_width) {
-    top: $header_height - 20px;
-
-    max-width: 100vw;
-  }
+  padding-right: 15px;
+  padding-left: 15px;
 }

@@ -1,0 +1,55 @@
+@import '~styles/variables.scss';
+
+.channel-header {
+  position: relative;
+  z-index: 3;
+
+  display: block;
+
+  height: $channel_header_height;
+  padding: $header_height 15px 0;
+
+  border-bottom: 1px solid #363e41;
+  background: rgba(32,37,40,.97);
+  background-color: #000;
+
+  font-size: 20px;
+  line-height: 50px;
+
+
+  &__person-name,
+  &__channel-name {
+    position: relative;
+
+    overflow: hidden;
+
+    padding-left: 20px;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  &__person-status,
+  &__channel-star {
+    position: absolute;
+    top: 50%;
+    left: 0;
+
+    display: block;
+
+    width: 16px;
+    height: 16px;
+    margin-top: -8px;
+    svg {
+      display: block;
+
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &__person-status {
+    background: $c-green;
+  }
+  &__person-status-offline {
+    background: $c-red;
+  }
+}

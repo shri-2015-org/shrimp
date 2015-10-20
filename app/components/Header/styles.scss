@@ -2,6 +2,8 @@
 @import '~styles/colors.scss';
 
 .header {
+  $user-pic-height: 26px;
+
   position: fixed;
   z-index: 10;
 
@@ -18,10 +20,11 @@
 
     width: $threads_width;
     margin-right: -$threads_width;
-    padding-top: 10px;
+    padding-top: ($header_height - $user-pic-height) / 2;
     padding-left: 25px;
+
+    line-height: $user-pic-height;
     @media (max-width: $mobile_width) {
-      padding-top: 12px;
       padding-left: 60px;
     }
   }
@@ -29,23 +32,15 @@
   &__user-avatar {
     float: left;
 
-    width: 50px;
-    height: 50px;
-    margin-right: 20px;
-    @media (max-width: $mobile_width) {
-      width: 24px;
-      height: 24px;
-      margin-right: 10px;
-    }
+    width: $user-pic-height;
+    height: $user-pic-height;
+    margin-right: 10px;
   }
 
   &__user-name {
     float: left;
 
-    text-transform: capitalize;
-
-    font-size: 18px;
-    line-height: 50px;
+    font-size: 16px;
 
     @media (max-width: $mobile_width) {
       line-height: 22px;
@@ -53,60 +48,6 @@
     @media (max-width: 550px) {
       display: none;
     }
-  }
-
-  @media (max-width: $mobile_width) {
-    height: $header_height - 20px;
-  }
-
-  &__thread {
-    float: left;
-
-    width: 100%;
-    padding-right: 250px;
-    padding-left: $threads_width;
-
-    color: #fff;
-  }
-  &__person-name,
-  &__channel-name {
-    position: relative;
-
-    overflow: hidden;
-
-    height: 70px;
-    padding-top: 22px;
-    padding-left: 40px;
-
-    white-space: nowrap;
-    text-overflow: ellipsis;
-
-    font-size: 20px;
-    line-height: 26px;
-  }
-  &__person-status,
-  &__channel-star {
-    position: absolute;
-    top: 50%;
-    left: 12px;
-
-    display: block;
-
-    width: 16px;
-    height: 16px;
-    margin-top: -8px;
-    svg {
-      display: block;
-
-      width: 100%;
-      height: 100%;
-    }
-  }
-  &__person-status {
-    background: $c-green;
-  }
-  &__person-status-offline {
-    background: $c-red;
   }
 
   &__humburger {
@@ -125,7 +66,7 @@
 
   &__search {
     top: 50%;
-    right: 50px;
+    right: 40px;
 
     width: 180px;
     height: 40px;

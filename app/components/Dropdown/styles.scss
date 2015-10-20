@@ -17,24 +17,20 @@
     padding: 0;
 
     transform: translateY(-50%) rotate(90deg);
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 
     color: $c-dropdown-button_text;
     border: none;
     outline: none;
     background: transparent;
 
-    font-size: 18px;
-
-    @media (max-width: $mobile_width) {
-      font-size: 10px;
-    }
+    font-size: 12px;
   }
 
   &__menu {
     position: absolute;
     top: -1px;
-    right: 5px;
+    right: 0;
 
     margin: 0;
     padding: 0;

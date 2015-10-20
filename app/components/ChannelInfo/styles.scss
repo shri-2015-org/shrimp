@@ -1,0 +1,58 @@
+@import '~styles/variables.scss';
+@import '~styles/colors.scss';
+
+
+.channel-info {
+  width: $threads_width;
+  height: 100%;
+  padding-top: $channel_header_height;
+
+  border-left: 1px solid $c-gray-50;
+  &__inner {
+    position: relative;
+
+    overflow: auto;
+
+    height: 100%;
+  }
+  &__name {
+    padding: 0 15px;
+
+    color: $c-threads_text;
+
+    font-size: 20px;
+    line-height: 50px;
+    &__same {
+      display: inline-block;
+
+      vertical-align: bottom;
+
+      color: $c-white;
+    }
+  }
+
+  &__section {
+    border-top: 1px solid $c-gray-50;
+    border-bottom: 1px solid $c-gray-50;
+
+    &__header {
+      padding: 0 15px;
+
+      font-size: 18px;
+      line-height: 50px;
+      &__size {
+        display: inline-block;
+
+        margin-left: 10px;
+
+        vertical-align: baseline;
+
+        color: $c-threads_text;
+      }
+    }
+
+    &__body {
+      padding: 10px 15px;
+    }
+  }
+}

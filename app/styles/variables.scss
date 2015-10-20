@@ -1,9 +1,10 @@
 @import './colors.scss';
-$header_height: 70px;
+$header_height: 40px;
 $threads_width: 250px;
-$composer_height: 68px;
+$composer_height: 63px;
 $mobile_width: 800px;
 $messages_avatar_left_padding: 60px;
 $message_cloud_width: 440px;
 $spinner_medium_diameter: 34px;
 $spinner_small_diameter: 24px;
+$channel_header_height: $header_height + 50px;

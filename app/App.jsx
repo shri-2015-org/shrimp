@@ -5,22 +5,27 @@ import cookies from 'browser-cookies';
 import Sidebar from 'react-sidebar';
 import store from 'store';
 import {socketClient} from 'core/socket';
-import Messages from 'components/Messages';
-import Header from 'components/Header';
-import Threads from 'components/Threads';
-import PinnedMessages from 'components/PinnedMessages';
-import 'styles/main.scss';
 import {bindActionCreators} from 'redux';
-import * as actionsChannels from 'actions/channels';
-import * as actionsMessages from 'actions/messages';
-import * as actionsLocal from 'actions/local';
+import DocumentTitle from 'react-document-title';
+
 import {messageFilterSelector, pinnedMessagesSelector} from 'selectors/messagesSelector';
 import {contactsSelector} from 'selectors/contactsSelector';
-import DocumentTitle from 'react-document-title';
 import {localSelector} from 'selectors/localSelector';
 import {indirectChannelsSelector} from 'selectors/channelsSelector';
 import {directChannelsSelector} from 'selectors/directChannelsSelector';
 import {currentChannelSelector} from 'selectors/currentChannelSelector';
+
+import * as actionsChannels from 'actions/channels';
+import * as actionsMessages from 'actions/messages';
+import * as actionsLocal from 'actions/local';
+
+import Messages from 'components/Messages';
+import Header from 'components/Header';
+import Threads from 'components/Threads';
+import ChannelInfo from 'components/ChannelInfo';
+import ChannelHeader from 'components/ChannelHeader';
+
+import 'styles/main.scss';
 
 @connect(state => ({
   messages: messageFilterSelector(state),
@@ -112,7 +117,6 @@ export default class Application extends React.Component {
             open={this.state.sidebarOpen}
             docked={this.state.sidebarDocked}
             local={local}
-            currentChannel={currentChannel}
             {...actions}
           />
           <Sidebar
@@ -120,16 +124,23 @@ export default class Application extends React.Component {
             open={this.state.sidebarOpen}
             onSetOpen={this.onSetSidebarOpen}
             docked={this.state.sidebarDocked}
+            shadow={false}
           >
+            <ChannelHeader
+              currentChannel={currentChannel}
+            />
             <Sidebar
               sidebar={
-                (<PinnedMessages
-                  messages={pinnedMessages}
-                />)
+                <ChannelInfo
+                  pinnedMessages={pinnedMessages}
+                  currentChannel={currentChannel}
+                />
               }
               open={this.state.sidebarOpen}
               onSetOpen={this.onSetSidebarOpen}
               docked={this.state.sidebarDocked}
+              shadow={false}
+              pullRight
             >
               <Messages
                 docked={this.state.sidebarDocked}

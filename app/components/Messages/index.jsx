@@ -56,17 +56,19 @@ export default class Messages extends React.Component {
   render() {
     const {messages, local} = this.props;
     return (
-      <div
-        className='messages'
-        ref='list'
-        style={{bottom: this.state.listBottom}}
-      >
-        <MessageList
-          messages={messages}
-          scroll={this.scrollToBottom}
-          local={local}
-          pinMessage={this.props.pinMessage}
-        />
+      <div>
+        <div
+          className='messages'
+          ref='list'
+          style={{bottom: this.state.listBottom}}
+        >
+          <MessageList
+            messages={messages}
+            scroll={this.scrollToBottom}
+            local={local}
+            pinMessage={this.props.pinMessage}
+          />
+        </div>
         <MessageComposer
           {...this.props}
           local={local}

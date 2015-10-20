@@ -11,6 +11,7 @@
   padding-bottom: 40px;
 
   color: $c-threads_text;
+  border-right: 1px solid transparent;
   background-color: $c-threads_bg;
 
   @media (max-width: $mobile_width) {
@@ -34,21 +35,6 @@
   &__search {
     right: 5px;
     left: 35px;
-
-    overflow: hidden;
-
-    height: 30px;
-
-    font-size: 16px;
-
-    &__icon {
-      top: 5px;
-      left: 5px;
-    }
-
-    &__input {
-      padding-left: 35px;
-    }
   }
 }
 

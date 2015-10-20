@@ -19,22 +19,18 @@
 
 
 .composer {
-  position: fixed;
+  position: absolute;
   right: 0;
   bottom: 0;
 
-  width: calc(100vw - #{$threads_width});
+  width: 100%;
 
   background: $c-main_bg;
-
-  @media (max-width: $mobile_width) {
-    width: 100vw;
-  }
 
   &__sender {
     position: relative;
 
-    margin: 5px 15px 15px 15px;
+    margin: 0 15px 15px;
 
     border: 1px solid $с-composer-sender_border;
     border-radius: 5px;
@@ -80,10 +76,10 @@
     text-align: center;
 
     color: white;
+    border: 1px solid #363e41;
     border-radius: 11px;
     background: $c-blue;
 
-    font-size: 12px;
     font-size: 12px;
     line-height: 21px;
 

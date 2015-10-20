@@ -1,0 +1,17 @@
+@import '~styles/variables.scss';
+@import '~styles/colors.scss';
+
+.pinned-message {
+  padding: 5px 10px;
+
+  border: 1px solid $c-gray-50;
+  border-radius: 5px;
+  & + .pinned-message {
+    margin-top: 10px;
+  }
+  &__sender {
+    margin-bottom: 10px;
+
+    color: $c-threads_text;
+  }
+}
