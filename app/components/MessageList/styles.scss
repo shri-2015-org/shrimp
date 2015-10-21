@@ -3,8 +3,8 @@
 .messages-list__list {
   margin-top: 25px;
   margin-bottom: 25px;
-  padding-right: 8px;
-  padding-left: $messages_avatar_left_padding;
+  padding-right: $messages_avatar_left_padding + 15px;
+  padding-left: $messages_avatar_left_padding + 15px;
 
   list-style: none;
 }

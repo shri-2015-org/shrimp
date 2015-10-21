@@ -1,6 +1,8 @@
 import React, {PropTypes} from 'react';
 import Immutable, {List, Map} from 'immutable';
+
 import Message from 'components/Message';
+
 import './styles.scss';
 
 

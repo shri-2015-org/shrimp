@@ -151,6 +151,7 @@ export default class Application extends React.Component {
                 local={local}
                 {...actions}
               />
+
             </Sidebar>
           </Sidebar>
         </div>

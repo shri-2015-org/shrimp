@@ -1,14 +1,15 @@
 import React, {PropTypes} from 'react';
 import Immutable, {List, Map} from 'immutable';
-import './styles.scss';
+import GeminiScrollbar from 'react-gemini-scrollbar';
+
 import Tabs from 'components/Tabs';
 import Tab from 'components/Tab';
 import ThreadsList from 'components/ThreadsList';
 import Search from 'components/Search';
 
+import './styles.scss';
 
 export default class Threads extends React.Component {
-
   static propTypes = {
     channels: PropTypes.instanceOf(List).isRequired,
     contacts: PropTypes.instanceOf(List).isRequired,
@@ -166,16 +167,18 @@ export default class Threads extends React.Component {
           <Tab id={2}>Channels</Tab>
         </Tabs>
 
-        <ThreadsList
-          {...this.props}
-          list={filterData}
-          local={local}
-          channels={channels}
-          type={currentTabData.get('name')}
-          setCurrentDirectChannel={this.setCurrentDirectChannel}
-          isCurrentDirectChannel={this.isCurrentDirectChannel}
-          getDirectChannelByUserId={this.getDirectChannelByUserId}
-        />
+        <GeminiScrollbar className='gm-scrollbar-container '>
+          <ThreadsList
+            {...this.props}
+            list={filterData}
+            local={local}
+            channels={channels}
+            type={currentTabData.get('name')}
+            setCurrentDirectChannel={this.setCurrentDirectChannel}
+            isCurrentDirectChannel={this.isCurrentDirectChannel}
+            getDirectChannelByUserId={this.getDirectChannelByUserId}
+          />
+        </GeminiScrollbar>
         <div className='treads-bottom'>
           <Search
             onChange={this.changeFilterValue}

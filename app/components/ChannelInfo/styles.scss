@@ -14,8 +14,14 @@
     overflow: auto;
 
     height: 100%;
+    padding-top: 50px;
   }
   &__name {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: 100%;
     padding: 0 15px;
 
     color: $c-threads_text;

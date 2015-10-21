@@ -1,7 +1,10 @@
 import React, {PropTypes} from 'react';
 import Immutable, {List, Map} from 'immutable';
+import GeminiScrollbar from 'react-gemini-scrollbar';
+
 import MessageList from 'components/MessageList';
 import MessageComposer from 'components/MessageComposer';
+
 import './styles.scss';
 
 
@@ -63,13 +66,15 @@ export default class Messages extends React.Component {
           ref='list'
           style={{bottom: this.state.listBottom}}
         >
-          <MessageList
-            messages={messages}
-            scroll={this.scrollToBottom}
-            local={local}
-            pinMessage={this.props.pinMessage}
-            unpinMessage={this.props.unpinMessage}
-          />
+          <GeminiScrollbar className='gm-scrollbar-container '>
+            <MessageList
+              messages={messages}
+              scroll={this.scrollToBottom}
+              local={local}
+              pinMessage={this.props.pinMessage}
+              unpinMessage={this.props.unpinMessage}
+            />
+          </GeminiScrollbar>
         </div>
         <MessageComposer
           {...this.props}

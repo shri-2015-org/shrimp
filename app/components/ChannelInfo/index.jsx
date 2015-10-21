@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import {Map, List} from 'immutable';
+import GeminiScrollbar from 'react-gemini-scrollbar';
 
 import PinnedMessages from 'components/PinnedMessages';
 
@@ -35,7 +36,9 @@ export default class ChannelInfo extends React.Component {
               {currentChannelName}
             </div>
           </div>
-          {pinnedMessagesBlock}
+          <GeminiScrollbar className='gm-scrollbar-container '>
+            {pinnedMessagesBlock}
+          </GeminiScrollbar>
         </div>
       </div>
     );
