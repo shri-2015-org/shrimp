@@ -8,7 +8,7 @@
   position: relative;
 
   min-height: 40px;
-  margin-top: 20px;
+  margin-top: 23px;
   padding-top: 2px;
   padding-bottom: 2px;
 
@@ -113,11 +113,11 @@
   &__username {
     position: absolute;
     top: -15px;
-    left: 10px;
+    left: 0;
 
     color: $c-gray-70;
 
-    font-size: .9em;
+    font-size: .7em;
   }
 
   &__date {
