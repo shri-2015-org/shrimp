@@ -56,7 +56,7 @@
 
     padding-top: 11px;
     padding-right: 10px;
-    padding-left: 60px;
+    padding-left: 54px;
 
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -75,7 +75,7 @@
     max-width: 400px;
     padding-top: 5px;
     padding-right: 10px;
-    padding-left: 60px;
+    padding-left: 54px;
 
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -90,13 +90,13 @@
 
   &__avatar {
     position: absolute;
-    top: 10px;
+    top: 13px;
     left: 10px;
 
     overflow: hidden;
 
-    width: 40px;
-    height: 40px;
+    width: 34px;
+    height: 34px;
 
     border-radius: 3px;
     background: #000;
@@ -104,14 +104,14 @@
 
   &__status {
     position: absolute;
-    top: 6px;
+    top: 9px;
     left: 6px;
 
     width: 12px;
     height: 12px;
 
     border: 2px solid $c-gray-30;
-    border-bottom-right-radius: 3px;
+    border-radius: 100%;
     background: $c-green;
   }
 

@@ -63,8 +63,8 @@ export default class Message extends React.Component {
       <img
         className='message__avatar'
         src={sender.get('avatar')}
-        width='45'
-        height='45'
+        width='34'
+        height='34'
       />
     );
   }

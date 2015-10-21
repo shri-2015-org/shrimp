@@ -1,7 +1,7 @@
 @import '~styles/variables.scss';
 
 .threads-list {
-  overflow: scroll;
+  overflow: auto;
 
   width: $threads_width;
   height: 100%;

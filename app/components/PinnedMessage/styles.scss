@@ -14,4 +14,7 @@
 
     color: $c-threads_text;
   }
+  &__text {
+    word-break: break-word;
+  }
 }

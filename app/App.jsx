@@ -59,6 +59,8 @@ export default class Application extends React.Component {
     this.state = {
       sidebarOpen: false,
       sidebarDocked: true,
+      informSidebarOpen: false,
+      informSidebarDocked: true,
     };
   }
 
@@ -137,9 +139,9 @@ export default class Application extends React.Component {
                   unpinMessage={actions.unpinMessage}
                 />
               }
-              open={this.state.sidebarOpen}
+              open={this.state.informSidebarOpen}
               onSetOpen={this.onSetSidebarOpen}
-              docked={this.state.sidebarDocked}
+              docked={this.state.informSidebarDocked}
               shadow={false}
               pullRight
             >

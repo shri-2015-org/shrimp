@@ -3,6 +3,8 @@
 @import '~styles/colors.scss';
 
 .message {
+  $massage_arrow_size: 8px;
+
   position: relative;
 
   min-height: 40px;
@@ -43,17 +45,16 @@
 
     &:before {
       position: absolute;
-      right: 10px;
-      bottom: -10px;
+      right: -$massage_arrow_size;
+      bottom: 13px;
 
       display: none;
 
-      width: 18px;
-      height: 10px;
-
       content: '';
 
-      background: url('./default-horn.svg');
+      border: 0;
+      border-top: $massage_arrow_size solid transparent;
+      border-left: $massage_arrow_size solid $c-message-cloud-default_bg;
     }
 
     &:hover .message__date {
@@ -71,17 +72,16 @@
     background: $c-message-cloud-other_bg;
 
     &:before {
-      top: 17px;
-      left: -12px;
+      top: 13px;
+      right: auto;
+      bottom: auto;
+      left: -$massage_arrow_size;
 
       display: block;
 
-      width: 12px;
-      height: 11px;
-
-      transform: translateY(-50%);
-
-      background: url('./other-horn.svg');
+      border: 0;
+      border-right: $massage_arrow_size solid $c-message-cloud-other_bg;
+      border-bottom: $massage_arrow_size solid transparent;
     }
   }
 
@@ -104,8 +104,8 @@
 
   &__avatar {
     position: absolute;
-    top: -10px;
-    left: -60px;
+    top: 0;
+    left: -$messages_avatar_left_padding;
 
     border-radius: $main-border-radius;
   }

@@ -11,7 +11,6 @@
 
   border-bottom: 1px solid #363e41;
   background: rgba(32,37,40,.97);
-  background-color: #000;
 
   font-size: 20px;
   line-height: 50px;
@@ -47,6 +46,11 @@
     }
   }
   &__person-status {
+    width: 12px;
+    height: 12px;
+    margin-top: -6px;
+
+    border-radius: 100%;
     background: $c-green;
   }
   &__person-status-offline {
