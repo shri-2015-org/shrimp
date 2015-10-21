@@ -8,6 +8,15 @@ export function setLocalState(state) {
 }
 
 
+export function changeCurrentChannel(channelId) {
+  return {
+    type: CS.SET_CURRENT_CHANNEL,
+    payload: channelId,
+    send: true,
+  };
+}
+
+
 export function setCurrentChannel(channelId) {
   return {
     type: A.SET_CURRENT_CHANNEL,

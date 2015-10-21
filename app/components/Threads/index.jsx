@@ -12,7 +12,7 @@ export default class Threads extends React.Component {
   static propTypes = {
     channels: PropTypes.instanceOf(List).isRequired,
     contacts: PropTypes.instanceOf(List).isRequired,
-    setCurrentChannel: PropTypes.func.isRequired,
+    changeCurrentChannel: PropTypes.func.isRequired,
     markChannelAsRead: PropTypes.func.isRequired,
     addDirtyChannel: PropTypes.func.isRequired,
     removeDirtyChannel: PropTypes.func.isRequired,
@@ -51,7 +51,7 @@ export default class Threads extends React.Component {
 
         if (dirtyChannel) {
           this.props.removeDirtyDirectChannel();
-          this.props.setCurrentChannel(addedChannel.get('id'));
+          this.props.changeCurrentChannel(addedChannel.get('id'));
         }
       }
     }
@@ -88,7 +88,7 @@ export default class Threads extends React.Component {
       this.props.addDirtyDirectChannel(channelId);
       return;
     }
-    this.props.setCurrentChannel(directChannel.get('id'));
+    this.props.changeCurrentChannel(directChannel.get('id'));
   }
 
 

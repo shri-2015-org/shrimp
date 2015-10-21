@@ -7,6 +7,7 @@ const user = new mongoose.Schema({
   email: String,
   name: String,
   avatar: String,
+  currentChannelId: String,
   passwordHash: {
     type: String,
     select: false,

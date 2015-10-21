@@ -5,7 +5,7 @@ import getMessageModel from './models/message';
 import getChannelModel from './models/channel';
 import getUserModel from './models/user';
 import {SC, CS} from '../constants';
-import {checkSessionId, setUserInfo, joinToChannel, setFavoriteChannel, loadChannelHistory} from './db/db_core.js';
+import {checkSessionId, setUserInfo, joinToChannel, setFavoriteChannel, loadChannelHistory, setCurrentChannel} from './db/db_core.js';
 // const debug = require('debug')('shrimp:server');
 const Message = getMessageModel();
 const Channel = getChannelModel();
@@ -107,12 +107,20 @@ export function startSocketServer(http) {
     });
 
 
+    socket.on(CS.SET_CURRENT_CHANNEL, data => {
+      setCurrentChannel(socket.sessionId, data, () => {
+        socket.emit(SC.SET_CURRENT_CHANNEL, data);
+      });
+    });
+
+
     socket.on(CS.MARK_AS_READ, data => {
       User.getBySessionId(socket.sessionId)
         .then((user) => {
           Channel.markAsRead(data, user.id);
         });
     });
+
 
     function findClientsSocket(roomId, namespace) {
       const res = [];

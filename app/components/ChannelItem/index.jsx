@@ -13,7 +13,7 @@ export default class ChannelItem extends React.Component {
     unreadCount: PropTypes.number,
     isCurrent: PropTypes.bool,
     setFavoriteChannel: PropTypes.func.isRequired,
-    setCurrentChannel: PropTypes.func.isRequired,
+    changeCurrentChannel: PropTypes.func.isRequired,
     joinToChannel: PropTypes.func.isRequired,
     markChannelAsRead: PropTypes.func.isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
@@ -39,7 +39,7 @@ export default class ChannelItem extends React.Component {
 
 
   setChannel = () => {
-    this.props.setCurrentChannel(this.props.item.get('id'));
+    this.props.changeCurrentChannel(this.props.item.get('id'));
     const joinedUser = this.props.item.get('joined');
     if (!joinedUser) {
       this.props.joinToChannel(this.props.item.get('id'));
