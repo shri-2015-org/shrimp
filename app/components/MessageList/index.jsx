@@ -15,10 +15,26 @@ export default class MessageList extends React.Component {
     pinMessage: PropTypes.func.isRequired,
     unpinMessage: PropTypes.func.isRequired,
     setCurrentDirectChannel: PropTypes.func.isRequired,
+    currentChannel: PropTypes.instanceOf(Map).isRequired,
+  }
+
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      prevChannelName: 0,
+      prevMessageId: 0,
+
+    };
   }
 
 
   shouldComponentUpdate(nextProps) {
+    this.state.prevChannelName = this.props.currentChannel.get('name');
+    const lastMessage = this.props.messages.last();
+    if (lastMessage) {
+      this.state.prevMessageId = lastMessage.get('id');
+    }
     return !(
       Immutable.is(nextProps.messages, this.props.messages) &&
       Immutable.is(nextProps.local, this.props.local)
@@ -27,7 +43,14 @@ export default class MessageList extends React.Component {
 
 
   componentDidUpdate() {
-    this.props.scroll();
+    if (!this.state.prevChannelName || this.state.prevChannelName !== this.props.currentChannel.get('name')) {
+      this.props.scroll();
+    } else {
+      const lastMessage = this.props.messages.last();
+      if (this.state.prevMessageId !== lastMessage.get('id') && lastMessage.get('senderId') === this.props.local.get('userId')) {
+        this.props.scroll();
+      }
+    }
   }
 
   render() {

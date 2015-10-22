@@ -5,6 +5,7 @@ import GeminiScrollbar from 'react-gemini-scrollbar';
 import MessageList from 'components/MessageList';
 import MessageComposer from 'components/MessageComposer';
 
+
 import './styles.scss';
 
 
@@ -17,6 +18,7 @@ export default class Messages extends React.Component {
     pinMessage: PropTypes.func.isRequired,
     unpinMessage: PropTypes.func.isRequired,
     setCurrentDirectChannel: PropTypes.func.isRequired,
+    currentChannel: PropTypes.instanceOf(Map).isRequired,
   }
 
 
@@ -42,8 +44,10 @@ export default class Messages extends React.Component {
   }
 
   scrollToBottom = () => {
-    const list = this.refs.list;
-    list.scrollTop = list.scrollHeight;
+    const list = this.refs.list.getElementsByClassName('gm-scroll-view')[0];
+    if (list) {
+      list.scrollTop = list.scrollHeight;
+    }
   }
 
 
@@ -66,7 +70,7 @@ export default class Messages extends React.Component {
           ref='list'
           style={{bottom: this.state.listBottom}}
         >
-          <GeminiScrollbar className='gm-scrollbar-container '>
+          <GeminiScrollbar className='gm-scrollbar-container'>
             <MessageList
               {...this.props}
               scroll={this.scrollToBottom}
