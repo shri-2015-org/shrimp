@@ -1,8 +1,8 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 import cx from 'classnames';
-import './styles.scss';
 
+import './styles.scss';
 
 export default class Tab extends React.Component {
 
@@ -19,11 +19,6 @@ export default class Tab extends React.Component {
 
   constructor(props) {
     super(props);
-  }
-
-
-  shouldComponentUpdate(nextProps) {
-    return nextProps.isCurrent !== this.props.isCurrent;
   }
 
 

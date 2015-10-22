@@ -26,13 +26,14 @@ export default class Threads extends React.Component {
     setCurrentDirectChannel: PropTypes.func.isRequired,
     getDirectChannelByUserId: PropTypes.func.isRequired,
     changeToDirectChannel: PropTypes.func.isRequired,
+    changeTab: PropTypes.func.isRequired,
+    currentTabId: PropTypes.number.isRequired,
   }
 
 
   constructor(props) {
     super(props);
     this.state = {
-      currentTabId: 2,
       filterValue: '',
     };
   }
@@ -49,7 +50,7 @@ export default class Threads extends React.Component {
       const addedChannel = nextProps.directChannels.last();
       const addedChannelName = addedChannel.get('name');
       this.props.markChannelAsRead({channelId: addedChannel.get('id'), lastSeen: new Date().toUTCString()});
-      if (this.state.currentTabId === 1) {
+      if (this.props.currentTabId === 1) {
         const dirtyChannel = this.props.channels.find(
             c => c.get('isDirty') && c.get('isDirect') && c.get('dirtyName') === addedChannelName);
 
@@ -64,7 +65,7 @@ export default class Threads extends React.Component {
       Immutable.is(nextProps.indirectChannels, this.props.indirectChannels) &&
       Immutable.is(nextProps.contacts, this.props.contacts) &&
       Immutable.is(nextProps.local, this.props.local) &&
-      Immutable.is(nextState.currentTabId, this.state.currentTabId) &&
+      nextProps.currentTabId === this.props.currentTabId &&
       Immutable.is(nextState.filterValue, this.state.filterValue)
     );
   };
@@ -85,12 +86,6 @@ export default class Threads extends React.Component {
     const directChannel = this.props.getDirectChannelByUserId(userId);
     return directChannel && this.props.local.get('currentChannelId') === directChannel.get('id');
   }
-
-  changeTab = (tabId) => {
-    this.setState({
-      currentTabId: tabId,
-    });
-  };
 
 
   removeDirtyChannel = (e) => {
@@ -118,7 +113,7 @@ export default class Threads extends React.Component {
       Map({id: 2, name: 'Channels', sendToServer: false, list: indirectChannels }),
     );
 
-    const currentTabData = tabs.find(tab => tab.get('id') === this.state.currentTabId);
+    const currentTabData = tabs.find(tab => tab.get('id') === this.props.currentTabId);
 
     let filterData = currentTabData.get('list').filter(listItem => {
       return listItem.get('isDirty') || listItem.get('name').indexOf(this.state.filterValue) !== -1;
@@ -139,8 +134,8 @@ export default class Threads extends React.Component {
     return (
       <div className='threads' ref='threads'>
         <Tabs
-          currentTabId={this.state.currentTabId}
-          changeTab={this.changeTab}
+          currentTabId={this.props.currentTabId}
+          changeTab={this.props.changeTab}
           className='threads__tabs'
         >
           <Tab id={1}>People</Tab>

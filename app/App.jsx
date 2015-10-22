@@ -63,6 +63,7 @@ export default class Application extends React.Component {
       sidebarDocked: true,
       informSidebarOpen: false,
       informSidebarDocked: true,
+      currentTabId: 1,
     };
   }
 
@@ -109,6 +110,7 @@ export default class Application extends React.Component {
       return;
     }
     this.actions.changeCurrentChannel(directChannel.get('id'));
+    this.changeTab(1);
   }
 
   mediaQueryChanged = () => {
@@ -123,6 +125,12 @@ export default class Application extends React.Component {
     }
   }
 
+  changeTab = (tabId) => {
+    this.setState({
+      currentTabId: tabId,
+    });
+  };
+
   render() {
     const threads = (
       <Threads
@@ -130,6 +138,8 @@ export default class Application extends React.Component {
         setCurrentDirectChannel={this.setCurrentDirectChannel}
         getDirectChannelByUserId={this.getDirectChannelByUserId}
         changeToDirectChannel={this.changeToDirectChannel}
+        changeTab={this.changeTab}
+        currentTabId={this.state.currentTabId}
         {...this.actions}
       />
     );
