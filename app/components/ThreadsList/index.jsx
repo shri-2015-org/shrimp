@@ -21,6 +21,9 @@ export default class ThreadsList extends React.Component {
     getDirectChannelByUserId: PropTypes.func.isRequired,
     list: PropTypes.instanceOf(List),
     type: PropTypes.string,
+    setCurrentDirectChannel: PropTypes.func.isRequired,
+    changeToDirectChannel: PropTypes.func.isRequired,
+
   };
 
   constructor(props) {

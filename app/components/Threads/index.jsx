@@ -23,6 +23,9 @@ export default class Threads extends React.Component {
     addDirectChannel: PropTypes.func.isRequired,
     addDirtyDirectChannel: PropTypes.func.isRequired,
     removeDirtyDirectChannel: PropTypes.func.isRequired,
+    setCurrentDirectChannel: PropTypes.func.isRequired,
+    getDirectChannelByUserId: PropTypes.func.isRequired,
+    changeToDirectChannel: PropTypes.func.isRequired,
   }
 
 
@@ -72,27 +75,6 @@ export default class Threads extends React.Component {
   };
 
 
-  getDirectChannelByUserId = (userId) => {
-    return this.props.directChannels
-      .find(c => c.get('users') && c.get('users').find(u => u._id === userId || (u.get && u.get('_id') === userId)));
-  }
-
-
-  setCurrentDirectChannel = (userId) => {
-    const directChannel = this.getDirectChannelByUserId(userId);
-    if (!directChannel) {
-      const channelId = [this.props.local.get('userId'), userId].sort().join('');
-      this.props.addDirectChannel({
-        userIds: [this.props.local.get('userId'), userId],
-        name: channelId,
-      });
-      this.props.addDirtyDirectChannel(channelId);
-      return;
-    }
-    this.props.changeCurrentChannel(directChannel.get('id'));
-  }
-
-
   addDirtyChannel = () => {
     const threadsWrapper = this.refs.threads.parentNode;
     threadsWrapper.scrollTop = 0;
@@ -100,7 +82,7 @@ export default class Threads extends React.Component {
   };
 
   isCurrentDirectChannel = (userId) => {
-    const directChannel = this.getDirectChannelByUserId(userId);
+    const directChannel = this.props.getDirectChannelByUserId(userId);
     return directChannel && this.props.local.get('currentChannelId') === directChannel.get('id');
   }
 
@@ -128,9 +110,7 @@ export default class Threads extends React.Component {
   render() {
     const {
       indirectChannels,
-      channels,
       contacts,
-      local,
     } = this.props;
 
     const tabs = List.of(
@@ -171,12 +151,8 @@ export default class Threads extends React.Component {
           <ThreadsList
             {...this.props}
             list={filterData}
-            local={local}
-            channels={channels}
             type={currentTabData.get('name')}
-            setCurrentDirectChannel={this.setCurrentDirectChannel}
             isCurrentDirectChannel={this.isCurrentDirectChannel}
-            getDirectChannelByUserId={this.getDirectChannelByUserId}
           />
         </GeminiScrollbar>
         <div className='treads-bottom'>

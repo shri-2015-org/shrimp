@@ -115,9 +115,15 @@
     top: -15px;
     left: 0;
 
-    color: $c-gray-70;
+    cursor: pointer;
+    transition: color .3s;
+
+    color: $c-blue;
 
     font-size: .7em;
+    &:hover {
+      color: $c-white;
+    }
   }
 
   &__date {

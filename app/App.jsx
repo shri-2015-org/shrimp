@@ -56,6 +56,8 @@ export default class Application extends React.Component {
 
   constructor(props) {
     super(props);
+    this.actionsCombine = Object.assign(actionsMessages, actionsLocal, actionsChannels);
+    this.actions = bindActionCreators(this.actionsCombine, this.props.dispatch);
     this.state = {
       sidebarOpen: false,
       sidebarDocked: true,
@@ -90,23 +92,45 @@ export default class Application extends React.Component {
   }
 
 
+  getDirectChannelByUserId = (userId) => {
+    return this.props.directChannels
+      .find(c => c.get('users') && c.get('users').find(u => u._id === userId || (u.get && u.get('_id') === userId)));
+  }
+
+  setCurrentDirectChannel = (userId) => {
+    const directChannel = this.getDirectChannelByUserId(userId);
+    if (!directChannel) {
+      const channelId = [this.props.local.get('userId'), userId].sort().join('');
+      this.actions.addDirectChannel({
+        userIds: [this.props.local.get('userId'), userId],
+        name: channelId,
+      });
+      this.actions.addDirtyDirectChannel(channelId);
+      return;
+    }
+    this.actions.changeCurrentChannel(directChannel.get('id'));
+  }
+
   mediaQueryChanged = () => {
     this.setState({sidebarDocked: this.state.mql.matches, sidebarOpen: this.state.mql.matches});
   }
 
+  changeToDirectChannel = (contactId) => {
+    this.setCurrentDirectChannel(contactId);
+    this.actions.markChannelAsRead({ channelId: this.props.local.get('currentChannelId'), lastSeen: new Date().toUTCString() });
+    if (this.getDirectChannelByUserId(contactId)) {
+      this.actions.markChannelAsRead({ channelId: this.getDirectChannelByUserId(contactId).get('id'), lastSeen: new Date().toUTCString() });
+    }
+  }
 
   render() {
-    const {messages, channels, local, dispatch, contacts, indirectChannels, directChannels, pinnedMessages, currentChannel} = this.props;
-    const actionsCombine = Object.assign(actionsMessages, actionsLocal, actionsChannels);
-    const actions = bindActionCreators(actionsCombine, dispatch);
     const threads = (
       <Threads
-        channels={channels}
-        contacts={contacts}
-        local={local}
-        indirectChannels={indirectChannels}
-        directChannels={directChannels}
-        {...actions}
+        {...this.props}
+        setCurrentDirectChannel={this.setCurrentDirectChannel}
+        getDirectChannelByUserId={this.getDirectChannelByUserId}
+        changeToDirectChannel={this.changeToDirectChannel}
+        {...this.actions}
       />
     );
 
@@ -115,13 +139,14 @@ export default class Application extends React.Component {
         <div className='chat-page'>
           {this.props.children}
           <Header
+            {...this.props}
             setOpen={this.onSetSidebarOpen}
             open={this.state.sidebarOpen}
             docked={this.state.sidebarDocked}
-            local={local}
-            {...actions}
+            {...this.actions}
           />
           <Sidebar
+            {...this.props}
             sidebar={threads}
             open={this.state.sidebarOpen}
             onSetOpen={this.onSetSidebarOpen}
@@ -129,14 +154,13 @@ export default class Application extends React.Component {
             shadow={false}
           >
             <ChannelHeader
-              currentChannel={currentChannel}
+              {...this.props}
             />
             <Sidebar
               sidebar={
                 <ChannelInfo
-                  pinnedMessages={pinnedMessages}
-                  currentChannel={currentChannel}
-                  unpinMessage={actions.unpinMessage}
+                  {...this.props}
+                  unpinMessage={this.actions.unpinMessage}
                 />
               }
               open={this.state.informSidebarOpen}
@@ -146,10 +170,10 @@ export default class Application extends React.Component {
               pullRight
             >
               <Messages
+                {...this.props}
                 docked={this.state.sidebarDocked}
-                messages={messages}
-                local={local}
-                {...actions}
+                setCurrentDirectChannel={this.setCurrentDirectChannel}
+                {...this.actions}
               />
 
             </Sidebar>

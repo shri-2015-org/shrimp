@@ -14,6 +14,7 @@ export default class MessageList extends React.Component {
     local: PropTypes.instanceOf(Map).isRequired,
     pinMessage: PropTypes.func.isRequired,
     unpinMessage: PropTypes.func.isRequired,
+    setCurrentDirectChannel: PropTypes.func.isRequired,
   }
 
 
@@ -46,9 +47,8 @@ export default class MessageList extends React.Component {
         }());
         return (
           <Message
+            {...this.props}
             id={message.get('id')}
-            pinMessage={this.props.pinMessage}
-            unpinMessage={this.props.unpinMessage}
             key={i}
             sender={sender}
             senderRepeated={senderRepeated}

@@ -16,6 +16,7 @@ export default class Messages extends React.Component {
     docked: PropTypes.bool.isRequired,
     pinMessage: PropTypes.func.isRequired,
     unpinMessage: PropTypes.func.isRequired,
+    setCurrentDirectChannel: PropTypes.func.isRequired,
   }
 
 
@@ -58,7 +59,6 @@ export default class Messages extends React.Component {
 
 
   render() {
-    const {messages, local} = this.props;
     return (
       <div>
         <div
@@ -68,17 +68,13 @@ export default class Messages extends React.Component {
         >
           <GeminiScrollbar className='gm-scrollbar-container '>
             <MessageList
-              messages={messages}
+              {...this.props}
               scroll={this.scrollToBottom}
-              local={local}
-              pinMessage={this.props.pinMessage}
-              unpinMessage={this.props.unpinMessage}
             />
           </GeminiScrollbar>
         </div>
         <MessageComposer
           {...this.props}
-          local={local}
           changeBottom={this.changeBottom}
         />
       </div>

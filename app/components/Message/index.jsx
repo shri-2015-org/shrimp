@@ -19,6 +19,7 @@ export default class Message extends React.Component {
     pinMessage: PropTypes.func.isRequired,
     unpinMessage: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
+    setCurrentDirectChannel: PropTypes.func.isRequired,
   }
 
 
@@ -43,12 +44,18 @@ export default class Message extends React.Component {
   }
 
 
+  setChannel = () => {
+    this.props.setCurrentDirectChannel(this.props.sender.get('id'));
+  }
+
+
   updateTime = (timestamp) => {
     const date = moment.duration(moment().diff(moment(timestamp))).humanize();
     this.setState({
       date: date,
     });
   }
+
 
   togglePin = () => {
     if (this.props.pinned) {
@@ -76,7 +83,7 @@ export default class Message extends React.Component {
     const userName = (() => {
       if (isSelfMessage || senderRepeated) return null;
       const name = sender.get('name');
-      return <div className='message__username'>{name}</div>;
+      return <div className='message__username' onClick={this.setChannel}>{name}</div>;
     }());
 
     return (
