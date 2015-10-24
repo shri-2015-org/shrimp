@@ -3,4 +3,5 @@
 
 /node_modules/
 /static/
+/*.es5.js
 npm-debug.log
