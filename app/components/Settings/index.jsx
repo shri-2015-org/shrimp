@@ -4,19 +4,23 @@ import PopUp from 'components/PopUp';
 import Immutable, {Map, List} from 'immutable';
 import cx from 'classnames';
 import store from 'store';
+import puttext from 'puttext';
+import i18nMessages from 'i18n/index';
+import {localSelector} from 'selectors/localSelector';
 import {Link} from 'react-router';
-import {changeUserInfo} from 'actions/local';
+import {changeUserInfo, setLanguage} from 'actions/local';
 import Tabs from 'components/Tabs';
 import Tab from 'components/Tab';
 import InfoMessage from 'components/InfoMessage';
 import Input from 'components/Input';
+import Select from 'components/Select';
 import Button from 'components/Button';
 import './styles.scss';
 
 
 @connect(state => ({
   location: state.router.location.pathname,
-  local: state.local,
+  local: localSelector(state),
   users: state.users,
 }))
 
@@ -29,16 +33,18 @@ export default class Settings extends React.Component {
     children: PropTypes.node,
   }
 
+
   constructor(props) {
     super(props);
     this.state = {
       info: {
         type: 'info',
-        text: 'Edit your data',
+        text: this.__('Edit your data'),
       },
       shakeInfo: false,
       email: '',
       name: '',
+      language: 'en',
       password: '',
       repeatedPassword: '',
       showPasswordError: false,
@@ -52,33 +58,32 @@ export default class Settings extends React.Component {
 
   componentWillMount = () => {
     if (this.props.users.size) {
-      const currentUser = this.props.users.find(user => user.get('id') === this.props.local.get('userId'));
-
       this.setState({
-        email: currentUser.get('email'),
-        name: currentUser.get('name'),
+        email: this.props.local.get('email'),
+        name: this.props.local.get('name'),
+        language: this.props.local.get('language'),
       });
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (!Immutable.is(nextProps.users, this.props.users)) {
-      const currentUser = nextProps.users.find(user => user.get('id') === nextProps.local.get('userId'));
-
       this.setState({
-        email: currentUser.get('email'),
-        name: currentUser.get('name'),
+        email: nextProps.local.get('email'),
+        name: nextProps.local.get('name'),
+        language: nextProps.local.get('language'),
       });
     }
   }
 
   shouldComponentUpdate(nextProps) {
-    if (this.props.users.size > 0 && !Immutable.is(nextProps.users, this.props.users)) {
+    if (this.props.users.size > 0 && !Immutable.is(nextProps.users, this.props.users) && !Immutable.is(nextProps.users, this.props.users)) {
       nextProps.history.pushState(null, '/');
     }
 
     return true;
   }
+  __ = puttext(i18nMessages[this.props.local.get('language')])
 
   checkEmailExists(email) {
     const userWithSuchEmail = this.props.users.find(item => item.get('email') === email);
@@ -93,7 +98,7 @@ export default class Settings extends React.Component {
         showEmailError: true,
         info: {
           type: 'error',
-          text: 'Email is required',
+          text: this.__('Email is required'),
         },
       });
     }
@@ -103,7 +108,7 @@ export default class Settings extends React.Component {
         showEmailError: true,
         info: {
           type: 'error',
-          text: 'Valid email is required',
+          text: this.__('Valid email is required'),
         },
       });
     }
@@ -113,7 +118,7 @@ export default class Settings extends React.Component {
         showEmailError: true,
         info: {
           type: 'error',
-          text: 'Email already exsisted',
+          text: this.__('Email already exsisted'),
         },
       });
     }
@@ -123,7 +128,7 @@ export default class Settings extends React.Component {
         showNameError: true,
         info: {
           type: 'error',
-          text: 'Name is required',
+          text: this.__('Name is required'),
         },
       });
     }
@@ -132,6 +137,7 @@ export default class Settings extends React.Component {
     const changedData = {
       email: this.state.email,
       name: this.state.name,
+      language: this.state.language,
     };
 
 
@@ -157,6 +163,14 @@ export default class Settings extends React.Component {
   }
 
 
+  languageChange = e => {
+    this.setState({
+      language: e.target.value,
+    });
+    store.dispatch(setLanguage(e.target.value));
+  }
+
+
   render() {
     return (
       <div className='settings'>
@@ -165,7 +179,7 @@ export default class Settings extends React.Component {
             className='settings__tabs'
             currentTabId={1}
           >
-            <Tab id={1}>Settings</Tab>
+            <Tab id={1}>{this.__('Settings')}</Tab>
           </Tabs>
           <form
             className='settings__form'
@@ -182,7 +196,7 @@ export default class Settings extends React.Component {
               })}
               value={this.state.email}
               name='email'
-              placeholder='Email'
+              placeholder={this.__('Email')}
               onChange={this.emailChange}
             />
             <Input
@@ -191,14 +205,23 @@ export default class Settings extends React.Component {
               })}
               value={this.state.name}
               name='name'
-              placeholder='Name'
+              placeholder={this.__('Name')}
               onChange={this.nameChange}
             />
+            <Select
+              onChange={this.languageChange}
+              name='language'
+              defaultValue={this.state.language}
+              className='input settings__input'
+            >
+              <option value='en'>English</option>
+              <option value='ru'>Русский</option>
+            </Select>
             <Button
               className='settings__submit-button'
               type='submit'
               inProgress={this.state.inProgress}
-            >{this.state.inProgress ? 'Saving' : 'Save'}</Button>
+            >{this.state.inProgress ? this.__('Saving') : this.__('Save')}</Button>
           </form>
         </PopUp>
         <Link to='/'>

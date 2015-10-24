@@ -3,6 +3,7 @@ import {List, Map} from 'immutable';
 import {connect} from 'react-redux';
 import cookies from 'browser-cookies';
 import Sidebar from 'react-sidebar';
+import puttext from 'puttext';
 import store from 'store';
 import {socketClient} from 'core/socket';
 import Messages from 'components/Messages';
@@ -15,6 +16,7 @@ import * as actionsMessages from 'actions/messages';
 import * as actionsLocal from 'actions/local';
 import {messageFilterSelector} from 'selectors/messagesSelector';
 import {contactsSelector} from 'selectors/contactsSelector';
+import i18nMessages from 'i18n/index';
 import DocumentTitle from 'react-document-title';
 import {localSelector} from 'selectors/localSelector';
 import {indirectChannelsSelector} from 'selectors/channelsSelector';
@@ -41,7 +43,9 @@ export default class Application extends React.Component {
     indirectChannels: PropTypes.instanceOf(List).isRequired,
     directChannels: PropTypes.instanceOf(List).isRequired,
   }
-
+  static childContextTypes = {
+    __: PropTypes.func,
+  };
 
   constructor(props) {
     super(props);
@@ -51,6 +55,11 @@ export default class Application extends React.Component {
     };
   }
 
+  getChildContext() {
+    return {
+      __: puttext(i18nMessages[this.props.local.get('language')]),
+    };
+  }
 
   componentWillMount = () => {
     const cookieSessionId = cookies.get('sessionId');
@@ -118,6 +127,7 @@ export default class Application extends React.Component {
               docked={this.state.sidebarDocked}
               messages={messages}
               local={local}
+              language={this.props.local.get('language') ? this.props.local.get('language') : 'en' }
               {...actions}
             />
           </Sidebar>

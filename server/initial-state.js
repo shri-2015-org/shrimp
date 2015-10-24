@@ -11,7 +11,7 @@ export default function getInitState(sessionId) {
     User.getBySessionId(sessionId)
       .then(user => Channel.getChannelsByUserId(user._id))
       .then(channels => {
-        Promise.all([Message.getForChannels(channels.map(c => c._id)), User.getAll(), User.findOne({sessionId}).select({sessionId: 1}), Channel.getDefaultChannel()]).then(([messages, users, currentUser, defaultChannel]) => {
+        Promise.all([Message.getForChannels(channels.map(c => c._id)), User.getAll(), User.findOne({sessionId}).select({sessionId: 1, language: 1}), Channel.getDefaultChannel()]).then(([messages, users, currentUser, defaultChannel]) => {
           const userId = currentUser.id;
 
           const channelObjects = channels.map((channel) => {
@@ -41,6 +41,7 @@ export default function getInitState(sessionId) {
             sessionId,
             currentChannelId: defaultChannel.id,
             pendingMessages: [],
+            language: currentUser.language,
           };
           resolve(state);
         }).catch((exeption) => {

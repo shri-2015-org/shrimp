@@ -16,6 +16,9 @@ export default class Header extends React.Component {
     changeMessageFilterValue: PropTypes.func.isRequired,
   }
 
+  static contextTypes = {
+    __: PropTypes.func.isRequired,
+  };
 
   setOpen = () => {
     this.props.setOpen(true);
@@ -50,10 +53,10 @@ export default class Header extends React.Component {
         <Search className='header__search' onChange={this.changeFilter} />
         <Dropdown>
            <DropdownItem>
-            <Link className='dropdown-item__link' to='/settings'>Settings</Link>
+            <Link className='dropdown-item__link' to='/settings'>{this.context.__('Settings')}</Link>
           </DropdownItem>
           <DropdownItem onClick={this.logOut} danger>
-            Log Out
+            {this.context.__('Log Out')}
           </DropdownItem>
         </Dropdown>
       </header>

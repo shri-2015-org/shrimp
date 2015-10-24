@@ -13,6 +13,7 @@ export default class Message extends React.Component {
     text: PropTypes.string.isRequired,
     timestamp: PropTypes.string.isRequired,
     currentUserId: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired,
     senderRepeated: PropTypes.bool.isRequired,
     nextMessageIsMain: PropTypes.bool.isRequired,
   }
@@ -40,7 +41,8 @@ export default class Message extends React.Component {
 
 
   updateTime = (timestamp) => {
-    const date = moment.duration(moment().diff(moment(timestamp))).humanize();
+    moment.locale(this.props.language);
+    const date = moment(timestamp).fromNow(false);
     this.setState({
       date: date,
     });
@@ -80,7 +82,7 @@ export default class Message extends React.Component {
           <div className='message__text'>
             <Linkify properties={{className: 'message__url', target: '_blank'}}>{text}</Linkify>
           </div>
-          <div className='message__date'>{this.state.date + ' ago'}</div>
+          <div className='message__date'>{this.state.date}</div>
         </div>
       </li>
     );

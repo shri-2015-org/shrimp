@@ -16,14 +16,13 @@ export default class Tab extends React.Component {
     children: PropTypes.node,
   }
 
+  static contextTypes = {
+    __: PropTypes.func.isRequired,
+  };
 
-  constructor(props) {
-    super(props);
-  }
-
-
-  shouldComponentUpdate(nextProps) {
-    return nextProps.isCurrent !== this.props.isCurrent;
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    return (nextProps.isCurrent !== this.props.isCurrent)
+      || (nextContext.__.messages !== this.context.__.messages);
   }
 
 
