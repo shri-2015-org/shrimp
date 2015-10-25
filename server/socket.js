@@ -51,7 +51,7 @@ export default function startSocketServer(http) {
 
 
     socket.on(CS.JOIN_TO_CHANNEL, channelId => {
-      if (!validate(channelId).isString().inRange(20, 30).end()) return;
+      if (!validate(channelId).isString().match(/^[0-9a-fA-F]{24}$/).end()) return;
       joinToChannel(socket.sessionId, channelId, (userId) => {
         socket.join(channelId);
         socket.emit(SC.JOIN_TO_CHANNEL, {channelId, userId});
@@ -67,8 +67,8 @@ export default function startSocketServer(http) {
 
     socket.on(CS.ADD_MESSAGE, ({senderId, channelId, text}) => {
       if (!(
-        validate(senderId).isString().inRange(20, 30).end() &&
-        validate(channelId).isString().inRange(20, 30).end() &&
+        validate(senderId).isString().match(/^[0-9a-fA-F]{24}$/).end() &&
+        validate(channelId).isString().match(/^[0-9a-fA-F]{24}$/).end() &&
         validate(text).isString().inRange(0, 1000).end()
       )) return;
       Message.add({ senderId, channelId, text }, (err, result) => {
@@ -87,13 +87,13 @@ export default function startSocketServer(http) {
 
 
     socket.on(CS.TYPING, ({id}) => {
-      if (!validate(id).isString().inRange(20, 30).end()) return;
+      if (!validate(id).isString().match(/^[0-9a-fA-F]{24}$/).end()) return;
       io.socket.emit(SC.TYPING, {channelId: id, typing: true});
     });
 
 
     socket.on(CS.SET_FAVORITE_CHANNEL, ({id}) => {
-      if (!validate(id).isString().inRange(20, 30).end()) return;
+      if (!validate(id).isString().match(/^[0-9a-fA-F]{24}$/).end()) return;
       setFavoriteChannel(socket.sessionId, {id});
     });
 
@@ -111,7 +111,7 @@ export default function startSocketServer(http) {
 
 
     socket.on(CS.MARK_AS_READ, ({channelId}) => {
-      if (!validate(channelId).isString().inRange(20, 30).end()) return;
+      if (!validate(channelId).isString().match(/^[0-9a-fA-F]{24}$/).end()) return;
       User.getBySessionId(socket.sessionId)
       .then((user) => {
         Channel.markAsRead({channelId}, user.id);
