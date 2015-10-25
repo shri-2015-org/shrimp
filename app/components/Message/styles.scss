@@ -12,6 +12,8 @@
   padding-top: 2px;
   padding-bottom: 2px;
 
+  word-break: break-word;
+
   @extend .clearfix;
 
   &_repeated {
@@ -96,10 +98,6 @@
 
     font-size: 16px;
     line-height: 18px;
-
-    @media (max-width: $message_cloud_width + $messages_avatar_left_padding + 10px) {
-      max-width: calc(92vw - #{$messages_avatar_left_padding} - 40px);
-    }
   }
 
   &__avatar {
@@ -149,6 +147,58 @@
 
     &:visited {
       color: $c-gray-70;
+    }
+  }
+
+  &__video-container {
+    position: relative;
+
+    width: 100%;
+    max-width: 400px;
+    padding-top: 56%;
+
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__image-container {
+    &__img {
+      &_horizontal {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+      }
+
+      &_vertical {
+        width: auto;
+        max-height: 400px;
+      }
+    }
+  }
+
+  &__linkinfo {
+    margin-top: 20px;
+
+    @extend .clearfix;
+
+
+
+
+
+    &__thumbnail {
+      display: block;
+      float: right;
+
+      width: auto;
+      max-width: 100px;
+      height: auto;
+      max-height: 100px;
     }
   }
 }

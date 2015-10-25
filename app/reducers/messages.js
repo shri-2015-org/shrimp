@@ -25,6 +25,11 @@ export function messages(state = EMPTY_LIST, action) {
       m.get('id') === action.payload
         ? m.set('pinned', false)
         : m);
+  case A.SET_LINKS_INFO:
+    return state.map(m =>
+      m.get('id') === action.payload.messageId
+        ? m.set('linksInfo', fromJS(action.payload.info))
+        : m);
   default:
     return state;
   }

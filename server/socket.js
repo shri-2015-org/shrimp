@@ -1,4 +1,5 @@
 import Server from 'socket.io';
+import getUrls from 'get-urls';
 import cookieParser from 'socket.io-cookie';
 import getInitState from './initial-state';
 import getMessageModel from './models/message';
@@ -76,10 +77,45 @@ export function startSocketServer(http) {
       });
     });
 
+    function getUrlInfo(url) {
+      return new Promise((resolve) => {
+        const http2 = require('http');
+        http2.get(
+          {
+            host: 'api.proc.link',
+            path: `/oembed?url=${url}`,
+          }, response => {
+          let body = '';
+          response.on('data', d => body += d);
+          response.on('end', () => {
+            resolve(body);
+          });
+        });
+      });
+    }
 
     socket.on(CS.ADD_MESSAGE, data => {
       Message.add(data, (err, result) => {
         io.to(data.channelId).emit(SC.ADD_MESSAGE, result.toObject());
+        const urls = getUrls(data.text);
+
+        Promise.all(urls.map(getUrlInfo))
+          .then(rawInfos => {
+            const infos = rawInfos
+              .map(info => {
+                try {
+                  return JSON.parse(info);
+                } catch (e) {
+                  return null;
+                }
+              })
+              .filter(info => !!info);
+            Message.addLinksInfo(result._id, infos)
+              .then(() => {
+                io.to(data.channelId).emit(SC.SET_LINKS_INFO, { messageId: result._id, info: infos });
+              })
+              .catch(e => console.log('error', e));
+          });
       });
     });
 

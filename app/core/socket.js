@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 import store from '../store';
 import {fromJS} from 'immutable';
 import {addChannel, addUserToChannel} from '../actions/channels';
-import {addMessage, loadChannelHistory, messagePinned, messageUnpinned} from '../actions/messages';
+import {addMessage, loadChannelHistory, messagePinned, messageUnpinned, setLinksInfo} from '../actions/messages';
 import {init, initUser, logOut, setCurrentChannel} from '../actions/local';
 import {setUserInfo, joinUser, setUserOnline, setUserOffline} from 'actions/users';
 import {SC} from '../../constants';
@@ -73,6 +73,9 @@ export function socketClient(type = null, socketData) {
       store.dispatch(messageUnpinned(data));
     });
 
+    socket.on(SC.SET_LINKS_INFO, (data) => {
+      store.dispatch(setLinksInfo(data));
+    });
 
     socket.on(SC.ADD_DIRECT_CHANNEL, (data) => {
       store.dispatch(addChannel(fromJS({

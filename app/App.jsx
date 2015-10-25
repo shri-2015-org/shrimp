@@ -60,7 +60,7 @@ export default class Application extends React.Component {
   constructor(props) {
     super(props);
     this.actionsCombine = Object.assign(actionsMessages, actionsLocal, actionsChannels);
-    this.actions = bindActionCreators(this.actionsCombine, this.props.dispatch);
+    this.actions = bindActionCreators(this.actionsCombine, props.dispatch);
     this.state = {
       sidebarOpen: false,
       sidebarDocked: true,

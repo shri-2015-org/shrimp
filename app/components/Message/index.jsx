@@ -9,16 +9,12 @@ import Linkify from 'react-linkify';
 export default class Message extends React.Component {
 
   static propTypes = {
-    sender: PropTypes.instanceOf(Map).isRequired,
-    text: PropTypes.string.isRequired,
-    timestamp: PropTypes.string.isRequired,
     currentUserId: PropTypes.string.isRequired,
     senderRepeated: PropTypes.bool.isRequired,
-    pinned: PropTypes.bool,
     nextMessageIsMain: PropTypes.bool.isRequired,
     pinMessage: PropTypes.func.isRequired,
     unpinMessage: PropTypes.func.isRequired,
-    id: PropTypes.string.isRequired,
+    message: PropTypes.instanceOf(Map).isRequired,
     setCurrentDirectChannel: PropTypes.func.isRequired,
   }
 
@@ -32,9 +28,9 @@ export default class Message extends React.Component {
 
 
   componentDidMount = () => {
-    this.updateTime(this.props.timestamp);
+    this.updateTime(this.props.message.get('timestamp'));
     this.timer = setInterval(()=>{
-      this.updateTime(this.props.timestamp);
+      this.updateTime(this.props.message.get('timestamp'));
     }, 5000);
   }
 
@@ -45,7 +41,7 @@ export default class Message extends React.Component {
 
 
   setChannel = () => {
-    this.props.setCurrentDirectChannel(this.props.sender.get('id'));
+    this.props.setCurrentDirectChannel(this.props.message.get('sender').get('id'));
   }
 
 
@@ -58,10 +54,10 @@ export default class Message extends React.Component {
 
 
   togglePin = () => {
-    if (this.props.pinned) {
-      this.props.unpinMessage(this.props.id);
+    if (this.props.message.get('pinned')) {
+      this.props.unpinMessage(this.props.message.get('id'));
     } else {
-      this.props.pinMessage(this.props.id);
+      this.props.pinMessage(this.props.message.get('id'));
     }
   }
 
@@ -78,11 +74,11 @@ export default class Message extends React.Component {
 
 
   render() {
-    const {sender, text, currentUserId, senderRepeated, nextMessageIsMain} = this.props;
-    const isSelfMessage = sender.get('id') === currentUserId;
+    const {message, currentUserId, senderRepeated, nextMessageIsMain} = this.props;
+    const isSelfMessage = message.get('sender').get('id') === currentUserId;
     const userName = (() => {
       if (isSelfMessage || senderRepeated) return null;
-      const name = sender.get('name');
+      const name = message.get('sender').get('name');
       return <div className='message__username' onClick={this.setChannel}>{name}</div>;
     }());
 
@@ -92,12 +88,41 @@ export default class Message extends React.Component {
         'message_last': !nextMessageIsMain,
         'message_foreign': !isSelfMessage,
       })}>
-        {isSelfMessage ? null : this.renderAvatar(sender)}
+        {isSelfMessage ? null : this.renderAvatar(message.get('sender'))}
         {userName}
         <div className='message__cloud'>
-          <div onClick={this.togglePin} style={{fontSize: '9px'}}>{this.props.pinned ? 'Отпинь' : 'Запинь'} мессагу без напряга!</div>
+          <div onClick={this.togglePin} style={{fontSize: '9px'}}>{message.get('pinned') ? 'Отпинь' : 'Запинь'} мессагу без напряга!</div>
           <div className='message__text'>
-            <Linkify properties={{className: 'message__url', target: '_blank'}}>{text}</Linkify>
+            <Linkify properties={{className: 'message__url', target: '_blank'}}>{message.get('text')}</Linkify>
+            <div>
+                {/* JSON.stringify(message.get('linksInfo').toJS()) */}
+                {message.get('linksInfo').map((linkInfo, i) => {
+                  switch (linkInfo.get('type')) {
+                  case 'link':
+                    return (<div key={i} className='message__linkInfo'>
+                      <img className='message__linkInfo__thumbnail'
+                        src={linkInfo.get('thumbnail_url')}
+                        with={linkInfo.get('thumbnail_width')}
+                        height={linkInfo.get('thumbnail_height')} />
+                      <div className='message__linkInfo__title'><a href={linkInfo.get('url')} target='_blank'>{linkInfo.get('title')}</a></div>
+                      <div className='message__linkInfo__description'>{linkInfo.get('description')}</div>
+                    </div>);
+                  case 'video':
+                    return (<div key={i} className='message__video-container' dangerouslySetInnerHTML={{__html: linkInfo.get('html')}}></div>);
+                  case 'photo':
+                    return (<div key={i} className='message__image-container'>
+                      <img
+                        className={cx('message__image-container__img', {
+                          'message__image-container__img_horizontal': linkInfo.get('width') >= linkInfo.get('height'),
+                          'message__image-container__img_vertical': linkInfo.get('width') < linkInfo.get('height'),
+                        })}
+                        src={linkInfo.get('url')} />
+                    </div>);
+                  default:
+                    return null;
+                  }
+                })}
+            </div>
           </div>
           <div className='message__date'>{this.state.date + ' ago'}</div>
         </div>

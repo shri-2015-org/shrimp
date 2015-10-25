@@ -9,6 +9,7 @@ const message = new mongoose.Schema({
   text: String,
   timestamp: { type: Date, default: Date.now },
   pinned: Boolean,
+  linksInfo: {type: Array},
 });
 
 message.statics.getAll = function getAll() {
@@ -38,6 +39,10 @@ message.statics.getForChannels = function getForChannels(channelIds) { return th
 
 message.statics.add = function add(data, cb) {
   return new this(data).save(cb);
+};
+
+message.statics.addLinksInfo = function addLinksInfo(messageId, info) {
+  return this.update({ _id: new ObjectId(messageId) }, { $set: { linksInfo: info } });
 };
 
 export default function getMessageModel() {

@@ -71,15 +71,13 @@ export default class MessageList extends React.Component {
         return (
           <Message
             {...this.props}
-            id={message.get('id')}
+            message={message}
+            pinMessage={this.props.pinMessage}
+            unpinMessage={this.props.unpinMessage}
             key={i}
-            sender={sender}
             senderRepeated={senderRepeated}
             nextMessageIsMain={nextMessageIsMain}
-            text={message.get('text')}
-            pinned={message.get('pinned')}
             currentUserId={local.get('userId')}
-            timestamp={message.get('timestamp')}
           />
         );
       });

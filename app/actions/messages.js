@@ -60,3 +60,11 @@ export function messageUnpinned(messageId) {
     payload: messageId,
   };
 }
+
+
+export function setLinksInfo(data) {
+  return {
+    type: A.SET_LINKS_INFO,
+    payload: data,
+  };
+}
