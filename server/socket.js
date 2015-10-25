@@ -102,7 +102,7 @@ export default function startSocketServer(http) {
       if (!(
         validate(email).isString().isEmail().inRange(1, 50).end() &&
         validate(name).isString().inRange(1, 100).end() &&
-        validate(language).isString().inRange(1, 10).end()
+        validate(language).isString().inRange(1, 4).end()
       )) return;
       setUserInfo(socket.sessionId, email, name, (userData) => {
         socket.emit(SC.CHANGE_USER_INFO, {user: userData});
