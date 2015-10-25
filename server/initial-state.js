@@ -23,9 +23,6 @@ export default function getInitState(sessionId, onlineSessions = new Set()) {
               channelObj.lastSeen = userPrefsForChannel.lastSeen !== undefined ? userPrefsForChannel.lastSeen : null;
               channelObj.isFavorite = !!userPrefsForChannel.isFavorite;
             }
-            if (!channelObj.isDirect) {
-              delete channelObj.users;
-            }
             return channelObj;
           });
 

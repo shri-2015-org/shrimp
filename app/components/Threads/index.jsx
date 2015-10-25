@@ -23,7 +23,6 @@ export default class Threads extends React.Component {
     addDirectChannel: PropTypes.func.isRequired,
     addDirtyDirectChannel: PropTypes.func.isRequired,
     removeDirtyDirectChannel: PropTypes.func.isRequired,
-    setCurrentDirectChannel: PropTypes.func.isRequired,
     getDirectChannelByUserId: PropTypes.func.isRequired,
     changeToDirectChannel: PropTypes.func.isRequired,
     changeTab: PropTypes.func.isRequired,

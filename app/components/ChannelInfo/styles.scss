@@ -38,14 +38,42 @@
   }
 
   &__section {
+    margin-bottom: -1px;
+
     border-top: 1px solid $c-gray-50;
     border-bottom: 1px solid $c-gray-50;
 
     &__header {
-      padding: 0 15px;
+      position: relative;
+
+      padding: 0 15px 0 40px;
+
+      cursor: pointer;
+      transition: .3s;
+
+      color: $c-threads_text;
 
       font-size: 18px;
       line-height: 50px;
+      &:after {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+
+        display: block;
+
+        margin-top: -3px;
+
+        content: '';
+        transition: transform .3s;
+
+        border-top: 5px solid currentColor;
+        border-right: 5px solid transparent;
+        border-left: 5px solid transparent;
+      }
+      &:hover {
+        color: $c-white;
+      }
       &__size {
         display: inline-block;
 
@@ -55,10 +83,39 @@
 
         color: $c-threads_text;
       }
+      &_open {
+        color: $c-white;
+
+        &:after {
+          transform: rotateX(180deg);
+        }
+      }
+    }
+    &__icon {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+
+      width: 18px;
+      height: 18px;
+      margin-top: -9px;
+
+      fill: #fff;
+      svg {
+        display: block;
+
+        width: 100%;
+        height: 100%;
+      }
     }
 
     &__body {
+      display: none;
+
       padding: 10px 15px;
+      &_open {
+        display: block;
+      }
     }
   }
 }

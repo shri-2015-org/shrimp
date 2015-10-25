@@ -14,6 +14,7 @@ import {localSelector} from 'selectors/localSelector';
 import {indirectChannelsSelector} from 'selectors/channelsSelector';
 import {directChannelsSelector} from 'selectors/directChannelsSelector';
 import {currentChannelSelector} from 'selectors/currentChannelSelector';
+import {joinedUsersSelector} from 'selectors/joinedUsersSelector';
 
 import * as actionsChannels from 'actions/channels';
 import * as actionsMessages from 'actions/messages';
@@ -37,6 +38,7 @@ import 'styles/main.scss';
   directChannels: directChannelsSelector(state),
   pinnedMessages: pinnedMessagesSelector(state),
   currentChannel: currentChannelSelector(state),
+  joinedUsers: joinedUsersSelector(state),
 }))
 export default class Application extends React.Component {
   static propTypes = {
@@ -51,6 +53,7 @@ export default class Application extends React.Component {
     indirectChannels: PropTypes.instanceOf(List).isRequired,
     directChannels: PropTypes.instanceOf(List).isRequired,
     currentChannel: PropTypes.instanceOf(Map).isRequired,
+    joinedUsers: PropTypes.instanceOf(List).isRequired,
   }
 
 
@@ -135,7 +138,6 @@ export default class Application extends React.Component {
     const threads = (
       <Threads
         {...this.props}
-        setCurrentDirectChannel={this.setCurrentDirectChannel}
         getDirectChannelByUserId={this.getDirectChannelByUserId}
         changeToDirectChannel={this.changeToDirectChannel}
         changeTab={this.changeTab}
@@ -171,6 +173,7 @@ export default class Application extends React.Component {
                 <ChannelInfo
                   {...this.props}
                   unpinMessage={this.actions.unpinMessage}
+                  changeToDirectChannel={this.changeToDirectChannel}
                 />
               }
               open={this.state.informSidebarOpen}

@@ -12,9 +12,7 @@ export default class PeopleItem extends React.Component {
     isCurrent: PropTypes.bool,
     isOnline: PropTypes.bool,
     currentChannelId: PropTypes.string.isRequired,
-    setCurrentDirectChannel: PropTypes.func.isRequired,
     markChannelAsRead: PropTypes.func.isRequired,
-    getDirectChannelByUserId: PropTypes.func.isRequired,
     unreadCount: PropTypes.number,
     changeToDirectChannel: PropTypes.func.isRequired,
 

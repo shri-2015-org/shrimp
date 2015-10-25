@@ -1,0 +1,65 @@
+@import '~styles/colors.scss';
+@import '~styles/variables.scss';
+
+.joined-user {
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 0 15px;
+
+  cursor: pointer;
+  transition: color .3s;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  color: $c-threads_text;
+
+  line-height: 30px;
+
+  &_you {
+    cursor: default;
+
+    color: #fff;
+  }
+
+  &__avatar {
+    display: inline-block;
+
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+
+    vertical-align: middle;
+
+    border-radius: 2px;
+  }
+
+  &__status {
+    position: absolute;
+    top: 0;
+    left: 11px;
+
+    width: 10px;
+    height: 10px;
+
+    border: 2px solid $c-gray-30;
+    border-radius: 100%;
+    background: $c-green;
+  }
+
+  &_offline {
+    &__avatar {
+              filter: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id…0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale');
+              filter: gray;
+      -webkit-filter: grayscale(100%);
+      -webkit-backface-visibility: hidden;
+    }
+    &__status {
+      background: $c-red;
+    }
+  }
+  &:hover {
+    color: #fff;
+  }
+}

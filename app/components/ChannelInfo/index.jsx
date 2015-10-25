@@ -3,6 +3,7 @@ import {Map, List} from 'immutable';
 import GeminiScrollbar from 'react-gemini-scrollbar';
 
 import PinnedMessages from 'components/PinnedMessages';
+import JoinedUsers from 'components/JoinedUsers';
 
 import './styles.scss';
 
@@ -11,7 +12,11 @@ export default class ChannelInfo extends React.Component {
     pinnedMessages: PropTypes.instanceOf(List).isRequired,
     currentChannel: PropTypes.instanceOf(Map).isRequired,
     unpinMessage: PropTypes.func.isRequired,
+    joinedUsers: PropTypes.instanceOf(List).isRequired,
+    changeToDirectChannel: PropTypes.func.isRequired,
+    local: PropTypes.instanceOf(Map).isRequired,
   }
+
 
   render() {
     const {pinnedMessages, currentChannel} = this.props;
@@ -27,6 +32,15 @@ export default class ChannelInfo extends React.Component {
     const currentChannelName = (currentChannel)
       ? currentChannel.get('name')
       : null;
+
+    const usersJoined = (!this.props.currentChannel.get('isDirect'))
+      ? <JoinedUsers
+          {...this.props}
+          containerClass='channel-info__section'
+    />
+      : null;
+
+
     return (
       <div className='channel-info'>
         <div className='channel-info__inner'>
@@ -38,6 +52,7 @@ export default class ChannelInfo extends React.Component {
           </div>
           <GeminiScrollbar className='gm-scrollbar-container '>
             {pinnedMessagesBlock}
+            {usersJoined}
           </GeminiScrollbar>
         </div>
       </div>
