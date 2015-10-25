@@ -16,6 +16,7 @@ export default class Message extends React.Component {
     unpinMessage: PropTypes.func.isRequired,
     message: PropTypes.instanceOf(Map).isRequired,
     setCurrentDirectChannel: PropTypes.func.isRequired,
+    currentChannel: PropTypes.instanceOf(Map).isRequired,
   }
 
 
@@ -74,7 +75,7 @@ export default class Message extends React.Component {
 
 
   render() {
-    const {message, currentUserId, senderRepeated, nextMessageIsMain} = this.props;
+    const {message, currentUserId, senderRepeated, nextMessageIsMain, currentChannel} = this.props;
     const isSelfMessage = message.get('sender').get('id') === currentUserId;
     const userName = (() => {
       if (isSelfMessage || senderRepeated) return null;
@@ -89,7 +90,7 @@ export default class Message extends React.Component {
         'message_foreign': !isSelfMessage,
       })}>
         {isSelfMessage ? null : this.renderAvatar(message.get('sender'))}
-        {userName}
+        {!currentChannel.get('isDirect') ? userName : null}
         <div className='message__cloud'>
           <div onClick={this.togglePin} style={{fontSize: '9px'}}>{message.get('pinned') ? 'Отпинь' : 'Запинь'} мессагу без напряга!</div>
           <div className='message__text'>
