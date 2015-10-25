@@ -13,6 +13,8 @@ $c-green: #00d742;
 $c-white: #fff;
 $c-shadow: transparentize(#0e0e0e, .5);
 $c-white_transparent: transparentize($c-white, .8);
+$c-link: #bfe6ff;
+
 
 // Composer
 $с-composer-sender_border: $c-gray-50;
@@ -24,7 +26,7 @@ $c-composer-textarea_text: $c-white;
 // Message
 $c-message-cloud_text: $c-white;
 $c-message-cloud-default_bg: #1c618c;
-$c-message-cloud-other_bg: #8c635a;
+$c-message-cloud-other_bg: #573831;
 $c-message-avatar_border: $c-gray-60;
 $c-message-date_text: $c-gray-10;
 

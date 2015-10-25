@@ -99,13 +99,15 @@ export default class Message extends React.Component {
                 {message.get('linksInfo').map((linkInfo, i) => {
                   switch (linkInfo.get('type')) {
                   case 'link':
-                    return (<div key={i} className='message__linkInfo'>
-                      <img className='message__linkInfo__thumbnail'
+                    return (<div key={i} className='message__link-info'>
+                      <img className='message__link-info__thumbnail'
                         src={linkInfo.get('thumbnail_url')}
                         with={linkInfo.get('thumbnail_width')}
                         height={linkInfo.get('thumbnail_height')} />
-                      <div className='message__linkInfo__title'><a href={linkInfo.get('url')} target='_blank'>{linkInfo.get('title')}</a></div>
-                      <div className='message__linkInfo__description'>{linkInfo.get('description')}</div>
+                      <div className='message__link-info__title'>
+                        <a href={linkInfo.get('url')} className='message__url' target='_blank'>{linkInfo.get('title')}</a>
+                      </div>
+                      <div className='message__link-info__description'>{linkInfo.get('description')}</div>
                     </div>);
                   case 'video':
                     return (<div key={i} className='message__video-container' dangerouslySetInnerHTML={{__html: linkInfo.get('html')}}></div>);
