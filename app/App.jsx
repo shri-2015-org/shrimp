@@ -66,7 +66,7 @@ export default class Application extends React.Component {
       sidebarDocked: true,
       informSidebarOpen: false,
       informSidebarDocked: true,
-      currentTabId: 1,
+      currentTabId: 2,
     };
   }
 
