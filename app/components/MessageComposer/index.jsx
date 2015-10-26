@@ -3,6 +3,7 @@ import Immutable, {Map} from 'immutable';
 import cx from 'classnames';
 import Textarea from 'react-textarea-autosize';
 import './styles.scss';
+import {MESSAGE_MAX_LENGTH} from '../../../constants.js';
 
 export default class MessageComposer extends React.Component {
 
@@ -15,7 +16,7 @@ export default class MessageComposer extends React.Component {
 
   constructor(props) {
     super(props);
-    this.messageMaxLength = 220;
+    this.messageMaxLength = MESSAGE_MAX_LENGTH;
     this.state = {
       text: '',
     };

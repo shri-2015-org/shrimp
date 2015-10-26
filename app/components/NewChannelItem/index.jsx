@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import Immutable, {Map, List} from 'immutable';
 import './styles.scss';
 import InfoMessage from 'components/InfoMessage';
+import {CHANNEL_NAME_MAX_LENGTH} from '../../../constants.js';
 
 export default class ChannelItem extends React.Component {
 
@@ -14,7 +15,7 @@ export default class ChannelItem extends React.Component {
 
   constructor(props) {
     super(props);
-    this.channelNameMaxLength = 25;
+    this.channelNameMaxLength = CHANNEL_NAME_MAX_LENGTH;
     this.state = {
       channelName: '',
       validationMessage: 'Add new channel',

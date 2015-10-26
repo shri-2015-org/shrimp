@@ -1,3 +1,6 @@
+const MESSAGE_MAX_LENGTH = 220;
+const CHANNEL_NAME_MAX_LENGTH = 25;
+
 const SC = {
   ADD_MESSAGE: 'SC_ADD_MESSAGE',
   ADD_CHANNEL: 'SC_ADD_CHANNEL',
@@ -64,4 +67,6 @@ module.exports = {
   SC: SC,
   CS: CS,
   A: A,
+  MESSAGE_MAX_LENGTH,
+  CHANNEL_NAME_MAX_LENGTH,
 };

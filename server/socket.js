@@ -5,12 +5,15 @@ import getInitState from './initial-state';
 import getMessageModel from './models/message';
 import getChannelModel from './models/channel';
 import getUserModel from './models/user';
-import {SC, CS} from '../constants';
+import {SC, CS, MESSAGE_MAX_LENGTH, CHANNEL_NAME_MAX_LENGTH} from '../constants';
 import {checkSessionId, setUserInfo, joinToChannel, setFavoriteChannel, loadChannelHistory, setCurrentChannel} from './db/db_core.js';
 // const debug = require('debug')('shrimp:server');
 const Message = getMessageModel();
 const Channel = getChannelModel();
 const User = getUserModel();
+
+
+const truncate = (str, length) => str.substring(0, length);
 
 
 export function getOnlineSessions(io) {
@@ -95,6 +98,7 @@ export function startSocketServer(http) {
     }
 
     socket.on(CS.ADD_MESSAGE, data => {
+      data.text = truncate(data.text, MESSAGE_MAX_LENGTH);
       Message.add(data, (err, result) => {
         io.to(data.channelId).emit(SC.ADD_MESSAGE, result.toObject());
         const urls = getUrls(data.text);
@@ -121,6 +125,7 @@ export function startSocketServer(http) {
 
 
     socket.on(CS.ADD_CHANNEL, data => {
+      data.name = truncate(data.name, CHANNEL_NAME_MAX_LENGTH);
       Channel.add(data, (err, result) =>
         io.sockets.emit(SC.ADD_CHANNEL, result.toObject()));
     });
