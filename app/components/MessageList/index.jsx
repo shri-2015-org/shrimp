@@ -43,14 +43,7 @@ export default class MessageList extends React.Component {
 
 
   componentDidUpdate() {
-    if (!this.state.prevChannelName || this.state.prevChannelName !== this.props.currentChannel.get('name')) {
-      this.props.scroll();
-    } else {
-      const lastMessage = this.props.messages.last();
-      if (this.state.prevMessageId !== lastMessage.get('id')) {
-        this.props.scroll(!(lastMessage.get('senderId') === this.props.local.get('userId')));
-      }
-    }
+    this.props.scroll();
   }
 
   render() {

@@ -197,8 +197,9 @@ export function startSocketServer(http) {
 
     socket.on(CS.PIN_MESSAGE, messageId => {
       Message.pin(messageId)
-        .then(() => {
-          socket.emit(SC.PIN_MESSAGE, messageId);
+        .then(() => Message.getById(messageId))
+        .then(message => {
+          io.to(message.channelId).emit(SC.PIN_MESSAGE, messageId);
         })
         .catch(e => {
           console.log(e);
@@ -208,8 +209,9 @@ export function startSocketServer(http) {
 
     socket.on(CS.UNPIN_MESSAGE, messageId => {
       Message.unpin(messageId)
-        .then(() => {
-          socket.emit(SC.UNPIN_MESSAGE, messageId);
+        .then(() => Message.getById(messageId))
+        .then(message => {
+          io.to(message.channelId).emit(SC.UNPIN_MESSAGE, messageId);
         })
         .catch(e => {
           console.log(e);

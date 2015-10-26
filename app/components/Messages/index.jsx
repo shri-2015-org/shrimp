@@ -43,17 +43,10 @@ export default class Messages extends React.Component {
     );
   }
 
-  scrollToBottom = (param) => {
+  scrollToBottom = () => {
     const list = this.refs.list.getElementsByClassName('gm-scroll-view')[0];
     if (list) {
-      if (param) {
-        const lastMessageHeight = list.getElementsByTagName('li')[list.getElementsByTagName('li').length - 1].offsetHeight;
-        if (list.scrollTop + lastMessageHeight + 250 > list.scrollHeight) {
-          list.scrollTop = list.scrollHeight;
-        }
-      } else {
-        list.scrollTop = list.scrollHeight;
-      }
+      list.scrollTop = list.scrollHeight;
     }
   }
 

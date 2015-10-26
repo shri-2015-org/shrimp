@@ -37,6 +37,8 @@ message.statics.unpin = function unpin(messageId) {
 
 message.statics.getForChannels = function getForChannels(channelIds) { return this.find({ channelId: { $in: channelIds } }); };
 
+message.statics.getById = function getById(messageId) { return this.findOne({ _id: new ObjectId(messageId) }); };
+
 message.statics.add = function add(data, cb) {
   return new this(data).save(cb);
 };

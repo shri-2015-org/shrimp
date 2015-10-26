@@ -107,7 +107,7 @@ export default class Message extends React.Component {
                 {message.get('linksInfo').map((linkInfo, i) => {
                   switch (linkInfo.get('type')) {
                   case 'link':
-                    return (<div key={i + 99999} className='message__link-info'>
+                    return (<div key={i} className='message__link-info'>
                       <img className='message__link-info__thumbnail'
                         src={linkInfo.get('thumbnail_url')}
                         with={linkInfo.get('thumbnail_width')}
