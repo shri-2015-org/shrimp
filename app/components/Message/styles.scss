@@ -144,6 +144,11 @@
     border-radius: $main-border-radius;
   }
 
+  &_repeated &__cloud:before,
+  &_repeated &__avatar {
+    display: none;
+  }
+
   &__username {
     position: absolute;
     top: -15px;

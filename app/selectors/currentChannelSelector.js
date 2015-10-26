@@ -15,6 +15,7 @@ export const currentChannelSelector = createSelector(
           isDirect: true,
           avatar: currentUser.get('avatar'),
           isOnline: currentUser.get('isOnline'),
+          email: currentUser.get('email'),
         });
       }
       return new Map({

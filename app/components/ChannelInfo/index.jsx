@@ -4,6 +4,7 @@ import GeminiScrollbar from 'react-gemini-scrollbar';
 
 import PinnedMessages from 'components/PinnedMessages';
 import JoinedUsers from 'components/JoinedUsers';
+import UserInfo from 'components/UserInfo';
 
 import './styles.scss';
 
@@ -19,25 +20,27 @@ export default class ChannelInfo extends React.Component {
 
 
   render() {
-    const {pinnedMessages, currentChannel} = this.props;
+    const {pinnedMessages, currentChannel, unpinMessage} = this.props;
 
     const pinnedMessagesBlock = (pinnedMessages.size)
       ? <PinnedMessages
           pinnedMessages={pinnedMessages}
           containerClass='channel-info__section'
-          unpinMessage={this.props.unpinMessage}
-    />
+          unpinMessage={unpinMessage} />
       : null;
 
     const currentChannelName = (currentChannel)
       ? currentChannel.get('name')
       : null;
 
-    const usersJoined = (!this.props.currentChannel.get('isDirect'))
+    const usersJoined = (!currentChannel.get('isDirect'))
       ? <JoinedUsers
           {...this.props}
-          containerClass='channel-info__section'
-    />
+          containerClass='channel-info__section'/>
+      : null;
+
+    const userInfo = currentChannel.get('isDirect')
+      ? <UserInfo currentChannel={currentChannel}/>
       : null;
 
 
@@ -51,6 +54,7 @@ export default class ChannelInfo extends React.Component {
             </div>
           </div>
           <GeminiScrollbar className='gm-scrollbar-container '>
+            {userInfo}
             {pinnedMessagesBlock}
             {usersJoined}
           </GeminiScrollbar>
