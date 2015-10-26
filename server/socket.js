@@ -67,6 +67,13 @@ export function startSocketServer(http) {
     });
 
 
+    socket.on('reconnect', () => {
+      getInitState(socket.sessionId, getOnlineSessions(io)).then(initState => {
+        socket.emit(SC.INIT, initState);
+      });
+    });
+
+
     socket.on(CS.JOIN_TO_CHANNEL, channelId => {
       joinToChannel(socket.sessionId, channelId, (userId) => {
         socket.join(channelId);

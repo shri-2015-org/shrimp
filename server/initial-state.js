@@ -40,6 +40,7 @@ export default function getInitState(sessionId, onlineSessions = new Set()) {
             sessionId,
             currentChannelId,
             pendingMessages: [],
+            connected: true,
           };
           resolve(state);
         }).catch((exeption) => {

@@ -25,6 +25,7 @@ import Header from 'components/Header';
 import Threads from 'components/Threads';
 import ChannelInfo from 'components/ChannelInfo';
 import ChannelHeader from 'components/ChannelHeader';
+import DisconnectionPopUp from 'components/DisconnectionPopUp';
 
 import 'styles/main.scss';
 
@@ -239,6 +240,7 @@ export default class Application extends React.Component {
 
             </Sidebar>
           </Sidebar>
+          <DisconnectionPopUp connected={this.props.local.get('connected')} />
         </div>
       </DocumentTitle>
     );

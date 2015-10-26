@@ -64,6 +64,14 @@ export function logOut() {
 }
 
 
+export function disconnect() {
+  return {
+    type: A.DISCONNECT,
+    payload: null,
+  };
+}
+
+
 export function changeUserInfo(data) {
   return {
     type: CS.CHANGE_USER_INFO,

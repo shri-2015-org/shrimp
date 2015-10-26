@@ -3,9 +3,9 @@ import store from '../store';
 import {fromJS} from 'immutable';
 import {addChannel, addUserToChannel} from '../actions/channels';
 import {addMessage, loadChannelHistory, messagePinned, messageUnpinned, setLinksInfo} from '../actions/messages';
-import {init, initUser, logOut, setCurrentChannel} from '../actions/local';
+import {init, initUser, logOut, setCurrentChannel, disconnect} from '../actions/local';
 import {setUserInfo, joinUser, setUserOnline, setUserOffline} from 'actions/users';
-import {SC} from '../../constants';
+import {SC, CS} from '../../constants';
 
 
 export function socketClient(type = null, socketData) {
@@ -89,6 +89,14 @@ export function socketClient(type = null, socketData) {
 
     socket.on('error', () => {
       store.dispatch(logOut());
+    });
+
+    socket.on('disconnect', () => {
+      store.dispatch(disconnect());
+    });
+
+    socket.on('reconnect', () => {
+      socket.emit(CS.INIT);
     });
   } else if (type) {
     socket.emit(type, socketData);
