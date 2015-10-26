@@ -55,7 +55,7 @@ export function channels(state = EMPTY_LIST, action = {type: 'DEFAULT'}) {
     return state.shift();
 
   case CS.LOAD_CHANNEL_HISTORY:
-    const channelIndex2 = state.map(item => item.get('id')).indexOf(action.payload);
+    const channelIndex2 = state.map(item => item.get('id')).indexOf(action.payload.channelId);
     return state.setIn([channelIndex2, 'loadingStatus'], 'LOADING');
   case A.SET_LOADING_STATUS:
     const channelIndex3 = state.map(item => item.get('id')).indexOf(action.payload.channelId);

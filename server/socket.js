@@ -50,8 +50,9 @@ export default function startSocketServer(http) {
     });
 
 
-    socket.on(CS.LOAD_CHANNEL_HISTORY, channelId => {
-      loadChannelHistory(channelId, (messages) => {
+    socket.on(CS.LOAD_CHANNEL_HISTORY, payload => {
+      const {channelId, baseDate} = payload;
+      loadChannelHistory(channelId, baseDate, (messages) => {
         if (messages && messages.length) {
           const messagesObj = messages.map((message) => message.toObject());
           socket.emit(SC.SET_CHANNEL_HISTORY, { messages: messagesObj });

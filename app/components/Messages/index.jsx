@@ -31,8 +31,12 @@ export default class Messages extends React.Component {
 
 
   componentWillReceiveProps = nextProps => {
-    if (nextProps.currentChannel && !nextProps.currentChannel.get('loadingStatus')) {
-      this.props.loadChannelHistory(nextProps.local.get('currentChannelId'));
+    if (
+      nextProps.currentChannel &&
+      nextProps.currentChannel.get('loadingStatus') !== 'END' &&
+      nextProps.currentChannel.get('loadingStatus') !== 'LOADING'
+    ) {
+      this.props.loadChannelHistory({channelId: nextProps.currentChannel.get('id'), baseDate: nextProps.currentChannel.get('loadingStatus')});
     }
   }
 

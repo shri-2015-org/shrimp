@@ -49,7 +49,15 @@ export function socketClient(type = null, socketData) {
 
     socket.on(SC.SET_CHANNEL_HISTORY, (data) => {
       store.dispatch(messageActions.setChannelHistory(data));
-      store.dispatch(channelActions.setLoadingStatus({channelId: data.messages[0].channelId, status: data.messages[0].timestamp}));
+      // When we receive less messages then expected, it means that there are no
+      // more messages on the server for this channel, so we should should stop waiting.
+      let status;
+      if (data.messages.length !== 20) {
+        status = 'END';
+      } else {
+        status = data.messages[data.messages.length - 1].timestamp;
+        store.dispatch(channelActions.setLoadingStatus({channelId: data.messages[data.messages.length - 1].channelId, status}));
+      }
     });
 
 

@@ -60,10 +60,10 @@ export function joinToChannel(channelId) {
 }
 
 
-export function loadChannelHistory(channelId) {
+export function loadChannelHistory(payload) {
   return {
     type: CS.LOAD_CHANNEL_HISTORY,
-    payload: channelId,
+    payload: payload,
     send: true,
   };
 }
