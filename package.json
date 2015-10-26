@@ -17,7 +17,7 @@
     "dev": "NODE_ENV=development DEBUG=shrimp:front MONGO_CONNECT=yes NODE_PATH=./node_modules:./app nodemon --watch server/ --exec babel-node server/server",
     "compile": "./node_modules/.bin/babel compile.js > compile.es5.js; node compile.es5.js",
     "dev-server": "npm run compile; NODE_ENV=development DEBUG=shrimp:server MONGO_CONNECT=yes NODE_PATH=./node_modules:./app nodemon --exec babel-node server/server",
-    "start": "NODE_ENV=production MONGO_CONNECT=yes NODE_PATH=./node_modules:./app forever start --uid shrimp --killSignal=SIGTERM -l \"$(git log -n 1 --pretty=format:%h).log\" -c babel-node server/server.js"
+    "start": "PORT=80 NODE_ENV=production MONGO_CONNECT=yes NODE_PATH=./node_modules:./app forever start --uid shrimp --killSignal=SIGTERM -l \"$(git log -n 1 --pretty=format:%h).log\" -c babel-node server/server.js"
   },
   "contributors": [
     {
