@@ -1,7 +1,10 @@
 @import '~styles/variables.scss';
 @import '~styles/colors.scss';
+@import '~styles/mixins.scss';
 
 .pinned-message {
+  position: relative;
+
   padding: 5px 10px;
 
   border: 1px solid $c-gray-50;
@@ -11,10 +14,36 @@
   }
   &__sender {
     margin-bottom: 10px;
+    padding-right: 28px;
 
     color: $c-threads_text;
   }
   &__text {
-    word-break: break-word;
+    @extend  .word-break;
+  }
+  &__pin {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    padding: 3px 10px;
+
+    cursor: pointer;
+    transition: color .3s, opacity .3s;
+
+    color: $c-link;
+    &__icon {
+      position: relative;
+
+      display: block;
+
+      width: 23px;
+      height: 23px;
+
+      fill: currentcolor;
+    }
+    &:hover {
+      color: $c-white;
+    }
   }
 }

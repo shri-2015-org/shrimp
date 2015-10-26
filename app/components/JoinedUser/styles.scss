@@ -1,5 +1,6 @@
 @import '~styles/colors.scss';
 @import '~styles/variables.scss';
+@import '~styles/mixins.scss';
 
 .joined-user {
   position: relative;
@@ -50,10 +51,11 @@
 
   &_offline {
     &__avatar {
-              filter: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id…0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale');
-              filter: gray;
-      -webkit-filter: grayscale(100%);
-      -webkit-backface-visibility: hidden;
+      transition: opacity .3s;
+
+      opacity: .7;
+
+      @extend .grey-filter;
     }
     &__status {
       background: $c-red;
@@ -61,5 +63,8 @@
   }
   &:hover {
     color: #fff;
+    &__avatar {
+      opacity: 1;
+    }
   }
 }

@@ -4,6 +4,7 @@ import cx from 'classnames';
 import './styles.scss';
 import moment from 'moment';
 import Linkify from 'react-linkify';
+import IconSVG from 'svg-inline-loader/lib/component';
 
 
 export default class Message extends React.Component {
@@ -92,7 +93,13 @@ export default class Message extends React.Component {
         {isSelfMessage ? null : this.renderAvatar(message.get('sender'))}
         {!currentChannel.get('isDirect') ? userName : null}
         <div className='message__cloud'>
-          <div onClick={this.togglePin} style={{fontSize: '9px'}}>{message.get('pinned') ? 'Отпинь' : 'Запинь'} мессагу без напряга!</div>
+          <div onClick={this.togglePin} className='message__pin'>
+            {
+              message.get('pinned')
+              ? <IconSVG className='message__pin__icon' src={require(`./pinned.inline.svg`)}/>
+              : <IconSVG className='message__pin__icon' src={require(`./unpinned.inline.svg`)}/>
+            }
+          </div>
           <div className='message__text'>
             <Linkify properties={{className: 'message__url', target: '_blank'}}>{message.get('text')}</Linkify>
             <div>
@@ -100,7 +107,7 @@ export default class Message extends React.Component {
                 {message.get('linksInfo').map((linkInfo, i) => {
                   switch (linkInfo.get('type')) {
                   case 'link':
-                    return (<div key={i} className='message__link-info'>
+                    return (<div key={i + 99999} className='message__link-info'>
                       <img className='message__link-info__thumbnail'
                         src={linkInfo.get('thumbnail_url')}
                         with={linkInfo.get('thumbnail_width')}
@@ -111,7 +118,7 @@ export default class Message extends React.Component {
                       <div className='message__link-info__description'>{linkInfo.get('description')}</div>
                     </div>);
                   case 'video':
-                    return (<div key={i} className='message__video-container' dangerouslySetInnerHTML={{__html: linkInfo.get('html')}}></div>);
+                    return (<div className='message__video-container'><div key={i} className='message__video-container__inner' dangerouslySetInnerHTML={{__html: linkInfo.get('html')}}></div></div>);
                   case 'photo':
                     return (<div key={i} className='message__image-container'>
                       <img
