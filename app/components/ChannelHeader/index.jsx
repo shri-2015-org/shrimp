@@ -11,30 +11,39 @@ export default class ChannelHeader extends React.Component {
 
   static propTypes = {
     currentChannel: PropTypes.instanceOf(Map).isRequired,
+    changeInfoSidebarStatus: PropTypes.func.isRequired,
   }
 
+  toggleInfoSidebar = () => {
+    this.props.changeInfoSidebarStatus('toggle');
+  }
 
   render() {
-    const channel = (this.props.currentChannel.get('isDirect')
+    const {currentChannel} = this.props;
+    const channel = (currentChannel.get('isDirect')
       ? <div className='channel-header__person-name'>
       <div className={cx('channel-header__person-status', {
-        'channel-header__person-status-offline': !this.props.currentChannel.get('isOnline'),
+        'channel-header__person-status-offline': !currentChannel.get('isOnline'),
       })}></div>
-          {this.props.currentChannel.get('name')}
+          {currentChannel.get('name')}
     </div>
       : <div className='channel-header__channel-name'>
       <Star
-        fill={this.props.currentChannel.get('isFavorite')}
+        fill={currentChannel.get('isFavorite')}
         className={cx('channel-header__channel-star')}
       />
-          {this.props.currentChannel.get('name')}
+          {currentChannel.get('name')}
     </div>);
 
     return (
       <div className='channel-header'>
-        {this.props.currentChannel.size
+        {currentChannel.size
           ? channel
           : null}
+
+        <div className='info' onClick={this.toggleInfoSidebar}>
+          <div className='info__icon'>i</div>
+        </div>
       </div>
     );
   }

@@ -15,7 +15,7 @@
   background-color: $c-threads_bg;
 
   @media (max-width: $mobile_width) {
-    padding-top: $header_height + 20px;
+    padding-top: $channel_header_height + 40;
   }
 
 
@@ -28,7 +28,7 @@
 
     line-height: 40px;
     @media (max-width: $mobile_width) {
-      top: $header_height - 20;
+      top: $channel_header_height;
     }
   }
 

@@ -8,6 +8,7 @@
   padding-top: $channel_header_height;
 
   border-left: 1px solid $c-gray-50;
+  background: $c-gray-50;
   &__inner {
     position: relative;
 
@@ -25,6 +26,7 @@
     padding: 0 15px;
 
     color: $c-threads_text;
+    background: $c-gray-30;
 
     font-size: 20px;
     line-height: 50px;
@@ -42,6 +44,7 @@
 
     border-top: 1px solid $c-gray-50;
     border-bottom: 1px solid $c-gray-50;
+    background: $c-gray-30;
 
     &__header {
       position: relative;

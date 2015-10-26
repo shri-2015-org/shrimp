@@ -18,17 +18,16 @@ export default class Header extends React.Component {
     changeMessageFilterValue: PropTypes.func.isRequired,
   }
 
-
-  setOpen = () => {
-    this.props.setOpen(true);
-  }
-
   logOut = () => {
     this.props.logOut();
   }
 
   changeFilter = (e) => {
     this.props.changeMessageFilterValue(e.target.value.trim().toLowerCase());
+  }
+
+  toggleSidebar = () => {
+    this.props.setOpen('toggle');
   }
 
   render() {
@@ -47,8 +46,8 @@ export default class Header extends React.Component {
       <header className='header'>
         {this.props.local.size ? user : null}
         <button
-          onClick={this.setOpen}
-          hidden={this.props.open || this.props.docked}
+          onClick={this.toggleSidebar}
+          hidden={this.props.docked}
           className='header__humburger'
         >{'☰'}</button>
         <Search className='header__search' onChange={this.changeFilter} />

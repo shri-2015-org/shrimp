@@ -15,6 +15,10 @@
   background-color: $c-gray-30;
   box-shadow: inset 0 0 0 $c-highlight;
 
+  &:last-child {
+    margin-bottom: 0;
+  }
+
   &_active {
     cursor: default;
 

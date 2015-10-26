@@ -5,6 +5,7 @@
   padding: 0 15px 8px;
 
   color: $c-white;
+  background: $c-gray-30;
 
   font-size: 16px;
   line-height: 22px;
@@ -14,8 +15,6 @@
   }
   &__avatar {
     display: block;
-
-    margin-top: 8px;
   }
   &__title {
     margin-top: 8px;

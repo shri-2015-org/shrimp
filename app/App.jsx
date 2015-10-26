@@ -81,8 +81,18 @@ export default class Application extends React.Component {
     }
 
     const mql = window.matchMedia('(min-width: 800px)');
+    const mqlInfo = window.matchMedia('(min-width: 1000px)');
+
     mql.addListener(this.mediaQueryChanged);
-    this.setState({mql: mql, sidebarDocked: mql.matches, sidebarOpen: mql.matches});
+    mqlInfo.addListener(this.mediaQuerySmallChanged);
+    this.setState({
+      mql: mql,
+      mqlInfo: mqlInfo,
+      sidebarDocked: mql.matches,
+      sidebarOpen: false,
+      informSidebarDocked: mqlInfo.matches,
+      informSidebarOpen: false,
+    });
   }
 
 
@@ -92,9 +102,15 @@ export default class Application extends React.Component {
 
 
   onSetSidebarOpen = (open) => {
-    this.setState({sidebarOpen: open});
-  }
+    this.setState({informSidebarOpen: false});
 
+    this.setState({
+      sidebarOpen:
+        (open === 'toggle')
+          ? !this.state.sidebarOpen
+          : open,
+    });
+  }
 
   getDirectChannelByUserId = (userId) => {
     return this.props.directChannels
@@ -116,8 +132,24 @@ export default class Application extends React.Component {
     this.changeTab(1);
   }
 
-  mediaQueryChanged = () => {
-    this.setState({sidebarDocked: this.state.mql.matches, sidebarOpen: this.state.mql.matches});
+  changeInfoSidebarStatus = (open) => {
+    this.setState({sidebarOpen: false});
+
+    if (this.state.mqlInfo.matches) {
+      this.setState({
+        informSidebarDocked:
+          (open === 'toggle')
+            ? !this.state.informSidebarDocked
+            : open,
+      });
+    } else {
+      this.setState({
+        informSidebarOpen:
+          (open === 'toggle')
+            ? !this.state.informSidebarOpen
+            : open,
+      });
+    }
   }
 
   changeToDirectChannel = (contactId) => {
@@ -126,6 +158,20 @@ export default class Application extends React.Component {
     if (this.getDirectChannelByUserId(contactId)) {
       this.actions.markChannelAsRead({ channelId: this.getDirectChannelByUserId(contactId).get('id'), lastSeen: new Date().toUTCString() });
     }
+  }
+
+  mediaQueryChanged = () => {
+    this.setState({
+      sidebarDocked: this.state.mql.matches,
+      sidebarOpen: false,
+    });
+  }
+
+  mediaQuerySmallChanged = () => {
+    this.setState({
+      informSidebarDocked: this.state.mqlInfo.matches,
+      informSidebarOpen: false,
+    });
   }
 
   changeTab = (tabId) => {
@@ -145,6 +191,13 @@ export default class Application extends React.Component {
         {...this.actions}
       />
     );
+    const channelInfo = (
+      <ChannelInfo
+        {...this.props}
+        unpinMessage={this.actions.unpinMessage}
+        changeToDirectChannel={this.changeToDirectChannel}
+      />
+    );
 
     return (
       <DocumentTitle title='Chat' >
@@ -160,24 +213,19 @@ export default class Application extends React.Component {
           <Sidebar
             {...this.props}
             sidebar={threads}
-            open={this.state.sidebarOpen}
             onSetOpen={this.onSetSidebarOpen}
+            open={this.state.sidebarOpen}
             docked={this.state.sidebarDocked}
             shadow={false}
           >
             <ChannelHeader
               {...this.props}
+              changeInfoSidebarStatus={this.changeInfoSidebarStatus}
             />
             <Sidebar
-              sidebar={
-                <ChannelInfo
-                  {...this.props}
-                  unpinMessage={this.actions.unpinMessage}
-                  changeToDirectChannel={this.changeToDirectChannel}
-                />
-              }
+              sidebar={channelInfo}
+              onSetOpen={this.changeInfoSidebarStatus}
               open={this.state.informSidebarOpen}
-              onSetOpen={this.onSetSidebarOpen}
               docked={this.state.informSidebarDocked}
               shadow={false}
               pullRight

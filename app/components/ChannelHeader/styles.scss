@@ -1,5 +1,6 @@
 @import '~styles/variables.scss';
-
+@import '~styles/colors.scss';
+$channel_name_height: 50px;
 .channel-header {
   position: relative;
   z-index: 3;
@@ -13,7 +14,7 @@
   background: rgba(32,37,40,.97);
 
   font-size: 20px;
-  line-height: 50px;
+  line-height: $channel_name_height;
 
 
   &__person-name,
@@ -55,5 +56,37 @@
   }
   &__person-status-offline {
     background: $c-red;
+  }
+}
+
+
+.info {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  width: $channel_name_height;
+  height: $channel_name_height;
+  padding: 12px;
+
+  cursor: pointer;
+  transition: color .3s;
+
+  color: $c-link;
+
+  font-size: 16px;
+  &__icon {
+    width: 100%;
+    height: 100%;
+
+    text-align: center;
+
+    border: 1px solid currentColor;
+    border-radius: 100%;
+
+    line-height: $channel_name_height - 12*2 + 2;
+  }
+  &:hover {
+    color: $c-white;
   }
 }
