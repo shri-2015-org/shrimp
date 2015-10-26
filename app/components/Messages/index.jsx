@@ -10,8 +10,10 @@ export default class Messages extends React.Component {
   static propTypes = {
     messages: PropTypes.instanceOf(List).isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
+    currentChannel: PropTypes.instanceOf(Map),
     docked: PropTypes.bool.isRequired,
     language: PropTypes.string.isRequired,
+    loadChannelHistory: PropTypes.func.isRequired,
   }
 
 
@@ -25,6 +27,13 @@ export default class Messages extends React.Component {
 
   componentDidMount = () => {
     this.baseTextareaHeight = null;
+  }
+
+
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.currentChannel && !nextProps.currentChannel.get('loadingStatus')) {
+      this.props.loadChannelHistory(nextProps.local.get('currentChannelId'));
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
