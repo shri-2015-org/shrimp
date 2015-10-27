@@ -21,22 +21,24 @@ export default class Messages extends React.Component {
     super(props);
     this.state = {
       listBottom: 0,
+      skipNextScroll: false,
     };
   }
 
 
   componentDidMount = () => {
     this.baseTextareaHeight = null;
+    this.attachScrollListener();
   }
 
 
   componentWillReceiveProps = nextProps => {
+    // Load initial data only once, and then rely on loading more data on scroll
     if (
       nextProps.currentChannel &&
-      nextProps.currentChannel.get('loadingStatus') !== 'END' &&
-      nextProps.currentChannel.get('loadingStatus') !== 'LOADING'
+      !nextProps.currentChannel.get('loadingStatus')
     ) {
-      this.props.loadChannelHistory({channelId: nextProps.currentChannel.get('id'), baseDate: nextProps.currentChannel.get('loadingStatus')});
+      nextProps.loadChannelHistory({channelId: nextProps.currentChannel.get('id'), baseDate: nextProps.currentChannel.get('loadingStatus')});
     }
   }
 
@@ -50,9 +52,45 @@ export default class Messages extends React.Component {
     );
   }
 
+  componentWillUnmount() {
+    this.detachScrollListener();
+  }
+
+  scrollListener = () => {
+    const list = this.refs.list;
+    if (list.scrollTop === 0) {
+      this.loadMoreHistory();
+    }
+  }
+  loadMoreHistory = () => {
+    if (
+      this.props.currentChannel &&
+      this.props.currentChannel.get('loadingStatus') !== 'END' &&
+      this.props.currentChannel.get('loadingStatus') !== 'LOADING'
+    ) {
+      // Prevent scroll jump
+      this.state.skipNextScroll = true;
+      this.props.loadChannelHistory({channelId: this.props.currentChannel.get('id'), baseDate: this.props.currentChannel.get('loadingStatus')});
+    }
+  }
+  attachScrollListener = () => {
+    const list = this.refs.list;
+    list.addEventListener('scroll', this.scrollListener);
+    this.scrollListener();
+  }
+  detachScrollListener = () => {
+    const list = this.refs.list;
+    list.removeEventListener('scroll', this.scrollListener);
+  }
+
+
   scrollToBottom = () => {
     const list = this.refs.list;
-    list.scrollTop = list.scrollHeight;
+    if (this.state.skipNextScroll) {
+      this.state.skipNextScroll = false;
+    } else {
+      list.scrollTop = list.scrollHeight;
+    }
   }
 
 
