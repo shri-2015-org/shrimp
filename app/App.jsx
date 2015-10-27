@@ -129,6 +129,7 @@ export default class Application extends React.Component {
       this.actions.addDirtyDirectChannel(channelId);
       return;
     }
+    this.actions.setCurrentChannel(directChannel.get('id'));
     this.actions.changeCurrentChannel(directChannel.get('id'));
     this.changeTab(1);
   }

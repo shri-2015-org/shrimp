@@ -174,7 +174,9 @@ export function setCurrentChannel(sessionId, currentChannelId, cb) {
     currentChannelId: currentChannelId,
   }, { new: true }, (error) => {
     if (error) debug(error);
-    cb();
+    if (cb) {
+      cb();
+    }
   });
 }
 

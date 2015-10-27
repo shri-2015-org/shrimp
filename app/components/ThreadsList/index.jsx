@@ -22,6 +22,8 @@ export default class ThreadsList extends React.Component {
     list: PropTypes.instanceOf(List),
     type: PropTypes.string,
     changeToDirectChannel: PropTypes.func.isRequired,
+    changeCurrentChannel: PropTypes.func.isRequired,
+    setCurrentChannel: PropTypes.func.isRequired,
 
   };
 

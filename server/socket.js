@@ -156,9 +156,7 @@ export function startSocketServer(http) {
 
 
     socket.on(CS.SET_CURRENT_CHANNEL, data => {
-      setCurrentChannel(socket.sessionId, data, () => {
-        socket.emit(SC.SET_CURRENT_CHANNEL, data);
-      });
+      setCurrentChannel(socket.sessionId, data);
     });
 
 
