@@ -6,7 +6,7 @@ export const joinedUsersSelector = createSelector(
   (local, channels, users) => {
     const channel = channels.find(c => c.get('id') === local.get('currentChannelId'));
 
-    return channel
+    return channel && channel.get('users')
       ? channel.get('users').map(u => users.find(us => us.get('id') === u.get('_id')))
       : new List([]);
   }

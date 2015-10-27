@@ -138,6 +138,7 @@ export function joinToChannel(sessionId, channelId, callback) {
     .then((channel) => {
       User.getBySessionId(sessionId)
         .then((user) => {
+          if (channel.users.filter(u => u._id === user._id).length) return false;
           channel.users.push({ _id: user._id, lastSeen: Date.now() });
           channel.save(error => {
             if (error) reject(error);
