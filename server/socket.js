@@ -51,6 +51,10 @@ export function startSocketServer(http) {
       .then((user) => {
         socket.broadcast.emit(SC.JOIN_USER, { user: user.toObject() });
         socket.broadcast.emit(SC.USER_ONLINE, { userId: user.id });
+
+        Channel.getDefaultChannel().then(defaultChannel => {
+          io.to(defaultChannel.id).emit(SC.JOIN_TO_CHANNEL, {channelId: defaultChannel.id, userId: user.id});
+        });
         return Channel.getForUser(user.id);
       })
       .then((channels) => {
@@ -77,7 +81,7 @@ export function startSocketServer(http) {
     socket.on(CS.JOIN_TO_CHANNEL, channelId => {
       joinToChannel(socket.sessionId, channelId, (userId) => {
         socket.join(channelId);
-        socket.emit(SC.JOIN_TO_CHANNEL, {channelId, userId});
+        io.to(channelId).emit(SC.JOIN_TO_CHANNEL, {channelId, userId});
         loadChannelHistory(channelId, (messages) => {
           if (messages.length) {
             const messagesObj = messages.map((message) => message.toObject());

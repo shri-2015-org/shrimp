@@ -143,8 +143,8 @@
     border-radius: $main-border-radius;
   }
 
-  &_repeated &__cloud:before,
-  &_repeated &__avatar {
+  &_foreign &_repeated &__cloud:before,
+  &_foreign &_repeated &__avatar {
     display: none;
   }
 

@@ -63,8 +63,8 @@
   }
   &:hover {
     color: #fff;
-    &__avatar {
-      opacity: 1;
-    }
+  }
+  &:hover &__avatar {
+    opacity: 1;
   }
 }
