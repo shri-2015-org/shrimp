@@ -1,8 +1,8 @@
 import io from 'socket.io-client';
 import store from '../store';
 import {Map} from 'immutable';
-import {addChannel, addUserToChannel} from '../actions/channels';
-import {addMessage, loadChannelHistory} from '../actions/messages';
+import * as channelActions from '../actions/channels';
+import * as messageActions from '../actions/messages';
 import {setUserInfo, joinUser} from 'actions/users';
 import {init, initUser, logOut} from '../actions/local';
 import {SC} from '../../constants';
@@ -13,12 +13,12 @@ export function socketClient(type = null, socketData) {
 
   if (type === 'SOCKET_INIT') {
     socket.on(SC.ADD_MESSAGE, (data) => {
-      store.dispatch(addMessage(Map(data)));
+      store.dispatch(messageActions.addMessage(Map(data)));
     });
 
 
     socket.on(SC.ADD_CHANNEL, (data) => {
-      store.dispatch(addChannel(Map({id: data.id, name: data.name, joined: false})));
+      store.dispatch(channelActions.addChannel(Map({id: data.id, name: data.name, joined: false})));
     });
 
 
@@ -38,7 +38,7 @@ export function socketClient(type = null, socketData) {
 
 
     socket.on(SC.JOIN_TO_CHANNEL, (data) => {
-      store.dispatch(addUserToChannel(data));
+      store.dispatch(channelActions.addUserToChannel(data));
     });
 
 
@@ -48,12 +48,16 @@ export function socketClient(type = null, socketData) {
 
 
     socket.on(SC.SET_CHANNEL_HISTORY, (data) => {
-      store.dispatch(loadChannelHistory(data));
+      store.dispatch(messageActions.setChannelHistory(data));
+      // When we receive less messages then expected, it means that there are no
+      // more messages on the server for this channel, so we should should stop waiting.
+      const status = data.messages.length === 20 ? data.messages[data.messages.length - 1].timestamp : 'END';
+      store.dispatch(channelActions.setLoadingStatus({channelId: data.messages[data.messages.length - 1].channelId, status}));
     });
 
 
     socket.on(SC.ADD_DIRECT_CHANNEL, (data) => {
-      store.dispatch(addChannel(Map({
+      store.dispatch(channelActions.addChannel(Map({
         id: data.id,
         name: data.name,
         users: data.users,

@@ -19,12 +19,13 @@ import {contactsSelector} from 'selectors/contactsSelector';
 import i18nMessages from 'i18n/index';
 import DocumentTitle from 'react-document-title';
 import {localSelector} from 'selectors/localSelector';
-import {indirectChannelsSelector} from 'selectors/channelsSelector';
+import {indirectChannelsSelector, currentChannelsSelector} from 'selectors/channelsSelector';
 import {directChannelsSelector} from 'selectors/directChannelsSelector';
 
 @connect(state => ({
   messages: messageFilterSelector(state),
   channels: state.channels,
+  currentChannel: currentChannelsSelector(state),
   users: state.users,
   local: localSelector(state),
   contacts: contactsSelector(state),
@@ -37,6 +38,7 @@ export default class Application extends React.Component {
     channels: PropTypes.instanceOf(List).isRequired,
     users: PropTypes.instanceOf(List).isRequired,
     contacts: PropTypes.instanceOf(List).isRequired,
+    currentChannel: PropTypes.instanceOf(Map),
     local: PropTypes.instanceOf(Map).isRequired,
     dispatch: PropTypes.func.isRequired,
     children: PropTypes.node,
@@ -126,6 +128,7 @@ export default class Application extends React.Component {
             <Messages
               docked={this.state.sidebarDocked}
               messages={messages}
+              currentChannel={this.props.currentChannel}
               local={local}
               language={this.props.local.get('language') ? this.props.local.get('language') : 'en' }
               {...actions}

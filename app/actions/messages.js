@@ -16,9 +16,9 @@ export function addMessage(message) {
 }
 
 
-export function loadChannelHistory(data) {
+export function setChannelHistory(data) {
   return {
-    type: A.LOAD_CHANNEL_HISTORY,
+    type: A.SET_CHANNEL_HISTORY,
     payload: data,
   };
 }

@@ -168,8 +168,14 @@ export function setUserInfo(sessionId, email, name, language, callback) {
 }
 
 
-export function loadChannelHistory(channelId, callback) {
-  return Message.find({ channelId }, (error, messages) => {
+export function loadChannelHistory(channelId, baseDate = null, callback) {
+  const date = baseDate ? new Date(baseDate) : new Date();
+  return Message.find({
+    channelId,
+    timestamp: {
+      $lt: date,
+    },
+  }).sort('-timestamp').limit(20).exec((error, messages) => {
     if (error) debug(error);
     callback(messages);
   });

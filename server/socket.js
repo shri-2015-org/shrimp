@@ -50,17 +50,22 @@ export default function startSocketServer(http) {
     });
 
 
+    socket.on(CS.LOAD_CHANNEL_HISTORY, payload => {
+      const {channelId, baseDate} = payload;
+      loadChannelHistory(channelId, baseDate, (messages) => {
+        if (messages && messages.length) {
+          const messagesObj = messages.map((message) => message.toObject());
+          socket.emit(SC.SET_CHANNEL_HISTORY, { messages: messagesObj });
+        }
+      });
+    });
+
+
     socket.on(CS.JOIN_TO_CHANNEL, channelId => {
       if (!validate(channelId).isString().match(/^[0-9a-fA-F]{24}$/).end()) return;
       joinToChannel(socket.sessionId, channelId, (userId) => {
         socket.join(channelId);
         socket.emit(SC.JOIN_TO_CHANNEL, {channelId, userId});
-        loadChannelHistory(channelId, (messages) => {
-          if (messages.length) {
-            const messagesObj = messages.map((message) => message.toObject());
-            socket.emit(SC.SET_CHANNEL_HISTORY, { messages: messagesObj });
-          }
-        });
       });
     });
 

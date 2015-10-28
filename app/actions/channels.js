@@ -60,6 +60,23 @@ export function joinToChannel(channelId) {
 }
 
 
+export function loadChannelHistory(payload) {
+  return {
+    type: CS.LOAD_CHANNEL_HISTORY,
+    payload: payload,
+    send: true,
+  };
+}
+
+
+export function setLoadingStatus(payload) {
+  return {
+    type: A.SET_LOADING_STATUS,
+    payload: payload,
+  };
+}
+
+
 export function replaceDirtyChannel(channel) {
   return {
     type: A.REPLACE_DIRTY_CHANNEL,
