@@ -5,6 +5,7 @@ import getInitState from './initial-state';
 import getMessageModel from './models/message';
 import getChannelModel from './models/channel';
 import getUserModel from './models/user';
+import httpRequest from 'http';
 import {SC, CS, MESSAGE_MAX_LENGTH, CHANNEL_NAME_MAX_LENGTH} from '../constants';
 import {checkSessionId, setUserInfo, joinToChannel, setFavoriteChannel, loadChannelHistory, setCurrentChannel} from './db/db_core.js';
 // const debug = require('debug')('shrimp:server');
@@ -93,8 +94,7 @@ export function startSocketServer(http) {
 
     function getUrlInfo(url) {
       return new Promise((resolve) => {
-        const http2 = require('http');
-        http2.get(
+        httpRequest.get(
           {
             host: 'api.proc.link',
             path: `/oembed?url=${url}`,
