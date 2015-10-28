@@ -21,6 +21,7 @@ export default class Messages extends React.Component {
     super(props);
     this.state = {
       listBottom: 0,
+      previousScrollHeight: 0,
     };
   }
 
@@ -32,13 +33,7 @@ export default class Messages extends React.Component {
 
 
   componentWillReceiveProps = nextProps => {
-    // Load initial data only once, and then rely on loading more data on scroll
-    if (
-      nextProps.currentChannel &&
-      !nextProps.currentChannel.get('loadingStatus')
-    ) {
-      nextProps.loadChannelHistory({channelId: nextProps.currentChannel.get('id'), baseDate: nextProps.currentChannel.get('loadingStatus')});
-    }
+    this.loadMoreHistory(nextProps.currentChannel);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -47,7 +42,8 @@ export default class Messages extends React.Component {
       Immutable.is(nextProps.local, this.props.local) &&
       nextProps.docked === this.props.docked &&
       nextProps.language === this.props.language &&
-      nextState.listBottom === this.state.listBottom
+      nextState.listBottom === this.state.listBottom &&
+      nextState.previousScrollHeight === this.state.previousScrollHeight
     );
   }
 
@@ -58,18 +54,25 @@ export default class Messages extends React.Component {
   scrollListener = () => {
     const list = this.refs.list;
     if (list.scrollTop === 0) {
-      this.loadMoreHistory();
+      this.loadMoreHistory(this.props.currentChannel);
+      this.skipNextScroll = true;
     }
   }
-  loadMoreHistory = () => {
+  loadMoreHistory = (currentChannel) => {
+    const list = this.refs.list;
+    this.setState({
+      previousScrollHeight: list.scrollHeight,
+    });
     if (
-      this.props.currentChannel &&
-      this.props.currentChannel.get('loadingStatus') !== 'END' &&
-      this.props.currentChannel.get('loadingStatus') !== 'LOADING'
+      currentChannel &&
+      currentChannel.get('loadingStatus') !== 'END' &&
+      currentChannel.get('loadingStatus') !== 'LOADING' &&
+      (
+        !currentChannel.get('loadingStatus') ||
+        list.scrollTop === 0
+      )
     ) {
-      // Prevent scroll jump
-      this.skipNextScroll = true;
-      this.props.loadChannelHistory({channelId: this.props.currentChannel.get('id'), baseDate: this.props.currentChannel.get('loadingStatus')});
+      this.props.loadChannelHistory({channelId: currentChannel.get('id'), baseDate: currentChannel.get('loadingStatus')});
     }
   }
   attachScrollListener = () => {
@@ -87,6 +90,7 @@ export default class Messages extends React.Component {
     const list = this.refs.list;
     if (this.skipNextScroll) {
       this.skipNextScroll = false;
+      list.scrollTop = list.scrollHeight - this.state.previousScrollHeight;
     } else {
       list.scrollTop = list.scrollHeight;
     }
