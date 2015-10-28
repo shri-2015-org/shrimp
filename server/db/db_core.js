@@ -4,6 +4,7 @@ import crypto from 'crypto';
 import getUserModel from '../models/user';
 import getChannelModel from '../models/channel';
 import getMessageModel from '../models/message';
+import {S} from '../../constants';
 
 const ObjectId = mongoose.Types.ObjectId;
 const Channel = getChannelModel();
@@ -175,7 +176,7 @@ export function loadChannelHistory(channelId, baseDate = null, callback) {
     timestamp: {
       $lt: date,
     },
-  }).sort('-timestamp').limit(20).exec((error, messages) => {
+  }).sort('-timestamp').limit(S.NUMBER_OF_MESSAGES_PER_LOAD).exec((error, messages) => {
     if (error) debug(error);
     callback(messages);
   });

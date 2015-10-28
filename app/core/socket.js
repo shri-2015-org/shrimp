@@ -5,7 +5,7 @@ import * as channelActions from '../actions/channels';
 import * as messageActions from '../actions/messages';
 import {setUserInfo, joinUser} from 'actions/users';
 import {init, initUser, logOut} from '../actions/local';
-import {SC} from '../../constants';
+import {S, SC} from '../../constants';
 
 
 export function socketClient(type = null, socketData) {
@@ -51,7 +51,7 @@ export function socketClient(type = null, socketData) {
       store.dispatch(messageActions.setChannelHistory(data));
       // When we receive less messages then expected, it means that there are no
       // more messages on the server for this channel, so we should should stop waiting.
-      const status = data.messages.length === 20 ? data.messages[data.messages.length - 1].timestamp : 'END';
+      const status = data.messages.length === S.NUMBER_OF_MESSAGES_PER_LOAD ? data.messages[data.messages.length - 1].timestamp : 'END';
       store.dispatch(channelActions.setLoadingStatus({channelId: data.messages[data.messages.length - 1].channelId, status}));
     });
 

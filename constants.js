@@ -1,3 +1,4 @@
+// Server to client actions
 const SC = {
   ADD_MESSAGE: 'SC_ADD_MESSAGE',
   ADD_CHANNEL: 'SC_ADD_CHANNEL',
@@ -11,6 +12,7 @@ const SC = {
   ADD_DIRECT_CHANNEL: 'SC_ADD_DIRECT_CHANNEL',
 };
 
+// Client to server actions
 const CS = {
   ADD_MESSAGE: 'CS_ADD_MESSAGE',
   ADD_CHANNEL: 'CS_ADD_CHANNEL',
@@ -25,6 +27,7 @@ const CS = {
   ADD_DIRECT_CHANNEL: 'CS_ADD_DIRECT_CHANNEL',
 };
 
+// Local actions
 const A = {
   ADD_MESSAGE: 'ADD_MESSAGE',
   REMOVE_CHANNEL: 'REMOVE_CHANNEL',
@@ -49,8 +52,14 @@ const A = {
   SET_LOADING_STATUS: 'SET_LOADING_STATUS',
 };
 
+// System-wide settings
+const S = {
+  NUMBER_OF_MESSAGES_PER_LOAD: 5,
+};
+
 module.exports = {
   SC: SC,
   CS: CS,
   A: A,
+  S: S,
 };
