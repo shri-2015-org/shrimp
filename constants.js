@@ -54,7 +54,7 @@ const A = {
 
 // System-wide settings
 const S = {
-  NUMBER_OF_MESSAGES_PER_LOAD: 5,
+  NUMBER_OF_MESSAGES_PER_LOAD: 100,
 };
 
 module.exports = {

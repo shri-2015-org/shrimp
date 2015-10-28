@@ -58,7 +58,7 @@ export default class Messages extends React.Component {
       this.skipNextScroll = true;
     }
   }
-  loadMoreHistory = (currentChannel) => {
+  loadMoreHistory = currentChannel => {
     const list = this.refs.list;
     this.setState({
       previousScrollHeight: list.scrollHeight,
