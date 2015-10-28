@@ -61,6 +61,7 @@ channel.statics.addDirectChannel = function addDirectChannel(data, cb) {
 };
 
 channel.statics.add = function add(data, cb) {
+  data.users = [];
   return new this(data).save(cb);
 };
 

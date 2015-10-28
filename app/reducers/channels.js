@@ -22,7 +22,7 @@ export function channels(state = EMPTY_LIST, action = {type: 'DEFAULT'}) {
   case A.JOIN_TO_CHANNEL:
     const channelIndex = state.findIndex(item => item.get('id') === action.payload.channelId);
     const channelItem = state.find(item => item.get('id') === action.payload.channelId);
-    if (!channelItem) {
+    if (!channelItem || !channelItem.get('users')) {
       return state;
     }
     if (channelItem.get('users').find(u => u.get('_id') === action.payload.userId)) {

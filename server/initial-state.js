@@ -19,7 +19,6 @@ export default function getInitState(sessionId, onlineSessions = new Set()) {
             const channelObj = channel.toObject();
             const userPrefsForChannel = channelObj.users.find(user => user._id.toString() === userId);
             if (userPrefsForChannel) {
-              channelObj.joined = true;
               channelObj.lastSeen = userPrefsForChannel.lastSeen !== undefined ? userPrefsForChannel.lastSeen : null;
               channelObj.isFavorite = !!userPrefsForChannel.isFavorite;
             }

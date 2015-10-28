@@ -81,7 +81,7 @@ export function startSocketServer(http) {
     socket.on(CS.JOIN_TO_CHANNEL, channelId => {
       joinToChannel(socket.sessionId, channelId, (userId) => {
         socket.join(channelId);
-        io.to(channelId).emit(SC.JOIN_TO_CHANNEL, {channelId, userId});
+        io.sockets.emit(SC.JOIN_TO_CHANNEL, {channelId, userId});
         loadChannelHistory(channelId, (messages) => {
           if (messages.length) {
             const messagesObj = messages.map((message) => message.toObject());
@@ -137,8 +137,12 @@ export function startSocketServer(http) {
 
     socket.on(CS.ADD_CHANNEL, data => {
       data.name = truncate(data.name, CHANNEL_NAME_MAX_LENGTH);
-      Channel.add(data, (err, result) =>
-        io.sockets.emit(SC.ADD_CHANNEL, result.toObject()));
+      User.getBySessionId(socket.sessionId).then(user => {
+        data.userId = user.id;
+        Channel.add(data, (err, result) =>{
+          io.sockets.emit(SC.ADD_CHANNEL, result.toObject());
+        });
+      });
     });
 
 
@@ -160,7 +164,9 @@ export function startSocketServer(http) {
 
 
     socket.on(CS.SET_CURRENT_CHANNEL, data => {
-      setCurrentChannel(socket.sessionId, data);
+      setCurrentChannel(socket.sessionId, data, () => {
+        socket.emit(SC.SET_CURRENT_CHANNEL, data);
+      });
     });
 
 
