@@ -161,39 +161,39 @@ export default class Threads extends React.Component {
 
     return (
       <Fade side='left' offset={300}>
-      <div className='threads' ref='threads'>
-        <Tabs
-          currentTabId={this.state.currentTabId}
-          changeTab={this.changeTab}
-          className='threads__tabs'
-        >
-          <Tab id={tabs.getIn([0, 'id'])}>{tabs.getIn([0, 'name'])}</Tab>
-          <Tab id={tabs.getIn([1, 'id'])}>{tabs.getIn([1, 'name'])}</Tab>
-        </Tabs>
+        <div className='threads' ref='threads'>
+          <Tabs
+            currentTabId={this.state.currentTabId}
+            changeTab={this.changeTab}
+            className='threads__tabs'
+          >
+            <Tab id={tabs.getIn([0, 'id'])}>{tabs.getIn([0, 'name'])}</Tab>
+            <Tab id={tabs.getIn([1, 'id'])}>{tabs.getIn([1, 'name'])}</Tab>
+          </Tabs>
 
-        <ThreadsList
-          {...this.props}
-          list={filterData}
-          local={local}
-          channels={channels}
-          type={currentTabData.get('id')}
-          setCurrentDirectChannel={this.setCurrentDirectChannel}
-          isCurrentDirectChannel={this.isCurrentDirectChannel}
-          getDirectChannelByUserId={this.getDirectChannelByUserId}
-        />
-        <div className='treads-bottom'>
-          <Search
-            onChange={this.changeFilterValue}
-            className='threads__search'
-            inputClassName='threads__search__input'
-            iconClassName='threads__search__icon'
+          <ThreadsList
+            {...this.props}
+            list={filterData}
+            local={local}
+            channels={channels}
+            type={currentTabData.get('id')}
+            setCurrentDirectChannel={this.setCurrentDirectChannel}
+            isCurrentDirectChannel={this.isCurrentDirectChannel}
+            getDirectChannelByUserId={this.getDirectChannelByUserId}
           />
-          <button
-            onClick={this.addDirtyChannel}
-            className='add-channel-button'
-          ></button>
+          <div className='treads-bottom'>
+            <Search
+              onChange={this.changeFilterValue}
+              className='threads__search'
+              inputClassName='threads__search__input'
+              iconClassName='threads__search__icon'
+            />
+            <button
+              onClick={this.addDirtyChannel}
+              className='add-channel-button'
+            ></button>
+          </div>
         </div>
-      </div>
       </Fade>
     );
   }

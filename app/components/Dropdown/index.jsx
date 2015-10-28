@@ -51,9 +51,9 @@ export default class Dropdown extends React.Component {
           onClick={this.toggleMenu}
         >{'●●●'}</button>
         <Plate type={this.state.open ? 'in' : 'out'}>
-        <ul className='dropdown__menu'>
-          {this.props.children}
-        </ul>
+          <ul className='dropdown__menu'>
+            {this.props.children}
+          </ul>
         </Plate>
       </div>
     );

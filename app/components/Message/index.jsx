@@ -88,7 +88,7 @@ export default class Message extends React.Component {
       })}>
         {isSelfMessage ? null : this.renderAvatar(sender)}
         {userName}
-        { new Date() - new Date(this.props.timestamp) < 1000 ?
+        {new Date() - new Date(this.props.timestamp) < 1000 ?
           <Fade side='right' offset={50}>
             {content}
           </Fade>
