@@ -21,7 +21,6 @@ export default class Messages extends React.Component {
     super(props);
     this.state = {
       listBottom: 0,
-      skipNextScroll: false,
     };
   }
 
@@ -69,7 +68,7 @@ export default class Messages extends React.Component {
       this.props.currentChannel.get('loadingStatus') !== 'LOADING'
     ) {
       // Prevent scroll jump
-      this.state.skipNextScroll = true;
+      this.skipNextScroll = true;
       this.props.loadChannelHistory({channelId: this.props.currentChannel.get('id'), baseDate: this.props.currentChannel.get('loadingStatus')});
     }
   }
@@ -86,8 +85,8 @@ export default class Messages extends React.Component {
 
   scrollToBottom = () => {
     const list = this.refs.list;
-    if (this.state.skipNextScroll) {
-      this.state.skipNextScroll = false;
+    if (this.skipNextScroll) {
+      this.skipNextScroll = false;
     } else {
       list.scrollTop = list.scrollHeight;
     }
