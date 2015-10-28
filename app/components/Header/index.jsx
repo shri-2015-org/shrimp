@@ -5,6 +5,7 @@ import Dropdown from 'components/Dropdown';
 import DropdownItem from 'components/DropdownItem';
 import {Link} from 'react-router';
 import {Map} from 'immutable';
+import {Fade} from 'react-motion-pack';
 
 export default class Header extends React.Component {
   static propTypes = {
@@ -43,23 +44,25 @@ export default class Header extends React.Component {
                     </div>
                   </div>);
     return (
-      <header className='header'>
-        {this.props.local.size ? user : null}
-        <button
-          onClick={this.setOpen}
-          hidden={this.props.open || this.props.docked}
-          className='header__humburger'
-        >{'☰'}</button>
-        <Search className='header__search' onChange={this.changeFilter} />
-        <Dropdown>
-           <DropdownItem>
-            <Link className='dropdown-item__link' to='/settings'>{this.context.__('Settings')}</Link>
-          </DropdownItem>
-          <DropdownItem onClick={this.logOut} danger>
-            {this.context.__('Log Out')}
-          </DropdownItem>
-        </Dropdown>
-      </header>
+      <Fade side='down' offset={500}>
+        <header className='header'>
+          {this.props.local.size ? user : null}
+          <button
+            onClick={this.setOpen}
+            hidden={this.props.open || this.props.docked}
+            className='header__humburger'
+          >{'☰'}</button>
+          <Search className='header__search' onChange={this.changeFilter} />
+          <Dropdown>
+             <DropdownItem>
+              <Link className='dropdown-item__link' to='/settings'>{this.context.__('Settings')}</Link>
+            </DropdownItem>
+            <DropdownItem onClick={this.logOut} danger>
+              {this.context.__('Log Out')}
+            </DropdownItem>
+          </Dropdown>
+        </header>
+      </Fade>
     );
   }
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Plate} from 'react-motion-pack';
 import './styles.scss';
 
 export default class Dropdown extends React.Component {
@@ -49,9 +50,11 @@ export default class Dropdown extends React.Component {
           className='dropdown__button'
           onClick={this.toggleMenu}
         >{'●●●'}</button>
-        <ul className='dropdown__menu' hidden={!this.state.open}>
-          {this.props.children}
-        </ul>
+        <Plate type={this.state.open ? 'in' : 'out'}>
+          <ul className='dropdown__menu'>
+            {this.props.children}
+          </ul>
+        </Plate>
       </div>
     );
   }

@@ -4,6 +4,7 @@ import cx from 'classnames';
 import './styles.scss';
 import moment from 'moment';
 import Linkify from 'react-linkify';
+import {Fade} from 'react-motion-pack';
 
 
 export default class Message extends React.Component {
@@ -70,6 +71,15 @@ export default class Message extends React.Component {
       return <div className='message__username'>{name}</div>;
     }());
 
+    const content = (
+      <div className='message__cloud'>
+        <div className='message__text'>
+          <Linkify properties={{className: 'message__url', target: '_blank'}}>{text}</Linkify>
+        </div>
+        <div className='message__date'>{this.state.date}</div>
+      </div>
+    );
+
     return (
       <li className={cx('message', {
         'message_repeated': senderRepeated,
@@ -78,12 +88,11 @@ export default class Message extends React.Component {
       })}>
         {isSelfMessage ? null : this.renderAvatar(sender)}
         {userName}
-        <div className='message__cloud'>
-          <div className='message__text'>
-            <Linkify properties={{className: 'message__url', target: '_blank'}}>{text}</Linkify>
-          </div>
-          <div className='message__date'>{this.state.date}</div>
-        </div>
+        {new Date() - new Date(this.props.timestamp) < 1000 ?
+          <Fade side='right' offset={50}>
+            {content}
+          </Fade>
+        : content}
       </li>
     );
   }
