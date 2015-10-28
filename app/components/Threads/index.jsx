@@ -5,6 +5,7 @@ import Tabs from 'components/Tabs';
 import Tab from 'components/Tab';
 import ThreadsList from 'components/ThreadsList';
 import Search from 'components/Search';
+import {Fade} from 'react-motion-pack';
 
 export default class Threads extends React.Component {
 
@@ -159,6 +160,7 @@ export default class Threads extends React.Component {
     }
 
     return (
+      <Fade side='left' offset={300}>
       <div className='threads' ref='threads'>
         <Tabs
           currentTabId={this.state.currentTabId}
@@ -192,6 +194,7 @@ export default class Threads extends React.Component {
           ></button>
         </div>
       </div>
+      </Fade>
     );
   }
 }

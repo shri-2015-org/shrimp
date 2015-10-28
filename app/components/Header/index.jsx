@@ -5,6 +5,7 @@ import Dropdown from 'components/Dropdown';
 import DropdownItem from 'components/DropdownItem';
 import {Link} from 'react-router';
 import {Map} from 'immutable';
+import {Fade} from 'react-motion-pack';
 
 export default class Header extends React.Component {
   static propTypes = {
@@ -43,6 +44,7 @@ export default class Header extends React.Component {
                     </div>
                   </div>);
     return (
+      <Fade side='down' offset={500}>
       <header className='header'>
         {this.props.local.size ? user : null}
         <button
@@ -60,6 +62,7 @@ export default class Header extends React.Component {
           </DropdownItem>
         </Dropdown>
       </header>
+      </Fade>
     );
   }
 }
