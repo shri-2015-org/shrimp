@@ -93,9 +93,7 @@ export default class ThreadsList extends React.Component {
           }
 
           const thisChannelId = listItem.get('id');
-          const lastSeen = listItem.get('lastSeen');
           const lastMessage = messages.findLast(m => m.get('channelId') === thisChannelId);
-          const unreadCount = messages.filter(m => m.get('channelId') === thisChannelId && Date.parse(m.get('timestamp')) > Date.parse(lastSeen)).size;
 
           return (
             <ChannelItem
@@ -103,7 +101,7 @@ export default class ThreadsList extends React.Component {
               key={thisChannelId}
               item={listItem}
               lastMessage={lastMessage}
-              unreadCount={unreadCount}
+              unreadCount={listItem.get('unreadCount')}
               isCurrent={local.get('currentChannelId') === thisChannelId}
               local={local}
             />
@@ -115,8 +113,6 @@ export default class ThreadsList extends React.Component {
         return this.props.list.map((listItem) => {
           const thisContactId = listItem.get('id');
           const directChannel = getDirectChannelByUserId(thisContactId);
-          const lastSeen = directChannel ? directChannel.get('lastSeen') : null;
-          const unreadCount = !lastSeen ? 0 : messages.filter(m => m.get('channelId') === directChannel.get('id') && Date.parse(m.get('timestamp')) >= Date.parse(lastSeen)).size;
           const lastDirectMessage = messages.findLast(m => getDirectChannelByUserId(thisContactId) ? m.get('channelId') === getDirectChannelByUserId(thisContactId).get('id') : undefined);
           return (
             <PeopleItem
@@ -127,7 +123,7 @@ export default class ThreadsList extends React.Component {
               currentChannelId={local.get('currentChannelId')}
               isOnline={listItem.get('isOnline')}
               isCurrent={directChannel && local.get('currentChannelId') === directChannel.get('id')}
-              unreadCount={unreadCount}
+              unreadCount={directChannel.get('unreadCount')}
               directChannel={directChannel}
             />
           );

@@ -18,6 +18,9 @@
     padding-top: $channel_header_height + 40;
   }
 
+  &__tab {
+    position: relative;
+  }
 
   &__tabs {
     position: absolute;
@@ -29,6 +32,15 @@
     line-height: 40px;
     @media (max-width: $mobile_width) {
       top: $channel_header_height;
+    }
+
+    &__unread-counter {
+      min-width: 15px;
+      padding-right: 3px;
+      padding-left: 3px;
+
+      font-size: 10px;
+      line-height: 15px;
     }
   }
 

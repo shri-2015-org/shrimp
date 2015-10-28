@@ -6,6 +6,7 @@ import Tabs from 'components/Tabs';
 import Tab from 'components/Tab';
 import ThreadsList from 'components/ThreadsList';
 import Search from 'components/Search';
+import UnreadCounter from 'components/UnreadCounter';
 
 import './styles.scss';
 
@@ -62,6 +63,7 @@ export default class Threads extends React.Component {
 
     return !(
       Immutable.is(nextProps.indirectChannels, this.props.indirectChannels) &&
+      Immutable.is(nextProps.directChannels, this.props.directChannels) &&
       Immutable.is(nextProps.contacts, this.props.contacts) &&
       Immutable.is(nextProps.local, this.props.local) &&
       nextProps.currentTabId === this.props.currentTabId &&
@@ -130,6 +132,11 @@ export default class Threads extends React.Component {
       });
     }
 
+    const isUnreadChannel = c => c.get('id') !== this.props.local.get('currentChannelId') && c.get('unreadCount') > 0;
+
+    const unreadDirectChannelsCount = this.props.directChannels.count(isUnreadChannel);
+    const unreadIndirectChannelsCount = this.props.indirectChannels.count(isUnreadChannel);
+
     return (
       <div className='threads' ref='threads'>
         <Tabs
@@ -137,8 +144,18 @@ export default class Threads extends React.Component {
           changeTab={this.props.changeTab}
           className='threads__tabs'
         >
-          <Tab id={1}>People</Tab>
-          <Tab id={2}>Channels</Tab>
+          <Tab id={1} className='threads__tab'>People
+            <UnreadCounter
+              className='threads__tabs__unread-counter'
+              count={unreadDirectChannelsCount === 0 ? null : unreadDirectChannelsCount}
+            />
+          </Tab>
+          <Tab id={2} className='threads__tab'>Channels
+            <UnreadCounter
+              className='threads__tabs__unread-counter'
+              count={unreadIndirectChannelsCount === 0 ? null : unreadIndirectChannelsCount}
+            />
+          </Tab>
         </Tabs>
 
         <GeminiScrollbar className='gm-scrollbar-container '>

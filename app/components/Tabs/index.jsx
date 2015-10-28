@@ -26,7 +26,7 @@ export default class Tabs extends React.Component {
     if (this.props.currentChannel.get('name') !== nextProps.currentChannel.get('name')) {
       this.props.changeTab(nextProps.currentChannel.get('isDirect') ? 1 : 2);
     }
-    return nextProps.currentTabId !== this.props.currentTabId;
+    return true;
   }
 
   render() {
@@ -53,4 +53,3 @@ export default class Tabs extends React.Component {
     );
   }
 }
-

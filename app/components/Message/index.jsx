@@ -118,7 +118,7 @@ export default class Message extends React.Component {
                       <div className='message__link-info__description'>{linkInfo.get('description')}</div>
                     </div>);
                   case 'video':
-                    return (<div className='message__video-container'><div key={i} className='message__video-container__inner' dangerouslySetInnerHTML={{__html: linkInfo.get('html')}}></div></div>);
+                    return (<div key={i} className='message__video-container'><div className='message__video-container__inner' dangerouslySetInnerHTML={{__html: linkInfo.get('html')}}></div></div>);
                   case 'photo':
                     return (<div key={i} className='message__image-container'>
                       <img
