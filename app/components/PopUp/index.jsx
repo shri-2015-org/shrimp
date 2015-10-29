@@ -9,6 +9,7 @@ export default class PopUp extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
+    wrapperClassName: PropTypes.string,
     style: PropTypes.object,
     motionConfig: PropTypes.array,
   }
@@ -21,7 +22,7 @@ export default class PopUp extends React.Component {
 
   render() {
     const getContent = interpolated => (
-      <div className='popup-wrapper'>
+      <div className={cx('popup-wrapper', this.props.wrapperClassName)}>
         <div
           {...this.props}
           className={cx('popup', this.props.className)}

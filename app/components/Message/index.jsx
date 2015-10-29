@@ -111,7 +111,9 @@ export default class Message extends React.Component {
                       <img className='message__link-info__thumbnail'
                         src={linkInfo.get('thumbnail_url')}
                         with={linkInfo.get('thumbnail_width')}
-                        height={linkInfo.get('thumbnail_height')} />
+                        height={linkInfo.get('thumbnail_height')}
+                        visible={linkInfo.get('thumbnail_url')}
+                      />
                       <div className='message__link-info__title'>
                         <a href={linkInfo.get('url')} className='message__url' target='_blank'>{linkInfo.get('title')}</a>
                       </div>
@@ -126,7 +128,9 @@ export default class Message extends React.Component {
                           'message__image-container__img_horizontal': linkInfo.get('width') >= linkInfo.get('height'),
                           'message__image-container__img_vertical': linkInfo.get('width') < linkInfo.get('height'),
                         })}
-                        src={linkInfo.get('url')} />
+                        src={linkInfo.get('url')}
+                        visible={linkInfo.get('url')}
+                      />
                     </div>);
                   default:
                     return null;

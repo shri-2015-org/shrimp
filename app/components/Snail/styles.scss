@@ -1,0 +1,57 @@
+
+@keyframes snail_large {
+  from {
+    top: 0;
+  } to {
+    top: -2960px;
+  }
+}
+@-moz-keyframes snail_large {
+  from {
+    top: 0;
+  } to {
+    top: -2960px;
+  }
+}
+@-webkit-keyframes snail_large {
+  from {
+    top: 0;
+  } to {
+    top: -2960px;
+  }
+}
+
+.snail {
+  display: inline-block;
+  overflow: hidden;
+
+  width: 42px;
+  height: 40px;
+  margin-top: 0;
+  padding: 0 1px;
+
+  vertical-align: middle;
+
+  color: transparent;
+  outline: 1px solid transparent;
+
+  font-size: 0;
+  &__inner {
+    position: relative;
+    top: -40px;
+
+    display: block;
+
+    width: 40px;
+    height: 2960px;
+
+    transform: translateZ(0px);
+    -webkit-animation: snail_large 3.0833333333333335s steps(74) infinite;
+       -moz-animation: snail_large 3.0833333333333335s steps(74) infinite;
+            animation: snail_large 3.0833333333333335s steps(74) infinite;
+
+    background-size: 40px 2960px;
+
+    -ms-high-contrast-adjust: none;
+  }
+}
