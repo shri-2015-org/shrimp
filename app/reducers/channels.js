@@ -28,6 +28,9 @@ export function channels(state = EMPTY_LIST, action = {type: 'DEFAULT'}) {
     if (channelItem.get('users').find(u => u.get('_id') === action.payload.userId)) {
       return state;
     }
+    if (action.payload.time) {
+      return state.set(channelIndex, state.get(channelIndex).set('users', state.get(channelIndex).get('users').push(new Map({_id: action.payload.userId, lastSeen: action.payload.time}))));
+    }
     return state.set(channelIndex, state.get(channelIndex).set('users', state.get(channelIndex).get('users').push(new Map({_id: action.payload.userId, lastSeen: Date.now()}))));
 
   case CS.MARK_AS_READ:
