@@ -18,6 +18,20 @@
           }]
         }
       }
+    },
+    "production": {
+      "plugins": [
+        "react-transform"
+      ],
+      "optional": ["es7.decorators"],
+      "extra": {
+        "react-transform": {
+          "transforms": [{
+            "transform": "react-transform-catch-errors",
+            "imports": ["react", "redbox-react"]
+          }]
+        }
+      }
     }
   }
 }
