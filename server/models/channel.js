@@ -16,6 +16,9 @@ const channel = new mongoose.Schema({
       type: mongoose.Schema.ObjectId,
     },
   }],
+  lastSeen: {
+    type: Date,
+  },
   isDirect: Boolean,
 });
 
@@ -57,6 +60,7 @@ channel.statics.addDirectChannel = function addDirectChannel(data, cb) {
       lastSeen: new Date().toUTCString(),
     })),
     name: data.name,
+    lastSeen: new Date().toUTCString(),
   }).save(cb);
 };
 

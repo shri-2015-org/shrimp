@@ -106,7 +106,6 @@ export default class Application extends React.Component {
 
       if (!newAddedChannelWithDirtyCopy) return false;
       const addedChannelName = newAddedChannelWithDirtyCopy.get('name');
-      this.actions.markChannelAsRead({channelId: newAddedChannelWithDirtyCopy.get('id'), lastSeen: new Date().toUTCString()});
       this.actions.removeDirtyDirectChannel(addedChannelName);
       this.actions.changeCurrentChannel(newAddedChannelWithDirtyCopy.get('id'));
     }

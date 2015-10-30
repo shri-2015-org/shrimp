@@ -84,6 +84,7 @@ export function socketClient(type = null, socketData) {
         name: data.name,
         users: data.users,
         isDirect: data.isDirect,
+        lastSeen: data.lastSeen,
       })));
     });
 

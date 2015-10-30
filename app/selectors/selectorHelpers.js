@@ -1,5 +1,5 @@
 export function setUnreadMessagesCount(channels, messages) {
-  return channels
+  return channels.filter(item => !item.get('isDirty'))
     .map(c => {
       const lastSeen = c ? c.get('lastSeen') : null;
       const unreadCount = !lastSeen
