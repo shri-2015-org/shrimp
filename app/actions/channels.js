@@ -88,9 +88,10 @@ export function addDirtyDirectChannel(channelName) {
   };
 }
 
-export function removeDirtyDirectChannel() {
+export function removeDirtyDirectChannel(dirtyName) {
   return {
     type: A.REMOVE_DIRTY_DIRECT_CHANNEL,
+    payload: dirtyName,
   };
 }
 

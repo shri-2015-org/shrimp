@@ -46,21 +46,6 @@ export default class Threads extends React.Component {
   };
 
   shouldComponentUpdate = (nextProps, nextState) => {
-    if (nextProps.directChannels.size > this.props.directChannels.size) {
-      const addedChannel = nextProps.directChannels.last();
-      const addedChannelName = addedChannel.get('name');
-      this.props.markChannelAsRead({channelId: addedChannel.get('id'), lastSeen: new Date().toUTCString()});
-      if (this.props.currentTabId === 1) {
-        const dirtyChannel = this.props.channels.find(
-            c => c.get('isDirty') && c.get('isDirect') && c.get('dirtyName') === addedChannelName);
-
-        if (dirtyChannel) {
-          this.props.removeDirtyDirectChannel();
-          this.props.changeCurrentChannel(addedChannel.get('id'));
-        }
-      }
-    }
-
     return !(
       Immutable.is(nextProps.indirectChannels, this.props.indirectChannels) &&
       Immutable.is(nextProps.directChannels, this.props.directChannels) &&
@@ -70,7 +55,6 @@ export default class Threads extends React.Component {
       Immutable.is(nextState.filterValue, this.state.filterValue)
     );
   };
-
 
   componentWillUnmount = () => {
     window.removeEventListener('keydown', this.removeDirtyChannel);

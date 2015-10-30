@@ -62,7 +62,11 @@ export function channels(state = EMPTY_LIST, action = {type: 'DEFAULT'}) {
     return state.unshift(new Map({isDirect: true, isDirty: true, dirtyName: action.payload}));
 
   case A.REMOVE_DIRTY_DIRECT_CHANNEL:
-    return state.shift();
+    const channelToRemoveIndex = state.findIndex(channel => channel.get('dirtyName') === action.payload);
+    if (channelToRemoveIndex) {
+      state.delete(channelToRemoveIndex);
+    }
+    return state;
 
   default:
     return state;

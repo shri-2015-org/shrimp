@@ -97,6 +97,22 @@ export default class Application extends React.Component {
   }
 
 
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.directChannels.size > this.props.directChannels.size) {
+      const newAddedChannels = nextProps.directChannels.filter(nextDCh => this.props.directChannels.filter(prevDCh => prevDCh.get('name') === nextDCh.get('name'))).filter(ch => !ch.get('isDirty'));
+
+      if (!newAddedChannels) return false;
+      const newAddedChannelWithDirtyCopy = newAddedChannels.findLast(ch => nextProps.directChannels.find(el => el.get('dirtyName') === ch.get('name')));
+
+      if (!newAddedChannelWithDirtyCopy) return false;
+      const addedChannelName = newAddedChannelWithDirtyCopy.get('name');
+      this.actions.markChannelAsRead({channelId: newAddedChannelWithDirtyCopy.get('id'), lastSeen: new Date().toUTCString()});
+      this.actions.removeDirtyDirectChannel(addedChannelName);
+      this.actions.changeCurrentChannel(newAddedChannelWithDirtyCopy.get('id'));
+    }
+  }
+
+
   componentWillUnmount = () => {
     this.state.mql.removeListener(this.mediaQueryChanged);
   }
