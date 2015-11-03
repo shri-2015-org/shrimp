@@ -1,6 +1,9 @@
 @import '~normalize.css';
 @import '~styles/variables.scss';
 @import '~styles/colors.scss';
+@import '~styles/scroll.scss';
+
+@import '~/../node_modules/react-gemini-scrollbar/node_modules/gemini-scrollbar/gemini-scrollbar.css';
 
 html,
 body {

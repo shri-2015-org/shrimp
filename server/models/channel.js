@@ -16,6 +16,9 @@ const channel = new mongoose.Schema({
       type: mongoose.Schema.ObjectId,
     },
   }],
+  lastSeen: {
+    type: Date,
+  },
   isDirect: Boolean,
 });
 
@@ -57,18 +60,22 @@ channel.statics.addDirectChannel = function addDirectChannel(data, cb) {
       lastSeen: new Date().toUTCString(),
     })),
     name: data.name,
+    lastSeen: new Date().toUTCString(),
   }).save(cb);
 };
 
 channel.statics.add = function add(data, cb) {
+  data.users = [];
   return new this(data).save(cb);
 };
 
 channel.statics.markAsRead = function add(data, userId) {
   this.findOne( { '_id': data.channelId }, (err, foundChannel) => {
-    const userPrefsIndex = foundChannel.users.findIndex(u => u._id.toString() === userId);
-    if (foundChannel.users[userPrefsIndex]) {
-      foundChannel.users[userPrefsIndex].lastSeen = data.lastSeen;
+    if (foundChannel.users) {
+      const userPrefsIndex = foundChannel.users.findIndex(u => u._id.toString() === userId);
+      if (foundChannel.users[userPrefsIndex]) {
+        foundChannel.users[userPrefsIndex].lastSeen = data.lastSeen;
+      }
     }
     foundChannel.save();
   });

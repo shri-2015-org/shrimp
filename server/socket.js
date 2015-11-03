@@ -1,18 +1,36 @@
 import Server from 'socket.io';
+import getUrls from 'get-urls';
 import cookieParser from 'socket.io-cookie';
 import getInitState from './initial-state';
 import getMessageModel from './models/message';
 import getChannelModel from './models/channel';
 import getUserModel from './models/user';
-import {SC, CS} from '../constants';
-import {checkSessionId, setUserInfo, joinToChannel, setFavoriteChannel, loadChannelHistory} from './db/db_core.js';
+import httpRequest from 'http';
+import {SC, CS, MESSAGE_MAX_LENGTH, CHANNEL_NAME_MAX_LENGTH} from '../constants';
+import {checkSessionId, setUserInfo, joinToChannel, setFavoriteChannel, loadChannelHistory, setCurrentChannel} from './db/db_core.js';
 // const debug = require('debug')('shrimp:server');
 const Message = getMessageModel();
 const Channel = getChannelModel();
 const User = getUserModel();
 
 
-export default function startSocketServer(http) {
+const truncate = (str, length) => str.substring(0, length);
+
+
+export function getOnlineSessions(io) {
+  const connected = io.of('/').connected;
+  const sessionIds = [];
+
+  for (const id in connected) {
+    if (connected.hasOwnProperty(id)) {
+      sessionIds.push(connected[id].sessionId);
+    }
+  }
+
+  return new Set(sessionIds);
+}
+
+export function startSocketServer(http) {
   const io = new Server(http);
 
   io.use(cookieParser);
@@ -33,6 +51,11 @@ export default function startSocketServer(http) {
     User.getBySessionId(socket.sessionId)
       .then((user) => {
         socket.broadcast.emit(SC.JOIN_USER, { user: user.toObject() });
+        socket.broadcast.emit(SC.USER_ONLINE, { userId: user.id });
+
+        Channel.getDefaultChannel().then(defaultChannel => {
+          io.to(defaultChannel.id).emit(SC.JOIN_TO_CHANNEL, {channelId: defaultChannel.id, userId: user.id});
+        });
         return Channel.getForUser(user.id);
       })
       .then((channels) => {
@@ -43,7 +66,7 @@ export default function startSocketServer(http) {
 
 
     socket.on(CS.INIT, () => {
-      getInitState(socket.sessionId).then(initState => {
+      getInitState(socket.sessionId, getOnlineSessions(io)).then(initState => {
         socket.emit(SC.INIT, initState);
       });
     });
@@ -52,7 +75,7 @@ export default function startSocketServer(http) {
     socket.on(CS.JOIN_TO_CHANNEL, channelId => {
       joinToChannel(socket.sessionId, channelId, (userId) => {
         socket.join(channelId);
-        socket.emit(SC.JOIN_TO_CHANNEL, {channelId, userId});
+        io.sockets.emit(SC.JOIN_TO_CHANNEL, {channelId, userId});
         loadChannelHistory(channelId, (messages) => {
           if (messages.length) {
             const messagesObj = messages.map((message) => message.toObject());
@@ -62,17 +85,57 @@ export default function startSocketServer(http) {
       });
     });
 
+    function getUrlInfo(url) {
+      return new Promise((resolve) => {
+        httpRequest.get(
+          {
+            host: 'api.proc.link',
+            path: `/oembed?url=${url}`,
+          }, response => {
+          let body = '';
+          response.on('data', d => body += d);
+          response.on('end', () => {
+            resolve(body);
+          });
+        });
+      });
+    }
 
     socket.on(CS.ADD_MESSAGE, data => {
+      data.text = truncate(data.text, MESSAGE_MAX_LENGTH);
       Message.add(data, (err, result) => {
         io.to(data.channelId).emit(SC.ADD_MESSAGE, result.toObject());
+        const urls = getUrls(data.text);
+
+        Promise.all(urls.map(getUrlInfo))
+          .then(rawInfos => {
+            const infos = rawInfos
+              .map(info => {
+                try {
+                  return JSON.parse(info);
+                } catch (e) {
+                  return null;
+                }
+              })
+              .filter(info => !!info);
+            Message.addLinksInfo(result._id, infos)
+              .then(() => {
+                io.to(data.channelId).emit(SC.SET_LINKS_INFO, { messageId: result._id, info: infos });
+              })
+              .catch(e => console.log('error', e));
+          });
       });
     });
 
 
     socket.on(CS.ADD_CHANNEL, data => {
-      Channel.add(data, (err, result) =>
-        io.sockets.emit(SC.ADD_CHANNEL, result.toObject()));
+      data.name = truncate(data.name, CHANNEL_NAME_MAX_LENGTH);
+      User.getBySessionId(socket.sessionId).then(user => {
+        data.userId = user.id;
+        Channel.add(data, (err, result) =>{
+          io.sockets.emit(SC.ADD_CHANNEL, result.toObject());
+        });
+      });
     });
 
 
@@ -93,12 +156,20 @@ export default function startSocketServer(http) {
     });
 
 
-    socket.on(CS.MARK_AS_READ, data => {
-      User.getBySessionId(socket.sessionId)
-      .then((user) => {
-        Channel.markAsRead(data, user.id);
+    socket.on(CS.SET_CURRENT_CHANNEL, data => {
+      setCurrentChannel(socket.sessionId, data, () => {
+        socket.emit(SC.SET_CURRENT_CHANNEL, data);
       });
     });
+
+
+    socket.on(CS.MARK_AS_READ, data => {
+      User.getBySessionId(socket.sessionId)
+        .then((user) => {
+          Channel.markAsRead(data, user.id);
+        });
+    });
+
 
     function findClientsSocket(roomId, namespace) {
       const res = [];
@@ -130,5 +201,39 @@ export default function startSocketServer(http) {
           });
       });
     });
+
+
+    socket.on(CS.PIN_MESSAGE, messageId => {
+      Message.pin(messageId)
+        .then(() => Message.getById(messageId))
+        .then(message => {
+          io.to(message.channelId).emit(SC.PIN_MESSAGE, messageId);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    });
+
+
+    socket.on(CS.UNPIN_MESSAGE, messageId => {
+      Message.unpin(messageId)
+        .then(() => Message.getById(messageId))
+        .then(message => {
+          io.to(message.channelId).emit(SC.UNPIN_MESSAGE, messageId);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    });
+
+
+    socket.on('disconnect', () => {
+      User.getBySessionId(socket.sessionId)
+        .then((user) => {
+          socket.broadcast.emit(SC.USER_OFFLINE, { userId: user.id });
+        });
+    });
   });
+
+  return io;
 }

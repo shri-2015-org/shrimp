@@ -3,12 +3,16 @@
 @import '~styles/colors.scss';
 
 .message {
+  $massage_arrow_size: 8px;
+
   position: relative;
 
   min-height: 40px;
-  margin-top: 20px;
+  margin-top: 23px;
   padding-top: 2px;
   padding-bottom: 2px;
+
+  word-break: break-word;
 
   @extend .clearfix;
 
@@ -20,14 +24,48 @@
     display: block;
   }
 
+  &__pin {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    padding: 3px 10px;
+
+    cursor: pointer;
+    transition: color .3s, opacity .3s;
+
+    opacity: 0;
+    color: $c-link ;
+    &__icon {
+      position: relative;
+
+      display: block;
+
+      width: 23px;
+      height: 23px;
+
+      fill: currentColor;
+      svg {
+        display: block;
+
+        width: 100%;
+        height: 100%;
+      }
+    }
+    &:hover {
+      color: $c-white;
+    }
+  }
+
   &__cloud {
     position: relative;
 
     float: right;
+    //max-width: $message_cloud_width;
 
+    width: 85%;
     min-width: 50px;
-    max-width: $message_cloud_width;
-    padding: 9px 15px;
+    padding: 15px 30px 15px 15px;
 
     text-align: left;
 
@@ -36,24 +74,24 @@
     background: $c-message-cloud-default_bg;
 
     @media (max-width: $message_cloud_width + $messages_avatar_left_padding) {
-      max-width: calc(92vw - #{$messages_avatar_left_padding});
+      width: 100%;
     }
 
     &:before {
       position: absolute;
-      right: 10px;
-      bottom: -10px;
+      right: -$massage_arrow_size;
+      bottom: 13px;
 
       display: none;
 
-      width: 18px;
-      height: 10px;
-
       content: '';
 
-      background: url('./default-horn.svg');
+      border: 0;
+      border-top: $massage_arrow_size solid transparent;
+      border-left: $massage_arrow_size solid $c-message-cloud-default_bg;
     }
 
+    &:hover .message__pin,
     &:hover .message__date {
       opacity: 1;
     }
@@ -69,53 +107,61 @@
     background: $c-message-cloud-other_bg;
 
     &:before {
-      top: 17px;
-      left: -12px;
+      top: 13px;
+      right: auto;
+      bottom: auto;
+      left: -$massage_arrow_size;
 
       display: block;
 
-      width: 12px;
-      height: 11px;
-
-      transform: translateY(-50%);
-
-      background: url('./other-horn.svg');
+      border: 0;
+      border-right: $massage_arrow_size solid $c-message-cloud-other_bg;
+      border-bottom: $massage_arrow_size solid transparent;
     }
   }
+
 
   &__text {
     display: inline-block;
 
-    max-width: $message_cloud_width - 40px;
+    width: 100%;
 
     vertical-align: middle;
     white-space: pre-line;
-    word-wrap: break-word;
 
     font-size: 16px;
     line-height: 18px;
 
-    @media (max-width: $message_cloud_width + $messages_avatar_left_padding + 10px) {
-      max-width: calc(92vw - #{$messages_avatar_left_padding} - 40px);
-    }
+    @extend  .word-break;
   }
 
   &__avatar {
     position: absolute;
-    top: -10px;
-    left: -65px;
+    top: 0;
+    left: -$messages_avatar_left_padding;
 
     border-radius: $main-border-radius;
+  }
+
+  &_foreign.message_repeated &__cloud:before,
+  &_foreign.message_repeated &__avatar {
+    display: none;
   }
 
   &__username {
     position: absolute;
     top: -15px;
-    left: 10px;
+    left: 0;
 
-    color: $c-gray-70;
+    cursor: pointer;
+    transition: color .3s;
+
+    color: $c-link;
 
     font-size: .7em;
+    &:hover {
+      color: $c-white;
+    }
   }
 
   &__date {
@@ -137,10 +183,74 @@
   }
 
   &__url {
-    color: $c-message-cloud_text;
+    color: $c-link;
 
     &:visited {
-      color: $c-gray-70;
+      color: $c-link;
+    }
+  }
+
+  &__video-container {
+    position: relative;
+
+    width: 100%;
+    max-width: 400px;
+    margin-top: 16px;
+    &__inner {
+      position: relative;
+
+      width: 100%;
+      padding-top: 56%;
+    }
+
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__image-container {
+    margin-top: 16px;
+
+    &__img {
+      &_horizontal {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+      }
+
+      &_vertical {
+        width: auto;
+        max-height: 400px;
+      }
+    }
+  }
+
+  &__link-info {
+    margin-top: 16px;
+    padding-left: 12px;
+
+    border-left: 4px solid $c-link;
+
+    @extend .clearfix;
+
+    &__title {
+      margin-bottom: 8px;
+    }
+
+    &__thumbnail {
+      display: block;
+      float: right;
+
+      width: auto;
+      max-width: 100px;
+      height: auto;
+      max-height: 100px;
+      margin-left: 8px;
     }
   }
 }

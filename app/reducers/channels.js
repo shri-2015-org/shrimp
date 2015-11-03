@@ -20,8 +20,18 @@ export function channels(state = EMPTY_LIST, action = {type: 'DEFAULT'}) {
     return state.delete(index);
 
   case A.JOIN_TO_CHANNEL:
-    const channelIndex = state.map(item => item.get('id')).indexOf(action.payload.channelId);
-    return state.setIn([channelIndex, 'joined'], true);
+    const channelIndex = state.findIndex(item => item.get('id') === action.payload.channelId);
+    const channelItem = state.find(item => item.get('id') === action.payload.channelId);
+    if (!channelItem || !channelItem.get('users')) {
+      return state;
+    }
+    if (channelItem.get('users').find(u => u.get('_id') === action.payload.userId)) {
+      return state;
+    }
+    if (action.payload.time) {
+      return state.set(channelIndex, state.get(channelIndex).set('users', state.get(channelIndex).get('users').push(new Map({_id: action.payload.userId, lastSeen: action.payload.time}))));
+    }
+    return state.set(channelIndex, state.get(channelIndex).set('users', state.get(channelIndex).get('users').push(new Map({_id: action.payload.userId, lastSeen: Date.now()}))));
 
   case CS.MARK_AS_READ:
     const channelIndex1 = state.map(item => item.get('id')).indexOf(action.payload.channelId);
@@ -52,7 +62,11 @@ export function channels(state = EMPTY_LIST, action = {type: 'DEFAULT'}) {
     return state.unshift(new Map({isDirect: true, isDirty: true, dirtyName: action.payload}));
 
   case A.REMOVE_DIRTY_DIRECT_CHANNEL:
-    return state.shift();
+    const channelToRemoveIndex = state.findIndex(channel => channel.get('dirtyName') === action.payload);
+    if (channelToRemoveIndex) {
+      state.delete(channelToRemoveIndex);
+    }
+    return state;
 
   default:
     return state;

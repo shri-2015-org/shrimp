@@ -3,7 +3,7 @@ import path from 'path';
 import http from 'http';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import startSocketServer from './socket.js';
+import {startSocketServer, getOnlineSessions} from './socket.js';
 import getConfig from './config.js';
 import {createDefaultChannel} from './fill-db.js';
 import {signInUser, signUpUser, checkUserEmail, checkEmailExist, setSessionId} from './db/db_core.js';
@@ -42,7 +42,7 @@ if (isDev && isDebug && process.env.DEBUG.indexOf('shrimp:front') === 0) {
 
 app.use(bodyParser.json());
 
-startSocketServer(server);
+const io = startSocketServer(server);
 
 if (isMongoConnect === 'yes') {
   mongoose.connect(appConfig.db[env]);
@@ -58,7 +58,7 @@ app.post('/signin', (req, res) => {
     if (userData.status.type === 'success') {
       const sessionId = generateSessionId();
       setSessionId(userData.userId, sessionId, (userSessionId) => {
-        getInitState(userSessionId).then(initState => {
+        getInitState(userSessionId, getOnlineSessions(io)).then(initState => {
           res.json(initState);
         });
       });
@@ -77,7 +77,7 @@ app.post('/signup', (req, res) => {
     if (userData.status.type === 'success') {
       const userSessionId = generateSessionId();
       signUpUser(email, password, name, userSessionId, () => {
-        getInitState(userSessionId).then(initState => {
+        getInitState(userSessionId, getOnlineSessions(io)).then(initState => {
           res.json(initState);
         });
       });

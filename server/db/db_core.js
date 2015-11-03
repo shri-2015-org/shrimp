@@ -50,17 +50,20 @@ export function signInUser(email, password, callback) {
 
 export function signUpUser(email, password, name, sessionId, callback) {
   const hash = hashPassword(password);
-  const newUser = new User({
-    email: email,
-    name: name,
-    avatar: gravatar.url(email),
-    passwordHash: hash,
-    sessionId: sessionId,
-  });
-  newUser.save(error => {
-    if (error) debug(error);
-    Channel.subscribeOnDefaultChannel(newUser.id);
-    callback(sessionId);
+  Channel.getDefaultChannel().then((defaultChannel) => {
+    const newUser = new User({
+      email: email,
+      name: name,
+      avatar: gravatar.url(email),
+      passwordHash: hash,
+      sessionId: sessionId,
+      currentChannelId: defaultChannel.id,
+    });
+    newUser.save(error => {
+      if (error) debug(error);
+      Channel.subscribeOnDefaultChannel(newUser.id);
+      callback(sessionId);
+    });
   });
 }
 
@@ -135,6 +138,7 @@ export function joinToChannel(sessionId, channelId, callback) {
     .then((channel) => {
       User.getBySessionId(sessionId)
         .then((user) => {
+          if (channel.users.filter(u => u._id.equals(user._id)).length) return false;
           channel.users.push({ _id: user._id, lastSeen: Date.now() });
           channel.save(error => {
             if (error) reject(error);
@@ -163,6 +167,17 @@ export function setUserInfo(sessionId, email, name, callback) {
   }, { new: true }, (error, changedUser) => {
     if (error) debug(error);
     callback(changedUser.toObject());
+  });
+}
+
+export function setCurrentChannel(sessionId, currentChannelId, cb) {
+  return User.findOneAndUpdate({ sessionId: sessionId }, {
+    currentChannelId: currentChannelId,
+  }, { new: true }, (error) => {
+    if (error) debug(error);
+    if (cb) {
+      cb();
+    }
   });
 }
 

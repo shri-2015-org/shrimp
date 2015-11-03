@@ -1,6 +1,16 @@
 import React, {PropTypes, cloneElement} from 'react';
 import cx from 'classnames';
+import {connect} from 'react-redux';
+import {Map} from 'immutable';
+
+import {currentChannelSelector} from 'selectors/currentChannelSelector';
+
 import './styles.scss';
+
+
+@connect(state => ({
+  currentChannel: currentChannelSelector(state),
+}))
 
 export default class Tabs extends React.Component {
 
@@ -9,10 +19,14 @@ export default class Tabs extends React.Component {
     changeTab: PropTypes.func,
     className: PropTypes.string,
     children: PropTypes.node.isRequired,
+    currentChannel: PropTypes.instanceOf(Map).isRequired,
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.currentTabId !== this.props.currentTabId;
+    if (this.props.currentChannel.get('name') !== nextProps.currentChannel.get('name')) {
+      this.props.changeTab(nextProps.currentChannel.get('isDirect') ? 1 : 2);
+    }
+    return true;
   }
 
   render() {
@@ -39,4 +53,3 @@ export default class Tabs extends React.Component {
     );
   }
 }
-

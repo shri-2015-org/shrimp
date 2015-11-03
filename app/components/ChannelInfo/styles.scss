@@ -1,0 +1,124 @@
+@import '~styles/variables.scss';
+@import '~styles/colors.scss';
+
+
+.channel-info {
+  width: $threads_width;
+  height: 100%;
+  padding-top: $channel_header_height;
+
+  border-left: 1px solid $c-gray-50;
+  background: $c-gray-50;
+  &__inner {
+    position: relative;
+
+    overflow: auto;
+
+    height: 100%;
+    padding-top: 50px;
+  }
+  &__name {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: 100%;
+    padding: 0 15px;
+
+    color: $c-threads_text;
+    background: $c-gray-30;
+
+    font-size: 20px;
+    line-height: 50px;
+    &__same {
+      display: inline-block;
+
+      vertical-align: bottom;
+
+      color: $c-white;
+    }
+  }
+
+  &__section {
+    margin-bottom: -1px;
+
+    border-top: 1px solid $c-gray-50;
+    border-bottom: 1px solid $c-gray-50;
+    background: $c-gray-30;
+
+    &__header {
+      position: relative;
+
+      padding: 0 15px 0 40px;
+
+      cursor: pointer;
+      transition: .3s;
+
+      color: $c-threads_text;
+
+      font-size: 18px;
+      line-height: 50px;
+      &:after {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+
+        display: block;
+
+        margin-top: -3px;
+
+        content: '';
+        transition: transform .3s;
+
+        border-top: 5px solid currentColor;
+        border-right: 5px solid transparent;
+        border-left: 5px solid transparent;
+      }
+      &:hover {
+        color: $c-white;
+      }
+      &__size {
+        display: inline-block;
+
+        margin-left: 10px;
+
+        vertical-align: baseline;
+
+        color: $c-threads_text;
+      }
+      &_open {
+        color: $c-white;
+
+        &:after {
+          transform: rotateX(180deg);
+        }
+      }
+    }
+    &__icon {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+
+      width: 18px;
+      height: 18px;
+      margin-top: -9px;
+
+      fill: #fff;
+      svg {
+        display: block;
+
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    &__body {
+      display: none;
+
+      padding: 10px 15px;
+      &_open {
+        display: block;
+      }
+    }
+  }
+}

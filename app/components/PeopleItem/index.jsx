@@ -12,10 +12,10 @@ export default class PeopleItem extends React.Component {
     isCurrent: PropTypes.bool,
     isOnline: PropTypes.bool,
     currentChannelId: PropTypes.string.isRequired,
-    setCurrentDirectChannel: PropTypes.func.isRequired,
     markChannelAsRead: PropTypes.func.isRequired,
-    getDirectChannelByUserId: PropTypes.func.isRequired,
     unreadCount: PropTypes.number,
+    changeToDirectChannel: PropTypes.func.isRequired,
+
   };
 
 
@@ -29,13 +29,8 @@ export default class PeopleItem extends React.Component {
     );
   }
 
-
   setChannel = () => {
-    this.props.setCurrentDirectChannel(this.props.item.get('id'));
-    this.props.markChannelAsRead({ channelId: this.props.currentChannelId, lastSeen: new Date().toUTCString() });
-    if (this.props.getDirectChannelByUserId(this.props.item.get('id'))) {
-      this.props.markChannelAsRead({ channelId: this.props.getDirectChannelByUserId(this.props.item.get('id')).get('id'), lastSeen: new Date().toUTCString() });
-    }
+    this.props.changeToDirectChannel(this.props.item.get('id'));
   }
 
 
@@ -59,6 +54,16 @@ export default class PeopleItem extends React.Component {
           className='person__unread-counter'
           count={unreadCount}
         />
+        <img
+          className={cx('person__avatar', {
+            'person_offline__avatar': !isOnline,
+          })}
+          src={item.get('avatar')}
+          alt={item.get('name')}
+        />
+        <div className={cx('person__status', {
+          'person_offline__status': !isOnline,
+        })}></div>
       </div>
     );
   }

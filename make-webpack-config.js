@@ -20,7 +20,6 @@ var loadersByExt = loadersByExtension({
 module.exports = function MakeDefaultConfig(options) {
   var config = {
     entry: [
-      'webpack-hot-middleware/client',
       './app/Root',
     ],
     output: {
@@ -86,13 +85,18 @@ module.exports = function MakeDefaultConfig(options) {
     );
     options.devtool = null;
     options.sourcemaps = null;
+  } else {
+    config.entry.push('webpack-hot-middleware/client');
+    config.plugins.push(
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoErrorsPlugin()
+    );
   }
+
   config.plugins.push(
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
       'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-    }),
-    new webpack.NoErrorsPlugin()
+    })
   );
 
   if (options.sourcemaps) {

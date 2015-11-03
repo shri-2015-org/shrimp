@@ -11,12 +11,16 @@
   padding-bottom: 40px;
 
   color: $c-threads_text;
+  border-right: 1px solid transparent;
   background-color: $c-threads_bg;
 
   @media (max-width: $mobile_width) {
-    padding-top: $header_height + 20px;
+    padding-top: $channel_header_height + 40;
   }
 
+  &__tab {
+    position: relative;
+  }
 
   &__tabs {
     position: absolute;
@@ -27,28 +31,22 @@
 
     line-height: 40px;
     @media (max-width: $mobile_width) {
-      top: $header_height - 20;
+      top: $channel_header_height;
+    }
+
+    &__unread-counter {
+      min-width: 15px;
+      padding-right: 3px;
+      padding-left: 3px;
+
+      font-size: 10px;
+      line-height: 15px;
     }
   }
 
   &__search {
     right: 5px;
-
-    overflow: hidden;
-
-    width: 160px;
-    height: 30px;
-
-    font-size: 16px;
-
-    &__icon {
-      top: 5px;
-      left: 5px;
-    }
-
-    &__input {
-      padding-left: 35px;
-    }
+    left: 35px;
   }
 }
 
@@ -61,6 +59,7 @@
   height: 40px;
   padding: 5px;
 
+  border-top: 1px solid $c-gray-50;
   background: #1b1e20;
 }
 

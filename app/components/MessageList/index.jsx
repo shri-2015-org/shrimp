@@ -1,6 +1,8 @@
 import React, {PropTypes} from 'react';
 import Immutable, {List, Map} from 'immutable';
+
 import Message from 'components/Message';
+
 import './styles.scss';
 
 
@@ -10,10 +12,29 @@ export default class MessageList extends React.Component {
     messages: PropTypes.instanceOf(List).isRequired,
     scroll: PropTypes.func.isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
+    pinMessage: PropTypes.func.isRequired,
+    unpinMessage: PropTypes.func.isRequired,
+    setCurrentDirectChannel: PropTypes.func.isRequired,
+    currentChannel: PropTypes.instanceOf(Map).isRequired,
+  }
+
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      prevChannelName: 0,
+      prevMessageId: 0,
+
+    };
   }
 
 
   shouldComponentUpdate(nextProps) {
+    this.state.prevChannelName = this.props.currentChannel.get('name');
+    const lastMessage = this.props.messages.last();
+    if (lastMessage) {
+      this.state.prevMessageId = lastMessage.get('id');
+    }
     return !(
       Immutable.is(nextProps.messages, this.props.messages) &&
       Immutable.is(nextProps.local, this.props.local)
@@ -42,13 +63,14 @@ export default class MessageList extends React.Component {
         }());
         return (
           <Message
+            {...this.props}
+            message={message}
+            pinMessage={this.props.pinMessage}
+            unpinMessage={this.props.unpinMessage}
             key={i}
-            sender={sender}
             senderRepeated={senderRepeated}
             nextMessageIsMain={nextMessageIsMain}
-            text={message.get('text')}
             currentUserId={local.get('userId')}
-            timestamp={message.get('timestamp')}
           />
         );
       });

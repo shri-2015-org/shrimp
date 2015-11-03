@@ -1,0 +1,70 @@
+@import '~styles/colors.scss';
+@import '~styles/variables.scss';
+@import '~styles/mixins.scss';
+
+.joined-user {
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 0 15px;
+
+  cursor: pointer;
+  transition: color .3s;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  color: $c-threads_text;
+
+  line-height: 30px;
+
+  &_you {
+    cursor: default;
+
+    color: #fff;
+  }
+
+  &__avatar {
+    display: inline-block;
+
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+
+    vertical-align: middle;
+
+    border-radius: 2px;
+  }
+
+  &__status {
+    position: absolute;
+    top: 0;
+    left: 11px;
+
+    width: 10px;
+    height: 10px;
+
+    border: 2px solid $c-gray-30;
+    border-radius: 100%;
+    background: $c-green;
+  }
+
+  &_offline {
+    &__avatar {
+      transition: opacity .3s;
+
+      opacity: .7;
+
+      @extend .grey-filter;
+    }
+    &__status {
+      background: $c-red;
+    }
+  }
+  &:hover {
+    color: #fff;
+  }
+  &:hover &__avatar {
+    opacity: 1;
+  }
+}

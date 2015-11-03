@@ -19,3 +19,8 @@ export const messageFilterSelector = createSelector(
   filterValue,
   (messages, value) => messages.filter(message => message.get('text').toLowerCase().indexOf(value) !== -1)
 );
+
+export const pinnedMessagesSelector = createSelector(
+  currentChannelMessagesSelector,
+  (messages) => messages.filter(message => message.get('pinned'))
+);

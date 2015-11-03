@@ -1,7 +1,11 @@
 import React, {PropTypes} from 'react';
 import Immutable, {List, Map} from 'immutable';
+import GeminiScrollbar from 'react-gemini-scrollbar';
+
 import MessageList from 'components/MessageList';
 import MessageComposer from 'components/MessageComposer';
+
+
 import './styles.scss';
 
 
@@ -11,6 +15,10 @@ export default class Messages extends React.Component {
     messages: PropTypes.instanceOf(List).isRequired,
     local: PropTypes.instanceOf(Map).isRequired,
     docked: PropTypes.bool.isRequired,
+    pinMessage: PropTypes.func.isRequired,
+    unpinMessage: PropTypes.func.isRequired,
+    setCurrentDirectChannel: PropTypes.func.isRequired,
+    currentChannel: PropTypes.instanceOf(Map).isRequired,
   }
 
 
@@ -36,8 +44,10 @@ export default class Messages extends React.Component {
   }
 
   scrollToBottom = () => {
-    const list = this.refs.list;
-    list.scrollTop = list.scrollHeight;
+    const list = this.refs.list.getElementsByClassName('gm-scroll-view')[0];
+    if (list) {
+      list.scrollTop = list.scrollHeight;
+    }
   }
 
 
@@ -53,21 +63,22 @@ export default class Messages extends React.Component {
 
 
   render() {
-    const {messages, local} = this.props;
     return (
-      <div
-        className='messages'
-        ref='list'
-        style={{bottom: this.state.listBottom}}
-      >
-        <MessageList
-          messages={messages}
-          scroll={this.scrollToBottom}
-          local={local}
-        />
+      <div>
+        <div
+          className='messages'
+          ref='list'
+          style={{bottom: this.state.listBottom}}
+        >
+          <GeminiScrollbar className='gm-scrollbar-container'>
+            <MessageList
+              {...this.props}
+              scroll={this.scrollToBottom}
+            />
+          </GeminiScrollbar>
+        </div>
         <MessageComposer
           {...this.props}
-          local={local}
           changeBottom={this.changeBottom}
         />
       </div>

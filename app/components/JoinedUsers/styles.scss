@@ -1,0 +1,18 @@
+@import '~styles/colors.scss';
+
+
+.joined-users {
+  &__list {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+  }
+  &__header {
+    &_online {
+      display: inline-block;
+
+      vertical-align: baseline;
+
+      color: $c-white;
+    }
+  }
+}

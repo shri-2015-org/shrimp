@@ -20,7 +20,7 @@ export default class InfoMessage extends React.Component {
     this.state = {
       shaking: false,
       changing: false,
-      children: this.props.children,
+      children: props.children,
     };
   }
 

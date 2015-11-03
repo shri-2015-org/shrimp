@@ -17,7 +17,7 @@
     "dev": "NODE_ENV=development DEBUG=shrimp:front MONGO_CONNECT=yes NODE_PATH=./node_modules:./app nodemon --watch server/ --exec babel-node server/server",
     "compile": "./node_modules/.bin/babel compile.js > compile.es5.js; node compile.es5.js",
     "dev-server": "npm run compile; NODE_ENV=development DEBUG=shrimp:server MONGO_CONNECT=yes NODE_PATH=./node_modules:./app nodemon --exec babel-node server/server",
-    "start": "NODE_ENV=production MONGO_CONNECT=yes NODE_PATH=./node_modules:./app forever start --uid shrimp --killSignal=SIGTERM -l \"$(git log -n 1 --pretty=format:%h).log\" -c babel-node server/server.js"
+    "start": "PORT=80 NODE_ENV=production MONGO_CONNECT=yes NODE_PATH=./node_modules:./app forever start --uid shrimp --killSignal=SIGTERM -l \"$(git log -n 1 --pretty=format:%h).log\" -c babel-node server/server.js"
   },
   "contributors": [
     {
@@ -59,6 +59,7 @@
     "eslint-config-airbnb": "0.1.0",
     "eslint-plugin-react": "^3.5.1",
     "filesize": "^3.1.3",
+    "get-urls": "^5.0.0",
     "jsdom": "^6.5.1",
     "karma": "^0.13.11",
     "karma-chai": "^0.1.0",
@@ -70,6 +71,7 @@
     "karma-webpack": "^1.7.0",
     "mocha": "^2.3.3",
     "nodemon": "^1.7.1",
+    "object-assign": "^4.0.1",
     "phantomjs-polyfill": "0.0.1",
     "pre-commit": "^1.1.1",
     "redbox-react": "^1.1.1",
@@ -88,6 +90,9 @@
     "babel-loader": "^5.3.2",
     "body-parser": "^1.14.1",
     "browser-cookies": "^1.0.8",
+    "chai": "^3.3.0",
+    "chai-immutable": "^1.3.0",
+    "chai-things": "^0.2.0",
     "classnames": "^2.1.5",
     "css-loader": "^0.19.0",
     "debug": "^2.2.0",
@@ -108,6 +113,8 @@
     "normalize.css": "^3.0.3",
     "react": "^0.14.0",
     "react-document-title": "^2.0.1",
+    "react-dom": "^0.14.0",
+    "react-gemini-scrollbar": "^2.0.1",
     "react-hot-loader": "^1.3.0",
     "react-linkify": "0.0.5",
     "react-motion": "^0.3.1",

@@ -6,13 +6,13 @@ import {addChannel, markChannelAsRead} from '../../actions/channels';
 describe('channels reducer', () => {
   it('handles ADD_CHANNEL', () => {
     const initialState = List.of(
-      Map({id: 0, name: '0', userIds: List.of(1, 2)}),
+      Map({id: 0, name: '0', users: List.of(1, 2)}),
     );
-    const nextState = channels(initialState, addChannel(Map({id: 1, name: '1', userIds: List.of(1, 2, 3)})));
+    const nextState = channels(initialState, addChannel(Map({id: 1, name: '1', users: List.of(1, 2, 3)})));
     expect(nextState).to.equal(
       List.of(
-        Map({id: 0, name: '0', userIds: List.of(1, 2) }),
-        Map({id: 1, name: '1', userIds: List.of(1, 2, 3)}),
+        Map({id: 0, name: '0', users: List.of(1, 2) }),
+        Map({id: 1, name: '1', users: List.of(1, 2, 3)}),
       ),
     );
   });
@@ -33,8 +33,8 @@ describe('channels reducer', () => {
 
   it('handles REMOVE_CHANNEL', () => {
     const initialState = List.of(
-      Map({id: 0, name: '0', userIds: List.of(1, 2) }),
-      Map({id: 1, name: '1', userIds: List.of(1, 2, 3)}),
+      Map({id: 0, name: '0', users: List.of(1, 2) }),
+      Map({id: 1, name: '1', users: List.of(1, 2, 3)}),
     );
     const action = {
       type: 'REMOVE_CHANNEL',
@@ -42,7 +42,35 @@ describe('channels reducer', () => {
     };
     const nextState = channels(initialState, action);
     expect(nextState).to.equal(
-      List.of(Map({id: 0, name: '0', userIds: List.of(1, 2)})),
+      List.of(Map({id: 0, name: '0', users: List.of(1, 2)})),
+    );
+  });
+
+  it('handles JOIN_TO_CHANNEL not join', () => {
+    const initialState = List.of(
+      Map({id: 0, name: '0', users: List.of(Map({_id: 11}))})
+    );
+    const action = {
+      type: 'JOIN_TO_CHANNEL',
+      payload: {userId: 12, channelId: 0, time: 123},
+    };
+    const nextState = channels(initialState, action);
+    expect(nextState).to.equal(
+      List.of(Map({id: 0, name: '0', users: List.of(Map({_id: 11}), Map({_id: 12, lastSeen: 123}))})),
+    );
+  });
+
+  it('handles JOIN_TO_CHANNEL already joined', () => {
+    const initialState = List.of(
+      Map({id: 0, name: '0', users: List.of(Map({_id: 11}), Map({_id: 12}))})
+    );
+    const action = {
+      type: 'JOIN_TO_CHANNEL',
+      payload: {userId: 12, channelId: 0, time: 123},
+    };
+    const nextState = channels(initialState, action);
+    expect(nextState).to.equal(
+      List.of(Map({id: 0, name: '0', users: List.of(Map({_id: 11}), Map({_id: 12}))})),
     );
   });
 });

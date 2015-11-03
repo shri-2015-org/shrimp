@@ -1,7 +1,10 @@
 @import '~styles/variables.scss';
 
 .messages-list__list {
-  padding-left: $messages_avatar_left_padding;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding-right: $messages_avatar_left_padding + 15px;
+  padding-left: $messages_avatar_left_padding + 15px;
 
   list-style: none;
 }

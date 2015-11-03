@@ -6,13 +6,15 @@ $c-gray-50: #363e41;
 $c-gray-60: #6e757b;
 $c-gray-65: #4e585c;
 $c-gray-70: #a7b1ba;
-$c-blue: #00b0e0;
+$c-blue: #3fa5cc;
 $c-yellow: #e8df63;
 $c-red: #e92536;
 $c-green: #00d742;
 $c-white: #fff;
 $c-shadow: transparentize(#0e0e0e, .5);
 $c-white_transparent: transparentize($c-white, .8);
+$c-link: #bfe6ff;
+
 
 // Composer
 $с-composer-sender_border: $c-gray-50;
@@ -23,8 +25,8 @@ $c-composer-textarea_text: $c-white;
 
 // Message
 $c-message-cloud_text: $c-white;
-$c-message-cloud-default_bg: $c-blue;
-$c-message-cloud-other_bg: $c-green;
+$c-message-cloud-default_bg: #1c618c;
+$c-message-cloud-other_bg: #573831;
 $c-message-avatar_border: $c-gray-60;
 $c-message-date_text: $c-gray-10;
 
@@ -54,7 +56,7 @@ $c-search_placeholder: $c-gray-50;
 
 
 // Threads
-$c-threads_bg: $c-gray-40;
+$c-threads_bg: $c-gray-50;
 $c-threads_text: #aeaeae;
 
 

@@ -29,3 +29,42 @@ export function changeMessageFilterValue(value) {
     payload: value,
   };
 }
+
+export function pinMessage(messageId) {
+  return {
+    type: CS.PIN_MESSAGE,
+    payload: messageId,
+    send: true,
+  };
+}
+
+export function unpinMessage(messageId) {
+  return {
+    type: CS.UNPIN_MESSAGE,
+    payload: messageId,
+    send: true,
+  };
+}
+
+export function messagePinned(messageId) {
+  return {
+    type: A.PIN_MESSAGE,
+    payload: messageId,
+  };
+}
+
+
+export function messageUnpinned(messageId) {
+  return {
+    type: A.UNPIN_MESSAGE,
+    payload: messageId,
+  };
+}
+
+
+export function setLinksInfo(data) {
+  return {
+    type: A.SET_LINKS_INFO,
+    payload: data,
+  };
+}

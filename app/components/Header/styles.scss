@@ -2,6 +2,8 @@
 @import '~styles/colors.scss';
 
 .header {
+  $user-pic-height: 26px;
+
   position: fixed;
   z-index: 10;
 
@@ -12,45 +14,40 @@
   background-color: $c-header_bg;
 
   &__user {
-    position: absolute;
-    top: 10px;
-    left: 25px;
+    position: relative;
+
+    float: left;
+
+    width: $threads_width;
+    margin-right: -$threads_width;
+    padding-top: ($header_height - $user-pic-height) / 2;
+    padding-left: 25px;
+
+    line-height: $user-pic-height;
     @media (max-width: $mobile_width) {
-      top: 12px;
-      left: 60px;
+      padding-left: 60px;
     }
   }
 
   &__user-avatar {
     float: left;
 
-    width: 50px;
-    height: 50px;
-    margin-right: 20px;
-    @media (max-width: $mobile_width) {
-      width: 24px;
-      height: 24px;
-      margin-right: 10px;
-    }
+    width: $user-pic-height;
+    height: $user-pic-height;
+    margin-right: 10px;
   }
 
   &__user-name {
     float: left;
 
-    text-transform: capitalize;
+    font-size: 16px;
 
-    font-size: 18px;
-    line-height: 50px;
     @media (max-width: $mobile_width) {
       line-height: 22px;
     }
     @media (max-width: 550px) {
       display: none;
     }
-  }
-
-  @media (max-width: $mobile_width) {
-    height: $header_height - 20px;
   }
 
   &__humburger {
@@ -69,7 +66,7 @@
 
   &__search {
     top: 50%;
-    right: 50px;
+    right: 40px;
 
     width: 180px;
     height: 40px;

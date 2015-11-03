@@ -13,6 +13,16 @@ export function users(state = EMPTY_LIST, action) {
   case A.JOIN_USER:
     const joinedUserIndex = state.findIndex(item => item.get('id') === action.payload.user.id);
     return (joinedUserIndex !== -1) ? state : state.push(fromJS(action.payload.user));
+  case A.USER_ONLINE:
+    return state.map(user =>
+      user.get('id') === action.payload.userId
+        ? user.set('isOnline', true)
+        : user);
+  case A.USER_OFFLINE:
+    return state.map(user =>
+      user.get('id') === action.payload.userId
+        ? user.set('isOnline', false)
+        : user);
   default:
     return state;
   }

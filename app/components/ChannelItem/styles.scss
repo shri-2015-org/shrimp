@@ -26,7 +26,7 @@
   }
 
   &:not(.channel_active):hover {
-    color: $c-hover-tab_text;
+    color: $c-white;
     background-color: $c-gray-20;
   }
 
@@ -37,6 +37,7 @@
 
   &__star {
     position: absolute;
+    z-index: 2;
     top: 4px;
     left: -11px;
 
@@ -52,25 +53,34 @@
   }
 
   &__name {
-    padding-top: 5px;
+    position: relative;
+
+    overflow: hidden;
+
+    padding-top: 11px;
+    padding-right: 10px;
     padding-left: 25px;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
 
   &__last-message {
     $font-size: 12px;
     $line-height: 1.2;
-    $lines-to-show: 2;
+
+    position: relative;
 
     display: block; /* Fallback for non-webkit */
-    display: -webkit-box;
     overflow: hidden;
 
     max-width: 400px;
-    height: $font-size * $line-height * $lines-to-show; /* Fallback for non-webkit */
-    padding-right: 30px;
-    padding-left: 20px;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-left: 25px;
 
+    white-space: nowrap;
     text-overflow: ellipsis;
 
     color: $c-gray-65;
@@ -78,8 +88,5 @@
     font-size: $font-size;
     font-weight: bolder;
     line-height: $line-height;
-
-    -webkit-line-clamp: $lines-to-show;
-    -webkit-box-orient: vertical;
   }
 }

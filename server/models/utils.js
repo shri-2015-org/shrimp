@@ -7,16 +7,8 @@ export function notEmpty() {
   });
 }
 
-export function getAll() {
-  return new Promise((resolve, reject) => {
-    this.find({}, (err, users) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(users);
-      }
-    });
-  });
+export function getAll(includeSession) {
+  return this.find({}).select(includeSession ? '+sessionId' : undefined);
 }
 
 

@@ -15,6 +15,21 @@ export function messages(state = EMPTY_LIST, action) {
     const newMessages = fromJS(action.payload.messages)
       .filter(message => !state.find(m => m.get('id') === message.get('id')));
     return state.concat(newMessages);
+  case A.PIN_MESSAGE:
+    return state.map(m =>
+      m.get('id') === action.payload
+        ? m.set('pinned', true)
+        : m);
+  case A.UNPIN_MESSAGE:
+    return state.map(m =>
+      m.get('id') === action.payload
+        ? m.set('pinned', false)
+        : m);
+  case A.SET_LINKS_INFO:
+    return state.map(m =>
+      m.get('id') === action.payload.messageId
+        ? m.set('linksInfo', fromJS(action.payload.info))
+        : m);
   default:
     return state;
   }

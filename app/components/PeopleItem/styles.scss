@@ -1,5 +1,6 @@
 @import '~styles/variables.scss';
 @import '~styles/colors.scss';
+@import '~styles/mixins.scss';
 
 .person {
   position: relative;
@@ -14,6 +15,10 @@
   background-color: $c-gray-30;
   box-shadow: inset 0 0 0 $c-highlight;
 
+  &:last-child {
+    margin-bottom: 0;
+  }
+
   &_active {
     cursor: default;
 
@@ -22,8 +27,9 @@
     box-shadow: inset 2px 0 0 $c-highlight;
   }
 
+
   &:not(.channel_active):hover {
-    color: $c-hover-tab_text;
+    color: $c-white;
     background-color: $c-gray-20;
   }
 
@@ -49,25 +55,34 @@
   }
 
   &__name {
-    padding-top: 5px;
-    padding-left: 25px;
+    position: relative;
+
+    overflow: hidden;
+
+    padding-top: 11px;
+    padding-right: 10px;
+    padding-left: 54px;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
 
   &__last-message {
     $font-size: 12px;
     $line-height: 1.2;
-    $lines-to-show: 2;
+
+    position: relative;
 
     display: block; /* Fallback for non-webkit */
-    display: -webkit-box;
     overflow: hidden;
 
     max-width: 400px;
-    height: $font-size * $line-height * $lines-to-show; /* Fallback for non-webkit */
-    padding-right: 30px;
-    padding-left: 20px;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-left: 54px;
 
+    white-space: nowrap;
     text-overflow: ellipsis;
 
     color: $c-gray-65;
@@ -75,8 +90,54 @@
     font-size: $font-size;
     font-weight: bolder;
     line-height: $line-height;
+  }
 
-    -webkit-line-clamp: $lines-to-show;
-    -webkit-box-orient: vertical;
+
+  &__avatar {
+    position: absolute;
+    top: 13px;
+    left: 10px;
+
+    overflow: hidden;
+
+    width: 34px;
+    height: 34px;
+
+    transition: opacity .3s;
+
+    border-radius: 3px;
+    background: #000;
+  }
+
+  &__status {
+    position: absolute;
+    top: 9px;
+    left: 6px;
+
+    width: 12px;
+    height: 12px;
+
+    border: 2px solid $c-gray-30;
+    border-radius: 100%;
+    background: $c-green;
+  }
+
+  &_active &__status,
+  &:hover &__status {
+    border-color: $c-gray-20;
+  }
+
+  &_offline {
+    &__avatar {
+      opacity: .7;
+
+      @extend .grey-filter;
+    }
+    &__status {
+      background: $c-red;
+    }
+    &:hover &__avatar {
+      opacity: 1;
+    }
   }
 }
